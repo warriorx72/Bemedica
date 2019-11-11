@@ -26,6 +26,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "factura")
 public class Factura implements Serializable {
 
+	
+//	HOLA CHRIS 
 	/**
 	 * 
 	 */
