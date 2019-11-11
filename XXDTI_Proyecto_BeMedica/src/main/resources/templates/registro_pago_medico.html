@@ -15,7 +15,7 @@
 	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
 	crossorigin="anonymous">
 <!-- Our Custom CSS -->
-<link rel="stylesheet" href="http://localhost:8081/css/style.css">
+<link rel="stylesheet" href="css/style.css">
 
 <!-- Font Awesome JS -->
 <script defer
@@ -27,14 +27,14 @@
 	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
 	crossorigin="anonymous"></script>
 <link
-	href="http://localhost:8081/vendor/datatables/dataTables.bootstrap4.css"
+	href="vendor/datatables/dataTables.bootstrap4.css"
 	rel="stylesheet">
 
 </head>
 
 <body>
 	<div>
-		<img src="http://localhost:8081/img/banner.jpg"
+		<img src="img/banner.jpg"
 			style="height: 80px; width: 100%;">
 	</div>
 	<div class="wrapper">
@@ -117,7 +117,7 @@
 					<ul class="collapse list-unstyled" id="homeSubmenu7">
 						<li><a th:href="@{/herramientas_participaciones}">Participaciones
 								médicos</a></li>
-						<li><a href="herramientas_corte.html">Corte de caja</a></li>
+						<li><a th:href="@{/herramientas_corte}">Corte de caja</a></li>
 						<li><a href="herramientas_notificaciones.html">Notificaciones</a>
 						</li>
 						<li><a href="herramientas_reportes.html">Reportes</a></li>
