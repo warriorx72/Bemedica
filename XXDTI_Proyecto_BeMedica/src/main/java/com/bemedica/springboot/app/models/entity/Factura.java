@@ -28,7 +28,11 @@ public class Factura implements Serializable {
 
 	
 //	HOLA CHRIS 
+
+	// Uriel was here2 Algo esta fallando
+
 	// Uriel was here 2
+
 	/**
 	 * 
 	 */
