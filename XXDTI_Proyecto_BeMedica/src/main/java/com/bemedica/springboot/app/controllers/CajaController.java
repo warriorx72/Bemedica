@@ -38,7 +38,7 @@ public class CajaController {
 		Caja caja = new Caja();
 		model.addAttribute("titulo","Condiciones paciente");
 		
-		model.addAttribute("titulo1","Formulario catalogo");
+		model.addAttribute("titulo","Corte de Caja");
 		model.addAttribute("vista", cajaDao.findAll());
 		model.addAttribute("vistas", cajaVistaDao.findAll());
 		m.put("caja", caja);
