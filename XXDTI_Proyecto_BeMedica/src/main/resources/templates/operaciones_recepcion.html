@@ -736,7 +736,7 @@
                                                    </thead>
                                                    <tbody>
                                                       <tr th:each="paciente: ${pacientes}">
-                                                         <td> <a th:text="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am }" th:href="@{/form/} + ${paciente.paciente_id}" ></a></td>
+                                                         <td> <a th:text="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am }" th:href="@{/formC/} + ${paciente.paciente_id}" ></a></td>
                                                          <td th:text="${paciente.persona_fecha_na}"></td>
                                                          <td th:text="${paciente.persona_email}"></td>
                                                          <td th:text="${paciente.direccion_calle}"></td>
