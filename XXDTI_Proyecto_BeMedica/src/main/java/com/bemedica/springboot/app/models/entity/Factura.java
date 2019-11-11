@@ -27,9 +27,7 @@ import javax.validation.constraints.NotNull;
 public class Factura implements Serializable {
 
 	
-//	HOLA CHRIS 
-
-	// Uriel was here2 Algo esta fallando
+//	HOLA Carlos
 
 	// Uriel was here 2
 
