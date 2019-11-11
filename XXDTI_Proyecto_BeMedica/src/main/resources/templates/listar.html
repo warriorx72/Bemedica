@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${titulo}">Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+</head>
+<body>
+	<div class="container">
+
+		<h1 th:text="${titulo}"></h1>
+		<a th:href="@{/form}">Crear Factura</a>
+		<table>
+			<thead>
+				<tr>
+
+					<th>No. Folio</th>
+					<th>Fecha</th>
+					<th>RFC Paciente</th>
+					<th>RFC Empresa</th>
+					<th>Razon Social</th>
+					<th>Monto</th>
+					<th>Facturó</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="factura: ${facturas}">
+
+					<td th:text="${factura.FacturaIdText}"></td>
+					<td th:text="${factura.CreateAt}"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td th:text="${factura.Monto}"></td>
+					<td></td>
+					<td th:text="${factura.Status}"></td>
+					<td><a class="btn btn-success btn-xs"
+						th:href="@{/registro_informacion_fiscal/} + ${factura.FacturaId}"
+						th:text="'Editar'"></a></td>
+					<td><a class="btn btn-danger btn-xs"
+						th:href="@{/eliminar/} + ${factura.FacturaId}"
+						th:text="'Eliminar'"
+						onclick="return confirm('Estas seguro que quieres eliminar?');"></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="Shortcut Icon" href="../img/favicon.ico" type=”image/x-icon”/> <title>Bemédica Punto de venta</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div><img src="../img/banner.jpg" style="height:80px; width: 100%;"></div>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-address-card"></i>
+                        Operaciones
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="operaciones_recepcion.html">Recepcion del paciente</a>
+                        </li>
+                        <li>
+                            <a href="operaciones_folios.html">Folios registrados</a>
+                        </li>
+                        <li>
+                            <a href="operaciones_facturacion.html">Facturación</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-users-cog"></i>
+                        Administración
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu2">
+                        <li>
+                            <a href="administracion_empleados.html">Empleados</a>
+                        </li>
+                        <li>
+                            <a href="administracion_informacion.html">Información Fiscal</a>
+                        </li>
+                        <li>
+                            <a href="administracion_sucursales.html">Sucursales</a>
+                        </li>
+                        <li>
+                            <a href="administracion_usuarios.html">Usuarios</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-file-medical"></i>
+                        Estudios
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu3">
+                        <li>
+                            <a href="estudios_listar.html">Listar estudios</a>
+                        </li>
+                        <li>
+                            <a href="estudios_examenes.html">Exámenes</a>
+                        </li>
+                        <li>
+                            <a href="estudios_perfiles.html">Perfiles</a>
+                        </li>
+                        <li>
+                            <a href="estudios_paquetes.html">Paquetes</a>
+                        </li>
+                        <li>
+                            <a href="estudios_calculos.html">Cálculos</a>
+                        </li>
+                        <li>
+                            <a href="estudios_cultivos.html">Cultivos</a>
+                        </li>
+                        <li>
+                            <a href="estudios_antibiogramas.html">Antibiogramas</a>
+                        </li>
+                        <li>
+                            <a href="estudios_listar.html">Antibióticos</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-dollar-sign"></i>
+                        Precios
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu4">
+                        <li>
+                            <a href="precios_listas.html">Listas de precios</a>
+                        </li>
+                        <li>
+                            <a href="precios_convenios.html">Convenios</a>
+                        </li>
+                        <li>
+                            <a href="precios_promociones.html">Promociones</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-diagnoses"></i>
+                        Productos y servicios
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu5">
+                        <li>
+                            <a href="proserv_productos.html">Productos</a>
+                        </li>
+                        <li>
+                            <a href="proserv_servicios.html">Servicios</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-users-cog"></i>
+                        Catálogos
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu6">
+                        <li>
+                            <a href="catalogos_alertas.html">Alertas</a>
+                        </li>
+                        <li>
+                            <a href="catalogos_areas.html">Áreas procesos</a>
+                        </li>
+                        <li>
+                            <a href="catalogos_condicion.html">Condicion del paciente</a>
+                        </li>
+                        <li>
+                            <a href="catalogos_envases.html">Envases</a>
+                        </li>
+                        <li>
+                            <a href="catalogos_muestras.html">Muestras</a>
+                        </li>
+                        <li>
+                            <a href="catalogos_tecnicas.html">Técnicas estudios</a>
+                        </li>
+                        <li>
+                            <a href="catalogos_unidades.html">Unidades</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu7" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-wrench"></i>
+                        Herramientas
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu7">
+                        <li>
+                            <a href="herramientas_participaciones.html">Participaciones médicos</a>
+                        </li>
+                        <li>
+                            <a href="herramientas_corte.html">Corte de caja</a>
+                        </li>
+                        <li>
+                            <a href="herramientas_notificaciones.html">Notificaciones</a>
+                        </li>
+                        <li>
+                            <a href="herramientas_reportes.html">Reportes</a>
+                        </li>
+                        <li>
+                            <a href="herramientas_sistema.html">Sistema</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu8" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-question-circle"></i>
+                        Ayuda
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu8">
+                        <li>
+                            <a href="herramientas_participaciones.html">BeMedica Support</a>
+                        </li>
+                        <li>
+                            <a href="herramientas_corte.html">Registro Demos</a>
+                        </li>
+                        <li>
+                            <a href="herramientas_notificaciones.html">Acerca de</a>
+                        </li>
+                        <li>
+                            <a href="herramientas_reportes.html">Contacto</a>
+                        </li>
+                        <li>
+                            <a href="herramientas_sistema.html">Registros</a>
+                        </li>
+                    </ul>
+                </li> 
+            </ul>
+
+        </nav>
+        <!-- <script>
+            function cambia(src) {
+                src = "";
+                src = "https://img.icons8.com/color/48/000000/drag-list-down.png";
+                return src;
+            }
+            
+        </script>
+        -->
+        <!-- Page Content  -->
+        <div id="content">
+           <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Editar Medico</h4>
+                                  </div>
+                                  <!--body de Modal -->
+                                  <form action="/form2" method="post">
+                                  <div class="modal-body">
+                                    <div class="form-row">
+                                    <input type="hidden"   th:field="*{direccion.direccion_id}"/>
+								<input type="hidden"   th:field="*{persona.persona_id}"/>
+								<input type="hidden"   th:field="*{medico.medico_id}"/>
+                                        <div class="form-group col-md-3">
+                                            <label for="inputNor" class="col-form-label-sm mb-0">Codigo paciente</label>
+                                            <input type="text" class="form-control form-control-sm" id="inputNor" readonly name="pa_apellido_pa" th:field="${medico.medico_id_text}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="input1" class="col-form-label-sm mb-0">Nombre</label>
+                                            <input type="text" class="form-control form-control-sm" id="input1" name="persona_nombre" th:field="${persona.persona_nombre}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="input2" class="col-form-label-sm mb-0">Apellido Paterno</label>
+                                            <input type="text" class="form-control form-control-sm" id="inpu2" name="persona_ap" th:field="${persona.persona_ap}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="input3" class="col-form-label-sm mb-0">Apellido Materno</label>
+                                            <input type="text" class="form-control form-control-sm" id="inpu3" name="persona_am" th:field="${persona.persona_am}" >
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                           <label for="inputSexo" class="col-form-label-sm mb-0">Sexo</label>
+                                        <select id="inputSexo" class="form-control form-control-sm" name="persona_genero" th:field="${persona.persona_genero}" >
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Femenino">Femenino</option>
+                                        </select>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="input1" class="col-form-label-sm mb-0">Fecha nacimiento</label>
+                                            <input type="date" class="form-control form-control-sm" id="input1" name="persona_fecha_na" th:field="${persona.persona_fecha_na}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="input2" class="col-form-label-sm mb-0">RFC</label>
+                                            <input type="text" class="form-control form-control-sm" id="inpu2" name="persona_rfc" th:field="${persona.persona_rfc}" >
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="input3" class="col-form-label-sm mb-0">Email</label>
+                                            <input type="text" class="form-control form-control-sm" id="inpu3" name="persona_email" th:field="${persona.persona_email}" >
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="inputNor" class="col-form-label-sm mb-0">Telefono Casa</label>
+                                            <input type="text" class="form-control form-control-sm" id="inputNor" name="persona_tel_casa" th:field="${persona.persona_tel_casa}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="input1" class="col-form-label-sm mb-0">Celular</label>
+                                            <input type="text" class="form-control form-control-sm" id="input1" name="persona_tel_cel" th:field="${persona.persona_tel_cel}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="input2" class="col-form-label-sm mb-0">Telefono oficina</label>
+                                            <input type="text" class="form-control form-control-sm" id="inpu2" name="persona_tel_oficina" th:field="${persona.persona_tel_oficina}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="input3" class="col-form-label-sm mb-0">Extension</label>
+                                            <input type="text" class="form-control form-control-sm" id="inpu3" name="persona_tel_exten" th:field="${persona.persona_tel_exten}">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="inputNor" class="col-form-label-sm mb-0">Calle</label>
+                                            <input type="text" class="form-control form-control-sm" id="inputNor" name="direccion_calle" th:field="${direccion.direccion_calle}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="input1" class="col-form-label-sm mb-0">Numero exterior</label>
+                                            <input type="text" class="form-control form-control-sm" id="input1" name="direccion_numero_ext" th:field="${direccion.direccion_numero_ext}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="input2" class="col-form-label-sm mb-0">Numero interior</label>
+                                            <input type="text" class="form-control form-control-sm" id="inpu2" name="direccion_num_inter" th:field="${direccion.direccion_num_inter}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="input3" class="col-form-label-sm mb-0">Colonia</label>
+                                            <input type="text" class="form-control form-control-sm" id="inpu3" name="direccion_colonia" th:field="${direccion.direccion_colonia}">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="inputNor" class="col-form-label-sm mb-0">Codigo postal</label>
+                                            <input type="text" class="form-control form-control-sm" id="inputNor" name="direccion_postal" th:field="${direccion.direccion_postal}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="inputNor" class="col-form-label-sm mb-0">Municipio</label>
+                                            <input type="text" class="form-control form-control-sm" id="inputNor" name="direccion_municipio" th:field="${direccion.direccion_municipio}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="inputNor" class="col-form-label-sm mb-0">Estado</label>
+                                            <input type="text" class="form-control form-control-sm" id="inputNor" name="direccion_estado" th:field="${direccion.direccion_estado}">
+                                        </div>
+                                       <!--   <div class="form-group col-md-3">
+                                            <label for="inputNor" class="col-form-label-sm mb-0">Observacion</label>
+                                            <input type="text" class="form-control form-control-sm" id="inputNor" name="observacion" th:field="${paciente.observacion}">
+                                        </div> -->
+                                    </div>
+
+
+                                    <input class="btn btn-primary" type="submit" value="Guardar" id="submit">
+                                  </div>
+								  </form>
+                                  <div class="modal-footer">
+                                  
+                                    
+                                    
+
+                                  </div>
+                                </div>
+              </div>
+
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+
+  <!-- Demo scripts for this page-->
+  <script src="js/demo/datatables-demo.js"></script>
+
+  <!-- Page level plugin JavaScript-->
+  <script src="vendor/datatables/jquery.dataTables.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
+    

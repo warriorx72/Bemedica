@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<link rel="Shortcut Icon" href="/img/favicon.ico" type=”image/x-icon” />
+<title th:text="${titulo}">Bemédica Punto de venta</title>
+
+<!-- Bootstrap CSS CDN -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+	crossorigin="anonymous">
+<!-- Our Custom CSS -->
+<link rel="stylesheet" href="http://localhost:8081/css/style.css">
+
+<!-- Font Awesome JS -->
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+	crossorigin="anonymous"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+	crossorigin="anonymous"></script>
+<link
+	href="http://localhost:8081/vendor/datatables/dataTables.bootstrap4.css"
+	rel="stylesheet">
+
+<script type="text/javascript">
+
+
+        function btnActivation(){
+
+            if(!document.getElementById('myText').value.length){
+                document.getElementById("start_button").disabled = true;            
+            }else{
+                document.getElementById("start_button").disabled = false;
+
+            }           
+        }   
+
+    </script>
+</head>
+
+<body>
+	<div>
+		<img src="http://localhost:8081/img/banner.jpg"
+			style="height: 80px; width: 100%;">
+	</div>
+	<div class="wrapper">
+		<!-- Sidebar  -->
+		<nav id="sidebar">
+
+
+			<ul class="list-unstyled components">
+				<li><a href="#homeSubmenu" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-address-card"></i> Operaciones
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu">
+						<li><a href="operaciones_recepcion.html">Recepcion del
+								paciente</a></li>
+						<li><a href="operaciones_folios.html">Folios registrados</a>
+						</li>
+						<li><a th:href="@{/operaciones_facturacion}">Facturación</a></li>
+					</ul></li>
+				<li><a href="#homeSubmenu2" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-users-cog"></i> Administración
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu2">
+						<li><a href="administracion_empleados.html">Empleados</a></li>
+						<li><a href="administracion_informacion.html">Información
+								Fiscal</a></li>
+						<li><a href="administracion_sucursales.html">Sucursales</a></li>
+						<li><a href="administracion_usuarios.html">Usuarios</a></li>
+					</ul></li>
+				<li><a href="#homeSubmenu3" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-file-medical"></i> Estudios
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu3">
+						<li><a href="estudios_listar.html">Listar estudios</a></li>
+						<li><a href="estudios_examenes.html">Exámenes</a></li>
+						<li><a href="estudios_perfiles.html">Perfiles</a></li>
+						<li><a href="estudios_paquetes.html">Paquetes</a></li>
+						<li><a href="estudios_calculos.html">Cálculos</a></li>
+						<li><a href="estudios_cultivos.html">Cultivos</a></li>
+						<li><a href="estudios_antibiogramas.html">Antibiogramas</a></li>
+						<li><a href="estudios_antibioticos.html">Antibióticos</a></li>
+					</ul></li>
+				<li><a href="#homeSubmenu4" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-dollar-sign"></i> Precios
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu4">
+						<li><a href="precios_listas.html">Listas de precios</a></li>
+						<li><a href="precios_convenios.html">Convenios</a></li>
+						<li><a href="precios_promociones.html">Promociones</a></li>
+					</ul></li>
+				<li><a href="#homeSubmenu5" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-diagnoses"></i> Productos y servicios
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu5">
+						<li><a href="proserv_productos.html">Productos</a></li>
+						<li><a href="proserv_servicios.html">Servicios</a></li>
+					</ul></li>
+				<li><a href="#homeSubmenu6" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-users-cog"></i> Catálogos
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu6">
+						<li><a th:href="@{/catalogos_alertas}">Alertas</a></li>
+						<li><a href="catalogos_areas.html">Áreas procesos</a></li>
+						<li><a href="catalogos_condicion.html">Condicion del
+								paciente</a></li>
+						<li><a href="catalogos_envases.html">Envases</a></li>
+						<li><a href="catalogos_muestras.html">Muestras</a></li>
+						<li><a href="catalogos_tecnicas.html">Técnicas estudios</a></li>
+						<li><a href="catalogos_unidades.html">Unidades</a></li>
+					</ul></li>
+				<li><a href="#homeSubmenu7" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-wrench"></i> Herramientas
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu7">
+						<li><a th:href="@{/herramientas_participaciones}">Participaciones
+								médicos</a></li>
+						<li><a href="herramientas_corte.html">Corte de caja</a></li>
+						<li><a href="herramientas_notificaciones.html">Notificaciones</a>
+						</li>
+						<li><a href="herramientas_reportes.html">Reportes</a></li>
+						<li><a href="herramientas_sistema.html">Sistema</a></li>
+					</ul></li>
+				<li><a href="#homeSubmenu8" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-question-circle"></i> Ayuda
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu8">
+						<li><a href="herramientas_participaciones.html">BeMedica
+								Support</a></li>
+						<li><a href="herramientas_corte.html">Registro Demos</a></li>
+						<li><a href="herramientas_notificaciones.html">Acerca de</a>
+						</li>
+						<li><a href="herramientas_reportes.html">Contacto</a></li>
+						<li><a href="herramientas_sistema.html">Registros</a></li>
+					</ul></li>
+			</ul>
+
+		</nav>
+		<!-- <script>
+            function cambia(src) {
+                src = "";
+                src = "https://img.icons8.com/color/48/000000/drag-list-down.png";
+                return src;
+            }
+
+        </script>
+        -->
+		<!-- Page Content  -->
+		<div id="content">
+			<div class="accordion" id="accordionExample"
+				style="user-select: none;">
+				<div class="card">
+
+					<div id="collapseOne" class="collapse show"
+						aria-labelledby="headingOne" data-parent="#accordionExample">
+
+
+						<div class="card-body">
+							<!--Inicia código de formulario-->
+
+							<form th:action="@{/form_alertas}" th:object="${alertas}"
+								method="POST">
+
+								<!--<div class="dropdown-divider"></div>-->
+
+								<div class="dropdown-divider"></div>
+								<div class="form-row">
+									<h2 class="mb-0 form-row"
+										style="font-size: 20px; background-color: #BCBCBC; width: 100%;">
+										Información Alertas de Valores de Referencia</h2>
+
+									
+								</div>
+								<div align="right">
+									<a href="javascript:window.history.back();"><button
+											class="btn btn-link" type="button" aria-expanded="true"
+											title="">
+											<i class="fas fa-arrow-left "></i> Regresar
+										</button></a>
+								</div>
+								<br>
+
+								<div class="form-row mb-0">
+									<div class="form-group col-md-2">
+										<label class="col-form-label-sm mb-0">Normal</label><input
+											type="number" class="form-control form-control-sm" onkeyup="btnActivation()" id="myText"
+											th:field="*{Normal}" />
+									</div>
+									<div class="form-group col-md-2">
+										<label class="col-form-label-sm mb-0">Rango 1</label> <input
+											type="text" class="form-control form-control-sm" 
+											th:field="*{Rango1}"> 
+									</div>
+									<div class="form-group col-md-2">
+										<label class="col-form-label-sm mb-0">Rango 2</label> <input
+											type="text" class="form-control form-control-sm"
+											th:field="*{Rango2}">
+									</div>
+									<div class="form-group col-md-2">
+										<label class="col-form-label-sm mb-0">Rango 3</label> <input
+											type="text" class="form-control form-control-sm"
+											th:field="*{Rango3}">
+									</div>
+
+									<div class="form-group col-md-2">
+										<label class="col-form-label-sm mb-0">Rango 4</label> <input
+											type="text" class="form-control form-control-sm"
+											th:field="*{Rango4}">
+									</div>
+									<div class="form-group col-md-2">
+										<label class="col-form-label-sm mb-0">Rango 5</label> <input
+											type="text" class="form-control form-control-sm"
+											th:field="*{Rango5}">
+									</div>
+								</div>
+
+
+
+								<div class="form-row mb-0">
+
+
+									<div class="form-group col-md-2">
+										<label class="col-form-label-sm mb-0">Rango 6</label> <input
+											type="text" class="form-control form-control-sm"
+											th:field="*{Rango6}">
+									</div>
+									<div class="form-group col-md-2">
+										<label class="col-form-label-sm mb-0">Rango 7</label> <input
+											type="text" class="form-control form-control-sm"
+											th:field="*{Rango7}">
+									</div>
+									<div class="form-group col-md-2">
+										<label class="col-form-label-sm mb-0">Rango 8</label> <input
+											type="text" class="form-control form-control-sm"
+											th:field="*{Rango8}">
+									</div>
+								</div>
+								<div class="form-row mb-0">
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Imagen 1</label> <input
+											type="file" class="form-control form-control-sm"
+											th:field="*{Img1}">
+									</div>
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Imagen 2</label> <input
+											type="file" class="form-control form-control-sm"
+											th:field="*{Img2}">
+									</div>
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Imagen 3</label> <input
+											type="file" class="form-control form-control-sm"
+											th:field="*{Img3}">
+									</div>
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Imagen 4</label> <input
+											type="file" class="form-control form-control-sm"
+											th:field="*{Img4}">
+									</div>
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Imagen 5</label> <input
+											type="file" class="form-control form-control-sm"
+											th:field="*{Img5}">
+									</div>
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Imagen 6</label> <input
+											type="file" class="form-control form-control-sm"
+											th:field="*{Img6}">
+									</div>
+								</div>
+								<div class="form-row mb-0">
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Imagen 7</label> <input
+											type="file" class="form-control form-control-sm"
+											th:field="*{Img7}">
+									</div>
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Imagen 8</label> <input
+											type="file" class="form-control form-control-sm"
+											th:field="*{Img8}">
+									</div>
+
+								</div>
+
+								<div align="right">
+									
+									<input type="submit" class="btn btn-primary" value="Guardar" id="start_button" disabled/>
+
+								</div>
+								<input type="hidden" th:field="*{AlertaId}" />
+							</form>
+							<!--Termina código de formulario-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<!-- Popper.JS -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+		integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+		integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+		crossorigin="anonymous"></script>
+	<!-- Demo scripts for this page-->
+	<script src="js/demo/datatables-demo.js"></script>
+
+	<!-- Page level plugin JavaScript-->
+	<script src="vendor/datatables/jquery.dataTables.js"></script>
+	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#sidebarCollapse').on('click', function() {
+				$('#sidebar').toggleClass('active');
+			});
+		});
+	</script>
+</body>
+
+</html>

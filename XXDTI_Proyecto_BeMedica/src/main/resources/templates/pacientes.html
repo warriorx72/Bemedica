@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title th:text="${titulo}">Insert title here</title>
+</head>
+<body>
+	<table class="table table-bordered" id="dataTable"
+											style="cellspacing: 0; width: 100%; text-align: center">
+											<thead>
+												<tr class="table-primary">
+												<th>ID Paciente</th>
+													<th>Paciente</th>
+													<th>RFC</th>
+												</tr>
+											</thead>
+											<tbody style="text-align: center">
+												<tr th:each="pacientes: ${paciente_vista}"
+												>
+													<td th:text="${pacientes.paciente_id_tex}"></td>
+													<td th:text="${pacientes.persona_nombre}+' '+${pacientes.persona_ap}"></td>
+													
+													<td th:text="${pacientes.persona_rfc}"></td>
+													
+												</tr>
+											</tbody>
+										</table>
+</body>
+</html>

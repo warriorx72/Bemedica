@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Bemédica Punto de venta</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div><img src="img/banner.jpg" style="height:80px; width: 100%;"></div>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-address-card"></i>
+                        Operaciones
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="operaciones_recepcion.html">Recepcion del paciente</a>
+                        </li>
+                        <li>
+                            <a href="operaciones_folios.html">Folios registrados</a>
+                        </li>
+                        <li>
+                            <a href="operaciones_facturacion.html">Facturación</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-users-cog"></i>
+                        Administración
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu2">
+                        <li>
+                            <a href="administracion_empleados.html">Empleados</a>
+                        </li>
+                        <li>
+                            <a href="administracion_informacion.html">Información Fiscal</a>
+                        </li>
+                        <li>
+                            <a href="administracion_sucursales.html">Sucursales</a>
+                        </li>
+                        <li>
+                            <a href="administracion_usuarios.html">Usuarios</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-file-medical"></i>
+                        Estudios
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu3">
+                        <li>
+                            <a href="estudios_listar.html">Listar estudios</a>
+                        </li>
+                        <li>
+                            <a href="estudios_examenes.html">Exámenes</a>
+                        </li>
+                        <li>
+                            <a href="estudios_perfiles.html">Perfiles</a>
+                        </li>
+                        <li>
+                            <a href="estudios_paquetes.html">Paquetes</a>
+                        </li>
+                        <li>
+                            <a href="estudios_calculos.html">Cálculos</a>
+                        </li>
+                        <li>
+                            <a href="estudios_cultivos.html">Cultivos</a>
+                        </li>
+                        <li>
+                            <a href="estudios_antibiogramas.html">Antibiogramas</a>
+                        </li>
+                        <li>
+                            <a href="estudios_listar.html">Antibióticos</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-dollar-sign"></i>
+                        Precios
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu4">
+                        <li>
+                            <a href="precios_listas.html">Listas de precios</a>
+                        </li>
+                        <li>
+                            <a href="precios_convenios.html">Convenios</a>
+                        </li>
+                        <li>
+                            <a href="precios_promociones.html">Promociones</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-diagnoses"></i>
+                        Productos y servicios
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu5">
+                        <li>
+                            <a href="proserv_productos.html">Productos</a>
+                        </li>
+                        <li>
+                            <a href="proserv_servicios.html">Servicios</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-users-cog"></i>
+                        Catálogos
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu6">
+                        <li>
+                            <a href="catalogos_alertas.html">Alertas</a>
+                        </li>
+                        <li>
+                            <a href="catalogos_areas.html">Áreas procesos</a>
+                        </li>
+                        <li>
+                            <a href="catalogos_condicion.html">Condicion del paciente</a>
+                        </li>
+                        <li>
+                            <a href="catalogos_envases.html">Envases</a>
+                        </li>
+                        <li>
+                            <a href="catalogos_muestras.html">Muestras</a>
+                        </li>
+                        <li>
+                            <a href="catalogos_tecnicas.html">Técnicas estudios</a>
+                        </li>
+                        <li>
+                            <a href="catalogos_unidades.html">Unidades</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu7" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-wrench"></i>
+                        Herramientas
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu7">
+                        <li>
+                            <a href="herramientas_participaciones.html">Participaciones médicos</a>
+                        </li>
+                        <li>
+                            <a href="herramientas_corte.html">Corte de caja</a>
+                        </li>
+                        <li>
+                            <a href="herramientas_notificaciones.html">Notificaciones</a>
+                        </li>
+                        <li>
+                            <a href="herramientas_reportes.html">Reportes</a>
+                        </li>
+                        <li>
+                            <a href="herramientas_sistema.html">Sistema</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </nav>
+        <!-- <script>
+            function cambia(src) {
+                src = "";
+                src = "https://img.icons8.com/color/48/000000/drag-list-down.png";
+                return src;
+            }
+            
+        </script>
+        -->
+        <!-- Page Content  -->
+        <div id="content">
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0" style="font-size: 20px;">
+                            Información del paciente
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                aria-expanded="true" aria-controls="collapseOne">
+                                <i class="fas fa-angle-double-down"></i>
+                                <i class="fas fa-angle-double-up"></i>
+                            </button>
+                            <button class="btn btn-link" type="button" aria-expanded="true">
+                                <i class="fas fa-save"></i>
+                            </button>
+                            <button class="btn btn-link" type="button" aria-expanded="true">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <button class="btn btn-link" type="button" aria-expanded="true">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                        data-parent="#accordionExample">
+                        <div class="card-body">
+                            <!--Inicia código de formulario-->
+                            <form>
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-3">
+                                        <label class="col-form-label-sm mb-0">ID Paciente</label>
+                                        <input type="text" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="col-form-label-sm mb-0">Búsqueda por nombre</label>
+                                        <input type="text" class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="input-group mb-0 form-control-sm">
+                                    <div class="input-group-prepend mb-0">
+                                        <span class="input-group-text">Nombre Completo</span>
+                                    </div>
+                                    <input type="text" aria-label="First name" class="form-control"
+                                        placeholder="Apellido Paterno">
+                                    <input type="text" aria-label="Last name" class="form-control"
+                                        placeholder="Apellido Materno">
+                                    <input type="text" aria-label="First name" class="form-control"
+                                        placeholder="Nombre(s)">
+                                </div>
+                                <div class="input-group">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputFecha_nac" class="col-form-label-sm mb-0">Fecha de
+                                            nacimiento</label>
+                                        <input type="date" class="form-control form-control-sm" id="inputFecha_nac">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputRFC" class="col-form-label-sm mb-0">RFC</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputRFC">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputSexo" class="col-form-label-sm mb-0">Sexo</label>
+                                        <select id="inputSexo" class="form-control form-control-sm">
+                                            <option>Masculino</option>
+                                            <option>Femenino</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail" class="col-form-label-sm mb-0">Correo
+                                            electrónico</label>
+                                        <input type="email" class="form-control form-control-sm" id="inputEmail">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputTel" class="col-form-label-sm mb-0">Teléfono Casa</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputTel">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputCel" class="col-form-label-sm mb-0">Celular</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputCel">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputDireccion" class="col-form-label-sm mb-0">Dirección</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputDireccion">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputCP" class="col-form-label-sm mb-0">Código Postal</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputCP">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputCol" class="col-form-label-sm mb-0">Colonia</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputCol">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputMun" class="col-form-label-sm mb-0">Municipio</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputMun">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputEstado" class="col-form-label-sm mb-0">Estado</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputEstado">
+                                    </div>
+                                </div>
+                            </form>
+                            <!--Termina código de formulario-->
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h2 class="mb-0" style="font-size: 20px;">
+                            Lista de precios
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <img src="https://img.icons8.com/color/20/000000/drag-list-down.png">
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-3">
+                                    <label for="inputConvenio">Convenio</label>
+                                    <select id="inputConvenio" class="form-control">
+                                        <option>...</option>
+                                        <option>...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputIDEstudio">ID Estudio</label>
+                                    <input type="text" class="form-control" id="inputIDEestudio">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputEstudio">Estudio</label>
+                                    <input type="text" class="form-control" id="inputEstudio">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <table class="table table-sm table-hover">
+                                    <thead>
+                                        <tr class="table-primary">
+                                            <th>ID Estudio</th>
+                                            <th>Estudio</th>
+                                            <th>Catálogo</th>
+                                            <th>Convenio</th>
+                                            <th>Precio</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>%Lin</td>
+                                            <td>Lifositos FD 201</td>
+                                            <td>catalogo</td>
+                                            <td>FEMSA</td>
+                                            <td>5000</td>
+                                            <td>
+                                                <a class="btn btn-warning btn-sm" href=""><img
+                                                        src="https://img.icons8.com/color/20/000000/edit.png">
+                                                    Editar</a>
+                                                <a class="btn btn-danger btn-sm" href=""><img
+                                                        src="https://img.icons8.com/officel/20/000000/delete-row.png">
+                                                    Borrar</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>%Lin</td>
+                                            <td> Lifositos FD 201</td>
+                                            <td>catalogo</td>
+                                            <td>FEMSA</td>
+                                            <td>5000</td>
+                                            <td>
+                                                <a class="btn btn-warning btn-sm" href=""><img
+                                                        src="https://img.icons8.com/color/20/000000/edit.png">
+                                                    Editar</a>
+                                                <a class="btn btn-danger btn-sm" href=""><img
+                                                        src="https://img.icons8.com/officel/20/000000/delete-row.png">
+                                                    Borrar</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>%Lin</td>
+                                            <td> Lifositos FD 201</td>
+                                            <td>catalogo</td>
+                                            <td>FEMSA</td>
+                                            <td>5000</td>
+                                            <td>
+                                                <a class="btn btn-warning btn-sm" href=""><img
+                                                        src="https://img.icons8.com/color/20/000000/edit.png">
+                                                    Editar</a>
+                                                <a class="btn btn-danger btn-sm" href=""><img
+                                                        src="https://img.icons8.com/officel/20/000000/delete-row.png">
+                                                    Borrar</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h2 class="mb-0" style="font-size: 20px;">
+                            Menu nuevo
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <img src="https://img.icons8.com/color/20/000000/drag-list-down.png">
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                        data-parent="#accordionExample">
+                        <div class="card-body">
+                            <!--Inicia código de formulario-->
+                            <form>
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-3">
+                                        <label class="col-form-label-sm mb-0">ID Paciente</label>
+                                        <input type="text" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="col-form-label-sm mb-0">Búsqueda por nombre</label>
+                                        <input type="text" class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="input-group mb-0 form-control-sm">
+                                    <div class="input-group-prepend mb-0">
+                                        <span class="input-group-text">Nombre Completo</span>
+                                    </div>
+                                    <input type="text" aria-label="First name" class="form-control"
+                                        placeholder="Apellido Paterno">
+                                    <input type="text" aria-label="Last name" class="form-control"
+                                        placeholder="Apellido Materno">
+                                    <input type="text" aria-label="First name" class="form-control"
+                                        placeholder="Nombre(s)">
+                                </div>
+                                <div class="input-group">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputFecha_nac" class="col-form-label-sm mb-0">Fecha de
+                                            nacimiento</label>
+                                        <input type="date" class="form-control form-control-sm" id="inputFecha_nac">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputRFC" class="col-form-label-sm mb-0">RFC</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputRFC">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputSexo" class="col-form-label-sm mb-0">Sexo</label>
+                                        <select id="inputSexo" class="form-control form-control-sm">
+                                            <option>Masculino</option>
+                                            <option>Femenino</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail" class="col-form-label-sm mb-0">E-mail</label>
+                                        <input type="email" class="form-control form-control-sm" id="inputEmail">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputTel" class="col-form-label-sm mb-0">Teléfono Casa</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputTel">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputCel" class="col-form-label-sm mb-0">Celular</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputCel">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputDireccion" class="col-form-label-sm mb-0">Dirección</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputDireccion">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputCP" class="col-form-label-sm mb-0">Código Postal</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputCP">
+                                    </div>
+                                </div>
+                            </form>
+                            <!--Termina código de formulario-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
