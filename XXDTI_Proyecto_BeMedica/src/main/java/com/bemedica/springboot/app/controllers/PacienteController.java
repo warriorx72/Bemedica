@@ -450,7 +450,9 @@ pacienteDao.delete(id);
 		e=ordenDao.findOne(id.longValue());
 		if (id>1){
 			
-		   e.setPaciente_id(pac_id);
+			if(pac_id!=null) {
+				   e.setPaciente_id(pac_id);
+				   }
 		  e.setOrden_estatus(status_id);
 		    //ordenDao.save(e);
 			 ordenDao.save(e);

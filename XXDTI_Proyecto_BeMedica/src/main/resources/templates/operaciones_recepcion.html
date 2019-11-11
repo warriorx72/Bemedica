@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+ <!--  -->
    <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
          crossorigin="anonymous">
+         <!--  -->
       <!-- Our Custom CSS -->
       <link rel="stylesheet" href="css/style.css">
       <!-- Font Awesome JS -->
@@ -721,7 +723,7 @@
                                                    </thead>
                                                    <tbody>
                                                       <tr th:each="paciente: ${pacientes}">
-                                                         <td> <a th:text="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am }" th:href="@{/form/} + ${paciente.paciente_id}" ></a></td>
+                                                         <td> <a th:text="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am }" th:href="@{/formC/} + ${paciente.paciente_id}" ></a></td>
                                                          <td th:text="${paciente.persona_fecha_na}"></td>
                                                          <td th:text="${paciente.persona_email}"></td>
                                                          <td th:text="${paciente.direccion_calle}"></td>
