@@ -95,11 +95,6 @@ public class CajaController {
 			
 			caja.setFechaInicial(auxs);
 			cajaDao.save(caja);
-			
-			Caja cajas= new Caja();
-			cajas.setCajaId(caja.getCajaId()+1);
-			cajas.setFechaInicial(formatter.format(date) +" "+"06:00:00");
-			cajaDao.save(cajas);
 			status.setComplete();
 			
 		    Date date1 = new Date();  
