@@ -21,4 +21,5 @@ public class CajaVistaDaoImpl implements ICajaVistaDao {
 	public List<Object []> findAll() {
 	return em.createNativeQuery("call CorteCierre").getResultList();
 	}
+	
 }
