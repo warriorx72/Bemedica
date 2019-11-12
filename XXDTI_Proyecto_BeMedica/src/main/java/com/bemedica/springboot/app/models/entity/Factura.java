@@ -30,7 +30,7 @@ public class Factura implements Serializable {
 
 
 	/**
-	 * 
+	 * U
 	 */
 	private static final long serialVersionUID = 1L;
 
