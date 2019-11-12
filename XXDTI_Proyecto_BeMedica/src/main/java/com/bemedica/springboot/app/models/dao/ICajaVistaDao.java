@@ -6,5 +6,6 @@ import com.bemedica.springboot.app.models.entity.CajaVista;
 
 public interface ICajaVistaDao {
 
-	public List<CajaVista> findAll();
+	public List<Object []> findAll();
+	
 }

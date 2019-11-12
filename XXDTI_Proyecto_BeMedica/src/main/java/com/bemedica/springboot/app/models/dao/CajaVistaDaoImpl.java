@@ -19,7 +19,7 @@ public class CajaVistaDaoImpl implements ICajaVistaDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	
-	public List<CajaVista> findAll() {
-	return em.createQuery("From CajaVista").getResultList();
+	public List<Object []> findAll() {
+	return em.createNativeQuery("call CorteCierre").getResultList();
 	}
 }

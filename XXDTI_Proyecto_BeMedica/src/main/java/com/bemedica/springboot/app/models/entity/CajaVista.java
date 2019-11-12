@@ -1,11 +1,16 @@
 package com.bemedica.springboot.app.models.entity;
 
 import java.io.Serializable;
+//import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 
 @Entity
 @Table(name ="caja_vista")
@@ -16,62 +21,92 @@ public class CajaVista implements Serializable{
 	
 		
 		@Column(name="fecha_inicial")
-		private String FechaInicial;
+		@Temporal(TemporalType.TIMESTAMP)
+		private Date FechaInicial;
 
 		@Column(name="fecha_final")
-		private String FechaFinal;
+		@Temporal(TemporalType.TIMESTAMP)
+		private Date FechaFinal;
 		
 		@Column(name="Sucursal")
 		private String Nombre;
 		
 		@Id
+		@Column(name="caja_id")
+		private Long CajaId;
+		
 		@Column(name="Monto")
-		private String Monto;
+		private Long Monto;
 		
 
 		@Column(name="Realizo")
 		private String Realizo;
+
+		@Column(name="Tipo")
+		private String Tipo;
+		/******************************************************************************/
 		
+		
+		
+		
+		public String getNombre() {
+			return Nombre;
+		}
+		
+		public Date getFechaInicial() {
+			return FechaInicial;
+		}
+
+		public void setFechaInicial(Date fechaInicial) {
+			FechaInicial = fechaInicial;
+		}
+
+		public Date getFechaFinal() {
+			return FechaFinal;
+		}
+
+		public void setFechaFinal(Date fechaFinal) {
+			FechaFinal = fechaFinal;
+		}
+
+		public void setNombre(String nombre) {
+			Nombre = nombre;
+		}
+
+		
+
+		public Long getMonto() {
+			return Monto;
+		}
+
+
+		public void setMonto(Long monto) {
+			Monto = monto;
+		}
 
 
 		public String getRealizo() {
 			return Realizo;
 		}
 
+
 		public void setRealizo(String realizo) {
 			Realizo = realizo;
 		}
 
-		public String getFechaInicial() {
-			return FechaInicial;
+		public Long getCajaId() {
+			return CajaId;
 		}
 
-		public void setFechaInicial(String fechaInicial) {
-			FechaInicial = fechaInicial;
+		public void setCajaId(Long cajaId) {
+			CajaId = cajaId;
 		}
 
-		public String getFechaFinal() {
-			return FechaFinal;
+		public String getTipo() {
+			return Tipo;
 		}
 
-		public void setFechaFinal(String fechaFinal) {
-			FechaFinal = fechaFinal;
-		}
-
-	
-		public String getMonto() {
-			return Monto;
-		}
-
-		public void setMonto(String monto) {
-			Monto = monto;
-		}
-
-		public String getNombre() {
-			return Nombre;
-		}
-
-		public void setNombre(String nombre) {
-			Nombre = nombre;
+		public void setTipo(String tipo) {
+			Tipo = tipo;
 		}
 	}
