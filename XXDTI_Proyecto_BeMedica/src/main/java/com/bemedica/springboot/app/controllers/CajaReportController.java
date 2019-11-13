@@ -239,7 +239,7 @@ public class CajaReportController {
         Chapter chapter = new Chapter(new Paragraph(chunk), 1);
         chapter.setNumberDepth(0);
         chapter.add(new Paragraph("This is the paragraph"));
-
+        
         List <Object[]> rp  = cajaVistaDao.findAll();
 	    PdfPTable table = new PdfPTable(4);
 	    table.getDefaultCell().setBorder(0);
