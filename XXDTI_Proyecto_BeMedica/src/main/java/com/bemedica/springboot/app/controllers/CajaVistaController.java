@@ -26,6 +26,4 @@ public class CajaVistaController {
 		
 		return "herramientas_corte";
 	   }
-
-
 }
