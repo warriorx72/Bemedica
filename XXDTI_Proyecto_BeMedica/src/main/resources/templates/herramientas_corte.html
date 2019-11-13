@@ -234,7 +234,13 @@
 											<tbody style="text-align: center">
 												<tr th:each="caja_vista: ${vistas}">
 
-													<td th:text="${caja_vista[1]}"></td>
+													<td><a class="text-primary"
+																th:text="${caja_vista[1]}" 
+																th:if="${caja_vista[7]=='Cierre'}"
+																th:href="@{/herramientas_corte/} + ${caja_vista[2]} +'/'+ ${caja_vista[2]-1}"></a> <a class="text-primary"
+																th:text="${caja_vista[1]}" 
+																th:if="${caja_vista[7]=='Corte'}"
+																th:href="@{/herramientas_corte/} + ${caja_vista[2]} +'/'+ ${caja_vista[2]}"></a></td>
 													<!-- 													<td th:text="${caja_vista.CajaId}"></td> -->
 
 													<td th:text="${caja_vista[3]}"></td>

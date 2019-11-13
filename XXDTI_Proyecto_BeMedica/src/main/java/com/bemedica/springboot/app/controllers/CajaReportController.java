@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,20 +66,21 @@ public class CajaReportController {
 	
 	
 	
-	@RequestMapping (value="/caja-reporte", method = RequestMethod.POST)
-	public void reportListar (Model model , HttpServletRequest request, HttpServletResponse response) 
+	@RequestMapping (value="/herramientas_corte/{a}/{b}")
+	public void reportListar (Model model , HttpServletRequest request, HttpServletResponse response
+			,@PathVariable (value="a") int a,@PathVariable (value="b") int b) 
 			/*@RequestParam("ff") Date ff,
             @RequestParam("fi") Date fi,
             @RequestParam("periodo") String periodo) */throws Exception {
 		
-		 SimpleDateFormat formatoEsMX = new SimpleDateFormat("yyyy-MM-dd");
+//		 SimpleDateFormat formatoEsMX = new SimpleDateFormat("yyyy-MM-dd");
 /*		String fecha1 = formatoEsMX.format(fi);
 		String fecha2 = formatoEsMX.format(ff);	
 		//this.excel( request, fecha1,fecha2,periodo);
 		*/
-		this.pdf(request);
+		this.pdf(request,a,b);
 	
-		System.out.print("ola k ase");
+
 		//String fullPath = request.getServletContext().getRealPath("/"+"Reporte"+".xls");
 		String fullPaths = request.getServletContext().getRealPath("/"+"CorteCaja"+".pdf");
 		//filedownload(fullPath, response);
@@ -216,7 +218,7 @@ public class CajaReportController {
 	}
 
 	
-	public void pdf ( HttpServletRequest request) throws Exception {
+	public void pdf ( HttpServletRequest request,int num1,int num2) throws Exception {
 			
 		String fullPath = request.getServletContext().getRealPath("/"+"CorteCaja"+".pdf");
 		// Se crea el documento
@@ -231,34 +233,34 @@ public class CajaReportController {
 
 		// Se abre el documento.
 		documento.open();
-		
-		Chunk chunk = new Chunk("Hello world",
-				 FontFactory.getFont(FontFactory.COURIER, 20, Font.ITALIC, new Color(255, 0,
-				 0)));
-        // Let's create de first Chapter (Creemos el primer capítulo)
-        Chapter chapter = new Chapter(new Paragraph(chunk), 1);
-        chapter.setNumberDepth(0);
-        chapter.add(new Paragraph("This is the paragraph"));
-        
-        List <Object[]> rp  = cajaVistaDao.findAll();
-	    PdfPTable table = new PdfPTable(4);
+//		int edad=35;
+//        Paragraph p = new Paragraph();
+//        p.setSpacingAfter(90);
+//        p.add("nombre:");        
+//        p.add("edad:"+edad);
+        List <Object[]> rp  = cajaVistaDao.findAll2(num1, num2);
+	    PdfPTable table = new PdfPTable(6);
 	    table.getDefaultCell().setBorder(0);
-	        table.addCell("Nombre del estudio");
-	        table.addCell("resultado");
-	        table.addCell("comentario");
-	        table.addCell("vr");
-	      
+	        table.addCell("Folio");
+	        table.addCell("Usuario");
+	        table.addCell("Monto");
+	        table.addCell("Fecha");
+	        table.addCell("Concepto");
+	        table.addCell("Forma de pago");
 	        for (Object[] a : rp) {
 	        	
 	        
+	        	 	table.addCell(a[0].toString());
 	        	 	table.addCell(a[1].toString());
+		            table.addCell(a[2].toString());
+		            table.addCell(a[3].toString());
+		            table.addCell(a[4].toString());
 		            table.addCell(a[5].toString());
-		            table.addCell(a[6].toString());
-		            table.addCell(a[7].toString());
+		            
 	        	
 	        	
 			} 
-//	        documento.add(chunk);
+//	        PdfPCell cell = new PdfPCell();
 	        documento.add(table);
 	        documento.close();
 	        
