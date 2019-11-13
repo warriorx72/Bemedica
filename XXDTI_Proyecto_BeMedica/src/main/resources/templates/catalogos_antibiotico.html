@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
@@ -31,7 +31,7 @@
 </head>
 
 <body>
-    <div><img src="img/banner.jpg" style="height:80px; width: 100%;"></div>
+    <div><img th:src="@{/img/banner.jpg}" style="height:80px; width: 100%;"></div>
     <div class="wrapper">
          <nav id="sidebar">
             <ul class="list-unstyled components">
@@ -178,12 +178,6 @@
                   Ayuda
                   </a>
                   <ul class="collapse list-unstyled" id="homeSubmenu8">
-                     <li>
-                        <a th:href="@{/herramientas_participaciones}">BeMedica Support</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/herramientas_corte}">Registro Demos</a>
-                     </li>
                      <li>
                         <a th:href="@{/herramientas_notificaciones}">Acerca de</a>
                      </li>
