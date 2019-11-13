@@ -8,4 +8,6 @@ public interface ICajaVistaDao {
 
 	public List<Object []> findAll();
 	
+	public List<Object []> findAll2(int num1 , int num2);
+	
 }
