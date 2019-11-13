@@ -17,7 +17,7 @@ import com.bemedica.springboot.app.models.entity.PaquetesEstudiosQ;
 public class PaquetesEstudiosDaoImpl implements IPaquetesEstudiosDao{
 	@PersistenceContext
 	private EntityManager em;
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly=true)
