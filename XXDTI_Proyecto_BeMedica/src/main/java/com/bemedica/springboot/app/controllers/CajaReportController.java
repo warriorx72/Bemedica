@@ -241,12 +241,12 @@ public class CajaReportController {
         List <Object[]> rp  = cajaVistaDao.findAll2(num1, num2);
 	    PdfPTable table = new PdfPTable(6);
 	    table.getDefaultCell().setBorder(0);
-	        table.addCell("Folio");
-	        table.addCell("Usuario");
-	        table.addCell("Monto");
-	        table.addCell("Fecha");
-	        table.addCell("Concepto");
-	        table.addCell("Forma de pago");
+	        table.addCell("\n\n\n\n\n\n\n\n\n\nFolio");
+	        table.addCell("\n\n\n\n\n\n\n\n\n\nUsuario");
+	        table.addCell("\n\n\n\n\n\n\n\n\n\nMonto");
+	        table.addCell("\n\n\n\n\n\n\n\n\n\nFecha");
+	        table.addCell("\n\n\n\n\n\n\n\n\n\nConcepto");
+	        table.addCell("\n\n\n\n\n\n\n\n\n\nForma de pago");
 	        for (Object[] a : rp) {
 	        	
 	        
