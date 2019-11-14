@@ -186,7 +186,7 @@ model.addAttribute("vista_ordenes", vistaordenDao.findAll());
 
 	}
 	@RequestMapping(value= "/form_orden_estudios", method=RequestMethod.POST)
-	public String guardar_orden_estudios (Orden orden ,OrdenEstudio ordenestudio, Estudio estudio, BindingResult result, Model model, Map<String, Object> m){
+	public String guardar_orden_estudios (Orden orden , Paciente paciente,OrdenEstudio ordenestudio, Estudio estudio, BindingResult result, Model model, Map<String, Object> m){
 		
 		
 Orden aux=null;
@@ -199,15 +199,32 @@ Orden aux=null;
 					model.addAttribute("estudios", estudioDao.findAll());
 					model.addAttribute("empleados", vistaempleadoDao.findAll());
 					model.addAttribute("sucursales", sucursalDao.findAll());
-					
+					model.addAttribute("vista_ordenes", vistaordenDao.findAll());
 			model.addAttribute("ordenes", ordenDao.findAll());
 			///ordenestudio.setPrecio_unitario(estudio.getEstudio_precio());
 			///ordenestudio.setTotal_linea(orden.getEmpleado_id());
-	if(ordenestudio.getEstudio_id()>0) {
+	//if(ordenestudio.getEstudio_id()>0) {
+		//	ordenestudio.setTipo("estudio");
+//	}System.out.println("The Keyword :example: is found in given string");
+			System.out.println(ordenestudio.getEstudio_id());
+	if(ordenestudio.getEstudio_id().toString().contains("hola")) {
+		String[] id=	ordenestudio.getEstudio_id().split("hola");	
+		for (String a : id) 
+		ordenestudio.setEstudio_id(a);
 			ordenestudio.setTipo("estudio");
-	}
+			}
+	if(ordenestudio.getEstudio_id().toString().contains("paque")) {
+		String[] id=	ordenestudio.getEstudio_id().split("paque");	
+		for (String a : id) 
+		ordenestudio.setEstudio_id(a);
+			ordenestudio.setTipo("paquete");
+			}
+	
+	///	if(ordenestudio.getEstudio_id()==estudio.estudio_id+2) {
+		///	ordenestudio.setTipo("paque");
+		//}
 		
-		
+	
 			ordenestudioDao.save(ordenestudio);
 		((Map<String, Object>) model).put("ordenestudio", ordenestudio);
 	////	((Map<String, Object>) model).put("estudio", estudio);
