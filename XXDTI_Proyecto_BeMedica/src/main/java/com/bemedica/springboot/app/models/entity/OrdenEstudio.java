@@ -64,7 +64,7 @@ public class OrdenEstudio implements Serializable {
 	}
 	///public int getCantidad_estudio() {
 		///return cantidad_estudio;
-	//}
+	//}Ok
 	//public void setCantidad_estudio(int cantidad_estudio) {
 		//this.cantidad_estudio = cantidad_estudio;
 	//}
