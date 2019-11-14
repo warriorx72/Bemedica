@@ -186,6 +186,12 @@
                   </a>
                   <ul class="collapse list-unstyled" id="homeSubmenu8">
                      <li>
+                        <a th:href="@{/herramientas_participaciones}">BeMedica Support</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/herramientas_corte}">Registro Demos</a>
+                     </li>
+                     <li>
                         <a th:href="@{/herramientas_notificaciones}">Acerca de</a>
                      </li>
                      <li>
@@ -548,9 +554,12 @@
                                  <select id="" class="form-control" th:field="*{estudio_id}">
                                     <option value='99999999'></option>
                                     <option th:each="estudio:${estudios}"
-                                       th:value="${estudio.estudio_id}"
+                                       th:value="${estudio.estudio_id + 'hola'}"
                                         
                                        th:label="${estudio.estudio_nombre  +   '   $' + estudio.estudio_precio + '  MXN '}" />
+                                    <option th:each="paciente:${pacientes}"
+                                       th:value="${paciente.paciente_id + 'paque'}"
+                                       th:label="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am}" />
                                    <option th:value="1000"></option>
                                 
                                  </select>
@@ -593,6 +602,13 @@
                                     --->
                                  <td><a class="btn btn-danger btn-xs" th:href="@{/eliminar3/} + ${oe.orden_estudio_id}" th:text="'eliminar'" onclick="return confirm('Estás seguro que quieres eliminar?');"></a></td>
                               </tr>
+                          <tr th:each= " oe: ${orden_estudios}">
+                              <td></td>
+                              <td>Total</td>
+                              
+                                <td th:text="${oe.total_linea}"></td>
+                              <td></td>
+                              </tr>  
                            </tbody>
                         </table>
                         <br>
@@ -639,9 +655,10 @@
                                        <select name="status_id" class="form-control" th:onchange="'post_form(' + ${orde.orden_id} + ');'">
                                           <option 
                                              th:value="${orde.orden_estatus}"
-                                             th:label="${orde.orden_estatus}" />
-                                          <option th:value="finalizada" th:label="Finalizada"/>
-                                          <option th:value="pendiente" th:label="Pendiente"/>
+                                             th:label="${#strings.capitalize(orde.orden_estatus)}"/>
+                                          <option th:if="${orde.orden_estatus=='finalizada'}" th:value="pendiente" th:label="Pendiente"/>
+                                         <option th:if="${orde.orden_estatus=='pendiente'}" th:value="finalizada" th:label="Finalizada"/>
+                                        <!-- <option th:value="pendiente" th:label="Pendiente"/> ---->
                                        </select>
                                                                             <input type="hidden" name ="id" th:value="${orde.orden_id}"/>
                                        </td>
