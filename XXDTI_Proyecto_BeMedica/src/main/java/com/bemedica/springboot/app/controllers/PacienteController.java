@@ -22,6 +22,7 @@ import org.hibernate.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.comparator.BooleanComparator;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -248,6 +249,7 @@ Orden aux=null;
 		
 	
 			ordenestudioDao.save(ordenestudio);
+			
 		((Map<String, Object>) model).put("ordenestudio", ordenestudio);
 	////	((Map<String, Object>) model).put("estudio", estudio);
 		((Map<String, Object>) model).put("orden", aux);
