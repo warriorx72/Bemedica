@@ -21,7 +21,7 @@ public  class VistaOrdenDaoImpl implements IVistaOrdenDao {
 	@Transactional
 	public List<VistaOrden> findAll() {
 		// TODO Auto-generated method stub
-		return em.createQuery("from VistaOrden").getResultList();
+		return em.createQuery("from VistaOrden where orden_estatus in ('pendiente','finalizada')").getResultList();
 	}
 
 	
