@@ -552,16 +552,27 @@
                               <div class="col-sm-3">
                                  <label class="col-sm-12 col-form-label">Estudio</label> 
                                  <select id="" class="form-control" th:field="*{estudio_id}">
-                                    <option value='99999999'></option>
+                                 <optgroup label="Estudios">
+                                  
                                     <option th:each="estudio:${estudios}"
-                                       th:value="${estudio.estudio_id + 'hola'}"
+                                       th:value="${estudio[0] + 'est'}"
                                         
-                                       th:label="${estudio.estudio_nombre  +   '   $' + estudio.estudio_precio + '  MXN '}" />
-                                    <option th:each="paciente:${pacientes}"
-                                       th:value="${paciente.paciente_id + 'paque'}"
-                                       th:label="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am}" />
-                                   <option th:value="1000"></option>
-                                
+                                       th:label="${estudio[2]  +   '   $' + estudio[4] + '  MXN '}"/>
+                                       </optgroup>
+                                       <optgroup label="Paquetes">
+                                    
+                                    <option th:each="paquete:${paquetes}"
+                                       th:value="${paquete[0] + 'paq'}"
+                                       th:label="${paquete[1] + ' $' + paquete[3] + 'MXN'}" />
+                                       </optgroup>
+                                       
+                                       <optgroup label="Perfiles">
+                                     
+                                    <option th:each="perfil:${perfiles}"
+                                       th:value="${perfil[0] + 'per'}"
+                                       th:label="${perfil[1] + ' $' + perfil[5] + 'MXN'}" />
+                                   
+                                </optgroup>
                                  </select>
                            
                               </div>
