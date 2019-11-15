@@ -239,7 +239,9 @@ public class CajaReportController {
 //        p.add("nombre:");        
 //        p.add("edad:"+edad);
         List <Object[]> rp  = cajaVistaDao.findAll2(num1, num2);
+        float to = cajaVistaDao.findAll3(num1, num2);
 	    PdfPTable table = new PdfPTable(6);
+	    
 	    table.getDefaultCell().setBorder(0);
 	        table.addCell("\n\n\n\n\n\n\n\n\n\nFolio");
 	        table.addCell("\n\n\n\n\n\n\n\n\n\nUsuario");
@@ -260,10 +262,15 @@ public class CajaReportController {
 	        	
 	        	
 			} 
+	        PdfPTable table2 = new PdfPTable(1);
+	        table2.getDefaultCell().setBorder(0);
+		        table2.addCell("\n\n\n\n\n\nTotal: "+to);
+		        
 //	        PdfPCell cell = new PdfPCell();
 	        documento.add(table);
+	        documento.add(table2);
 	        documento.close();
-	        
+	    
 	        System.out.println(fullPath);
 	    }
 

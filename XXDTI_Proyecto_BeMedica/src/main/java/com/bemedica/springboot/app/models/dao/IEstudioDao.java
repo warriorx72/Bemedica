@@ -7,6 +7,7 @@ import com.bemedica.springboot.app.models.entity.Estudio;
 public interface IEstudioDao {
 
 	public List<Estudio> findAll();
+	public List<Estudio> findBy();
 
 	public void save(Estudio estudio);
 	

@@ -7,6 +7,7 @@ import com.bemedica.springboot.app.models.entity.Paquetes;
 public interface IPaquetesDao {
 
 	public List<Paquetes> findAll();
+	public List<Paquetes> findBy();
 	
 	public void save (Paquetes paquetes);
 	
