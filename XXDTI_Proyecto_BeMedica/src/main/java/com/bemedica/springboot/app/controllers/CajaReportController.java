@@ -245,7 +245,7 @@ public class CajaReportController {
         table3.getDefaultCell().setBorder(0);
 	        table3.addCell("");
 	        table3.addCell("");
-	        table3.addCell("\n\n\n\n\n\nFecha Corte: \n\n"+ fc);
+	        table3.addCell("\n\n\n\n\n\nFecha: \n\n"+ fc);
         
         
 	    PdfPTable table = new PdfPTable(6);
@@ -276,7 +276,7 @@ public class CajaReportController {
 	        
 	        PdfPTable table2 = new PdfPTable(1);
 	        table2.getDefaultCell().setBorder(0);
-		        table2.addCell("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTotal: "+to);
+		        table2.addCell("\n\n\n\n\n\n\n\n\n\nTotal: "+to);
 		        
 		        
 //	        PdfPCell cell = new PdfPCell();
