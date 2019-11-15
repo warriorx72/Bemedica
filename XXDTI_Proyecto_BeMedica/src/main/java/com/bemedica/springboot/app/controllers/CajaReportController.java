@@ -66,9 +66,9 @@ public class CajaReportController {
 	
 	
 	
-	@RequestMapping (value="/herramientas_corte/{a}/{b}")
+	@RequestMapping (value="/herramientas_corte/{a}/{b}/{c}")
 	public void reportListar (Model model , HttpServletRequest request, HttpServletResponse response
-			,@PathVariable (value="a") int a,@PathVariable (value="b") int b) 
+			,@PathVariable (value="a") int a,@PathVariable (value="b") int b,@PathVariable (value="c") int c) 
 			/*@RequestParam("ff") Date ff,
             @RequestParam("fi") Date fi,
             @RequestParam("periodo") String periodo) */throws Exception {
@@ -78,7 +78,7 @@ public class CajaReportController {
 		String fecha2 = formatoEsMX.format(ff);	
 		//this.excel( request, fecha1,fecha2,periodo);
 		*/
-		this.pdf(request,a,b);
+		this.pdf(request,a,b,c);
 	
 
 		//String fullPath = request.getServletContext().getRealPath("/"+"Reporte"+".xls");
@@ -218,7 +218,7 @@ public class CajaReportController {
 	}
 
 	
-	public void pdf ( HttpServletRequest request,int num1,int num2) throws Exception {
+	public void pdf ( HttpServletRequest request,int num1,int num2, int num3) throws Exception {
 			
 		String fullPath = request.getServletContext().getRealPath("/"+"CorteCaja"+".pdf");
 		// Se crea el documento
@@ -240,15 +240,23 @@ public class CajaReportController {
 //        p.add("edad:"+edad);
         List <Object[]> rp  = cajaVistaDao.findAll2(num1, num2);
         float to = cajaVistaDao.findAll3(num1, num2);
+        List <Object[]> fc = cajaVistaDao.findAll4(num1, num2, num3);
+        PdfPTable table3 = new PdfPTable(3);
+        table3.getDefaultCell().setBorder(0);
+	        table3.addCell("");
+	        table3.addCell("");
+	        table3.addCell("\n\n\n\n\n\nFecha Corte: \n\n"+ fc);
+        
+        
 	    PdfPTable table = new PdfPTable(6);
-	    
 	    table.getDefaultCell().setBorder(0);
-	        table.addCell("\n\n\n\n\n\n\n\n\n\nFolio");
-	        table.addCell("\n\n\n\n\n\n\n\n\n\nUsuario");
-	        table.addCell("\n\n\n\n\n\n\n\n\n\nMonto");
-	        table.addCell("\n\n\n\n\n\n\n\n\n\nFecha");
-	        table.addCell("\n\n\n\n\n\n\n\n\n\nConcepto");
-	        table.addCell("\n\n\n\n\n\n\n\n\n\nForma de pago");
+	        table.addCell("\n\n\nFolio");
+	        table.addCell("\n\n\nUsuario");
+	        table.addCell("\n\n\nMonto");
+	        table.addCell("\n\n\nFecha");
+	        table.addCell("\n\n\nConcepto");
+	        table.addCell("\n\n\nForma de pago");
+	        
 	        for (Object[] a : rp) {
 	        	
 	        
@@ -260,15 +268,22 @@ public class CajaReportController {
 		            table.addCell(a[5].toString());
 		            
 	        	
-	        	
+		            
 			} 
+	        
+	        
+	        
+	        
 	        PdfPTable table2 = new PdfPTable(1);
 	        table2.getDefaultCell().setBorder(0);
-		        table2.addCell("\n\n\n\n\n\nTotal: "+to);
+		        table2.addCell("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTotal: "+to);
+		        
 		        
 //	        PdfPCell cell = new PdfPCell();
+		    documento.add(table3);
 	        documento.add(table);
 	        documento.add(table2);
+	       
 	        documento.close();
 	    
 	        System.out.println(fullPath);

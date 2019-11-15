@@ -11,4 +11,6 @@ public interface ICajaVistaDao {
 	
 	public float findAll3(int num1 , int num2);
 	
+	public List<Object []> findAll4(int num1 , int num2, int num3);
+	
 }

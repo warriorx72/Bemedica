@@ -37,5 +37,12 @@ public class CajaVistaDaoImpl implements ICajaVistaDao {
 		float aux = Float.parseFloat(auxs);
 		return aux;
 	}
+
+	@Transactional(readOnly =true)
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object[]> findAll4(int num1, int num2, int num3) {
+		return em.createNativeQuery("call Fechas("+num1+","+num2+","+num3+")").getResultList();
+	}
 	
 }
