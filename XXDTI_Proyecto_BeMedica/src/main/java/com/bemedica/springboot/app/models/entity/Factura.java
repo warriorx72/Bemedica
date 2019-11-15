@@ -20,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 //import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-//import org.springframework.format.annotation.DateTimeFormat;
+//import org.springframework.format.annotation.DateTimeFormat; listo
 
 @Entity
 @Table(name = "factura")
