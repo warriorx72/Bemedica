@@ -484,8 +484,8 @@ pacienteDao.delete(id);
 	    return "theview.jsp";
 	} */
 	//////////////////////////////////7777
-	@RequestMapping (value="/estatus_empleado", method = RequestMethod.POST)
-	public String estatus (@RequestParam("id") Long id,@RequestParam("pac_id") Integer pac_id, @RequestParam() String status_id, Model model, RedirectAttributes redirectAttrs){
+	@RequestMapping (value="/estatus_empleadoPC", method = RequestMethod.POST)
+	public String estatusPC (@RequestParam("id") Long id,@RequestParam("pac_id") Integer pac_id, @RequestParam() String status_id, Model model, RedirectAttributes redirectAttrs){
 		Orden e;
 		
 		e=ordenDao.findOne(id.longValue());
