@@ -657,19 +657,21 @@
                                  <td th:text="${orde.orden_folio}"></td>
                                  <!--       <td><input type="hidden" th:value="${orde.orden_id}"></td> --->
                                  <!--  <td> <a th:text="${medico.persona_nombre + ' ' + medico.persona_ap + ' ' + medico.persona_am }" th:href="@{/form2/} + ${medico.medico_id}" ></a></td> -->
-                                <form th:action="@{/estatus_empleado}" method="post" th:id="${orde.orden_id}" th:name="${orde.orden_id}">
-                                
-                                 <td>
-                                       <select name="pac_id" class="form-control" th:onchange="'post_form(' + ${orde.orden_id} + ');'">
+                                 <td th:text="${orde.nombre + ' ' + orde.persona_ap + ' ' + orde.persona_am}"></td>
+                                <form th:action="@{/estatus_empleadoPC}" method="post" th:id="${orde.orden_id}" th:name="${orde.orden_id}">
+                                <!-- -
+                                <td th:text="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am}">
+                                     <select name="pac_id" class="form-control" th:onchange="'post_form(' + ${orde.orden_id} + ');'">
                                            <option th:label="${orde.nombre + ' ' + orde.persona_ap + ' ' + orde.persona_am}">
                                           <option th:each="paciente:${pacientes}"
                                              th:value="${paciente.paciente_id}"
                                              th:label="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am}" />
                                        </select>
                                      <input type="hidden" name ="id" th:value="${orde.orden_id}"/>
+								                                 
                                  </td>
-                                 
-                                
+                               
+                                ---->
                                  <td>
                                     
                                        <select name="status_id" class="form-control" th:onchange="'post_form(' + ${orde.orden_id} + ');'">
@@ -682,11 +684,16 @@
                                        </select>
                                                                             <input type="hidden" name ="id" th:value="${orde.orden_id}"/>
                                        </td>
-                                    </form>
+                                   <!--  </form> --->
                                  
                                  <td th:text="${orde.orden_fecha}"></td>
                                  <td th:text="${orde.monto}"></td>
-                                 <td th:text="${orde.pago_inicial}"></td>
+                                 <td>
+                                 <input name="pago_inicial" th:onsubmit="'post_form(' + ${orde.orden_id} + ');'" type="text" th:value="${orde.pago_inicial}" >
+                                 <input type="hidden" name ="id" th:value="${orde.orden_id}"/>
+                                 
+                                 </td>
+                                 </form>
                                  <td th:text="${orde.adeudo}"></td>
                                  <!-- <td th:text="${medico.direccion_numero_ext}"></td>
                                     <td th:text="${medico.direccion_colonia}"></td>

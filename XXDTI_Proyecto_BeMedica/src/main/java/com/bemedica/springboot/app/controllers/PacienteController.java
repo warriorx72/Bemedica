@@ -485,17 +485,18 @@ pacienteDao.delete(id);
 	} */
 	//////////////////////////////////7777
 	@RequestMapping (value="/estatus_empleadoPC", method = RequestMethod.POST)
-	public String estatusPC (@RequestParam("id") Long id,@RequestParam("pac_id") Integer pac_id, @RequestParam() String status_id, Model model, RedirectAttributes redirectAttrs){
+	public String estatusPC (@RequestParam("id") Long id, @RequestParam() String status_id, @RequestParam() String pago_inicial, Model model, RedirectAttributes redirectAttrs){
 		Orden e;
 		
 		e=ordenDao.findOne(id.longValue());
 		if (id>1){
 			
-			if(pac_id!=null) {
-				   e.setPaciente_id(pac_id);
-				   }
+		///	if(pac_id!=null) {
+			///	   e.setPaciente_id(pac_id);
+				///   }
 		  e.setOrden_estatus(status_id);
-		    //ordenDao.save(e);
+		  e.setPago_inicial(pago_inicial); 
+		  //ordenDao.save(e);
 			 ordenDao.save(e);
 		    ////redirectAttrs
             //.addFlashAttribute("mensaje", "Empleado desactivado ")
