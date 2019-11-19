@@ -12,7 +12,7 @@
 	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
 	crossorigin="anonymous">
 <!-- Our Custom CSS -->
-<link rel="stylesheet" href="http://localhost:8090/css/style.css">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 
 <!-- Font Awesome JS -->
 <script defer
@@ -28,7 +28,7 @@
 
 <body>
 	<div>
-		<img src="http://localhost:8090/img/banner.jpg" style="height: 80px; width: 100%;">
+		<img th:src="@{/img/banner.jpg}" style="height: 80px; width: 100%;">
 	</div>
 	<div class="wrapper">
 		<!-- Sidebar  -->

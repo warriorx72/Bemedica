@@ -12,7 +12,7 @@
 	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
 	crossorigin="anonymous">
 <!-- Our Custom CSS -->
-<link rel="stylesheet" href="http://localhost:8090/css/style.css">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 
 <!-- Font Awesome JS -->
 <script defer
@@ -28,7 +28,7 @@
 
 <body>
 	<div>
-		<img src="http://localhost:8090/img/banner.jpg" style="height: 80px; width: 100%;">
+		<img th:src="@{/img/banner.jpg}" style="height: 80px; width: 100%;">
 	</div>
 	<div class="wrapper">
 		<!-- Sidebar  -->
@@ -296,11 +296,13 @@
 			crossorigin="anonymous"></script>
 
 		<!-- Demo scripts for this page-->
-		<script src="http://localhost:8090/js/demo/datatables-demo.js"></script>
+		<script 	th:src="@{/js/demo/datatables-demo.js}"></script>
 
 		<!-- Page level plugin JavaScript-->
-		<script src="http://localhost:8090/vendor/datatables/jquery.dataTables.js"></script>
-		<script src="http://localhost:8090/vendor/datatables/dataTables.bootstrap4.js"></script>
+		<script 	th:src="@{/vendor/datatables/jquery.dataTables.js}"></script>
+		<script  	th:src="@{/vendor/datatables/dataTables.bootstrap4.js}"></script>
+		
+		
 
 		<script type="text/javascript">
         $(document).ready(function () {

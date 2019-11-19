@@ -5,7 +5,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,15 +14,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name="estudios")
 public class EstudioE implements Serializable  {
-	
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
 	@Id
 	@Column(name="estudio_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long EstudioId;
 	
 	@Column(name="estudio_id_text")
@@ -29,22 +31,21 @@ public class EstudioE implements Serializable  {
 	
 	@Column(name="estudio_nombre")
 	private String EstudioNombre;
-	
+
 	@Column(name="estudio_descripcion")
 	private String EstudioDescripcion;
-	
+
 	@Column(name="estudio_precio")
 	private Double EstudioPrecio;
-
 	
 	@Column(name="bemedica_id")
 	private String BeMedicaId;
 	
 	@Column(name="estudio_individual")
-	private String EstudioIndividual;
+	private Boolean EstudioIndividual;
 	
-	@Column(name="estudio_nombre_rep")
-	private String EstudioNombreRep;
+	@Column(name="estudio_estatus")
+	private Boolean EstudioEstatus;
 	
 	@Column(name="estudio_area")
 	private String EstudioArea;
@@ -67,21 +68,86 @@ public class EstudioE implements Serializable  {
 	@Column(name="estudio_tecnica")
 	private String EstudioTecnica;
 	
+	@Column(name="estudio_entrega")
+	private String EstudioEntrega;
 	
-	public String getEstudioIndividual() {
+	@Column(name="estudio_indicaciones_pa")
+	private String EstudioIndicacionesPa;
+	
+	@Column(name="estudio_indicaciones_pe")
+	private String EstudioIndicacionesPe;
+	
+	@Column(name="estudio_decimales")
+	private String EstudioDecimales;
+	
+	@Column(name="estudio_tipo")
+	private String EstudioTipo;
+	
+	@Column(name="estudio_vr_i")
+	private String EstudioVrI;
+	
+	public String getEstudioVrI() {
+		return EstudioVrI;
+	}
+
+	public void setEstudioVrI(String estudioVrI) {
+		EstudioVrI = estudioVrI;
+	}
+
+	public Boolean getEstudioIndividual() {
 		return EstudioIndividual;
 	}
 
-	public void setEstudioIndividual(String estudioIndividual) {
+	public void setEstudioIndividual(Boolean estudioIndividual) {
 		EstudioIndividual = estudioIndividual;
 	}
 
-	public String getEstudioNombreRep() {
-		return EstudioNombreRep;
+	public Boolean getEstudioEstatus() {
+		return EstudioEstatus;
 	}
 
-	public void setEstudioNombreRep(String estudioNombreRep) {
-		EstudioNombreRep = estudioNombreRep;
+	public void setEstudioEstatus(Boolean estudioEstatus) {
+		EstudioEstatus = estudioEstatus;
+	}
+
+	public String getEstudioTipo() {
+		return EstudioTipo;
+	}
+
+	public void setEstudioTipo(String estudioTipo) {
+		EstudioTipo = estudioTipo;
+	}
+
+	public String getEstudioDecimales() {
+		return EstudioDecimales;
+	}
+
+	public void setEstudioDecimales(String estudioDecimales) {
+		EstudioDecimales = estudioDecimales;
+	}
+
+	public String getEstudioEntrega() {
+		return EstudioEntrega;
+	}
+
+	public void setEstudioEntrega(String estudioEntrega) {
+		EstudioEntrega = estudioEntrega;
+	}
+
+	public String getEstudioIndicacionesPa() {
+		return EstudioIndicacionesPa;
+	}
+
+	public void setEstudioIndicacionesPa(String estudioIndicacionesPa) {
+		EstudioIndicacionesPa = estudioIndicacionesPa;
+	}
+
+	public String getEstudioIndicacionesPe() {
+		return EstudioIndicacionesPe;
+	}
+
+	public void setEstudioIndicacionesPe(String estudioIndicacionesPe) {
+		EstudioIndicacionesPe = estudioIndicacionesPe;
 	}
 
 	public String getEstudioArea() {
@@ -180,8 +246,6 @@ public class EstudioE implements Serializable  {
 		EstudioPrecio = estudioPrecio;
 	}
 
-
-
 	public String getBeMedicaId() {
 		return BeMedicaId;
 	}
@@ -189,8 +253,6 @@ public class EstudioE implements Serializable  {
 	public void setBeMedicaId(String beMedicaId) {
 		BeMedicaId = beMedicaId;
 	}
-	
-	
 	
 
 }
