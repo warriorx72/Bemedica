@@ -25,7 +25,7 @@ public class SucursalDaoImplE implements ISucursal {
 		// TODO Auto-generated method stub
 		
 		
-		return em.createQuery("from Sucursal").getResultList();
+		return em.createQuery("from SucursalE").getResultList();
 	
 		    
 		
