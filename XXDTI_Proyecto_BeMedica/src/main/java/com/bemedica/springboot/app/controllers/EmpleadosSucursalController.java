@@ -41,8 +41,6 @@ public class EmpleadosSucursalController{
 	public String listar (Model model) {
 		model.addAttribute("titulo","Empleados");
 		model.addAttribute("vista", EmpleadosSucursalDao.All());
-		
-		
 		return "administracion_empleados";
 	}
 	
