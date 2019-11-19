@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bemedica.springboot.app.models.entity.Estudio;
 import com.bemedica.springboot.app.models.entity.Perfiles;
 @Repository
 public class PerfilesDaoImpl implements IPerfilesDao {
@@ -23,6 +24,13 @@ public class PerfilesDaoImpl implements IPerfilesDao {
 	public List<Perfiles> findAll() {
 		// TODO Auto-generated method stub
 		return em.createQuery ("from Perfiles").getResultList();
+	}
+	
+	@Override
+	@Transactional
+	public List<Perfiles> findBy() {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("select * from perfiles where perfil_estatus=1").getResultList();
 	}
 
 	@Override

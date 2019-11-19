@@ -81,8 +81,8 @@ public class CatalogoController {
 		
 		
 		
-		@RequestMapping(value="/eliminar/{CatalogoId}")
-		public String eliminar(@PathVariable(value= "CatalogoId") Long CatalogoId) {
+		@RequestMapping(value="/eliminarcat/{CatalogoId}")
+		public String eliminarcat(@PathVariable(value= "CatalogoId") Long CatalogoId) {
 			
 			if(CatalogoId > 0) {
 				catalogoDao.delete(CatalogoId);

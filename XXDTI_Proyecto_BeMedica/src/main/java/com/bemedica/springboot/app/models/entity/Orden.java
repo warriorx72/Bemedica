@@ -41,7 +41,14 @@ public class Orden implements Serializable {
 	public String orden_fecha;
     public String orden_urgencia;
     public String orden_cotizacion;
-    public String factura_id;
+    public String metodo_pago;
+    public String getMetodo_pago() {
+		return metodo_pago;
+	}
+	public void setMetodo_pago(String metodo_pago) {
+		this.metodo_pago = metodo_pago;
+	}
+	public String factura_id;
     public Integer medico_id;
     public String orden_confidencial;
     public String monto;

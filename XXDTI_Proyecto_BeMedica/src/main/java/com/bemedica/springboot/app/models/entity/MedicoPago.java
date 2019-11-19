@@ -14,7 +14,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "medico_pagos")
@@ -40,8 +39,7 @@ public class MedicoPago implements Serializable{
 	
 	@NotNull
 	@Column(name = "fecha_Pago")
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date FechaPago;
 	
 	/*@PrePersist

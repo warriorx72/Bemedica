@@ -39,7 +39,7 @@ public class OrdenEstudio implements Serializable {
 		this.orden_estudio_id = orden_estudio_id;
 	}
 	public Long orden_id;
-	public Long estudio_id;
+	public String estudio_id;
 	////public int cantidad_estudio;
 	public String tipo;
 
@@ -56,15 +56,15 @@ public class OrdenEstudio implements Serializable {
 	public void setOrden_id(Long orden_id) {
 		this.orden_id = orden_id;
 	}
-	public Long getEstudio_id() {
+	public String getEstudio_id() {
 		return estudio_id;
 	}
-	public void setEstudio_id(Long estudio_id) {
+	public void setEstudio_id(String estudio_id) {
 		this.estudio_id = estudio_id;
 	}
 	///public int getCantidad_estudio() {
 		///return cantidad_estudio;
-	//}
+	//}Ok
 	//public void setCantidad_estudio(int cantidad_estudio) {
 		//this.cantidad_estudio = cantidad_estudio;
 	//}

@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bemedica.springboot.app.models.entity.Estudio;
 import com.bemedica.springboot.app.models.entity.Paquetes;
 @Repository
 public class PaquetesDaoImpl implements IPaquetesDao {
@@ -21,6 +22,12 @@ public class PaquetesDaoImpl implements IPaquetesDao {
 	public List<Paquetes> findAll() {
 		// TODO Auto-generated method stub
 		return em.createQuery ("from Paquetes").getResultList();
+	}
+	@Override
+	@Transactional
+	public List<Paquetes> findBy() {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("select * from paquetes where paquete_estatus=1").getResultList();
 	}
 
 	@Override

@@ -14,9 +14,7 @@ public class CajaVistaController {
 	
 	@Autowired
 	private ICajaVistaDao cajaVistaDao;
-	
 
-	
 @RequestMapping(value="/herramientas_corte", method=RequestMethod.GET)
 	
      public String listar(Model model) {
@@ -26,6 +24,5 @@ public class CajaVistaController {
 		
 		return "herramientas_corte";
 	   }
-
 
 }

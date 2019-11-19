@@ -156,7 +156,6 @@ public class EstudiosController {
 	public String guardarValor (Map<String, Object> m,Estudios estudio,ValorReferencia valores,BindingResult result , Model model,SessionStatus status)
 	{		
 		Estudios estudios = new Estudios();
-		model.addAttribute("valoresListar", valorReferenciaDao.findAllById(estudios.getEstudioId()));
 		Estudios aux=null;
 		m.put("titulo","Guardar Estudio");
 		aux=estudiosDao.findOne(valores.getEstudioId());
@@ -184,6 +183,7 @@ public class EstudiosController {
 		valorReferenciaDao.save(valores);
 		m.put("valores", valores);
 		m.put("estudios",aux);
+		model.addAttribute("valoresListar", valorReferenciaDao.findAllById(estudios.getEstudioId()));
 		model.addAttribute("alertas", alertasDao.findAll());
 		model.addAttribute("catalogos", catalogoDao.findAll());
 		model.addAttribute("valoresListar", valorReferenciaDao.findAllById(aux.getEstudioId()));
