@@ -1,0 +1,179 @@
+<!DOCTYPE html  >
+<html xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+<meta charset="UTF-8">
+
+<title th:text="${titulo}" ></title>
+
+<!-- Bootstrap CSS CDN -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+	crossorigin="anonymous">
+<!-- Our Custom CSS -->
+<link rel="stylesheet" href="http://localhost:8090/css/style.css">
+
+<!-- Font Awesome JS -->
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+	crossorigin="anonymous"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+	crossorigin="anonymous"></script>
+	
+<script>
+    function popup(id) {
+        window.open("listar_ordenes/"+id, 'window', 'width=200', 'height=100');
+    }
+</script> 
+
+</head>
+
+<body  >
+
+    <div class="wrapper">
+    
+        <!-- Page Content  -->
+        <div id="content">
+            <div class="accordion" id="accordionExample" style="user-select:none;">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0 form-row" style="font-size: 20px;">
+                            Generación de Reportes y Estadísticas
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                        data-parent="#accordionExample">
+                        <div class="card-body">
+                            <!--Inicia código de formulario-->
+                            
+                                <div align="right">
+									<input type="submit" onclick="popup(240)" class="btn btn-primary" value="Descargar" />
+								</div>
+                        
+                            <!--Termina código de formulario-->
+                        </div>
+                    </div>
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0 form-row" style="font-size: 20px;">
+                            Reportes
+                            <div class="ml-auto">
+                                </button>
+                                <button class="btn btn-link" type="button" aria-expanded="true" title="">
+                                    <i class="fas fa-file"></i>
+                                </button>
+                            </div>
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                        data-parent="#accordionExample">
+                        <div class="card-body">
+                            <!--Inicia código de tabla-->
+
+                              <div class="col-sm-12">
+                                <div class="card mb-3">
+
+                                  <div class="card-header">
+                                      <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                          <thead>
+                                            <tr class="table-primary">
+                                              <th>Fecha</th>
+                                              <th>Monto</th>
+                                              <th>Anticipos</th>
+                                              <th>Adeudos</th>
+                                              <th></th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                              <td> </td>
+                                              <td> </td>
+                                              <td> </td>
+                                              <td> </td>
+                                              <td> </td>
+                                                </tr>
+                                              </tbody>
+
+                                            </table>
+                                              <!--Termina código de tabla-->
+
+                                          </div>
+
+                                      </div>
+
+
+                                    </div>
+                                    <!-- Bar Chart -->
+                                    <br>
+                                    <div align="center">
+                                      <div class="col-xl-9 col-lg-7" >
+                                        <div class="card shadow mb-4">
+                                          <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Reporte de caja</h6>
+                                          </div>
+                                          <div class="card-body">
+                                            <div class="chart-bar">
+                                              <canvas id="myBarChart"></canvas>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <!--Termina código de formulario-->
+                                  </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+        <!-- Demo scripts for this page-->
+        <script src="js/demo/datatables-demo.js"></script>
+
+        <!-- Page level plugin JavaScript-->
+        <script src="vendor/datatables/jquery.dataTables.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+        <!-- Page level plugins -->
+ <script src="vendor/chart.js/Chart.min.js"></script>
+
+ <!-- Page level custom scripts -->
+ <script src="js/demo/chart-area-demo.js"></script>
+ <script src="js/demo/chart-pie-demo.js"></script>
+ <script src="js/demo/chart-bar-demo.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
