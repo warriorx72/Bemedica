@@ -174,6 +174,12 @@ public class EstudiosController {
 		estudios.setBeMedicaId("1");
 		estudios.setEstudioTipo("2");
 		estudios.setEstudioEstatus(true);
+		if(estudios.getEstudioEnvases()=="") {
+			estudios.setEstudioEnvases(null);
+		}
+		if(estudios.getEstudioArea()=="") {
+			estudios.setEstudioArea(null);
+		}
 		estudiosDao.save(estudios);
 		if(estudios.getEstudioIdText()=="") {
 			char buf[] = new char[3];
@@ -200,6 +206,9 @@ public class EstudiosController {
 		estudios.setBeMedicaId("1");
 		estudios.setEstudioTipo("3");
 		estudios.setEstudioEstatus(true);
+		if(estudios.getEstudioArea()=="") {
+			estudios.setEstudioArea(null);
+		}
 		estudiosDao.save(estudios);
 		if(estudios.getEstudioIdText()=="") {
 			char buf[] = new char[3];

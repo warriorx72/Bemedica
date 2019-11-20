@@ -86,6 +86,12 @@ public class PerfilesController {
 		if (result.hasErrors()) {
 			return "estudios_perfiles";
 		}
+		if(perfiles.getPerfilEnvase()=="") {
+			perfiles.setPerfilEnvase(null);
+		}
+		if(perfiles.getPerfilArea()=="") {
+			perfiles.setPerfilArea(null);
+		}
 		perfiles.setPerfilEstatus(true);
 		perfilesDao.save(perfiles);
 		if(perfiles.getPerfilIdText()=="") {

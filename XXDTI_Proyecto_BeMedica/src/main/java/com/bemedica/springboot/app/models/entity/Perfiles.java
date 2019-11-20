@@ -33,10 +33,10 @@ public class Perfiles implements Serializable{
 	private String PerfilDescripcion;
 	
 	@Column(name="perfil_envase")
-	private int PerfilEnvase;
+	private String PerfilEnvase;
 	
 	@Column(name="perfil_area")
-	private int PerfilArea;
+	private String PerfilArea;
 	
 	@Column(name="perfil_precio")
 	private Float PerfilPrecio;
@@ -94,19 +94,19 @@ public class Perfiles implements Serializable{
 		PerfilDescripcion = perfilDescripcion;
 	}
 
-	public int getPerfilEnvase() {
+	public String getPerfilEnvase() {
 		return PerfilEnvase;
 	}
 
-	public void setPerfilEnvase(int perfilEnvase) {
+	public void setPerfilEnvase(String perfilEnvase) {
 		PerfilEnvase = perfilEnvase;
 	}
 
-	public int getPerfilArea() {
+	public String getPerfilArea() {
 		return PerfilArea;
 	}
 
-	public void setPerfilArea(int perfilArea) {
+	public void setPerfilArea(String perfilArea) {
 		PerfilArea = perfilArea;
 	}
 
