@@ -221,139 +221,107 @@
                         data-parent="#accordionExample">
                         <div class="card-body">
                             <!--Inicia código de formulario-->
-                            <form  th:object="${antibiogramas}" th:action="@{/estudios_antibiogramas}" method="post">
+                            <form  th:action="@{/gabinete}" th:object="${estudios}" method="post"> 
                                   <div class="form-row mb-0">
-                                      <div class="form-group col-md-3">
-                                          <label class="col-form-label-sm mb-0">*Id del Estudio</label>
-                                          <input type="text" class="form-control form-control-sm" th:field="*{AntiIdText}">
-                                      </div>
-                                      <div class="form-group col-md-3">
-                                          <label class="col-form-label-sm mb-0">*Nombre Estudio</label>
-                                          <input type="text" class="form-control form-control-sm" th:field="*{AntiNombre}">
-                                      </div>
-                                          <div class="form-group col-md-3">
-                                              <label for="inputRFC" class="col-form-label-sm mb-0">Visible de forma Individual</label>
-                                              <input type="checkbox" class="form-control form-control-sm" th:field="*{AntiIndividual}">
-                                          </div>
+									<div class="form-group col-md-3">
+										<label class="col-form-label-sm mb-0">*Id Examen</label> <input
+											type="text" class="form-control form-control-sm" id="Select1"
+											th:field="*{EstudioIdText}" readonly=readonly>
+									</div>
+									<div class="form-group col-md-3">
+										<label class="col-form-label-sm mb-0">*Nombre del
+											Examen</label> <input type="text" required="required"
+											class="form-control form-control-sm"
+											th:field="*{EstudioNombre}">
+									</div>
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Visualizar de
+											forma Individual</label> <input type="checkbox"
+											class="form-control form-control-sm" value="1"
+											th:field="*{EstudioIndividual}">
+									</div>
                                   </div>
-                                  <div class="form-row mb-0">
-                                      <div class="form-group col-md-3">
+									<div class="form-group col-md-4">
 										<label class="col-form-label-sm mb-0">Precio Inicial</label> <input
-											type="number" class="form-control form-control-sm" step="any"
-											min="1" pattern="^[0-9]+" th:field="*{PerfilPrecio}">
-									</div>
-                                     <div class="form-group col-md-4">
-										<label for="inputSexo" class="col-form-label-sm mb-0">Tipo de Estudio
-										</label> <select class="form-control form-control-sm"
-											th:field="*{PerfilArea}">
-											<option th:each="catalogo: ${catalogos}"
-												th:if="${catalogo.NombreCat == 'areas proceso'}"
-												th:value="${catalogo.CatalogoId}"
-												th:text="${catalogo.Nombre}"></option>
-										</select>
-									</div>
-									
-                                  </div>
+											required="required" type="number" step="any" min="1"
+											pattern="^[0-9]+" class="form-control form-control-sm"
+											th:field="*{EstudioPrecio}">
+									</div>		
+														
+                                  
                                    <div class="form-row mb-0">
                                      
                                      <div class="form-group col-md-4">
 										<label for="inputSexo" class="col-form-label-sm mb-0">Entrega.
 										</label> <select class="form-control form-control-sm"
-											th:field="*{PerfilArea}">
+											th:field="*{GabineteEntrega}">
+											<option 
+												th:value="'Impreso'"
+												th:text="'Impreso'">
+											</option>
+		     								<option 
+												th:value="'CD'"
+												th:text="'CD'">
+											</option>
+											<option 
+												th:value="'Placa'"
+												th:text="'Placa'">
+											</option>
+											
+										</select>
+									</div>
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Tiempo de
+											entrega</label> <input type="number" required="required" min="1"
+											pattern="^[0-9]+" class="form-control form-control-sm"
+											th:field="*{EstudioEntrega}">
+									</div>
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Descripción del
+											Examen</label> <input type="text" required="required"
+											class="form-control form-control-sm"
+											th:field="*{EstudioDescripcion}">
+									</div>
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Area Encargada</label> <select
+											class="form-control form-control-sm"
+											th:field="*{EstudioArea}">
+											<option th:value="''" th:text="''"></option>
 											<option th:each="catalogo: ${catalogos}"
 												th:if="${catalogo.NombreCat == 'areas proceso'}"
 												th:value="${catalogo.CatalogoId}"
 												th:text="${catalogo.Nombre}"></option>
 										</select>
 									</div>
-									   <div class="col-12 col-md-4">
-                                               <div class="form-group">
-                                                 <h2>Rango de Tiempo.</h2>
-                                                   <select class="form-control" id="doctors">
-                                                   <option>20 Minutos</option>
-                                                   <option>30 Minutos</option>
-                                                   <option>40 Minutos</option>
-                                                   <option>50 Minutos</option>
-                                                   <option>60 Minutos</option>
-                                               </select>
-                                               </div>
-
-                                           </div>
-                                         <div class="form-group col-md-3">
-                                          <label class="col-form-label-sm mb-0">*Desripcion del Estudio</label>
-                                          <input type="text" class="form-control form-control-sm" th:field="*{AntiNombre}">
-                                      </div>
-                                      <div class="form-group col-md-3">
-                                          <label class="col-form-label-sm mb-0">*Area Encargada</label>
-                                          <input type="text" class="form-control form-control-sm" th:field="*{AntiNombre}">
-                                      </div>
-									
-                                  </div>
-                                   <input type="hidden" th:field="*{AntiId}" />
-                                   <input type="submit" th:value="${titulo}" class="form-control"/>
-                             </form>
-
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Indicaciones
+											para el paciente</label>
+										<textarea name="comentarios" rows="10" cols="40"
+											required="required" th:field="*{EstudioIndicacionesPa}"></textarea>
+									</div>
+									<div class="form-group col-md-4">
+										<label class="col-form-label-sm mb-0">Indicaciones
+											para el personal</label>
+										<textarea name="comentarios" rows="10" cols="40"
+											required="required" th:field="*{EstudioIndicacionesPe}"></textarea>
+										<td><input type="submit" th:value="${titulo}"
+											class="form-control" /></td>
+										<td><input type="hidden" th:field="*{EstudioId}" /> <input
+											type="hidden" th:field="*{BeMedicaId}" /> <input
+											type="hidden" th:field="*{EstudioTipo}" /> <input
+											type="hidden" th:field="*{EstudioEstatus}" /></td>
+									</div>
+								</div>
+					</form>	
               </div>
+              	
             </div>
+            
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                 data-parent="#accordionExample">
                 <div class="card-body">
-                    <!--Inicia código de formulario-->
-                    <div class="card-header" id="headingOne">
-                        <h2 class="mb-0 form-row" style="font-size: 20px;">
-                            Antibióticos
-                        </h2>
-                    </div>
-            <form th:action="@{/antibiogramas_catalogos}" th:object="${antiCatalogos}" method="post">
 
-                <div class="form-row">
-                  <div class="form-group col-md-3">
-                      <label class="col-form-label-sm mb-0">Nombre Antibiotico</label>
-	                      <select class="form-control form-control-sm" th:field="*{CatalogoId}" id="Select1">
-	                      <option value="" selected disabled>Seleccione un antibiótico</option>
-	                      <option th:each="catalogo: ${catalogos}"
-	                      th:value="${catalogo.CatalogoId}" th:text="${catalogo.Nombre}"></option>
-	                      </select>
-	                      <input type="hidden" th:field="*{AntiId}" />
-	
-                  </div>
-                  <button class="btn btn-link" type="button" onclick="tenerId()" id="EliminarRecurso" aria-expanded="true" title="">
-                      <i class="fa fa-step-backward"></i>
-                      
-				  </button>
-				  <input  disabled="disabled" type="text" id="bbb" style="display:none"/>
-				  
-				  <input  disabled="disabled" type="text" id="bbbb" th:field="*{AntiId}" style="display:none"/>
-
-                  <button class="btn btn-link" type="submit" aria-expanded="true" title="" id="Submit1">
-                          <i class="	fa fa-step-forward"></i> 
-                  </button>
-                  <br>
-                    <div class="form-group" style="width: 59.5%; margin-left: 71px;">
-						<table class="table table-hover table-sm" id="mytable">
-						
-							<thead>
-								<tr>
-									 <th id="col1" scope="col" style="display:none">ID</th>
-									<th id="col2" scope="col">Antibiotico</th>
-		
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-							
-								<tr th:each="cata: ${catalogoss}">
-								
-									 <td th:text="${cata.AntiCatalogoId}" style="display:none"></td>
-									<td th:text="${cata.Nombre}">		
-								</tr>
-		
-							</tbody>
-						</table>
-                    </div>
-				</div>
-
-            </form>
                     <!--Termina código de formulario-->
                 </div>
             </div>

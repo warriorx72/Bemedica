@@ -242,7 +242,7 @@
 									<div class="form-group col-md-3">
 										<label class="col-form-label-sm mb-0">*Id Examen</label> <input
 											type="text" class="form-control form-control-sm" id="Select1"
-											th:field="*{EstudioIdText}">
+											th:field="*{EstudioIdText}" readonly=readonly>
 									</div>
 									<div class="form-group col-md-3">
 										<label class="col-form-label-sm mb-0">*Nombre del
@@ -269,6 +269,7 @@
 										<label class="col-form-label-sm mb-0">Tipo de muestra</label>
 										<select class="form-control form-control-sm"
 											th:field="*{EstudioMuestra}">
+											<option th:value="''" th:text="''"></option>
 											<option th:each="catalogo: ${catalogos}"
 												th:if="${catalogo.NombreCat == 'tipos de muestras'}"
 												th:value="${catalogo.CatalogoId}"
@@ -287,6 +288,7 @@
 										<label class="col-form-label-sm mb-0">Esquema de
 											Alertas</label> <select class="form-control form-control-sm"
 											th:field="*{EstudioAlertas}">
+											<option th:value="''" th:text="''"></option>
 											<option th:each="alerta: ${alertas}"
 												th:value="${alerta.AlertaId}"
 												th:text="${'|*'+alerta.Rango1+'*|*'+alerta.Rango2+'*|*'+alerta.Rango3+'*|*'+alerta.Rango4+'*|*'+alerta.Rango5+'*|*'+alerta.Rango6+'*|*'+alerta.Rango7}"></option>
@@ -296,6 +298,7 @@
 										<label class="col-form-label-sm mb-0">Valores de
 											referencia a imprimir</label> <select th:field="*{EstudioVrI}"
 											class="form-control form-control-sm">
+											<option th:value="''" th:text="''"></option>
 											<option th:value="1">Normal según resultado</option>
 											<option th:value="2">Normales por condicion clínica</option>
 											<option th:value="3">Normales por edades</option>
@@ -308,6 +311,7 @@
 										<label class="col-form-label-sm mb-0">Tipo de envace</label> <select
 											class="form-control form-control-sm"
 											th:field="*{EstudioEnvases}">
+											<option th:value="''" th:text="''"></option>
 											<option th:each="catalogo: ${catalogos}"
 												th:if="${catalogo.NombreCat == 'envases muestras'}"
 												th:value="${catalogo.CatalogoId}"
@@ -318,6 +322,7 @@
 										<label class="col-form-label-sm mb-0">Unidades de
 											medida</label> <select class="form-control form-control-sm"
 											th:field="*{EstudioMedida}">
+											<option th:value="''" th:text="''"></option>
 											<option th:each="catalogo: ${catalogos}"
 												th:if="${catalogo.NombreCat == 'unidades resultados'}"
 												th:value="${catalogo.CatalogoId}"
@@ -328,13 +333,17 @@
 										<label class="col-form-label-sm mb-0">Decimales de
 											Reporte</label> <select class="form-control form-control-sm"
 											th:field="*{EstudioDecimales}">
+											<option th:value="''" th:text="''"></option>
+											<option value="1">1</option>
 											<option value="2">2</option>
+											<option value="3">3</option>
 										</select>
 									</div>
 									<div class="form-group col-md-4">
-										<label class="col-form-label-sm mb-0">Técnica de
+										<label class="col-form-label-sm mb-0">Técnica
 											Empleada</label> <select class="form-control form-control-sm"
 											th:field="*{EstudioTecnica}">
+											<option th:value="''" th:text="''"></option>
 											<option th:each="catalogo: ${catalogos}"
 												th:if="${catalogo.NombreCat == 'tecnicas estudios'}"
 												th:value="${catalogo.CatalogoId}"
@@ -359,6 +368,7 @@
 										<label class="col-form-label-sm mb-0">Area Encargada</label> <select
 											class="form-control form-control-sm"
 											th:field="*{EstudioArea}">
+											<option th:value="''" th:text="''"></option>
 											<option th:each="catalogo: ${catalogos}"
 												th:if="${catalogo.NombreCat == 'areas proceso'}"
 												th:value="${catalogo.CatalogoId}"

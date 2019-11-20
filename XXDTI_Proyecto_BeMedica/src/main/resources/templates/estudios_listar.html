@@ -189,7 +189,11 @@
 															<td><a class="text-primary"
 																th:text="${estudio.IdText}"
 																th:if="${estudio.Catalogo=='Examenes'}"
-																th:href="@{/estudios_examenes/} +${estudio.Id}"></a> <a
+																th:href="@{/estudios_examenes/} +${estudio.Id}"></a>
+																<a class="text-primary"
+																th:text="${estudio.IdText}"
+																th:if="${estudio.Catalogo=='Gabinete'}"
+																th:href="@{/gabinete/} +${estudio.Id}"></a> <a
 																class="text-primary" th:text="${estudio.IdText}"
 																th:if="${estudio.Catalogo=='Cultivos'}"
 																th:href="@{/estudios_cultivos/} +${estudio.Id}"></a> <a

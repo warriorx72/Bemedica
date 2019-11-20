@@ -95,6 +95,20 @@ public class EstudiosController {
 	
 	}
 	
+	@RequestMapping(value="/gabinete")
+	public String crear3 (Map<String, Object> model,Model m)
+	{
+		m.addAttribute("catalogos", catalogoDao.findAll());
+		
+		Estudios estudios = new Estudios();
+		ValorReferencia valores = new ValorReferencia();
+		model.put("estudios",estudios);
+		model.put("valores", valores);
+		model.put("titulo","Guardar Gabinete");	
+		return "gabinete";
+	
+	}
+	
 
 	@RequestMapping(value= "/estudios_examenes", method=RequestMethod.POST)
 	public String guardarEstudio (Map<String, Object> m,@Valid Estudios estudios,BindingResult result , Model model,SessionStatus status)
@@ -108,6 +122,30 @@ public class EstudiosController {
 		estudios.setBeMedicaId("1");
 		estudios.setEstudioTipo("1");
 		estudios.setEstudioEstatus(true);
+		if(estudios.getEstudioAlertas()=="") {
+			estudios.setEstudioAlertas(null);
+		}
+		if(estudios.getEstudioEnvases()=="") {
+			estudios.setEstudioEnvases(null);
+		}
+		if(estudios.getEstudioArea()=="") {
+			estudios.setEstudioArea(null);
+		}
+		if(estudios.getEstudioDecimales()=="") {
+			estudios.setEstudioDecimales(null);
+		}
+		if(estudios.getEstudioMedida()=="") {
+			estudios.setEstudioMedida(null);
+		}
+		if(estudios.getEstudioMuestra()=="") {
+			estudios.setEstudioMuestra(null);
+		}
+		if(estudios.getEstudioTecnica()=="") {
+			estudios.setEstudioTecnica(null);
+		}
+		if(estudios.getEstudioVrI()=="") {
+			estudios.setEstudioVrI(null);
+		}
 		estudiosDao.save(estudios);
 		if(estudios.getEstudioIdText()=="") {
 			char buf[] = new char[3];
@@ -147,6 +185,29 @@ public class EstudiosController {
 		ValorReferencia valores = new ValorReferencia();
 		valores.setEstudioId(estudios.getEstudioId());
 		m.put("valores",valores);
+		model.addAttribute("catalogos", catalogoDao.findAll());
+		model.addAttribute("alertas", alertasDao.findAll());
+		return "redirect:/estudios_listar";
+	}
+	@RequestMapping(value= "/gabinete", method=RequestMethod.POST)
+	public String guardarGabinete (Map<String, Object> m,@Valid Estudios estudios,BindingResult result , Model model,SessionStatus status)
+	{		
+		model.addAttribute("catalogos", catalogoDao.findAll());
+		m.put("titulo","Guardar Gabinete");
+		if(result.hasErrors()) {
+			return "gabinete";
+		}
+		estudios.setBeMedicaId("1");
+		estudios.setEstudioTipo("3");
+		estudios.setEstudioEstatus(true);
+		estudiosDao.save(estudios);
+		if(estudios.getEstudioIdText()=="") {
+			char buf[] = new char[3];
+			estudios.getEstudioNombre().getChars(0,3,buf,0);
+			String IdText = String.valueOf(buf);
+			estudios.setEstudioIdText(IdText.toLowerCase()+(estudios.getEstudioId()+10000));
+		}
+		estudiosDao.save(estudios);
 		model.addAttribute("catalogos", catalogoDao.findAll());
 		model.addAttribute("alertas", alertasDao.findAll());
 		return "redirect:/estudios_listar";
@@ -228,6 +289,21 @@ public class EstudiosController {
 		return "estudios_cultivos";		
 	}
 	
+	@RequestMapping(value= "/gabinete/{id}")
+	public String editar3(@PathVariable(value="id") Long id, Map<String, Object> model,Model m) {
+		m.addAttribute("catalogos", catalogoDao.findAll());
+		
+		Estudios estudios = null;
+		if(id>0) {
+			estudios=estudiosDao.findOne(id);
+		}
+		else {
+			return "redirect:gabinete/";
+		}
+		model.put("estudios",estudios);
+		model.put("titulo","Guardar Gabinete");
+		return "gabinete";		
+	}
 	@RequestMapping (value="/eliminar_estudio/{id}")
 	public String eliminar(@PathVariable (value="id") Long id) {
 		
