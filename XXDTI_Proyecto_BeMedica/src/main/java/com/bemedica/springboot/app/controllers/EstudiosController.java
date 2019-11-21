@@ -131,9 +131,6 @@ public class EstudiosController {
 		if(estudios.getEstudioArea()=="") {
 			estudios.setEstudioArea(null);
 		}
-		if(estudios.getEstudioDecimales()=="") {
-			estudios.setEstudioDecimales(null);
-		}
 		if(estudios.getEstudioMedida()=="") {
 			estudios.setEstudioMedida(null);
 		}

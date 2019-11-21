@@ -255,7 +255,7 @@
                                           <label class="col-form-label-sm mb-0">Tipo de envace</label>
                                           <select class="form-control form-control-sm" th:field="*{EstudioEnvases}">
                                           	  <option th:value="''" th:text="''"></option>
-                                              <option th:each="catalogo: ${catalogos}" th:if="${catalogo.NombreCat == 'envases muestra'}"
+                                              <option th:each="catalogo: ${catalogos}" th:if="${catalogo.NombreCat == 'envases muestras'}"
                                                th:value="${catalogo.CatalogoId}" th:text="${catalogo.Nombre}"></option>
                                           </select>
                                       </div>
