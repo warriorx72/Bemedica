@@ -264,7 +264,7 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                  </div>
                                  <!--body de Modal -->
-                                 <form action="/formC" method="post">
+                                 <form action="/formC" method="post"  th:object ="${orden}">
                                     <div class="modal-body">
                                        <div class="form-row">
                                           <!--    <div class="form-group col-md-3">
@@ -358,6 +358,7 @@
                                        </div>
                                        <input class="btn btn-primary" type="submit" value="Guardar" id="submit">
                                     </div>
+                                   <input type="hidden"   th:field="*{orden_id}"/> <!-- -fgsdfgsdgfdgsdfgfdgfdsggfdsgdfsggsdfg -->
                                  </form>
                                  <div class="modal-footer">
                                  </div>
@@ -486,73 +487,7 @@
                         </div>
                         <h5>Ingresar orden</h5>
                         <!--Inicia código de formulario-->
-                        <form action="guardarorden"  th:object ="${orden}" method="post">
-                           <div class="form-row">
-                              <!--   <input type="hidden"   th:field="*{direccion.direccion_id}"/>
-                                 <input type="hidden"   th:field="*{persona.persona_id}"/>
-                                 
-                                                                --> 
-                              <div class="col-sm-3">
-                                 <label class="col-sm-12 col-form-label">Paciente</label> 
-                                 <select class="form-control" th:field="*{paciente_id}">
-                                    <option value=''>seleccione paciente</option>
-                                    <option th:each="paciente:${pacientes}"
-                                       th:value="${paciente.paciente_id}"
-                                       th:label="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am}" />
-                                 </select>
-                              </div>
-                              <div class="col-sm-3">
-                                 <label class="col-sm-12 col-form-label">Medico</label> 
-                                 <select id="" class="form-control" th:field="*{medico_id}">
-                                    <option value=''>seleccione medico</option>
-                                    <option th:each="medico:${medicos}"
-                                       th:value="${medico.medico_id}"
-                                       th:label="${medico.persona_nombre + ' ' + medico.persona_ap + ' ' + medico.persona_am}" />
-                                 </select>
-                              </div>
-                              <!--  <div class="form-group col-md-3">
-                                 <label for="input1" class="col-form-label-sm mb-0">Fecha orden</label>
-                                 <input type="date" class="form-control form-control-sm" id="input1" required th:field="*{orden_fecha}">
-                                 </div> -->
-                              <div class="col-sm-3">
-                                 <label class="col-sm-12 col-form-label">Orden status</label> 
-                                 <select id="" class="form-control" th:field="*{orden_estatus}">
-                                    <option value="cotizacion">Cotizacion</option>
-                                    <option value="finalizada">Finalizada</option>
-                                    <option value="pendiente">Pendiente</option>
-                                 </select>
-                              </div>
-                              <div class="col-sm-3">
-                                 <label class="col-sm-12 col-form-label">Empleado</label> 
-                                 <select id="" class="form-control" th:field="*{empleado_id}">
-                                    <option th:each="empleado:${empleados}"
-                                       th:value="${empleado.empleado_id}"
-                                       th:label="${empleado.persona_nombre + ' ' + empleado.persona_ap}" />
-                                 </select>
-                              </div>
-                              <div class="col-sm-3">
-                                 <label class="col-sm-12 col-form-label">Sucursal</label> 
-                                 <select id="" class="form-control" th:field="*{sucursal_id}">
-                                    <option th:each="sucursal:${sucursales}"
-                                       th:value="${sucursal.sucursal_id}"
-                                       th:label="${sucursal.sucursal_nombre}" />
-                                 </select>
-                              </div>
-                               <div class="col-sm-3">
-                                 <label class="col-sm-12 col-form-label">Metodo de pago</label> 
-                                  <select id="" class="form-control" name="metodo_pago">
-                                  <option value="" disabled="" selected="">Seleccione metodo de pago</option>
-                                    <option value="efectivo">Efectivo</option>
-                                    <option value="tarjeta">Tarjeta</option>
-                                    
-                                 </select>
-                              </div>
-                           </div>
-                           <br>
-                           <input class="btn btn-primary" type="submit" value="Guardar" id="submit">
-                           <br>
-                           <input type="hidden"   th:field="*{orden_id}"/>
-                        </form>
+                       
                         <br>
                         <h5>Estudios</h5>
                         <form action="form_orden_estudios" th:object ="${ordenestudio}" method="post">
@@ -622,11 +557,11 @@
                                     --->
                                  <td><a class="btn btn-danger btn-xs" th:href="@{/eliminar3/} + ${oe.orden_estudio_id}" th:text="'eliminar'" onclick="return confirm('Estás seguro que quieres eliminar?');"></a></td>
                               </tr>
-                          <tr th:each= " oe: ${orden_estudios}">
+                          <tr th:each= "om: ${orden_monto}">
                               <td></td>
                               <td>Total</td>
                               
-                                <td th:text="${oe.total_linea}"></td>
+                                <td th:text="${om}"  ></td>
                               <td></td>
                               </tr>  
                            </tbody>
@@ -635,18 +570,21 @@
                         <h5>Ordenes</h5>
                         <br>
                         <!-- <form th:action="@{/estatus_empleado}" method="post"> ---->
-                        <table class="display" id="" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                        <table class="display" id="" >
                            <thead>
                               <tr class="table-primary" role="row">
                                  <!-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Orden folio</th>  -->
                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Orden folio</th>
                                  <!--    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 1px;" aria-label="R1: activate to sort column ascending"></th> --->
-                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Paciente</th>
-                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R2: activate to sort column ascending">Estatus</th>
+                                 <th >Paciente</th>
+                                 <th >Estatus</th>
                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Orden fecha</th>
-                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Monto</th>
-                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Pago inicial</th>
-                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Adeudo</th>
+                                 <th >Pago <br> inicial</th>
+                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Fecha liquidacion</th>
+                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 10px;" aria-label="R3: activate to sort column ascending">Pago final</th>
+                                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Adeudo</th>
+                                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Monto</th>
+                            
                               </tr>
                            </thead>
                            <tbody>
@@ -687,14 +625,26 @@
                                    <!--  </form> --->
                                  
                                  <td th:text="${orde.orden_fecha}"></td>
-                                 <td th:text="${orde.monto}"></td>
-                                 <td>
-                                 <input name="pago_inicial" th:onsubmit="'post_form(' + ${orde.orden_id} + ');'" type="text" th:value="${orde.pago_inicial}" >
-                                 <input type="hidden" name ="id" th:value="${orde.orden_id}"/>
+                                
+                               
+                                 <td width="5%">
+                                 
+                                 <input size="6" name="pago_inicial" th:ondblclick="'post_form(' + ${orde.orden_id} + ');'" type="text" th:value='${orde.pago_inicial}' >
+                                 
+                                <input type="hidden" name ="id" th:value="${orde.orden_id}"/> 
                                  
                                  </td>
+                                  <td th:text="${orde.fecha_liquidacion}"></td>
+                                 <!--<td th:text="${orde.fecha_liquidacion"></td> ----->
+                                 <td>
+                                 <input size="6" name="pago_final" th:ondblclick="'post_form(' + ${orde.orden_id} + ');'" type="text" th:value='${orde.pago_final}' >
+                                <input type="hidden" name ="id" th:value="${orde.orden_id}"/> 
+                                 
+                                 </td>
+                                 
                                  </form>
                                  <td th:text="${orde.adeudo}"></td>
+                                   <td th:text="${orde.monto}"></td>
                                  <!-- <td th:text="${medico.direccion_numero_ext}"></td>
                                     <td th:text="${medico.direccion_colonia}"></td>
                                     --->

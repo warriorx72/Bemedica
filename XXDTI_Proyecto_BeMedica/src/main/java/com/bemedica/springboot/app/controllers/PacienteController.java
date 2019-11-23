@@ -124,6 +124,22 @@ model.addAttribute("vista_ordenes", vistaordenDao.findAll());
 			m.put("orden", orden);///Modelo entity Cliente para crear un objeto de tipo cliente la palabra cliente es como llamaremos al objecto desde el ocntrolador
 			m.put("ordenestudio", ordenestudio);
 			m.put("titulo", "Formulario de Cliente");
+	//////////////////////////////////////////////////////////////7   IMPORTANTE QUITAR SINO SIRVE
+		    m.put("ordenestudio", ordenestudio);
+			   ///  model.put("titulo", "Formulario de Cliente");
+//				status.setComplete();
+			     model.addAttribute("pacientes", vistapacienteDao.findAll());  
+					model.addAttribute("medicos", vistamedicoDao.findAll());
+					///model.addAttribute("estudios", estudioDao.findAll());
+					model.addAttribute("estudios", estudioDao.findBy());
+																							////
+					model.addAttribute("paquetes", paquetesDao.findBy());					///
+					model.addAttribute("perfiles", perfilesDao.findBy());					///
+					////																	///
+					model.addAttribute("empleados", vistaempleadoDao.findAll());			//7
+					model.addAttribute("sucursales", sucursalDao.findAll());
+			model.addAttribute("ordenes", ordenDao.findAll());                             //
+			//////////////////////////////////////////////////////////////////////////////7
 			return "operaciones_recepcion"; 
 
 	}
@@ -139,13 +155,16 @@ model.addAttribute("vista_ordenes", vistaordenDao.findAll());
 		/// direccion.getDireccion_id();
 		Paciente paciente = new Paciente();
 		Medico medico= new Medico();
+		//////////////////////////////////////////////////////////7
+		Orden orden=new Orden();/////////////////////////crear la orden---------------------------
+		////////////////////////////////////////////////////////////////
 		model.put("direccion", direccion);///Modelo entity Cliente para crear un objeto de tipo cliente la palabra cliente es como llamaremos al objecto desde el ocntrolador
 		model.put("persona", persona);
 		model.put("paciente", paciente);
 		model.put("medico", medico);
-		
+		model.put("orden", orden);////////////////////////////777--------------fdfadf
 		model.put("titulo", "Formulario de Cliente");
-		return "formC";
+		return "formC";     /////////////////PONER OPEREACIONES_RECPECION
 	}
 	///////////////////////////////////77
 	//
@@ -256,6 +275,7 @@ Orden aux=null;
 		///model.addAttribute("vista_convenio_estudio", ConvenioEstudioDao.cev(aux.getConvenioId()));
 		model.addAttribute("orden_estudios", vistaordenestudioDao.voe(aux.getOrden_id()));
 		///return"form_convenio";
+		model.addAttribute("orden_monto", vistaordenDao.vo(aux.getOrden_id()));
 		return"operaciones_recepcion";
 	}
 	
@@ -331,7 +351,7 @@ Orden aux=null;
 	}
 
 	@RequestMapping(value = "/formC", method = RequestMethod.POST)
-	public String guardar(@Valid Direccion direccion, Persona persona, Paciente paciente, Medico medico, BindingResult result, Model model, SessionStatus status) 
+	public String guardar(@Valid Direccion direccion, Persona persona, Paciente paciente, Medico medico, Orden orden, BindingResult result, Model model, SessionStatus status, Map<String, Object> m) 
 	{
 
 		if (result.hasErrors()) {
@@ -348,8 +368,28 @@ Orden aux=null;
 		paciente.setPaciente_id_tex("PAC"+persona.getPersona_ap().charAt(0)+persona.getPersona_am().charAt(0)+persona.getPersona_nombre().charAt(0)+""+(persona.getPersona_id()+100000));
 
 		pacienteDao.save(paciente);
-		status.setComplete();
-		return "redirect:operaciones_recepcion"; 
+		///////////////////////////////////////77
+		orden.setPaciente_id(paciente.getPaciente_id().intValue());////////////////////////////////7
+		ordenDao.save(orden);
+		
+		///////////////////////////7
+		OrdenEstudio ordenestudio = new OrdenEstudio();
+		ordenestudio.setOrden_id(orden.getOrden_id());
+	     m.put("ordenestudio", ordenestudio);
+	   ///  model.put("titulo", "Formulario de Cliente");
+//		status.setComplete();
+	     model.addAttribute("pacientes", vistapacienteDao.findAll());  
+			model.addAttribute("medicos", vistamedicoDao.findAll());
+			///model.addAttribute("estudios", estudioDao.findAll());
+			model.addAttribute("estudios", estudioDao.findBy());
+			
+			model.addAttribute("paquetes", paquetesDao.findBy());
+			model.addAttribute("perfiles", perfilesDao.findBy());
+			////
+			model.addAttribute("empleados", vistaempleadoDao.findAll());
+			model.addAttribute("sucursales", sucursalDao.findAll());
+	model.addAttribute("ordenes", ordenDao.findAll());
+		return "operaciones_recepcion"; 
 
 	}
 	
@@ -439,7 +479,7 @@ pacienteDao.delete(id);
 			///model.addAttribute("vista_convenio_estudio", ConvenioEstudioDao.cev(aux.getConvenioId()));
 			model.addAttribute("orden_estudios", vistaordenestudioDao.voe(aux.getOrden_id()));
 			///return"form_convenio";
-		
+			model.addAttribute("orden_monto", vistaordenDao.vo(aux.getOrden_id()));
 			
 		}
 		return "operaciones_recepcion";
@@ -485,17 +525,18 @@ pacienteDao.delete(id);
 	} */
 	//////////////////////////////////7777
 	@RequestMapping (value="/estatus_empleadoPC", method = RequestMethod.POST)
-	public String estatusPC (@RequestParam("id") Long id, @RequestParam() String status_id, @RequestParam() String pago_inicial, Model model, RedirectAttributes redirectAttrs){
+	public String estatusPC (@RequestParam("id") Long id, @RequestParam() String status_id, @RequestParam() String pago_inicial, @RequestParam() String pago_final, Model model, RedirectAttributes redirectAttrs){
 		Orden e;
 		
 		e=ordenDao.findOne(id.longValue());
 		if (id>1){
 			
-		///	if(pac_id!=null) {
-			///	   e.setPaciente_id(pac_id);
-				///   }
+		//if(pac_id!=null) {
+	 //e.setPaciente_id(pac_id);
+		//   }
 		  e.setOrden_estatus(status_id);
 		  e.setPago_inicial(pago_inicial); 
+		  e.setPago_final(pago_final); 
 		  //ordenDao.save(e);
 			 ordenDao.save(e);
 		    ////redirectAttrs

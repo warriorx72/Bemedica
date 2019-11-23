@@ -42,7 +42,21 @@ public class Orden implements Serializable {
     public String orden_urgencia;
     public String orden_cotizacion;
     public String metodo_pago;
-    public String getMetodo_pago() {
+    public String pago_final;
+    public String fecha_liquidacion;
+    public String getPago_final() {
+		return pago_final;
+	}
+	public void setPago_final(String pago_final) {
+		this.pago_final = pago_final;
+	}
+	public String getFecha_liquidacion() {
+		return fecha_liquidacion;
+	}
+	public void setFecha_liquidacion(String fecha_liquidacion) {
+		this.fecha_liquidacion = fecha_liquidacion;
+	}
+	public String getMetodo_pago() {
 		return metodo_pago;
 	}
 	public void setMetodo_pago(String metodo_pago) {

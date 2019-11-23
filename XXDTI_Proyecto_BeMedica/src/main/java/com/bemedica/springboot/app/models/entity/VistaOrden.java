@@ -42,6 +42,20 @@ public class VistaOrden implements Serializable {
 	private String monto;
 	private String pago_inicial;
 	private String adeudo;
+	private String pago_final;
+	private String fecha_liquidacion;
+	public String getPago_final() {
+		return pago_final;
+	}
+	public void setPago_final(String pago_final) {
+		this.pago_final = pago_final;
+	}
+	public String getFecha_liquidacion() {
+		return fecha_liquidacion;
+	}
+	public void setFecha_liquidacion(String fecha_liquidacion) {
+		this.fecha_liquidacion = fecha_liquidacion;
+	}
 	public Long getOrden_id() {
 		return orden_id;
 	}
