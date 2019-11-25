@@ -485,9 +485,76 @@
                               </div>
                            </div>
                         </div>
-                        <h5>Ingresar orden</h5>
+                        <h5>Ordenes</h5>
                         <!--Inicia código de formulario-->
-                       
+                       <form action="guardarorden"  th:object ="${orden}" method="post">
+                           <div class="form-row">
+                              <!--   <input type="hidden"   th:field="*{direccion.direccion_id}"/>
+                                 <input type="hidden"   th:field="*{persona.persona_id}"/>
+                                 
+                                                                --> 
+                              <div class="col-sm-3">
+                                 <label class="col-sm-12 col-form-label">Paciente</label> 
+                                 <select class="form-control" th:field="*{paciente_id}">
+                                    <option value=''>seleccione paciente</option>
+                                    <option th:each="paciente:${pacientes}"
+                                       th:value="${paciente.paciente_id}"
+                                       th:label="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am}" />
+                                 </select>
+                              </div>
+                              <div class="col-sm-3">
+                                 <label class="col-sm-12 col-form-label">Medico</label> 
+                                 <select id="" class="form-control" th:field="*{medico_id}">
+                                    <option value=''>seleccione medico</option>
+                                    <option th:each="medico:${medicos}"
+                                       th:value="${medico.medico_id}"
+                                       th:label="${medico.persona_nombre + ' ' + medico.persona_ap + ' ' + medico.persona_am}" />
+                                 </select>
+                              </div>
+                              <!--  <div class="form-group col-md-3">
+                                 <label for="input1" class="col-form-label-sm mb-0">Fecha orden</label>
+                                 <input type="date" class="form-control form-control-sm" id="input1" required th:field="*{orden_fecha}">
+                                 </div> -->
+                             <!-- <div class="col-sm-3">
+                                 <label class="col-sm-12 col-form-label">Orden status</label> 
+                                 <select id="" class="form-control" th:field="*{orden_estatus}">
+                                    <option value="cotizacion">Cotizacion</option>
+                                    <option value="finalizada">Finalizada</option>
+                                    <option value="pendiente">Pendiente</option>
+                                 </select>
+                              </div>  ---->
+                              <div class="col-sm-3">
+                                 <label class="col-sm-12 col-form-label">Empleado</label> 
+                                 <select id="" class="form-control" th:field="*{empleado_id}">
+                                    <option th:each="empleado:${empleados}"
+                                       th:value="${empleado.empleado_id}"
+                                       th:label="${empleado.persona_nombre + ' ' + empleado.persona_ap}" />
+                                 </select>
+                              </div>
+                              <div class="col-sm-3">
+                                 <label class="col-sm-12 col-form-label">Sucursal</label> 
+                                 <select id="" class="form-control" th:field="*{sucursal_id}">
+                                    <option th:each="sucursal:${sucursales}"
+                                       th:value="${sucursal.sucursal_id}"
+                                       th:label="${sucursal.sucursal_nombre}" />
+                                 </select>
+                              </div>
+                               <div class="col-sm-3">
+                                 <label class="col-sm-12 col-form-label">Metodo de pago</label> 
+                                  <select id="" class="form-control" name="metodo_pago">
+                                  <option value="" disabled="" selected="">Seleccione metodo de pago</option>
+                                    <option value="efectivo">Efectivo</option>
+                                    <option value="tarjeta">Tarjeta</option>
+                                    
+                                 </select>
+                              </div>
+                           </div>
+                           <br>
+                           <input class="btn btn-primary" type="submit" value="Guardar" id="submit">
+                           <br>
+                           <input type="hidden"   th:field="*{orden_id}"/>
+                        </form>
+                        <br>
                         <br>
                         <h5>Estudios</h5>
                         <form action="form_orden_estudios" th:object ="${ordenestudio}" method="post">
