@@ -86,6 +86,19 @@ public class Estudios implements Serializable{
 	@Column(name="estudio_vr_i")
 	private String EstudioVrI;
 	
+	@Column(name="gabinete_entrega")
+	private String GabineteEntrega;
+	
+	
+	
+	public String getGabineteEntrega() {
+		return GabineteEntrega;
+	}
+
+	public void setGabineteEntrega(String gabineteEntrega) {
+		GabineteEntrega = gabineteEntrega;
+	}
+
 	public String getEstudioVrI() {
 		return EstudioVrI;
 	}

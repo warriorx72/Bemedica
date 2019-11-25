@@ -91,6 +91,9 @@
                      <li>
                         <a th:href="@{/estudios_paquetes}">Paquetes</a>
                      </li>
+                      <li>
+                        <a th:href="@{/gabinete}">Gabinete</a>
+                     </li>
                      <li>
                         <a th:href="@{/estudios_calculos}">Cálculos</a>
                      </li>
@@ -235,11 +238,11 @@
 									<div class="form-group col-md-3">
 										<label class="col-form-label-sm mb-0">*Id Perfil</label> <input
 											type="text" class="form-control form-control-sm"
-											th:field="*{PerfilIdText}">
+											th:field="*{PerfilIdText}" readonly=readonly>
 									</div>
 									<div class="form-group col-md-3">
 										<label class="col-form-label-sm mb-0">*Nombre del
-											Perfil</label> <input type="text"
+											Perfil</label> <input type="text" minlength="3"
 											class="form-control form-control-sm"
 											th:field="*{PerfilNombre}">
 									</div>
@@ -261,6 +264,7 @@
 										<label class="col-form-label-sm mb-0">Tipo de envace</label> <select
 											class="form-control form-control-sm"
 											th:field="*{PerfilEnvase}">
+											<option th:value="''" th:text="''"></option>
 											<option th:each="catalogo: ${catalogos}"
 												th:if="${catalogo.NombreCat == 'envases muestras'}"
 												th:value="${catalogo.CatalogoId}"
@@ -271,6 +275,7 @@
 										<label for="inputSexo" class="col-form-label-sm mb-0">Area
 											Encargada</label> <select class="form-control form-control-sm"
 											th:field="*{PerfilArea}">
+											<option th:value="''" th:text="''"></option>
 											<option th:each="catalogo: ${catalogos}"
 												th:if="${catalogo.NombreCat == 'areas proceso'}"
 												th:value="${catalogo.CatalogoId}"
