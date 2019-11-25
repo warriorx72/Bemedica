@@ -200,7 +200,7 @@ model.addAttribute("vista_ordenes", vistaordenDao.findAll());
 	else {
 		orden.setOrden_estatus("pendiente");
 	}
-		
+		///
      ////orden.setOrden_folio("ORD");
 		ordenDao.save(orden);  
 		orden.setOrden_folio("ORD"+(orden.getOrden_id()+1000000));
