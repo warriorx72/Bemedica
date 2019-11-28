@@ -1,0 +1,137 @@
+#block2 {
+    font-size: 10px;
+    font-family: 'Times New Roman';
+}
+table.datos{
+	font-size: 10px;
+	
+}
+
+td.precio_unit,
+th.precio_unit,
+td.cantidad,
+th.cantidad,
+td.servicio,
+th.servicio,
+td.importe,
+th.importe {
+    border-top: 1px solid black;
+    border-collapse: collapse;
+}
+
+td.precio_unit,
+th.precio_unit {
+	font-size: 10px;
+	text-align: right;
+    width: 15mm;
+    max-width: 15mm;
+}
+
+
+td.cantidad,
+th.cantidad {
+	font-size: 10px;
+	text-align: right;
+    width: 10mm;
+    max-width: 10mm;
+    word-break: break-all;
+}
+
+td.servicio,
+th.servicio {
+	font-size: 10px;
+	text-align: left;
+    width: 30mm;
+    max-width: 30mm;
+    word-break: break-all;
+}
+td.importe,
+th.importe {
+	font-size: 10px;
+	text-align: right;
+    width: 15mm;
+    max-width: 15mm;
+    word-break: break-all;
+}
+td.fecha_right,
+th.fecha_right{
+	font-size: 11px;
+    border: hidden;
+	text-align: right;
+}
+td.total_right,
+th.total_right{
+	    width: 25mm;
+    max-width: 25mm;
+    border: hidden;
+	text-align: right;
+}
+td.fecha_left,
+th.fecha_left{
+	font-size: 11px;
+    border: hidden;
+	text-align: left;
+}
+td.fecha_center,
+th.fecha_center	{
+	font-size: 10px;
+    border: hidden;
+	text-align: center;
+}
+td.fecha,
+th.fecha{
+    border: hidden;
+}
+
+p.justify {
+    text-align:justify;
+}
+.total {
+	font-size: 10px;
+	    width: 70mm;
+    max-width: 70mm;
+    text-align:right;
+    align-content:right;
+}
+.cajero{
+    border: hidden;
+	text-align: left;
+}
+p.centrado {
+    text-align:center;
+    align-content:center;
+}
+
+p.notas {
+	font-size: 14px;
+	color: white;
+    text-align:center;	
+	background-color: black;
+}
+p.notass {
+	font-size: 12px;
+	text-align:justify;
+    align-content:justify;
+}
+
+.ticket {
+    width: 70mm;
+    max-width: 70mm;
+}
+
+.printableArea{display: block;}
+
+img.example-print {
+
+    max-width: 65mm;
+    width: 65mm;
+}
+
+@media print {
+   .example-screen {
+       display: none;
+    }
+    .example-print {
+       display: block;
+    }
+}
