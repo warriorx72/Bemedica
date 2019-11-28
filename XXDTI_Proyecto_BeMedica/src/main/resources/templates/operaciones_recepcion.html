@@ -247,7 +247,7 @@
                      <div class="card-body">
                         <div align="left">
                            <button class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo">
-                           Agregar paciente
+                           Crear orden
                            <span class="glyphicon glyphicon-plus"></span>
                            </button>
                         </div>
@@ -263,12 +263,13 @@
                            <div class="modal-dialog modal-sm-1" role="document">
                               <div class="modal-content">
                                  <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel">Ingresar nuevo paciente</h4>
+                                    <h4 class="modal-title" id="myModalLabel">Ingresar nueva orden</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                  </div>
                                  <!--body de Modal -->
                                  <form action="/formC" method="post"  th:object ="${orden}">
                                     <div class="modal-body">
+                                    <h6>Datos paciente</h6>
                                        <div class="form-row">
                                           <!--    <div class="form-group col-md-3">
                                              <label for="inputNor" class="col-form-label-sm mb-0">Codigo Paciente</label>
@@ -286,11 +287,7 @@
                                              <label for="input1" class="col-form-label-sm mb-0">Apellido Materno</label>
                                              <input type="text" class="form-control form-control-sm" id="input1" required name="persona_am">
                                           </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input2" class="col-form-label-sm mb-0">Fecha Nacimiento</label>
-                                             <input type="date" class="form-control form-control-sm" id="inpu2" required name="persona_fecha_na">
-                                          </div>
-                                          <div class="form-group col-md-3">
+                                         <div class="form-group col-md-3">
                                              <label for="inputSexo" class="col-form-label-sm mb-0">Sexo</label>
                                              <select  class="form-control form-control-sm" required name="persona_genero">
                                                 <option>Seleccione sexo</option>
@@ -298,9 +295,20 @@
                                                 <option value="Femenino">Femenino</option>
                                              </select>
                                           </div>
+                                          </div>
+                                           <div class="form-row">
+                                            <div class="form-group col-md-5">
+                                             <label for="input2" class="col-form-label-sm mb-0">Fecha Nacimiento</label>
+                                             <input type="date" class="form-control form-control-sm" id="inpu2" required name="persona_fecha_na">
+                                          </div>
+                                          
                                           <div class="form-group col-md-3">
                                              <label for="input1" class="col-form-label-sm mb-0">Telefono casa</label>
                                              <input type="text" class="form-control form-control-sm" id="input1" required name="persona_tel_casa">
+                                          </div>
+                                            <div class="form-group col-md-3">
+                                             <label for="input3" class="col-form-label-sm mb-0">Celular</label>
+                                             <input type="text" class="form-control form-control-sm" id="inpu3"  pattern="[0-9]{10}" required name="persona_tel_cel">
                                           </div>
                                        </div>
                                        <div class="form-row">
@@ -308,20 +316,18 @@
                                              <label for="input2" class="col-form-label-sm mb-0">Email</label>
                                              <input type="text" class="form-control form-control-sm" id="inpu2" required name="persona_email" >
                                           </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input3" class="col-form-label-sm mb-0">Celular</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu3"  pattern="[0-9]{10}" required name="persona_tel_cel">
-                                          </div>
+                                        
                                           <div class="form-group col-md-3">
                                              <label for="inputNor" class="col-form-label-sm mb-0">Telefono oficina</label>
                                              <input type="text" class="form-control form-control-sm" id="inputNor" required name="persona_tel_oficina" >
                                           </div>
-                                       </div>
-                                       <div class="form-row">
                                           <div class="form-group col-md-3">
                                              <label for="input3" class="col-form-label-sm mb-0">Extension</label>
                                              <input type="text" class="form-control form-control-sm" id="inpu3" required name="persona_tel_exten">
                                           </div>
+                                       </div>
+                                       <div class="form-row">
+                                          
                                           <div class="form-group col-md-3">
                                              <label for="input1" class="col-form-label-sm mb-0">Calle</label>
                                              <input type="text" class="form-control form-control-sm" id="input1" required name="direccion_calle">
@@ -334,12 +340,13 @@
                                              <label for="input2" class="col-form-label-sm mb-0">Numero interior</label>
                                              <input type="text" class="form-control form-control-sm" id="inpu2" required name="direccion_num_inter">
                                           </div>
-                                       </div>
-                                       <div class="form-row">
                                           <div class="form-group col-md-3">
                                              <label for="inputNor" class="col-form-label-sm mb-0">Colonia</label>
                                              <input type="text" class="form-control form-control-sm" id="inputNor" required name="direccion_colonia">
                                           </div>
+                                       </div>
+                                       <div class="form-row">
+                                          
                                           <div class="form-group col-md-3">
                                              <label for="input1" class="col-form-label-sm mb-0">Municipio</label>
                                              <input type="text" class="form-control form-control-sm" id="input1" required name="direccion_municipio">
@@ -352,12 +359,51 @@
                                              <label for="inputNor" class="col-form-label-sm mb-0">Estado</label>
                                              <input type="text" class="form-control form-control-sm" id="inputNor" required name="direccion_estado">
                                           </div>
-                                       </div>
-                                       <div class="form-row">
                                           <div class="form-group col-md-3">
                                              <label for="inputNor" class="col-form-label-sm mb-0">Diagnostico</label>
                                              <input type="text" class="form-control form-control-sm" id="inputNor" required name="observacion" >
                                           </div>
+                                       </div>
+                                       <h6>Datos medico</h6>
+                                       <div class="form-row">
+                                          
+                                          
+                                           <div class="form-group col-md-3">
+                                             <label for="inputNor" class="col-form-label-sm mb-0">Nombre</label>
+                                             <input type="text" class="form-control form-control-sm" id="inputNor" th:object ="${personamedico}" required th:name="persona_nombre_m" >
+                                          </div>
+                                          <div class="form-group col-md-3">
+                                             <label for="inputNor" class="col-form-label-sm mb-0">Apellido paterno</label>
+                                             <input type="text" class="form-control form-control-sm" id="inputNor" th:object ="${personamedico}" required th:name="persona_ap_m" >
+                                          </div>
+                                          <div class="form-group col-md-3">
+                                             <label for="inputNor" class="col-form-label-sm mb-0">Apellido materno</label>
+                                             <input type="text" class="form-control form-control-sm" id="inputNor" th:object ="${personamedico}" required th:name="persona_am_m" >
+                                         <!-- <input type="hidden" th:name="personamedico.id_direccion" value='NULL'>---->
+                                          </div>
+                                           <div class="form-group col-md-3">
+                                             <label for="inputNor" class="col-form-label-sm mb-0">Cedula</label>
+                                             <input type="text" class="form-control form-control-sm" id="inputNor"  required th:name="medico_cedula" >
+                                         <!-- <input type="hidden" th:name="personamedico.id_direccion" value='NULL'>---->
+                                          </div>
+                                       </div>
+                                       <div class="form-row">
+                                          
+                                          
+                                           <div class="form-group col-md-3">
+                                             <label for="inputNor" class="col-form-label-sm mb-0">Celular</label>
+                                             <input type="text" class="form-control form-control-sm" id="inputNor" th:object ="${personamedico}" required th:name="cel_med" >
+                                          </div>
+                                          <div class="form-group col-md-3">
+                                             <label for="inputNor" class="col-form-label-sm mb-0">Email</label>
+                                             <input type="email" class="form-control form-control-sm" id="inputNor" th:object ="${personamedico}" required th:name="email_med" >
+                                          </div>
+                                          <div class="form-group col-md-3">
+                                             <label for="inputNor" class="col-form-label-sm mb-0">Metodo de pago</label>
+                                             <input type="text" class="form-control form-control-sm" id="inputNor" th:object ="${personamedico}" required th:name="metodo_pago" >
+                                         <!-- <input type="hidden" th:name="personamedico.id_direccion" value='NULL'>---->
+                                          </div>
+                                         
                                        </div>
                                        <input class="btn btn-primary" type="submit" value="Guardar" id="submit">
                                     </div>

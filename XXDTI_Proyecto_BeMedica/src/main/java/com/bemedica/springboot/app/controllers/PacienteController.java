@@ -126,6 +126,8 @@ model.addAttribute("vista_ordenes", vistaordenDao.findAll());
 			m.put("titulo", "Formulario de Cliente");
 	//////////////////////////////////////////////////////////////7   IMPORTANTE QUITAR SINO SIRVE
 		    m.put("ordenestudio", ordenestudio);
+		    Persona personamedico=new Persona();
+		    m.put("personamedico",personamedico);
 			   ///  model.put("titulo", "Formulario de Cliente");
 //				status.setComplete();
 			     model.addAttribute("pacientes", vistapacienteDao.findAll());  
@@ -357,7 +359,7 @@ Orden aux=null;
 	}
 
 	@RequestMapping(value = "/formC", method = RequestMethod.POST)
-	public String guardar(@Valid Direccion direccion, Persona persona, Paciente paciente, Medico medico, Orden orden, BindingResult result, Model model, SessionStatus status, Map<String, Object> m) 
+	public String guardar(@RequestParam("email_med") String email_med,@RequestParam("cel_med") String cel_med,@RequestParam("persona_nombre_m") String nombre_medico,@RequestParam("persona_am_m") String am_medico,@RequestParam("persona_ap_m") String ap_medico, @Valid Direccion direccion, Persona persona, Paciente paciente, Medico medico, Orden orden, BindingResult result, Model model, SessionStatus status, Map<String, Object> m) 
 	{
 
 		if (result.hasErrors()) {
@@ -374,9 +376,34 @@ Orden aux=null;
 		paciente.setPaciente_id_tex("PAC"+persona.getPersona_ap().charAt(0)+persona.getPersona_am().charAt(0)+persona.getPersona_nombre().charAt(0)+""+(persona.getPersona_id()+100000));
 
 		pacienteDao.save(paciente);
+		///////////////////////////////
+		///Persona personamedico = new Persona();
+		////if(personamedico.getPersona_nombre().toString().contains("Med")) {}
+		
+		Direccion direccionmedico= new Direccion();
+		direccionmedico.setDireccion_id(null);
+		direccionDao.save(direccionmedico);
+		
+		Persona personamedico = new Persona();
+		m.put("personamedico",personamedico);
+		
+		personamedico.setIdDireccion(direccionmedico.getDireccion_id().intValue());
+		personamedico.setPersona_nombre(nombre_medico);
+		personamedico.setPersona_email(email_med);
+		personamedico.setPersona_tel_cel(cel_med);
+		personamedico.setPersona_am(am_medico);
+		personamedico.setPersona_ap(ap_medico);
+		personaDao.save(personamedico);
+		medico.setPersona_id((long) personamedico.getPersona_id().intValue());
+		medico.setMedico_id_text("MED"+personamedico.getPersona_ap().charAt(0)+personamedico.getPersona_am().charAt(0)+personamedico.getPersona_nombre().charAt(0)+""+(personamedico.getPersona_id()+100000));
+
+		medicoDao.save(medico);
 		///////////////////////////////////////77
 		orden.setPaciente_id(paciente.getPaciente_id().intValue());////////////////////////////////7
-		ordenDao.save(orden);
+		ordenDao.save(orden);  
+		orden.setOrden_folio("ORD"+(orden.getOrden_id()+1000000));
+		orden.setOrden_estatus("pendiente");
+	    ordenDao.save(orden);
 		
 		///////////////////////////7
 		OrdenEstudio ordenestudio = new OrdenEstudio();
