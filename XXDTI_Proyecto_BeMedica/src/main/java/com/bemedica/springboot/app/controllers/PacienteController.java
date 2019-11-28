@@ -34,6 +34,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bemedica.springboot.app.models.dao.IPersonaDao;
 import com.bemedica.springboot.app.models.dao.ISucursalDao;
+import com.bemedica.springboot.app.models.dao.ITicketDao;
 import com.bemedica.springboot.app.models.dao.IVistaEmpleadoDao;
 import com.bemedica.springboot.app.models.dao.IMedicoDao;
 import com.bemedica.springboot.app.models.dao.IVistaPacienteDao;
@@ -103,6 +104,8 @@ public class PacienteController {
 	private IPaquetesDao paquetesDao;
 	@Autowired
 	private IPerfilesDao perfilesDao;
+	@Autowired
+	private ITicketDao ticketDao;
 	
 	@RequestMapping(value = "/operaciones_recepcion", method = RequestMethod.GET)  // vista operaciones_recepcion
 	public String operaciones_recepcion(Model model, Map<String,Object> m) {                               
@@ -590,6 +593,7 @@ pacienteDao.delete(id);
 		return "redirect:/administracion_empleados";
 	
 	}
+	
 	@RequestMapping (value="/estatus_empleado2", method = RequestMethod.POST)
 	public String estatus2 (@RequestParam("id") Long id,@RequestParam("status_id") String status_id , Model model, RedirectAttributes redirectAttrs){
 		Orden e;
@@ -618,6 +622,28 @@ pacienteDao.delete(id);
 		
 		return "redirect:/administracion_empleados";
 	
+	}
+	//+++++++++++++++++++++++++++++++++Ticket	
+	//+++++++++++++++++++++++++++++++++Ticket	
+	//+++++++++++++++++++++++++++++++++Ticket	
+	//+++++++++++++++++++++++++++++++++Ticket	
+	//+++++++++++++++++++++++++++++++++Ticket	
+	//+++++++++++++++++++++++++++++++++Ticket	
+	public void esperar (int segundos) {
+		try {
+		Thread.sleep (segundos*1000);
+		} catch (Exception e) {
+		// Mensaje en caso de que falle
+		}
+		}
+	@RequestMapping(value= "/ticket", method=RequestMethod.POST)
+	public String imprimirticket(@Valid OrdenEstudio ordenestudio, BindingResult result, Model model , Map<String, Object> m) 
+	{
+		
+		System.out.print(ordenestudio.getOrden_id());
+		esperar(2);
+		return "redirect:/operaciones_recepcion";
+		
 	}
 	
 }
