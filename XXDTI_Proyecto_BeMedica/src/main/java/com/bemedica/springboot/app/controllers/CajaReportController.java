@@ -1,4 +1,5 @@
 package com.bemedica.springboot.app.controllers;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -32,6 +33,7 @@ import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
+import com.lowagie.text.ElementTags;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
 import com.lowagie.text.Image;
@@ -39,6 +41,7 @@ import com.lowagie.text.Image;
 import com.lowagie.text.ListItem;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
 import com.lowagie.text.Section;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
@@ -46,48 +49,45 @@ import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.pdf.draw.DottedLineSeparator;
 
 import java.awt.Color;
-import java.io.*; 
+import java.io.*;
 //librerias de pdf
 
-
-
-
-
-@Controller 
-public class CajaReportController {	
+@Controller
+public class CajaReportController {
 	@Autowired
 	private ServletContext context;
-	
+
 	@Autowired
 	HttpServletRequest request;
-	
+
 	@Autowired
 	ICajaVistaDao cajaVistaDao;
-	
-	
-	
-	@RequestMapping (value="/herramientas_corte/{a}/{b}/{c}")
-	public void reportListar (Model model , HttpServletRequest request, HttpServletResponse response
-			,@PathVariable (value="a") int a,@PathVariable (value="b") int b,@PathVariable (value="c") int c) 
-			/*@RequestParam("ff") Date ff,
-            @RequestParam("fi") Date fi,
-            @RequestParam("periodo") String periodo) */throws Exception {
-		
-//		 SimpleDateFormat formatoEsMX = new SimpleDateFormat("yyyy-MM-dd");
-/*		String fecha1 = formatoEsMX.format(fi);
-		String fecha2 = formatoEsMX.format(ff);	
-		//this.excel( request, fecha1,fecha2,periodo);
-		*/
-		this.pdf(request,a,b,c);
-	
 
-		//String fullPath = request.getServletContext().getRealPath("/"+"Reporte"+".xls");
-		String fullPaths = request.getServletContext().getRealPath("/"+"CorteCaja"+".pdf");
-		//filedownload(fullPath, response);
+	@RequestMapping(value = "/herramientas_corte/{a}/{b}/{c}")
+	public void reportListar(Model model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value = "a") int a, @PathVariable(value = "b") int b, @PathVariable(value = "c") int c)
+			/*
+			 * @RequestParam("ff") Date ff,
+			 * 
+			 * @RequestParam("fi") Date fi,
+			 * 
+			 * @RequestParam("periodo") String periodo)
+			 */ throws Exception {
+
+//		 SimpleDateFormat formatoEsMX = new SimpleDateFormat("yyyy-MM-dd");
+		/*
+		 * String fecha1 = formatoEsMX.format(fi); String fecha2 =
+		 * formatoEsMX.format(ff); //this.excel( request, fecha1,fecha2,periodo);
+		 */
+		this.pdf(request, a, b, c);
+
+		// String fullPath =
+		// request.getServletContext().getRealPath("/"+"Reporte"+".xls");
+		String fullPaths = request.getServletContext().getRealPath("/" + "CorteCaja" + ".pdf");
+		// filedownload(fullPath, response);
 		filedownloadPDF(fullPaths, response);
-		
+
 	}
-	
 
 	/**
 	 * @param request
@@ -148,11 +148,7 @@ public class CajaReportController {
 	 * 
 	 * }
 	 */
-	
-	
-	
-	
-	
+
 //	private void filedownload(String fullPath, HttpServletResponse response) {
 //		File file = new File(fullPath);
 //		final int BUFFER_SIZE = 4096;
@@ -182,45 +178,37 @@ public class CajaReportController {
 //			}
 //		}
 //	}
-	
-	
-	
-	
-	
+
 	private void filedownloadPDF(String fullPath, HttpServletResponse response) {
 		File file = new File(fullPath);
 		final int BUFFER_SIZE = 4096;
-		if(file.exists()) {
+		if (file.exists()) {
 			try {
 				FileInputStream inputStream = new FileInputStream(file);
-				String mimeType = context.getMimeType(fullPath);					
+				String mimeType = context.getMimeType(fullPath);
 				response.setContentType(mimeType);
-				response.setHeader("content-disposition", "attachment; filename="+"CorteCaja.pdf");
-				OutputStream  outputStream = response.getOutputStream();
-				byte[] buffer = new	byte[BUFFER_SIZE];
+				response.setHeader("content-disposition", "attachment; filename=" + "CorteCaja.pdf");
+				OutputStream outputStream = response.getOutputStream();
+				byte[] buffer = new byte[BUFFER_SIZE];
 				int bytesRead = -1;
-				while((bytesRead = inputStream.read(buffer))!= -1) {
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
 					outputStream.write(buffer, 0, bytesRead);
 				}
-				
-				
-				
+
 				file.delete();
-			
+
 				inputStream.close();
 				outputStream.close();
 
-			}catch(Exception e) {
-				
-				
+			} catch (Exception e) {
+
 			}
 		}
 	}
 
-	
-	public void pdf ( HttpServletRequest request,int num1,int num2, int num3) throws Exception {
-			
-		String fullPath = request.getServletContext().getRealPath("/"+"CorteCaja"+".pdf");
+	public void pdf(HttpServletRequest request, int num1, int num2, int num3) throws Exception {
+
+		String fullPath = request.getServletContext().getRealPath("/" + "CorteCaja" + ".pdf");
 		// Se crea el documento
 		Document documento = new Document();
 
@@ -229,7 +217,8 @@ public class CajaReportController {
 
 		// Se asocia el documento al OutputStream y se indica que el espaciado entre
 		// lineas sera de 20. Esta llamada debe hacerse antes de abrir el documento
-		PdfWriter.getInstance(documento,ficheroPdf).setInitialLeading(20);
+		Font iTextFont = new Font(Font.TIMES_ROMAN, 9, Font.NORMAL);
+		PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
 
 		// Se abre el documento.
 		documento.open();
@@ -238,58 +227,98 @@ public class CajaReportController {
 //        p.setSpacingAfter(90);
 //        p.add("nombre:");        
 //        p.add("edad:"+edad);
-        List <Object[]> rp  = cajaVistaDao.findAll2(num1, num2);
-        float to = cajaVistaDao.findAll3(num1, num2);
-        List <Object[]> fc = cajaVistaDao.findAll4(num1, num2, num3);
-        PdfPTable table3 = new PdfPTable(3);
-        table3.getDefaultCell().setBorder(0);
-	        table3.addCell("");
-	        table3.addCell("");
-	        table3.addCell("\n\n\n\n\n\nFecha: \n\n"+ fc);
-        
-        
-	    PdfPTable table = new PdfPTable(6);
-	    table.getDefaultCell().setBorder(0);
-	        table.addCell("\n\n\nFolio");
-	        table.addCell("\n\n\nUsuario");
-	        table.addCell("\n\n\nMonto");
-	        table.addCell("\n\n\nFecha");
-	        table.addCell("\n\n\nConcepto");
-	        table.addCell("\n\n\nForma de pago");
-	        
-	        for (Object[] a : rp) {
-	        	
-	        
-	        	 	table.addCell(a[0].toString());
-	        	 	table.addCell(a[1].toString());
-		            table.addCell(a[2].toString());
-		            table.addCell(a[3].toString());
-		            table.addCell(a[4].toString());
-		            table.addCell(a[5].toString());
-		            
-	        	
-		            
-			} 
-	        
-	        
-	        
-	        
-	        PdfPTable table2 = new PdfPTable(1);
-	        table2.getDefaultCell().setBorder(0);
-		        table2.addCell("\n\n\n\n\n\n\n\n\n\nTotal: "+to);
-		        
-		        
-//	        PdfPCell cell = new PdfPCell();
-		    documento.add(table3);
-	        documento.add(table);
-	        documento.add(table2);
-	       
-	        documento.close();
-	    
-	        System.out.println(fullPath);
-	    }
+		
+		List<Object[]> rp = cajaVistaDao.findAll2(num1, num2, num3);
+		List<Object[]> fc = cajaVistaDao.findAll4(num1, num2, num3);
+		float toto = cajaVistaDao.findAll3(num1, num2);
+		List<Object[]> toefta = cajaVistaDao.findAll5(num1, num2, num3);
+		
+		Paragraph p = new Paragraph("\n\n\n\n\n\n");
+		PdfPCell celda1 = new PdfPCell(p);
+		celda1.setBorder(Rectangle.NO_BORDER);
+		
+		/*********************************************************************************/
 
-	
-	
+		PdfPTable table5 = new PdfPTable(1);
+		table5.addCell(celda1);
+
+		/*********************************************************************************/
+
+		PdfPTable table3 = new PdfPTable(2);
+		table3.getDefaultCell().setBorder(0);
+		table3.setWidthPercentage(100);
+		table3.setWidths(new float[] { 2.0f, 1.8f });
+		table3.setSpacingBefore(2);
+		table3.addCell("Nombre: \n" + "Sucursal:");
+		table3.addCell("Empleado: \n" + "Fecha: " + fc);
+
+		PdfPCell celda2 = new PdfPCell(table3);
+		celda2.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+		/**************************************************************************/
+
+		PdfPTable table = new PdfPTable(6);
+		table.getDefaultCell().setBorder(0);
+		table.setWidthPercentage(90.0f);
+		table.setWidths(new float[] { 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f });
+		table.setSpacingBefore(2);
+		table.addCell("\n\n\nFolio");
+		table.addCell("\n\n\nUsuario");
+		table.addCell("\n\n\nMonto");
+		table.addCell("\n\n\nFecha");
+		table.addCell("\n\n\nConcepto");
+		table.addCell("\n\n\nForma de pago\n\n");
+
+		for (Object[] a : rp) {
+
+			table.addCell(a[0].toString());
+			table.addCell(a[1].toString());
+			table.addCell(a[2].toString());
+			table.addCell(a[3].toString());
+			table.addCell(a[4].toString());
+			table.addCell(a[5].toString());
+		}
+
+		/**************************************************************************/
+
+		PdfPTable table4 = new PdfPTable(1);
+		table4.getDefaultCell().setBorder(0);
+		table4.addCell(celda2);
+
+		/**************************************************************************/
+
+		PdfPTable table1 = new PdfPTable(1);
+		table1.getDefaultCell().setBorder(0);
+//		table1.setWidthPercentage(10);
+//		table1.setWidths(new float[] { 2.0f,2.0f});
+//		table1.setSpacingBefore(2);
+//		table1.addCell("\n\n\n\n\n\n\n-Efectivo: ");
+//		table1.addCell("\n\n\n\n\n\n\n-Tarjeta de\nCrédito: ");
+		
+		
+		for (Object[] b : toefta) {
+			
+			table1.addCell("\n\n\n\n\n\nEfectivo:      $"+b[0].toString()+"\n"
+					+"\nTarjeta de\nCrédito:       $"+b[1].toString());
+		}
+		
+		/**************************************************************************/
+
+		PdfPTable table2 = new PdfPTable(1);
+		table2.getDefaultCell().setBorder(0);
+		table2.addCell("\nTotal:          	$" + toto);
+
+		/**************************************************************************/
+
+		documento.add(table5);
+		documento.add(table4);
+		documento.add(table);
+		documento.add(table1);
+		documento.add(table2);
+
+		documento.close();
+
+		System.out.println(fullPath);
+	}
 
 }
