@@ -24,6 +24,16 @@ public  class VistaOrdenDaoImpl implements IVistaOrdenDao {
 	@OrderBy("orden_folio DESC")
 	public List<VistaOrden> findAll() {
 		// TODO Auto-generated method stub
+		return em.createQuery("from VistaOrden").getResultList();
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	@OrderBy("orden_folio DESC")
+	public List<VistaOrden> findAll2() {
+		// TODO Auto-generated method stub
 		return em.createQuery("from VistaOrden vo where orden_estatus in ('pendiente','finalizada') order by vo.orden_id desc").setMaxResults(1).getResultList();
 
 	}
