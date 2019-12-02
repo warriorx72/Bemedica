@@ -247,13 +247,14 @@ Orden aux=null;
 					model.addAttribute("paquetes", paquetesDao.findBy());
 					model.addAttribute("perfiles", perfilesDao.findBy());
 					model.addAttribute("ordenes", ordenDao.findAll());
-				
+					model.addAttribute("eminfo", ticketDao.findEmpleado(orden.getOrden_id()));
+					model.addAttribute("painfo", ticketDao.findPaciente(orden.getOrden_id()));
+					model.addAttribute("feinfo", ticketDao.findFecha(orden.getOrden_id()));	
 			///ordenestudio.setPrecio_unitario(estudio.getEstudio_precio());
 			///ordenestudio.setTotal_linea(orden.getEmpleado_id());
 	//if(ordenestudio.getEstudio_id()>0) {
 		//	ordenestudio.setTipo("estudio");
 //	}System.out.println("The Keyword :example: is found in given string");
-			System.out.println(ordenestudio.getEstudio_id());
 	if(ordenestudio.getEstudio_id().toString().contains("est")) {
 		String[] id=	ordenestudio.getEstudio_id().split("est");	
 		for (String a : id) 
@@ -279,7 +280,8 @@ Orden aux=null;
 		
 	
 			ordenestudioDao.save(ordenestudio);
-			
+			model.addAttribute("seinfo", ticketDao.findServ(orden.getOrden_id()));
+			model.addAttribute("toinfo", ticketDao.findTotal(orden.getOrden_id()));
 		((Map<String, Object>) model).put("ordenestudio", ordenestudio);
 	////	((Map<String, Object>) model).put("estudio", estudio);
 		((Map<String, Object>) model).put("orden", aux);
@@ -365,6 +367,7 @@ Orden aux=null;
 	public String guardar(@RequestParam("email_med") String email_med,@RequestParam("cel_med") String cel_med,@RequestParam("persona_nombre_m") String nombre_medico,@RequestParam("persona_am_m") String am_medico,@RequestParam("persona_ap_m") String ap_medico, @Valid Direccion direccion, Persona persona, Paciente paciente, Medico medico, Orden orden, BindingResult result, Model model, SessionStatus status, Map<String, Object> m) 
 	{
 
+		String nombre,ap,am;
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de Cliente");
 			return "formC";
@@ -374,6 +377,13 @@ Orden aux=null;
 		
 		direccionDao.save(direccion);  
 		persona.setIdDireccion(direccion.getDireccion_id().intValue());
+		
+		nombre=persona.getPersona_nombre().toUpperCase();
+		ap=persona.getPersona_ap().toUpperCase();
+		am=persona.getPersona_am().toUpperCase();
+		persona.setPersona_nombre(nombre);
+		persona.setPersona_ap(ap);
+		persona.setPersona_am(am);
 		personaDao.save(persona);
 		paciente.setPersona_id((long) persona.getPersona_id().intValue());
 		paciente.setPaciente_id_tex("PAC"+persona.getPersona_ap().charAt(0)+persona.getPersona_am().charAt(0)+persona.getPersona_nombre().charAt(0)+""+(persona.getPersona_id()+100000));
@@ -637,13 +647,14 @@ pacienteDao.delete(id);
 		}
 		}
 	@RequestMapping(value= "/ticket", method=RequestMethod.POST)
-	public String imprimirticket(@Valid OrdenEstudio ordenestudio, BindingResult result, Model model , Map<String, Object> m) 
+	public String imprimirticket(Orden orden, BindingResult result, Model model , Map<String, Object> m) 
 	{
-		
-		System.out.print(ordenestudio.getOrden_id());
-		esperar(2);
-		return "redirect:/operaciones_recepcion";
+		model.addAttribute("eminfo", ticketDao.findEmpleado(orden.getOrden_id()));
+		model.addAttribute("painfo", ticketDao.findPaciente(orden.getOrden_id()));
+		model.addAttribute("feinfo", ticketDao.findFecha(orden.getOrden_id()));
+		model.addAttribute("seinfo", ticketDao.findFecha(orden.getOrden_id()));
+		esperar(4);
+		return "redirect:operaciones_recepcion";
 		
 	}
-	
 }

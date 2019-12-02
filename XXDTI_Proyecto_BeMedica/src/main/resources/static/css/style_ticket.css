@@ -1,6 +1,7 @@
 #block2 {
     font-size: 10px;
-    font-family: 'Times New Roman';
+    font-family: 'Times New Roman'; 
+    display: none; 
 }
 table.datos{
 	font-size: 10px;
@@ -117,6 +118,8 @@ p.notass {
 .ticket {
     width: 70mm;
     max-width: 70mm;
+    display: block; 
+    
 }
 
 .printableArea{display: block;}

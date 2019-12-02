@@ -2,7 +2,6 @@ package com.bemedica.springboot.app.models.dao;
 
 import java.util.List;
 
-
 public interface ICajaVistaDao {
 
 	public List<Object []> findAll();

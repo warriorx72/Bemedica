@@ -683,8 +683,9 @@
                            </tbody>
                         </table>
                         <br>
-						<form action="ticket" method="post" onsubmit="printPage('block1');">
-                        <input type="submit" class="btn btn-primary" value="Print Block 1" ></input>
+						<form th:action="ticket" th:method="post" th:object ="${orden}" th:onsubmit="printPage('block1');">
+							<input type="hidden" th:field="*{orden_id}"/>
+                        	<input type="submit" class="btn btn-primary" value="Print Block 1"></input>
                         </form>
 <!--                         <input type="button" class="btn btn-primary" value="Print Block 1" onclick="printPage('block1');"></input> -->
                         <h5>Ordenes</h5>
@@ -1000,8 +1001,8 @@
          } );
       </script>
       <script th:src="@{js/script_ticket.js}"></script>
- <div id="block1" >
-   <div id="block2">
+ <div id="block1">
+   <div id="block2" >
 	<link rel="stylesheet" th:href="@{css/style_ticket.css}">
     <div class="ticket" >
         <img class="example-print" th:src="@{img/logo_ticket.png}">
@@ -1038,21 +1039,22 @@
 					<tr>
 						<td class="fecha" style="width: 10mm"></td>
 						<td class="fecha_right">Fecha de impresion: </td>
-						<td class="fecha_left">00-00-0000 00:00:00</td>
-					<tr>
+						<td class="fecha_left" id="TimeTicket"></td>
+					</tr>
+					<tr th:each= "fe: ${feinfo}">
 						<td class="fecha"></td>
 						<td class="fecha_right">Fecha de trabajo: </td>
-						<td class="fecha_left">00-00-0000</td>
+						<td class="fecha_left" th:text="${fe[0]}">00-00-0000</td>
 					</tr>
-					<tr>
+					<tr th:each= "fe: ${feinfo}">
 						<td class="fecha"></td>
 						<td class="fecha_right">Folio: </td>
-						<td class="fecha_left">432087h</td>
+						<td class="fecha_left" th:text="${fe[1]}"></td>
 					</tr>
-					<tr>
+					<tr th:each= "fe: ${feinfo}">
 						<td class="fecha"></td>
 						<td class="fecha_right">Fecha de Entrega: </td>
-						<td class="fecha_left">00-00-0000 00:00:00</td>
+						<td class="fecha_left" th:text="${fe[2]}"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -1105,7 +1107,7 @@
 		</table>
 		<hr style="border-top: 1px solid black">
 		<b>DATOS DEL MEDICO:</b><br>
-		<label>OCTAVIO ALVARADO BOTELLO </label><br><br>
+		<label th:each= "em: ${eminfo}" th:text="${em[2]}"></label><br><br>
 		
 		<b>SERVICIO(S) SOLICITADO(S):</b><br><br>
         <table style=" border-top: 1px solid black; border-collapse: collapse;">
@@ -1118,23 +1120,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-					<td class="servicio">MASTOGRAFIA</td>
-                    <td class="cantidad">1.00</td>
-                    <td class="precio_unit">$8.50</td>
-                    <td class="importe">$8.50</td>
-                </tr>
-                <tr>
-					<td class="servicio">RAYOS X</td>
-                    <td class="cantidad">2.00</td>
-                    <td class="precio_unit">$10.00</td>
-                    <td class="importe">$20.00</td>
-                </tr>
-                <tr>
-					<td class="servicio">PAPANICOLAO</td>
-                    <td class="cantidad">2.00</td>
-                    <td class="precio_unit">$1000.00</td>
-                    <td class="importe">$2000.00</td>
+                <tr th:each= "se: ${seinfo}">
+					<td class="servicio" th:text="${se[0]}"></td>
+                    <td class="cantidad" th:text="${se[1]}"></td>
+                    <td class="precio_unit" th:text="${se[2]}"></td>
+                    <td class="importe" th:text="${se[3]}"></td>
                 </tr>
             </tbody>
         </table>
@@ -1146,11 +1136,11 @@
 						<th></th>
 					</tr>
             	</thead>
-				<tbody >
+				<tbody th:each= "to: ${toinfo}">
 					<tr>
 						<td class="fecha" ></td>
 						<td class="total_right">SUBTOTAL: $</td>
-						<td class="total_right">8.50</td>
+						<td class="total_right" th:text="${to[0]}"></td>
 					<tr>
 						<td class="fecha"></td>
 						<td class="total_right">DESCUENTO: $</td>
@@ -1159,12 +1149,12 @@
 					<tr>
 						<td class="fecha"></td>
 						<td class="total_right">IVA 16%: $</td>
-						<td class="total_right">6.16</td>
+						<td class="total_right" th:text="${to[1]}"></td>
 					</tr>
 					<tr>
 						<td class="fecha"></td>
 						<td class="total_right">TOTAL: $</td>
-						<td class="total_right">38.5</td>
+						<td class="total_right" th:text="${to[2]}"></td>
 					</tr>
 				</tbody>
 			</table>
