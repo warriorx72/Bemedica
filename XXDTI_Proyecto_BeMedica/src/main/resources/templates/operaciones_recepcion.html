@@ -1,213 +1,145 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
- <!--  -->
-   <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <link rel="Shortcut Icon" href="/img/favicon.ico" type=”image/x-icon” />
-      <title th:text="${titulo}">Bemédica Punto de venta</title>
-      <!-- Bootstrap CSS CDN -->
-      <link rel="stylesheet"
-         href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-         crossorigin="anonymous">
-         <!--  -->
-      <!-- Our Custom CSS -->
-      <link rel="stylesheet" href="css/style.css">
-      <!-- Font Awesome JS -->
-      <script type="text/javascript"
-         src="http://code.jquery.com/jquery-latest.js" ></script>
-      <script defer
-         src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-         integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-         crossorigin="anonymous"></script>
-      <script type="text/javascript">
-         $(function () {
-             $("#sel").change(function () {
-                 $("#form1").submit();
-             });
-         });
-      </script>
-      <script defer
-         src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-         crossorigin="anonymous"></script>
-      <link href="vendor/datatables/dataTables.bootstrap4.css"
-         rel="stylesheet">
-   </head>
-   <body>
-      <div><img src="img/banner.jpg" style="height:80px; width: 100%;"></div>
-      <div class="wrapper">
-         <!-- Sidebar  -->
-         <nav id="sidebar">
-            <ul class="list-unstyled components">
-               <li>
-                  <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <i class="fas fa-address-card"></i>
-                  Operaciones
-                  </a>
-                  <ul class="collapse list-unstyled" id="homeSubmenu">
-                     <li>
-                        <a th:href="@{/operaciones_recepcion}">Recepcion del paciente</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/operaciones_folios}">Folios registrados</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/operaciones_facturacion}">Facturación</a>
-                     </li>
-                  </ul>
-               </li>
-               <li>
-                  <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <i class="fas fa-users-cog"></i>
-                  Administración
-                  </a>
-                  <ul class="collapse list-unstyled" id="homeSubmenu2">
-                     <li>
-                        <a th:href="@{/administracion_empleados}">Empleados</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/administracion_informacion}">Información Fiscal</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/administracion_sucursales}">Sucursales</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/administracion_usuarios}">Usuarios</a>
-                     </li>
-                  </ul>
-               </li>
-               <li>
-                  <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <i class="fas fa-file-medical"></i>
-                  Estudios
-                  </a>
-                  <ul class="collapse list-unstyled" id="homeSubmenu3">
-                     <li>
-                        <a th:href="@{/estudios_listar}">Listar estudios</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/estudios_examenes}">Exámenes</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/estudios_perfiles}">Perfiles</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/estudios_paquetes}">Paquetes</a>
-                     </li>
-                      <li>
-                        <a th:href="@{/gabinete}">Gabinete</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/estudios_calculos}">Cálculos</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/estudios_cultivos}">Cultivos</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/estudios_antibiogramas}">Antibiogramas</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/catalogos_antibiotico}">Antibióticos</a>
-                     </li>
-                  </ul>
-               </li>
-               <li>
-                  <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <i class="fas fa-dollar-sign"></i>
-                  Precios
-                  </a>
-                  <ul class="collapse list-unstyled" id="homeSubmenu4">
-                     <li>
-                        <a th:href="@{/precios_listas}">Listas de precios</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/precios_convenios}">Convenios</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/precios_promociones}">Promociones</a>
-                     </li>
-                  </ul>
-               </li>
-               <li>
-                  <a href="#homeSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <i class="fas fa-diagnoses"></i>
-                  Productos y servicios
-                  </a>
-                  <ul class="collapse list-unstyled" id="homeSubmenu5">
-                     <li>
-                        <a th:href="@{/proserv_productos}">Productos</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/proserv_servicios}">Servicios</a>
-                     </li>
-                  </ul>
-               </li>
-               <li>
-                  <a href="#homeSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <i class="fas fa-users-cog"></i>
-                  Catálogos
-                  </a>
-                  <ul class="collapse list-unstyled" id="homeSubmenu6">
-                     <li>
-                        <a th:href="@{/catalogos_alertas}">Alertas</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/catalogos_condicion}">Catalogo</a>
-                     </li>
-                  </ul>
-               </li>
-               <li>
-                  <a href="#homeSubmenu7" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <i class="fas fa-wrench"></i>
-                  Herramientas
-                  </a>
-                  <ul class="collapse list-unstyled" id="homeSubmenu7">
-                     <li>
-                        <a th:href="@{/herramientas_participaciones}">Participaciones médicos</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/herramientas_corte}">Corte de caja</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/herramientas_notificaciones}">Notificaciones</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/herramientas_reportes}">Reportes</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/herramientas_sistema}">Sistema</a>
-                     </li>
-                  </ul>
-               </li>
-               <li>
-                  <a href="#homeSubmenu8" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <i class="fas fa-question-circle"></i>
-                  Ayuda
-                  </a>
-                  <ul class="collapse list-unstyled" id="homeSubmenu8">
-                     <li>
-                        <a th:href="@{/herramientas_participaciones}">BeMedica Support</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/herramientas_corte}">Registro Demos</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/herramientas_notificaciones}">Acerca de</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/herramientas_reportes}">Contacto</a>
-                     </li>
-                     <li>
-                        <a th:href="@{/herramientas_sistema}">Registros</a>
-                     </li>
-                  </ul>
-               </li>
-            </ul>
-         </nav>
-         <!-- <script>
+<!--  -->
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="Shortcut Icon" th:href="@{/img/favicon.ico}" type=”image/x-icon” />
+<title th:text="${titulo}">Bemédica Punto de venta</title>
+
+<!-- Bootstrap CSS CDN -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+	crossorigin="anonymous">
+<!--  -->
+<!-- Our Custom CSS -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/style_ticket.css}">
+<!-- Font Awesome JS -->
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.js"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#sel").change(function() {
+			$("#form1").submit();
+		});
+	});
+</script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+	crossorigin="anonymous"></script>
+<link href="vendor/datatables/dataTables.bootstrap4.css"
+	rel="stylesheet">
+</head>
+<body>
+	<div>
+		<img th:src="@{/img/banner.jpg}" style="height: 80px; width: 100%;">
+	</div>
+	<div class="wrapper">
+		<!-- Sidebar  -->
+		<nav id="sidebar">
+			<ul class="list-unstyled components">
+				<li><a href="#homeSubmenu" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-address-card"></i> Operaciones
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu">
+						<li><a th:href="@{/operaciones_recepcion}">Recepcion del
+								paciente</a></li>
+						<li><a th:href="@{/operaciones_folios}">Folios
+								registrados</a></li>
+						<li><a th:href="@{/operaciones_facturacion}">Facturación</a>
+						</li>
+					</ul></li>
+				<li><a href="#homeSubmenu2" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-users-cog"></i> Administración
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu2">
+						<li><a th:href="@{/administracion_empleados}">Empleados</a></li>
+						<li><a th:href="@{/administracion_informacion}">Información
+								Fiscal</a></li>
+						<li><a th:href="@{/administracion_sucursales}">Sucursales</a>
+						</li>
+						<li><a th:href="@{/administracion_usuarios}">Usuarios</a></li>
+					</ul></li>
+				<li><a href="#homeSubmenu3" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-file-medical"></i> Estudios
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu3">
+						<li><a th:href="@{/estudios_listar}">Listar estudios</a></li>
+						<li><a th:href="@{/estudios_examenes}">Exámenes</a></li>
+						<li><a th:href="@{/estudios_perfiles}">Perfiles</a></li>
+						<li><a th:href="@{/estudios_paquetes}">Paquetes</a></li>
+						<li><a th:href="@{/gabinete}">Gabinete</a></li>
+						<li><a th:href="@{/estudios_calculos}">Cálculos</a></li>
+						<li><a th:href="@{/estudios_cultivos}">Cultivos</a></li>
+						<li><a th:href="@{/estudios_antibiogramas}">Antibiogramas</a>
+						</li>
+						<li><a th:href="@{/catalogos_antibiotico}">Antibióticos</a></li>
+					</ul></li>
+				<li><a href="#homeSubmenu4" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-dollar-sign"></i> Precios
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu4">
+						<li><a th:href="@{/precios_listas}">Listas de precios</a></li>
+						<li><a th:href="@{/precios_convenios}">Convenios</a></li>
+						<li><a th:href="@{/precios_promociones}">Promociones</a></li>
+					</ul></li>
+				<li><a href="#homeSubmenu5" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-diagnoses"></i> Productos y servicios
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu5">
+						<li><a th:href="@{/proserv_productos}">Productos</a></li>
+						<li><a th:href="@{/proserv_servicios}">Servicios</a></li>
+					</ul></li>
+				<li><a href="#homeSubmenu6" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-users-cog"></i> Catálogos
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu6">
+						<li><a th:href="@{/catalogos_alertas}">Alertas</a></li>
+						<li><a th:href="@{/catalogos_condicion}">Catalogo</a></li>
+					</ul></li>
+				<li><a href="#homeSubmenu7" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-wrench"></i> Herramientas
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu7">
+						<li><a th:href="@{/herramientas_participaciones}">Participaciones
+								médicos</a></li>
+						<li><a th:href="@{/herramientas_corte}">Corte de caja</a></li>
+						<li><a th:href="@{/herramientas_notificaciones}">Notificaciones</a>
+						</li>
+						<li><a th:href="@{/herramientas_reportes}">Reportes</a></li>
+						<li><a th:href="@{/herramientas_sistema}">Sistema</a></li>
+					</ul></li>
+				<li><a href="#homeSubmenu8" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle"> <i
+						class="fas fa-question-circle"></i> Ayuda
+				</a>
+					<ul class="collapse list-unstyled" id="homeSubmenu8">
+						<li><a th:href="@{/herramientas_participaciones}">BeMedica
+								Support</a></li>
+						<li><a th:href="@{/herramientas_corte}">Registro Demos</a></li>
+						<li><a th:href="@{/herramientas_notificaciones}">Acerca
+								de</a></li>
+						<li><a th:href="@{/herramientas_reportes}">Contacto</a></li>
+						<li><a th:href="@{/herramientas_sistema}">Registros</a></li>
+					</ul></li>
+			</ul>
+		</nav>
+		<!-- <script>
             function cambia(src) {
                 src = "";
                 src = "https://img.icons8.com/color/48/000000/drag-list-down.png";
@@ -216,355 +148,270 @@
             
             </script>
             -->
-         <!-- Page Content  -->
-         <div id="content">
-            <div class="accordion" id="accordionExample" style="user-select:none;">
-               <!--Inicia el tercer menú-->
-               <div class="card">
-                  <div class="card-header" id="headingThree" for="collapseThree">
-                     <h2 class="mb-0 form-row" style="font-size: 20px;">
-                        Información de Orden
-                        <div class="ml-auto">
-                           <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                              data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                           <i class="fas fa-angle-double-down"></i>
-                           <i class="fas fa-angle-double-up"></i>
-                           </button>
-                           <button class="btn btn-link" type="button" aria-expanded="true">
-                           <i class="fas fa-save"></i>
-                           </button>
-                           <button class="btn btn-link" type="button" aria-expanded="true">
-                           <i class="fas fa-search"></i>
-                           </button>
-                           <button class="btn btn-link" type="button" aria-expanded="true">
-                           <i class="fas fa-sync"></i>
-                           </button>
-                        </div>
-                     </h2>
-                  </div>
-                  <div id="collapseThree" class="collapse show" aria-labelledby="headingThree"
-                     data-parent="#accordionExample">
-                     <div class="card-body">
-                        <div align="left">
-                           <button class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo">
-                           Crear orden
-                           <span class="glyphicon glyphicon-plus"></span>
-                           </button>
-                        </div>
-                        <br>
-                        <div align="left">
-                           <button class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo2">
-                           Agregar doctor
-                           <span class="glyphicon glyphicon-plus"></span>
-                           </button>
-                        </div>
-                        <br>
-                        <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                           <div class="modal-dialog modal-sm-1" role="document">
-                              <div class="modal-content">
-                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel">Ingresar nueva orden</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                 </div>
-                                 <!--body de Modal -->
-                                 <form action="/formC" method="post"  th:object ="${orden}">
-                                    <div class="modal-body">
-                                    <h6>Datos paciente</h6>
-                                       <div class="form-row">
-                                          <!--    <div class="form-group col-md-3">
+		<!-- Page Content  -->
+		<div id="content">
+			<div class="accordion" id="accordionExample"
+				style="user-select: none;">
+				<!--Inicia el tercer menú-->
+				<div class="card">
+					<div class="card-header" id="headingThree" for="collapseThree">
+						<h2 class="mb-0 form-row" style="font-size: 20px;">
+							Información de Orden
+							<div class="ml-auto">
+								<button class="btn btn-link collapsed" type="button"
+									data-toggle="collapse" data-target="#collapseThree"
+									aria-expanded="false" aria-controls="collapseThree">
+									<i class="fas fa-angle-double-down"></i> <i
+										class="fas fa-angle-double-up"></i>
+								</button>
+								<button class="btn btn-link" type="button" aria-expanded="true" data-toggle="modal" data-target="#modalNuevo">
+									<i class="fas fa-plus-square"></i>
+								</button>
+								<button class="btn btn-link" type="button" aria-expanded="true">
+									<i class="fas fa-search"></i>
+								</button>
+								<button class="btn btn-link" type="button" aria-expanded="true">
+									<i class="fas fa-sync"></i>
+								</button>
+							</div>
+						</h2>
+					</div>
+					<div id="collapseThree" class="collapse show"
+						aria-labelledby="headingThree" data-parent="#accordionExample">
+						<div class="card-body">
+							<br>
+							<div class="modal fade" id="modalNuevo" tabindex="-1"
+								role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+								style="display: none;">
+								<div class="modal-dialog modal-sm-1" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="myModalLabel">Ingresar nueva
+												orden</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">×</span>
+											</button>
+										</div>
+										<!--body de Modal -->
+										<form action="/formC" method="post" th:object="${orden}">
+											<div class="modal-body">
+												<h6>Datos paciente</h6>
+												<div class="form-row">
+													<!--    <div class="form-group col-md-3">
                                              <label for="inputNor" class="col-form-label-sm mb-0">Codigo Paciente</label>
                                              <input type="text" class="form-control form-control-sm" id="inputNor" name="paciente_id_tex">
                                              </div>   --->
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Nombre</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="persona_nombre">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Apellido Paterno</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="persona_ap">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input1" class="col-form-label-sm mb-0">Apellido Materno</label>
-                                             <input type="text" class="form-control form-control-sm" id="input1" required name="persona_am">
-                                          </div>
-                                         <div class="form-group col-md-3">
-                                             <label for="inputSexo" class="col-form-label-sm mb-0">Sexo</label>
-                                             <select  class="form-control form-control-sm" required name="persona_genero">
-                                                <option>Seleccione sexo</option>
-                                                <option value="Masculino">Masculino</option>
-                                                <option value="Femenino">Femenino</option>
-                                             </select>
-                                          </div>
-                                          </div>
-                                           <div class="form-row">
-                                            <div class="form-group col-md-5">
-                                             <label for="input2" class="col-form-label-sm mb-0">Fecha Nacimiento</label>
-                                             <input type="date" class="form-control form-control-sm" id="inpu2" required name="persona_fecha_na">
-                                          </div>
-                                          
-                                          <div class="form-group col-md-3">
-                                             <label for="input1" class="col-form-label-sm mb-0">Telefono casa</label>
-                                             <input type="text" class="form-control form-control-sm" id="input1" required name="persona_tel_casa">
-                                          </div>
-                                            <div class="form-group col-md-3">
-                                             <label for="input3" class="col-form-label-sm mb-0">Celular</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu3"  pattern="[0-9]{10}" required name="persona_tel_cel">
-                                          </div>
-                                       </div>
-                                       <div class="form-row">
-                                          <div class="form-group col-md-6">
-                                             <label for="input2" class="col-form-label-sm mb-0">Email</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu2" required name="persona_email" >
-                                          </div>
-                                        
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Telefono oficina</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="persona_tel_oficina" >
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input3" class="col-form-label-sm mb-0">Extension</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu3" required name="persona_tel_exten">
-                                          </div>
-                                       </div>
-                                       <div class="form-row">
-                                          
-                                          <div class="form-group col-md-3">
-                                             <label for="input1" class="col-form-label-sm mb-0">Calle</label>
-                                             <input type="text" class="form-control form-control-sm" id="input1" required name="direccion_calle">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input2" class="col-form-label-sm mb-0">Numero exterior</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu2" required name="direccion_numero_ext">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input2" class="col-form-label-sm mb-0">Numero interior</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu2" required name="direccion_num_inter">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Colonia</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="direccion_colonia">
-                                          </div>
-                                       </div>
-                                       <div class="form-row">
-                                          
-                                          <div class="form-group col-md-3">
-                                             <label for="input1" class="col-form-label-sm mb-0">Municipio</label>
-                                             <input type="text" class="form-control form-control-sm" id="input1" required name="direccion_municipio">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input3" class="col-form-label-sm mb-0">Codigo postal</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu3" required name="direccion_postal">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Estado</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="direccion_estado">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Diagnostico</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="observacion" >
-                                          </div>
-                                       </div>
-                                       <h6>Datos medico</h6>
-                                       <div class="form-row">
-                                          
-                                          
-                                           <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Nombre</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" th:object ="${personamedico}" required th:name="persona_nombre_m" >
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Apellido paterno</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" th:object ="${personamedico}" required th:name="persona_ap_m" >
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Apellido materno</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" th:object ="${personamedico}" required th:name="persona_am_m" >
-                                         <!-- <input type="hidden" th:name="personamedico.id_direccion" value='NULL'>---->
-                                          </div>
-                                           <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Cedula</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor"  required th:name="medico_cedula" >
-                                         <!-- <input type="hidden" th:name="personamedico.id_direccion" value='NULL'>---->
-                                          </div>
-                                       </div>
-                                       <div class="form-row">
-                                          
-                                          
-                                           <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Celular</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" th:object ="${personamedico}" required th:name="cel_med" >
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Email</label>
-                                             <input type="email" class="form-control form-control-sm" id="inputNor" th:object ="${personamedico}" required th:name="email_med" >
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Metodo de pago</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" th:object ="${personamedico}" required th:name="metodo_pago" >
-                                         <!-- <input type="hidden" th:name="personamedico.id_direccion" value='NULL'>---->
-                                          </div>
-                                         
-                                       </div>
-                                       <input class="btn btn-primary" type="submit" value="Guardar" id="submit">
-                                    </div>
-                                   <input type="hidden"   th:field="*{orden_id}"/> <!-- -fgsdfgsdgfdgsdfgfdgfdsggfdsgdfsggsdfg -->
-                                 </form>
-                                 <div class="modal-footer">
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="modal fade" id="modalNuevo2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                           <div class="modal-dialog modal-sm-1" role="document">
-                              <div class="modal-content">
-                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel">Ingresar nuevo doctor</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                 </div>
-                                 <!--body de Modal -->
-                                 <form action="/form2" method="post">
-                                    <div class="modal-body">
-                                       <div class="form-row">
-                                          <!--       <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Codigo Doctor</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" name="medico_id_text">
-                                             </div>  ---->
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Nombre</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="persona_nombre">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Apellido Paterno</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="persona_ap">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input1" class="col-form-label-sm mb-0">Apellido Materno</label>
-                                             <input type="text" class="form-control form-control-sm" id="input1" required name="persona_am">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input2" class="col-form-label-sm mb-0">Fecha Nacimiento</label>
-                                             <input type="date" class="form-control form-control-sm" id="inpu2" required name="persona_fecha_na">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input3" class="col-form-label-sm mb-0">RFC</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu3" required name="persona_rfc">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputSexo" class="col-form-label-sm mb-0">Sexo</label>
-                                             <select id="inputSexo" class="form-control form-control-sm" required name="persona_genero">
-                                                <option>Seleccione sexo</option>
-                                                <option value="Masculino">Masculino</option>
-                                                <option value="Femenino">Femenino</option>
-                                             </select>
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input1" class="col-form-label-sm mb-0">Telefono casa</label>
-                                             <input type="text" class="form-control form-control-sm" id="input1" required name="persona_tel_casa">
-                                          </div>
-                                       </div>
-                                       <div class="form-row">
-                                          <div class="form-group col-md-6">
-                                             <label for="input2" class="col-form-label-sm mb-0">Email</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu2" required name="persona_email" >
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input3" class="col-form-label-sm mb-0">Celular</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu3" required name="persona_tel_cel">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Telefono oficina</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="persona_tel_oficina" >
-                                          </div>
-                                       </div>
-                                       <div class="form-row">
-                                          <div class="form-group col-md-3">
-                                             <label for="input3" class="col-form-label-sm mb-0">Extension</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu3" required name="persona_tel_exten">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input1" class="col-form-label-sm mb-0">Calle</label>
-                                             <input type="text" class="form-control form-control-sm" id="input1" required name="direccion_calle">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input2" class="col-form-label-sm mb-0">Numero exterior</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu2" required name="direccion_numero_ext">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input2" class="col-form-label-sm mb-0">Numero interior</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu2" required name="direccion_num_inter">
-                                          </div>
-                                       </div>
-                                       <div class="form-row">
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Colonia</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="direccion_colonia">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input1" class="col-form-label-sm mb-0">Municipio</label>
-                                             <input type="text" class="form-control form-control-sm" id="input1" required name="direccion_municipio">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="input3" class="col-form-label-sm mb-0">Codigo postal</label>
-                                             <input type="text" class="form-control form-control-sm" id="inpu3" required name="direccion_postal">
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Estado</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="direccion_estado">
-                                          </div>
-                                       </div>
-                                       <div class="form-row">
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Foto</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="medico_foto" >
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Especialidad</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="medico_especialidad" >
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                             <label for="inputNor" class="col-form-label-sm mb-0">Cedula</label>
-                                             <input type="text" class="form-control form-control-sm" id="inputNor" required name="medico_cedula" >
-                                          </div>
-                                       </div>
-                                       <input class="btn btn-primary" type="submit" value="Guardar" id="submit">
-                                    </div>
-                                 </form>
-                                 <div class="modal-footer">
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <h5>Ordenes</h5>
-                        <!--Inicia código de formulario-->
-                       <form action="guardarorden"  th:object ="${orden}" method="post">
-                           <div class="form-row">
-                              <!--   <input type="hidden"   th:field="*{direccion.direccion_id}"/>
+													<div class="form-group col-md-3">
+														<label for="inputNor" class="col-form-label-sm mb-0">Nombre</label>
+														<input type="text" class="form-control form-control-sm"
+															id="inputNor" required name="persona_nombre">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="inputNor" class="col-form-label-sm mb-0">Apellido
+															Paterno</label> <input type="text"
+															class="form-control form-control-sm" id="inputNor"
+															required name="persona_ap">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="input1" class="col-form-label-sm mb-0">Apellido
+															Materno</label> <input type="text"
+															class="form-control form-control-sm" id="input1" required
+															name="persona_am">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="inputSexo" class="col-form-label-sm mb-0">Sexo</label>
+														<select class="form-control form-control-sm" required
+															name="persona_genero">
+															<option>Seleccione sexo</option>
+															<option value="Masculino">Masculino</option>
+															<option value="Femenino">Femenino</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-row">
+													<div class="form-group col-md-5">
+														<label for="input2" class="col-form-label-sm mb-0">Fecha
+															Nacimiento</label> <input type="date"
+															class="form-control form-control-sm" id="inpu2" required
+															name="persona_fecha_na">
+													</div>
+
+													<div class="form-group col-md-3">
+														<label for="input1" class="col-form-label-sm mb-0">Telefono
+															casa</label> <input type="text"
+															class="form-control form-control-sm" id="input1" required
+															name="persona_tel_casa">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="input3" class="col-form-label-sm mb-0">Celular</label>
+														<input type="text" class="form-control form-control-sm"
+															id="inpu3" pattern="[0-9]{10}" required
+															name="persona_tel_cel">
+													</div>
+												</div>
+												<div class="form-row">
+													<div class="form-group col-md-6">
+														<label for="input2" class="col-form-label-sm mb-0">Email</label>
+														<input type="text" class="form-control form-control-sm"
+															id="inpu2" required name="persona_email">
+													</div>
+
+													<div class="form-group col-md-3">
+														<label for="inputNor" class="col-form-label-sm mb-0">Telefono
+															oficina</label> <input type="text"
+															class="form-control form-control-sm" id="inputNor"
+															required name="persona_tel_oficina">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="input3" class="col-form-label-sm mb-0">Extension</label>
+														<input type="text" class="form-control form-control-sm"
+															id="inpu3" required name="persona_tel_exten">
+													</div>
+												</div>
+												<div class="form-row">
+
+													<div class="form-group col-md-3">
+														<label for="input1" class="col-form-label-sm mb-0">Calle</label>
+														<input type="text" class="form-control form-control-sm"
+															id="input1" required name="direccion_calle">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="input2" class="col-form-label-sm mb-0">Numero
+															exterior</label> <input type="text"
+															class="form-control form-control-sm" id="inpu2" required
+															name="direccion_numero_ext">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="input2" class="col-form-label-sm mb-0">Numero
+															interior</label> <input type="text"
+															class="form-control form-control-sm" id="inpu2" required
+															name="direccion_num_inter">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="inputNor" class="col-form-label-sm mb-0">Colonia</label>
+														<input type="text" class="form-control form-control-sm"
+															id="inputNor" required name="direccion_colonia">
+													</div>
+												</div>
+												<div class="form-row">
+
+													<div class="form-group col-md-3">
+														<label for="input1" class="col-form-label-sm mb-0">Municipio</label>
+														<input type="text" class="form-control form-control-sm"
+															id="input1" required name="direccion_municipio">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="input3" class="col-form-label-sm mb-0">Codigo
+															postal</label> <input type="text"
+															class="form-control form-control-sm" id="inpu3" required
+															name="direccion_postal">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="inputNor" class="col-form-label-sm mb-0">Estado</label>
+														<input type="text" class="form-control form-control-sm"
+															id="inputNor" required name="direccion_estado">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="inputNor" class="col-form-label-sm mb-0">Diagnostico</label>
+														<input type="text" class="form-control form-control-sm"
+															id="inputNor" name="observacion">
+													</div>
+												</div>
+												<h6>Datos medico</h6>
+												<div class="form-row">
+
+
+													<div class="form-group col-md-3">
+														<label for="inputNor" class="col-form-label-sm mb-0">Nombre</label>
+														<input type="text" class="form-control form-control-sm"
+															th:name="persona_nombre_m">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="inputNor" class="col-form-label-sm mb-0">Apellido
+															paterno</label> <input type="text"
+															class="form-control form-control-sm" id="inputNor"
+															th:name="persona_ap_m">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="inputNor" class="col-form-label-sm mb-0">Apellido
+															materno</label> <input type="text"
+															class="form-control form-control-sm" id="inputNor"
+															th:name="persona_am_m">
+														<!-- <input type="hidden" th:name="personamedico.id_direccion" value='NULL'>---->
+													</div>
+													<div class="form-group col-md-3">
+														<label for="inputNor" class="col-form-label-sm mb-0">Cedula</label>
+														<input type="text" class="form-control form-control-sm"
+															id="inputNor" th:name="medico_cedula">
+														<!-- <input type="hidden" th:name="personamedico.id_direccion" value='NULL'>---->
+													</div>
+												</div>
+												<div class="form-row">
+
+
+													<div class="form-group col-md-3">
+														<label for="inputNor" class="col-form-label-sm mb-0">Celular</label>
+														<input type="text" class="form-control form-control-sm"
+															id="inputNor" 
+															th:name="cel_med">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="inputNor" class="col-form-label-sm mb-0">Email</label>
+														<input type="email" class="form-control form-control-sm"
+															id="inputNor" 
+															th:name="email_med">
+													</div>
+													<div class="form-group col-md-3">
+														<label for="inputNor" class="col-form-label-sm mb-0">Especialidad</label>
+														<input type="text" class="form-control form-control-sm"
+															id="inputNor" 
+															th:name="esp_med">
+													</div>
+
+												</div>
+												<input class="btn btn-primary" type="submit" value="Guardar"
+													id="submit">
+											</div>
+											<input type="hidden" th:field="*{orden_id}" />
+											<!-- -fgsdfgsdgfdgsdfgfdgfdsggfdsgdfsggsdfg -->
+										</form>
+										<div class="modal-footer"></div>
+									</div>
+								</div>
+							</div>
+							
+							<h5>Ordenes</h5>
+							<!--Inicia código de formulario-->
+							<form th:action="@{/guardarorden}" th:object="${orden}" method="post">
+								<div class="form-row">
+									<!--   <input type="hidden"   th:field="*{direccion.direccion_id}"/>
                                  <input type="hidden"   th:field="*{persona.persona_id}"/>
                                  
-                                                                --> 
-                              <div class="col-sm-3">
-                                 <label class="col-sm-12 col-form-label">Paciente</label> 
-                                 <select class="form-control" th:field="*{paciente_id}">
-                                    <option value=''>seleccione paciente</option>
-                                    <option th:each="paciente:${pacientes}"
-                                       th:value="${paciente.paciente_id}"
-                                       th:label="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am}" />
-                                 </select>
-                              </div>
-                              <div class="col-sm-3">
-                                 <label class="col-sm-12 col-form-label">Medico</label> 
-                                 <select id="" class="form-control" th:field="*{medico_id}">
-                                    <option value=''>seleccione medico</option>
-                                    <option th:each="medico:${medicos}"
-                                       th:value="${medico.medico_id}"
-                                       th:label="${medico.persona_nombre + ' ' + medico.persona_ap + ' ' + medico.persona_am}" />
-                                 </select>
-                              </div>
-                              <!--  <div class="form-group col-md-3">
+                                                                -->
+									<div class="col-sm-3">
+										<label class="col-sm-12 col-form-label">Paciente</label> <select
+											class="form-control" th:field="*{paciente_id}">
+											<option value=''>seleccione paciente</option>
+											<option th:each="paciente:${pacientes}"
+												th:value="${paciente.paciente_id}"
+												th:label="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am}" />
+										</select>
+									</div>
+									<div class="col-sm-3">
+										<label class="col-sm-12 col-form-label">Medico</label> <select
+											id="" class="form-control" th:field="*{medico_id}">
+											<option value=''>seleccione medico</option>
+											<option th:each="medico:${medicos}"
+												th:value="${medico.medico_id}"
+												th:label="${medico.persona_nombre + ' ' + medico.persona_ap + ' ' + medico.persona_am}" />
+										</select>
+									</div>
+									<!--  <div class="form-group col-md-3">
                                  <label for="input1" class="col-form-label-sm mb-0">Fecha orden</label>
                                  <input type="date" class="form-control form-control-sm" id="input1" required th:field="*{orden_fecha}">
                                  </div> -->
-                             <!-- <div class="col-sm-3">
+									<!-- <div class="col-sm-3">
                                  <label class="col-sm-12 col-form-label">Orden status</label> 
                                  <select id="" class="form-control" th:field="*{orden_estatus}">
                                     <option value="cotizacion">Cotizacion</option>
@@ -572,153 +419,183 @@
                                     <option value="pendiente">Pendiente</option>
                                  </select>
                               </div>  ---->
-                              <div class="col-sm-3">
-                                 <label class="col-sm-12 col-form-label">Empleado</label> 
-                                 <select id="" class="form-control" th:field="*{empleado_id}">
-                                    <option th:each="empleado:${empleados}"
-                                       th:value="${empleado.empleado_id}"
-                                       th:label="${empleado.persona_nombre + ' ' + empleado.persona_ap}" />
-                                 </select>
-                              </div>
-                              <div class="col-sm-3">
-                                 <label class="col-sm-12 col-form-label">Sucursal</label> 
-                                 <select id="" class="form-control" th:field="*{sucursal_id}">
-                                    <option th:each="sucursal:${sucursales}"
-                                       th:value="${sucursal.sucursal_id}"
-                                       th:label="${sucursal.sucursal_nombre}" />
-                                 </select>
-                              </div>
-                               <div class="col-sm-3">
-                                 <label class="col-sm-12 col-form-label">Metodo de pago</label> 
-                                  <select id="" class="form-control" name="metodo_pago">
-                                  <option value="" disabled="" selected="">Seleccione metodo de pago</option>
-                                    <option value="efectivo">Efectivo</option>
-                                    <option value="tarjeta">Tarjeta</option>
-                                    
-                                 </select>
-                              </div>
-                           </div>
-                           <br>
-                           <input class="btn btn-primary" type="submit" value="Guardar" id="submit">
-                           <br>
-                           <input type="hidden"   th:field="*{orden_id}"/>
-                        </form>
-                        <br>
-                        <br>
-                        <h5>Estudios</h5>
-                        <form action="form_orden_estudios" th:object ="${ordenestudio}" method="post">
-                           <div class="form-row">
-                              <input type="hidden"  th:field="*{orden_id}"/>
-                              <div class="col-sm-3">
-                                 <label class="col-sm-12 col-form-label">Estudio</label> 
-                                 <select id="" class="form-control" th:field="*{estudio_id}">
-                                 <optgroup label="Estudios">
-                                  
-                                    <option th:each="estudio:${estudios}"
-                                       th:value="${estudio[0] + 'est'}"
-                                        
-                                       th:label="${estudio[2]  +   '   $' + estudio[4] + '  MXN '}"/>
-                                       </optgroup>
-                                       <optgroup label="Paquetes">
-                                    
-                                    <option th:each="paquete:${paquetes}"
-                                       th:value="${paquete[0] + 'paq'}"
-                                       th:label="${paquete[1] + ' $' + paquete[3] + 'MXN'}" />
-                                       </optgroup>
-                                       
-                                       <optgroup label="Perfiles">
-                                     
-                                    <option th:each="perfil:${perfiles}"
-                                       th:value="${perfil[0] + 'per'}"
-                                       th:label="${perfil[1] + ' $' + perfil[5] + 'MXN'}" />
-                                   
-                                </optgroup>
-                                 </select>
-                           
-                              </div>
-                             
-                            
-                            
-                          <!--    <div class="col-sm-3">
+									<div class="col-sm-3">
+										<label class="col-sm-12 col-form-label">Empleado</label> <select
+											id="" class="form-control" th:field="*{empleado_id}">
+											<option th:each="empleado:${empleados}"
+												th:value="${empleado.empleado_id}"
+												th:label="${empleado.persona_nombre + ' ' + empleado.persona_ap}" />
+										</select>
+									</div>
+									<div class="col-sm-3">
+										<label class="col-sm-12 col-form-label">Sucursal</label> <select
+											id="" class="form-control" th:field="*{sucursal_id}">
+											<option th:each="sucursal:${sucursales}"
+												th:value="${sucursal.sucursal_id}"
+												th:label="${sucursal.sucursal_nombre}" />
+										</select>
+									</div>
+									<div class="col-sm-3">
+										<label class="col-sm-12 col-form-label">Metodo de pago</label>
+										<select id="" class="form-control" name="metodo_pago">
+											<option value="" disabled="" selected="">Seleccione
+												metodo de pago</option>
+											<option value="efectivo">Efectivo</option>
+											<option value="tarjeta">Tarjeta</option>
+
+										</select>
+									</div>
+								</div>
+								<br> <input class="btn btn-primary" type="submit"
+									value="Guardar" id="submit"> <br> <input
+									type="hidden" th:field="*{orden_id}" />
+							</form>
+							<br> <br>
+							<h5>Estudios</h5>
+							<form th:action="@{/form_orden_estudios}" th:object="${ordenestudio}"
+								method="post">
+								<div class="form-row">
+									<input type="hidden" th:field="*{orden_id}" />
+									<div class="col-sm-3">
+										<label class="col-sm-12 col-form-label">Estudio</label> <select
+											id="" class="form-control" th:field="*{estudio_id}">
+											<optgroup label="Estudios">
+
+												<option th:each="estudio:${estudios}"
+													th:value="${estudio[0] + 'est'}"
+													th:label="${estudio[2]  +   '   $' + estudio[4] + '  MXN '}" />
+											</optgroup>
+											<optgroup label="Paquetes">
+
+												<option th:each="paquete:${paquetes}"
+													th:value="${paquete[0] + 'paq'}"
+													th:label="${paquete[1] + ' $' + paquete[3] + 'MXN'}" />
+											</optgroup>
+
+											<optgroup label="Perfiles">
+
+												<option th:each="perfil:${perfiles}"
+													th:value="${perfil[0] + 'per'}"
+													th:label="${perfil[1] + ' $' + perfil[5] + 'MXN'}" />
+
+											</optgroup>
+										</select>
+
+									</div>
+
+
+
+									<!--    <div class="col-sm-3">
                                  <label class="col-sm-12 col-form-label">Cantidad</label> 
                                  <input type="number" class="form-control form-control-sm" id="inputNor" required th:field="*{cantidad_estudio}" min="1">
                               
                               </div>  ----->
-                           </div>
-                           <br>
-                           <input class="btn btn-primary" type="submit" value="Guardar" id="submit">
-                        </form>
-                        <br>
-                        <!--Termina código de formulario-->
-                        <h5>Estudios orden</h5>
-                        <br>
-                        <table class="display" id="" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
-                           <thead>
-                              <tr class="table-primary" role="row">
-                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Nombre estudio</th>
-                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Precio unitario</th>
-                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R2: activate to sort column ascending">Cantidad</th>
-                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Total linea</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr th:each= " oe: ${orden_estudios}">
-                                 <!--  <td> <a th:text="${medico.persona_nombre + ' ' + medico.persona_ap + ' ' + medico.persona_am }" th:href="@{/form2/} + ${medico.medico_id}" ></a></td> -->
-                                 <td th:text="${oe.estudio_nombre}"></td>
-                                 <td th:text="${oe.estudio_precio}"></td>
-                                <!--  <td th:text="${oe.cantidad_estudio}"></td> ---->
-                                 <td th:text="${oe.total_linea}"></td>
-                                 <!-- <td th:text="${medico.direccion_numero_ext}"></td>
+								</div>
+								<br> <input class="btn btn-primary" type="submit"
+									value="Guardar" id="submit">
+							</form>
+							<br>
+							<!--Termina código de formulario-->
+							<h5>Estudios orden</h5>
+							<br>
+							<table class="display" id="" role="grid"
+								aria-describedby="dataTable_info" style="width: 100%;"
+								width="100%" cellspacing="0">
+								<thead>
+									<tr class="table-primary" role="row">
+										<th class="sorting" tabindex="0" aria-controls="dataTable"
+											rowspan="1" colspan="1" style="width: 16px;"
+											aria-label="R1: activate to sort column ascending">Nombre
+											estudio</th>
+										<th class="sorting" tabindex="0" aria-controls="dataTable"
+											rowspan="1" colspan="1" style="width: 16px;"
+											aria-label="R1: activate to sort column ascending">Precio
+											unitario</th>
+										<th class="sorting" tabindex="0" aria-controls="dataTable"
+											rowspan="1" colspan="1" style="width: 20px;"
+											aria-label="R2: activate to sort column ascending">Cantidad</th>
+										<th class="sorting" tabindex="0" aria-controls="dataTable"
+											rowspan="1" colspan="1" style="width: 20px;"
+											aria-label="R3: activate to sort column ascending">Total
+											linea</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each=" oe: ${orden_estudios}">
+										<!--  <td> <a th:text="${medico.persona_nombre + ' ' + medico.persona_ap + ' ' + medico.persona_am }" th:href="@{/form2/} + ${medico.medico_id}" ></a></td> -->
+										<td th:text="${oe.estudio_nombre}"></td>
+										<td th:text="${oe.estudio_precio}"></td>
+										<!--  <td th:text="${oe.cantidad_estudio}"></td> ---->
+										<td th:text="${oe.total_linea}"></td>
+										<!-- <td th:text="${medico.direccion_numero_ext}"></td>
                                     <td th:text="${medico.direccion_colonia}"></td>
                                     --->
-                                 <td><a class="btn btn-danger btn-xs" th:href="@{/eliminar3/} + ${oe.orden_estudio_id}" th:text="'eliminar'" onclick="return confirm('Estás seguro que quieres eliminar?');"></a></td>
-                              </tr>
-                          <tr th:each= "om: ${orden_monto}">
-                              <td></td>
-                              <td>Total</td>
-                              
-                                <td th:text="${om}"  ></td>
-                              <td></td>
-                              </tr>  
-                           </tbody>
-                        </table>
-                        <br>
-						<form th:action="ticket" th:method="post" th:object ="${orden}" th:onsubmit="printPage('block1');">
-							<input type="hidden" th:field="*{orden_id}"/>
-                        	<input type="submit" class="btn btn-primary" value="Print Block 1"></input>
-                        </form>
-<!--                         <input type="button" class="btn btn-primary" value="Print Block 1" onclick="printPage('block1');"></input> -->
-                        <h5>Ordenes</h5>
-                        <br>
-                        <!-- <form th:action="@{/estatus_empleado}" method="post"> ---->
-                        <table class="display" id="" >
-                           <thead>
-                              <tr class="table-primary" role="row">
-                                 <!-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Orden folio</th>  -->
-                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Orden folio</th>
-                                 <!--    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 1px;" aria-label="R1: activate to sort column ascending"></th> --->
-                                 <th >Paciente</th>
-                                 <th >Estatus</th>
-                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Orden fecha</th>
-                                 <th >Pago <br> inicial</th>
-                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Fecha liquidacion</th>
-                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 10px;" aria-label="R3: activate to sort column ascending">Pago final</th>
-                                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Adeudo</th>
-                                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Monto</th>
-                            
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr th:each= " orde: ${vista_ordenes}">
-                                 <!-- <td>                                 <input type="hidden"  th::field="*{orde.orden_id}"/>
+										<td><a class="btn btn-danger btn-xs"
+											th:href="@{/eliminar3/} + ${oe.orden_estudio_id} +@{/}+ ${oe.orden_id}"
+											th:text="'eliminar'"
+											onclick="return confirm('Estás seguro que quieres eliminar?');"></a></td>
+									</tr>
+									<tr th:each="om: ${orden_monto}">
+										<td></td>
+										<td>Total</td>
+
+										<td th:text="${om}"></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+							<br>
+							<!--                         <input type="button" class="btn btn-primary" value="Print Block 1" onclick="printPage('block1');"></input> -->
+							<h5>Ordenes</h5>
+							<br>
+							<!-- <form th:action="@{/estatus_empleado}" method="post"> ---->
+							<table class="display" id="">
+								<thead>
+									<tr class="table-primary" role="row">
+										<!-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Orden folio</th>  -->
+										<th class="sorting" tabindex="0" aria-controls="dataTable"
+											rowspan="1" colspan="1" style="width: 16px;"
+											aria-label="R1: activate to sort column ascending">Orden
+											folio</th>
+										<!--    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 1px;" aria-label="R1: activate to sort column ascending"></th> --->
+										<th>Paciente</th>
+										<th>Estatus</th>
+										<th class="sorting" tabindex="0" aria-controls="dataTable"
+											rowspan="1" colspan="1" style="width: 20px;"
+											aria-label="R3: activate to sort column ascending">Orden
+											fecha</th>
+										<th>Pago <br> inicial
+										</th>
+										<th class="sorting" tabindex="0" aria-controls="dataTable"
+											rowspan="1" colspan="1" style="width: 20px;"
+											aria-label="R3: activate to sort column ascending">Fecha
+											liquidacion</th>
+										<th class="sorting" tabindex="0" aria-controls="dataTable"
+											rowspan="1" colspan="1" style="width: 10px;"
+											aria-label="R3: activate to sort column ascending">Pago
+											final</th>
+										<th class="sorting" tabindex="0" aria-controls="dataTable"
+											rowspan="1" colspan="1" style="width: 20px;"
+											aria-label="R3: activate to sort column ascending">Adeudo</th>
+										<th class="sorting" tabindex="0" aria-controls="dataTable"
+											rowspan="1" colspan="1" style="width: 20px;"
+											aria-label="R3: activate to sort column ascending">Monto</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each=" orde: ${vista_ordenes}">
+										<!-- <td>                                 <input type="hidden"  th::field="*{orde.orden_id}"/>
                                     </td> --->
-                                 <!--   <td>  <input type="hidden"   value='*{orde.orden_id}'/></td> --->
-                                 <td th:text="${orde.orden_folio}"></td>
-                                 <!--       <td><input type="hidden" th:value="${orde.orden_id}"></td> --->
-                                 <!--  <td> <a th:text="${medico.persona_nombre + ' ' + medico.persona_ap + ' ' + medico.persona_am }" th:href="@{/form2/} + ${medico.medico_id}" ></a></td> -->
-                                 <td th:text="${orde.nombre + ' ' + orde.persona_ap + ' ' + orde.persona_am}"></td>
-                                <form th:action="@{/estatus_empleadoPC}" method="post" th:id="${orde.orden_id}" th:name="${orde.orden_id}">
-                                <!-- -
+										<!--   <td>  <input type="hidden"   value='*{orde.orden_id}'/></td> --->
+										<td th:text="${orde.orden_folio}"></td>
+										<!--       <td><input type="hidden" th:value="${orde.orden_id}"></td> --->
+										<!--  <td> <a th:text="${medico.persona_nombre + ' ' + medico.persona_ap + ' ' + medico.persona_am }" th:href="@{/form2/} + ${medico.medico_id}" ></a></td> -->
+										<td
+											th:text="${orde.nombre + ' ' + orde.persona_ap + ' ' + orde.persona_am}"></td>
+										<form th:action="@{/estatus_empleadoPC}" method="post"
+											th:id="${orde.orden_id}" th:name="${orde.orden_id}">
+											<!-- -
                                 <td th:text="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am}">
                                      <select name="pac_id" class="form-control" th:onchange="'post_form(' + ${orde.orden_id} + ');'">
                                            <option th:label="${orde.nombre + ' ' + orde.persona_ap + ' ' + orde.persona_am}">
@@ -731,437 +608,571 @@
                                  </td>
                                
                                 ---->
-                                 <td>
-                                    
-                                       <select name="status_id" class="form-control" th:onchange="'post_form(' + ${orde.orden_id} + ');'">
-                                          <option 
-                                             th:value="${orde.orden_estatus}"
-                                             th:label="${#strings.capitalize(orde.orden_estatus)}"/>
-                                          <option th:if="${orde.orden_estatus=='finalizada'}" th:value="pendiente" th:label="Pendiente"/>
-                                         <option th:if="${orde.orden_estatus=='pendiente'}" th:value="finalizada" th:label="Finalizada"/>
-                                        <!-- <option th:value="pendiente" th:label="Pendiente"/> ---->
-                                       </select>
-                                                                            <input type="hidden" name ="id" th:value="${orde.orden_id}"/>
-                                       </td>
-                                   <!--  </form> --->
-                                 
-                                 <td th:text="${orde.orden_fecha}"></td>
-                                
-                               
-                                 <td width="5%">
-                                 
-                                 <input size="6" name="pago_inicial" th:ondblclick="'post_form(' + ${orde.orden_id} + ');'" type="text" th:value='${orde.pago_inicial}' >
-                                 
-                                <input type="hidden" name ="id" th:value="${orde.orden_id}"/> 
-                                 
-                                 </td>
-                                  <td th:text="${orde.fecha_liquidacion}"></td>
-                                 <!--<td th:text="${orde.fecha_liquidacion"></td> ----->
-                                 <td>
-                                 <input size="6" name="pago_final" th:ondblclick="'post_form(' + ${orde.orden_id} + ');'" type="text" th:value='${orde.pago_final}' >
-                                <input type="hidden" name ="id" th:value="${orde.orden_id}"/> 
-                                 
-                                 </td>
-                                 
-                                 </form>
-                                 <td th:text="${orde.adeudo}"></td>
-                                   <td th:text="${orde.monto}"></td>
-                                 <!-- <td th:text="${medico.direccion_numero_ext}"></td>
+											<td><select name="status_id" class="form-control"
+												th:onchange="'post_form(' + ${orde.orden_id} + ');'">
+													<option th:value="${orde.orden_estatus}"
+														th:label="${#strings.capitalize(orde.orden_estatus)}" />
+													<option th:if="${orde.orden_estatus=='finalizada'}"
+														th:value="pendiente" th:label="Pendiente" />
+													<option th:if="${orde.orden_estatus=='pendiente'}"
+														th:value="finalizada" th:label="Finalizada" />
+													<!-- <option th:value="pendiente" th:label="Pendiente"/> ---->
+											</select> <input type="hidden" name="id" th:value="${orde.orden_id}" />
+											</td>
+											<!--  </form> --->
+
+											<td th:text="${orde.orden_fecha}"></td>
+
+
+											<td width="5%"><input size="6" name="pago_inicial"
+												th:ondblclick="'post_form(' + ${orde.orden_id} + ');'"
+												type="text" th:value='${orde.pago_inicial}'> <input
+												type="hidden" name="id" th:value="${orde.orden_id}" /></td>
+											<td th:text="${orde.fecha_liquidacion}"></td>
+											<!--<td th:text="${orde.fecha_liquidacion"></td> ----->
+											<td><input size="6" name="pago_final"
+												th:ondblclick="'post_form(' + ${orde.orden_id} + ');'"
+												type="text" th:value='${orde.pago_final}'> <input
+												type="hidden" name="id" th:value="${orde.orden_id}" /></td>
+
+										</form>
+										<td th:text="${orde.adeudo}"></td>
+										<td th:text="${orde.monto}"></td>
+										<!-- <td th:text="${medico.direccion_numero_ext}"></td>
                                     <td th:text="${medico.direccion_colonia}"></td>
                                     --->
-                                
-                              </tr>
-                           </tbody>
-                        </table>
-                        <!--  </form> --->
-                     </div>
-                  </div>
-               </div>
-               <div class="card">
-                  <div class="card-header" id="headingOne">
-                     <h2 class="mb-0 form-row" style="font-size: 20px;">
-                        Información del Paciente
-                        <div class="ml-auto">
-                           <button class="btn btn-link" type="button" data-toggle="collapse"
-                              data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                              title="Desplegar">
-                           <i class="fas fa-angle-double-down"></i>
-                           <i class="fas fa-angle-double-up"></i>
-                           </button>
-                           <button class="btn btn-link" type="button" aria-expanded="true" title="Guardar">
-                           <i class="fas fa-save"></i>
-                           </button>
-                           <button class="btn btn-link" type="button" aria-expanded="true" title="Buscar">
-                           <i class="fas fa-search"></i>
-                           </button>
-                           <button class="btn btn-link" type="button" aria-expanded="true" title="Actualizar">
-                           <i class="fas fa-sync"></i>
-                           </button>
-                        </div>
-                     </h2>
-                  </div>
-                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
-                     data-parent="#accordionExample">
-                     <div class="card-body">
-                        <!--Inicia código de formulario-->
-                        <!--  <div align="left">
+
+									</tr>
+								</tbody>
+							</table>
+							<br>
+							<!--  </form> --->
+							<form th:action="ticket" th:method="post" th:object="${orden}"
+								th:onsubmit="printPage('block1');">
+								<input type="hidden" th:field="*{orden_id}" />
+								<div align="right">
+								 <input 
+									type="submit" class="btn btn-primary" th:value="Terminar">
+									</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header" id="headingOne">
+						<h2 class="mb-0 form-row" style="font-size: 20px;">
+							Información del Paciente
+							<div class="ml-auto">
+								<button class="btn btn-link" type="button"
+									data-toggle="collapse" data-target="#collapseOne"
+									aria-expanded="true" aria-controls="collapseOne"
+									title="Desplegar">
+									<i class="fas fa-angle-double-down"></i> <i
+										class="fas fa-angle-double-up"></i>
+								</button>
+								<button class="btn btn-link" type="button" aria-expanded="true"
+									title="Guardar">
+									<i class="fas fa-save"></i>
+								</button>
+								<button class="btn btn-link" type="button" aria-expanded="true"
+									title="Buscar">
+									<i class="fas fa-search"></i>
+								</button>
+								<button class="btn btn-link" type="button" aria-expanded="true"
+									title="Actualizar">
+									<i class="fas fa-sync"></i>
+								</button>
+							</div>
+						</h2>
+					</div>
+					<div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+						data-parent="#accordionExample">
+						<div class="card-body">
+							<!--Inicia código de formulario-->
+							<!--  <div align="left">
                            <button class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo">
                              Agregar nuevo
                              <span class="glyphicon glyphicon-plus"></span>
                            </button>
                            </div> --->
-                        <div class="col-sm-12">
-                           <div class="card mb-3">
-                              <div class="card-header">
-                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                       <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                          <div class="row">
-                                             <div class="col-sm-12">
-                                                <table class="table table-bordered dataTable no-footer" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
-                                                   <thead>
-                                                      <tr class="table-primary" role="row">
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Nombre</th>
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Fecha Nacimiento</th>
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Email</th>
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Calle</th>
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R2: activate to sort column ascending">Colonia</th>
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Numero</th>
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Eliminar</th>
-                                                      </tr>
-                                                   </thead>
-                                                   <tbody>
-                                                      <tr th:each="paciente: ${pacientes}">
-                                                         <td> <a th:text="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am }" th:href="@{/formC/} + ${paciente.paciente_id}" ></a></td>
-                                                         <td th:text="${paciente.persona_fecha_na}"></td>
-                                                         <td th:text="${paciente.persona_email}"></td>
-                                                         <td th:text="${paciente.direccion_calle}"></td>
-                                                         <td th:text="${paciente.direccion_numero_ext}"></td>
-                                                         <td th:text="${paciente.direccion_colonia}"></td>
-                                                         <td><a class="btn btn-danger btn-xs" th:href="@{/eliminar/} + ${paciente.paciente_id}" th:text="'eliminar'" onclick="return confirm('Estás seguro que quieres eliminar?');"></a></td>
-                                                      </tr>
-                                                   </tbody>
-                                                </table>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <br><br>
-                           </div>
-                           <!--Termina código de formulario-->
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="card">
-                  <div class="card-header" id="headingTwo">
-                     <h2 class="mb-0 form-row" style="font-size: 20px;">
-                        Información del Médico
-                        <div class="ml-auto">
-                           <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                              data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                           <i class="fas fa-angle-double-down"></i>
-                           <i class="fas fa-angle-double-up"></i>
-                           </button>
-                           <button class="btn btn-link" type="button" aria-expanded="true">
-                           <i class="fas fa-save"></i>
-                           </button>
-                           <button class="btn btn-link" type="button" aria-expanded="true">
-                           <i class="fas fa-search"></i>
-                           </button>
-                           <button class="btn btn-link" type="button" aria-expanded="true">
-                           <i class="fas fa-sync"></i>
-                           </button>
-                        </div>
-                     </h2>
-                  </div>
-                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                     <div class="card-body">
-                        <!--Inicia código de formulario-->
-                        <!--  <div align="left">
+							<div class="col-sm-12">
+								<div class="card mb-3">
+									<div class="card-header">
+										<div class="card-body">
+											<div class="table-responsive">
+												<div id="dataTable_wrapper"
+													class="dataTables_wrapper dt-bootstrap4 no-footer">
+													<div class="row">
+														<div class="col-sm-12">
+															<table class="table table-bordered dataTable no-footer"
+																id="dataTable" role="grid"
+																aria-describedby="dataTable_info" style="width: 100%;"
+																width="100%" cellspacing="0">
+																<thead>
+																	<tr class="table-primary" role="row">
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 16px;"
+																			aria-label="R1: activate to sort column ascending">Nombre</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 16px;"
+																			aria-label="R1: activate to sort column ascending">Fecha
+																			Nacimiento</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 20px;"
+																			aria-label="R3: activate to sort column ascending">Email</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 16px;"
+																			aria-label="R1: activate to sort column ascending">Calle</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 20px;"
+																			aria-label="R2: activate to sort column ascending">Colonia</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 20px;"
+																			aria-label="R3: activate to sort column ascending">Numero</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 20px;"
+																			aria-label="R3: activate to sort column ascending">Eliminar</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr th:each="paciente: ${pacientes}">
+																		<td><a
+																			th:text="${paciente.persona_nombre + ' ' + paciente.persona_ap + ' ' + paciente.persona_am }"
+																			th:href="@{/formC/} + ${paciente.paciente_id}"></a></td>
+																		<td th:text="${paciente.persona_fecha_na}"></td>
+																		<td th:text="${paciente.persona_email}"></td>
+																		<td th:text="${paciente.direccion_calle}"></td>
+																		<td th:text="${paciente.direccion_numero_ext}"></td>
+																		<td th:text="${paciente.direccion_colonia}"></td>
+																		<td><a class="btn btn-danger btn-xs"
+																			th:href="@{/eliminar/} + ${paciente.paciente_id}"
+																			th:text="'eliminar'"
+																			onclick="return confirm('Estás seguro que quieres eliminar?');"></a></td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<br>
+									<br>
+								</div>
+								<!--Termina código de formulario-->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header" id="headingTwo">
+						<h2 class="mb-0 form-row" style="font-size: 20px;">
+							Información del Médico
+							<div class="ml-auto">
+								<button class="btn btn-link collapsed" type="button"
+									data-toggle="collapse" data-target="#collapseTwo"
+									aria-expanded="false" aria-controls="collapseTwo">
+									<i class="fas fa-angle-double-down"></i> <i
+										class="fas fa-angle-double-up"></i>
+								</button>
+								<button class="btn btn-link" type="button" aria-expanded="true">
+									<i class="fas fa-save"></i>
+								</button>
+								<button class="btn btn-link" type="button" aria-expanded="true">
+									<i class="fas fa-search"></i>
+								</button>
+								<button class="btn btn-link" type="button" aria-expanded="true">
+									<i class="fas fa-sync"></i>
+								</button>
+							</div>
+						</h2>
+					</div>
+					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+						data-parent="#accordionExample">
+						<div class="card-body">
+							<!--Inicia código de formulario-->
+							<!--  <div align="left">
                            <button class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo2">
                              Agregar nuevo
                              <span class="glyphicon glyphicon-plus"></span>
                            </button>
                            </div> --->
-                        <div class="col-sm-12">
-                           <div class="card mb-3">
-                              <div class="card-header">
-                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                       <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                          <div class="row">
-                                             <div class="col-sm-12">
-                                                <table class="display" id="" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
-                                                   <thead>
-                                                      <tr class="table-primary" role="row">
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Nombre</th>
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Fecha Nacimiento</th>
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R2: activate to sort column ascending">RFC</th>
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Email</th>
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 16px;" aria-label="R1: activate to sort column ascending">Calle</th>
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R2: activate to sort column ascending">Numero</th>
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Colonia</th>
-                                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20px;" aria-label="R3: activate to sort column ascending">Eliminar</th>
-                                                      </tr>
-                                                   </thead>
-                                                   <tbody>
-                                                      <tr th:each="medico: ${medicos}">
-                                                         <td> <a th:text="${medico.persona_nombre + ' ' + medico.persona_ap + ' ' + medico.persona_am }" th:href="@{/form2/} + ${medico.medico_id}" ></a></td>
-                                                         <td th:text="${medico.persona_fecha_na}"></td>
-                                                         <td th:text="${medico.persona_rfc}"></td>
-                                                         <td th:text="${medico.persona_email}"></td>
-                                                         <td th:text="${medico.direccion_calle}"></td>
-                                                         <td th:text="${medico.direccion_numero_ext}"></td>
-                                                         <td th:text="${medico.direccion_colonia}"></td>
-                                                         <td><a class="btn btn-danger btn-xs" th:href="@{/eliminar/} + ${medico.medico_id}" th:text="'eliminar'" onclick="return confirm('Estás seguro que quieres eliminar?');"></a></td>
-                                                      </tr>
-                                                   </tbody>
-                                                </table>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <br><br>
-                           </div>
-                           <!--Termina código de formulario-->
-                        </div>
-                        <!--Termina código de formulario-->
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- jQuery CDN - Slim version (=without AJAX) -->
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-         crossorigin="anonymous"></script>
-      <!-- Popper.JS -->
-      <script
-         src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-         integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-         crossorigin="anonymous"></script>
-      <!-- Bootstrap JS -->
-      <script
-         src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-         crossorigin="anonymous"></script>
-      <!-- Demo scripts for this page-->
-      <script src="js/demo/datatables-demo.js"></script>
-      <!-- Page level plugin JavaScript-->
-      <script src="vendor/datatables/jquery.dataTables.js"></script>
-      <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-      <script type="text/javascript">
-         function post_form( id_form )
-         {
-           document.getElementById(id_form).submit();
-         }
-      </script>
-      <script type="text/javascript">
-         $(document).ready(function() {
-         	$('#sidebarCollapse').on('click', function() {
-         		$('#sidebar').toggleClass('active');
-         	});
-         });
-      </script>
-      <script type="text/javascript">
-         $(document).ready(function() {
-             $('table.display').DataTable();
-         } );
-      </script>
-      <script type="text/javascript">
-         $(document).ready(function() {
-            $('#example').DataTable( {
-                initComplete: function () {
-                    this.api().columns().every( function () {
-                        var column = this;
-                        var select = $('<select><option value=""></option></select>')
-                            .appendTo( $(column.footer()).empty() )
-                            .on( 'change', function () {
-                                var val = $.fn.dataTable.util.escapeRegex(
-                                    $(this).val()
-                                );
-         
-                                column
-                                    .search( val ? '^'+val+'$' : '', true, false )
-                                    .draw();
-                            } );
-         
-                        column.data().unique().sort().each( function ( d, j ) {
-                            select.append( '<option value="'+d+'">'+d+'</option>' )
-                        } );
-                    } );
-                }
-            } );
-         } );
-      </script>
-      <script th:src="@{js/script_ticket.js}"></script>
- <div id="block1">
-   <div id="block2" >
-	<link rel="stylesheet" th:href="@{css/style_ticket.css}">
-    <div class="ticket" >
-        <img class="example-print" th:src="@{img/logo_ticket.png}">
-        
-        
-        <p class="justify">BEMEDICA CIS S.A. DE C.V.
-            <br>R.F.C: SVBHCSJHBSC9	
-            <br>5 SUR NÚMERO 2, SECCIÓN 1RA, SAN MIGUEL TENANCINGO C.P. 90880, TLAXCALA
-			
-		</p>
-		<p class="notas">¡NOTAS IMPORTANTES!</p>
-		<p class="notass">
-				1. SI SU COMPROBANTE NO INDICA LA CANTIDAD EXACTA QUE USTED PAGÓ
-					REPORTELO CON SEL.
-				<br>2. ESTE DOCUMENTO NO ES FACTURA Y NO TIENE VALOR FISCAL.
-				<br>3. TIENE 7 DÍAS NATURALES PARA LA ENTREGA O TOMA DE SUS MUESTRAS PENDIENTES.
-				<br>4. CONSULTE NUESTRO AVISO DE PRIVACIDAD
-		
-		</p>
-		<p class="notas">COMPROBANTE <br>ORDEN DE SERVICIO		
-		</p>
-		<p class="centrado" style="font-size: 14px;">:::::::::::::::ID PACIENTE:::::::::::::::
-		   <br><b style="font-size: 14px;">vfeghnkc8</b>
-		</p>
-			<table class="centrado" style="border: hidden ">
-				<thead>
-					<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-					</tr>
-            	</thead>
-				<tbody >
-					<tr>
-						<td class="fecha" style="width: 10mm"></td>
-						<td class="fecha_right">Fecha de impresion: </td>
-						<td class="fecha_left" id="TimeTicket"></td>
-					</tr>
-					<tr th:each= "fe: ${feinfo}">
-						<td class="fecha"></td>
-						<td class="fecha_right">Fecha de trabajo: </td>
-						<td class="fecha_left" th:text="${fe[0]}">00-00-0000</td>
-					</tr>
-					<tr th:each= "fe: ${feinfo}">
-						<td class="fecha"></td>
-						<td class="fecha_right">Folio: </td>
-						<td class="fecha_left" th:text="${fe[1]}"></td>
-					</tr>
-					<tr th:each= "fe: ${feinfo}">
-						<td class="fecha"></td>
-						<td class="fecha_right">Fecha de Entrega: </td>
-						<td class="fecha_left" th:text="${fe[2]}"></td>
-					</tr>
-				</tbody>
-			</table>
-		<p class="notas">"PARA LA ENTREGA DE RESULTADOS FAVOR DE PRESENTAR ESTE TICKET"</p>
-		<p class="justify"><b>LUGAR DE EXPEDICIÓN:</b></p>
-		<p class="justify"><b>TLAXCALA</b></p>
-		<p class="justify">5 SUR NÚMERO 2, SECCIÓN 1RA, SAN MIGUEL TENANCINGO C.P. 90880, TLAXCALA	</p>
-		
-		<hr style="border-bottom: 1px solid black">
-		
-		<table style="border: hidden ">
-				<thead>
-					<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-					</tr>
-            	</thead>
-				<tbody>
-					<tr th:each= "em: ${eminfo}">
-						<td class="fecha_left"><b>CAJERO:</b></td>
-						<td class="fecha" style="width: 10mm"></td>
-						<td class="fecha_center" th:text="${em[1]}"></td>
-					<tr>
-					<tr th:each= "em: ${eminfo}">
-						<td class="fecha_left"><b></b></td>
-						<td class="fecha" style="width: 10mm"></td>
-						<td class="fecha_center" th:text="${em[0]}"></td>
-					<tr>
-				</tbody>
-		</table>
-		<hr style="border-top: 1px solid black">
-		<table class="datos">
-				<thead>
-            	</thead>
-            	<tbody>
-            		<tr>
-            			<td><b>DATOS DEL PACIENTE:</b></td>
-            		</tr>
-            		<tr th:each= "pa: ${painfo}">
-						<td th:text="${pa[0]}"></td>
-					</tr>
-					<tr th:each= "pa: ${painfo}">
-						<td><label>EDAD:&nbsp</label><label th:text="${pa[1]}"></label><label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSEXO:&nbsp</label><label th:text="${pa[2]}"></label></td>
-					</tr>
-	     			<tr th:each= "pa: ${painfo}">
-						<td  th:text="${pa[3]}"></td>
-					</tr>
-				</tbody>
-		</table>
-		<hr style="border-top: 1px solid black">
-		<b>DATOS DEL MEDICO:</b><br>
-		<label th:each= "em: ${eminfo}" th:text="${em[2]}"></label><br><br>
-		
-		<b>SERVICIO(S) SOLICITADO(S):</b><br><br>
-        <table style=" border-top: 1px solid black; border-collapse: collapse;">
-            <thead>
-                <tr>
-                    <th class="servicio">SERVICIO</th>
-                    <th class="cantidad">CANT.</th>
-                    <th class="precio_unit">PRECIO UNIT.</th>
-					<th class="importe">IMPORTE</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each= "se: ${seinfo}">
-					<td class="servicio" th:text="${se[0]}"></td>
-                    <td class="cantidad" th:text="${se[1]}"></td>
-                    <td class="precio_unit" th:text="${se[2]}"></td>
-                    <td class="importe" th:text="${se[3]}"></td>
-                </tr>
-            </tbody>
-        </table>
-		<table class="total" style="border: hidden ">
-				<thead>
-					<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-					</tr>
-            	</thead>
-				<tbody th:each= "to: ${toinfo}">
-					<tr>
-						<td class="fecha" ></td>
-						<td class="total_right">SUBTOTAL: $</td>
-						<td class="total_right" th:text="${to[0]}"></td>
-					<tr>
-						<td class="fecha"></td>
-						<td class="total_right">DESCUENTO: $</td>
-						<td class="total_right">0.00</td>
-					</tr>
-					<tr>
-						<td class="fecha"></td>
-						<td class="total_right">IVA 16%: $</td>
-						<td class="total_right" th:text="${to[1]}"></td>
-					</tr>
-					<tr>
-						<td class="fecha"></td>
-						<td class="total_right">TOTAL: $</td>
-						<td class="total_right" th:text="${to[2]}"></td>
-					</tr>
-				</tbody>
-			</table>
-        <p class="centrado">¡GRACIAS POR SU COMPRA!
-            <br>BeMedica.com</p>
-    </div>
-  </div>
-</div>
-   </body>
+							<div class="col-sm-12">
+								<div class="card mb-3">
+									<div class="card-header">
+										<div class="card-body">
+											<div class="table-responsive">
+												<div id="dataTable_wrapper"
+													class="dataTables_wrapper dt-bootstrap4 no-footer">
+													<div class="row">
+														<div class="col-sm-12">
+															<table class="display" id="" role="grid"
+																aria-describedby="dataTable_info" style="width: 100%;"
+																width="100%" cellspacing="0">
+																<thead>
+																	<tr class="table-primary" role="row">
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 16px;"
+																			aria-label="R1: activate to sort column ascending">Nombre</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 16px;"
+																			aria-label="R1: activate to sort column ascending">Fecha
+																			Nacimiento</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 20px;"
+																			aria-label="R2: activate to sort column ascending">RFC</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 20px;"
+																			aria-label="R3: activate to sort column ascending">Email</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 16px;"
+																			aria-label="R1: activate to sort column ascending">Calle</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 20px;"
+																			aria-label="R2: activate to sort column ascending">Numero</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 20px;"
+																			aria-label="R3: activate to sort column ascending">Colonia</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="dataTable" rowspan="1" colspan="1"
+																			style="width: 20px;"
+																			aria-label="R3: activate to sort column ascending">Eliminar</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr th:each="medico: ${medicos}">
+																		<td><a
+																			th:text="${medico.persona_nombre + ' ' + medico.persona_ap + ' ' + medico.persona_am }"
+																			th:href="@{/form2/} + ${medico.medico_id}"></a></td>
+																		<td th:text="${medico.persona_fecha_na}"></td>
+																		<td th:text="${medico.persona_rfc}"></td>
+																		<td th:text="${medico.persona_email}"></td>
+																		<td th:text="${medico.direccion_calle}"></td>
+																		<td th:text="${medico.direccion_numero_ext}"></td>
+																		<td th:text="${medico.direccion_colonia}"></td>
+																		<td><a class="btn btn-danger btn-xs"
+																			th:href="@{/eliminar/} + ${medico.medico_id}"
+																			th:text="'eliminar'"
+																			onclick="return confirm('Estás seguro que quieres eliminar?');"></a></td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<br>
+									<br>
+								</div>
+								<!--Termina código de formulario-->
+							</div>
+							<!--Termina código de formulario-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<!-- Popper.JS -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+		integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+		integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+		crossorigin="anonymous"></script>
+	<!-- Demo scripts for this page-->
+	<script src="js/demo/datatables-demo.js"></script>
+	<!-- Page level plugin JavaScript-->
+	<script src="vendor/datatables/jquery.dataTables.js"></script>
+	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+	<script type="text/javascript">
+		function post_form(id_form) {
+			document.getElementById(id_form).submit();
+		}
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#sidebarCollapse').on('click', function() {
+				$('#sidebar').toggleClass('active');
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('table.display').DataTable();
+		});
+	</script>
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							$('#example')
+									.DataTable(
+											{
+												initComplete : function() {
+													this
+															.api()
+															.columns()
+															.every(
+																	function() {
+																		var column = this;
+																		var select = $(
+																				'<select><option value=""></option></select>')
+																				.appendTo(
+																						$(
+																								column
+																										.footer())
+																								.empty())
+																				.on(
+																						'change',
+																						function() {
+																							var val = $.fn.dataTable.util
+																									.escapeRegex($(
+																											this)
+																											.val());
+
+																							column
+																									.search(
+																											val ? '^'
+																													+ val
+																													+ '$'
+																													: '',
+																											true,
+																											false)
+																									.draw();
+																						});
+
+																		column
+																				.data()
+																				.unique()
+																				.sort()
+																				.each(
+																						function(
+																								d,
+																								j) {
+																							select
+																									.append('<option value="'+d+'">'
+																											+ d
+																											+ '</option>')
+																						});
+																	});
+												}
+											});
+						});
+	</script>
+		<script>
+		$(document).ready(function() {
+			$('#example').DataTable({
+				stateSave : true
+			});
+		});
+		window.onload = function() {
+			var pos = window.name || 0;
+			window.scrollTo(0, pos);
+		}
+		window.onunload = function() {
+			window.name = self.pageYOffset
+					|| (document.documentElement.scrollTop + document.body.scrollTop);
+		}
+	</script>
+	<script th:src="@{/js/script_ticket.js}"></script>
+	<div id="block1">
+		<div id="block2">
+			<link rel="stylesheet" th:href="@{/css/style_ticket.css}">
+			<div class="ticket">
+				<img class="example-print" th:src="@{/img/logo_ticket.png}">
+
+
+				<p class="justify">
+					BEMEDICA CIS S.A. DE C.V. <br>R.F.C: SVBHCSJHBSC9 <br>5
+					SUR NÚMERO 2, SECCIÓN 1RA, SAN MIGUEL TENANCINGO C.P. 90880,
+					TLAXCALA
+
+				</p>
+				<p class="notas">¡NOTAS IMPORTANTES!</p>
+				<p class="notass">
+					1. SI SU COMPROBANTE NO INDICA LA CANTIDAD EXACTA QUE USTED PAGÓ
+					REPORTELO CON SEL. <br>2. ESTE DOCUMENTO NO ES FACTURA Y NO
+					TIENE VALOR FISCAL. <br>3. TIENE 7 DÍAS NATURALES PARA LA
+					ENTREGA O TOMA DE SUS MUESTRAS PENDIENTES. <br>4. CONSULTE
+					NUESTRO AVISO DE PRIVACIDAD
+
+				</p>
+				<p class="notas">
+					COMPROBANTE <br>ORDEN DE SERVICIO
+				</p>
+				<p class="centrado" style="font-size: 14px;">
+					:::::::::::::::ID PACIENTE::::::::::::::: <br>
+					<b style="font-size: 14px;">vfeghnkc8</b>
+				</p>
+				<table class="centrado" style="border: hidden">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="fecha" style="width: 10mm"></td>
+							<td class="fecha_right">Fecha de impresion:</td>
+							<td class="fecha_left" id="TimeTicket"></td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha"></td>
+							<td class="fecha_right">Fecha de trabajo:</td>
+							<td class="fecha_left" th:text="${fe[0]}">00-00-0000</td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha"></td>
+							<td class="fecha_right">Folio:</td>
+							<td class="fecha_left" th:text="${fe[1]}"></td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha"></td>
+							<td class="fecha_right">Fecha de Entrega:</td>
+							<td class="fecha_left" th:text="${fe[2]}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="notas">"PARA LA ENTREGA DE RESULTADOS FAVOR DE
+					PRESENTAR ESTE TICKET"</p>
+				<p class="justify">
+					<b>LUGAR DE EXPEDICIÓN:</b>
+				</p>
+				<p class="justify">
+					<b>TLAXCALA</b>
+				</p>
+				<p class="justify">5 SUR NÚMERO 2, SECCIÓN 1RA, SAN MIGUEL
+					TENANCINGO C.P. 90880, TLAXCALA</p>
+
+				<hr style="border-bottom: 1px solid black">
+
+				<table style="border: hidden">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="em: ${eminfo}">
+							<td class="fecha_left"><b>CAJERO:</b></td>
+							<td class="fecha" style="width: 10mm"></td>
+							<td class="fecha_center" th:text="${em[1]}"></td>
+						<tr>
+						<tr th:each="em: ${eminfo}">
+							<td class="fecha_left"><b></b></td>
+							<td class="fecha" style="width: 10mm"></td>
+							<td class="fecha_center" th:text="${em[0]}"></td>
+						<tr>
+					</tbody>
+				</table>
+				<hr style="border-top: 1px solid black">
+				<table class="datos">
+					<thead>
+					</thead>
+					<tbody>
+						<tr>
+							<td><b>DATOS DEL PACIENTE:</b></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td th:text="${pa[0]}"></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td><label>EDAD:&nbsp</label><label th:text="${pa[1]}"></label><label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSEXO:&nbsp</label><label
+								th:text="${pa[2]}"></label></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td th:text="${pa[3]}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<hr style="border-top: 1px solid black">
+				<b>DATOS DEL MEDICO:</b><br> <label th:each="em: ${eminfo}"
+					th:text="${em[2]}"></label><br>
+				<br> <b>SERVICIO(S) SOLICITADO(S):</b><br>
+				<br>
+				<table
+					style="border-top: 1px solid black; border-collapse: collapse;">
+					<thead>
+						<tr>
+							<th class="servicio">SERVICIO</th>
+							<th class="cantidad">CANT.</th>
+							<th class="precio_unit">PRECIO UNIT.</th>
+							<th class="importe">IMPORTE</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="se: ${seinfo}">
+							<td class="servicio" th:text="${se[0]}"></td>
+							<td class="cantidad" th:text="${se[1]}"></td>
+							<td class="precio_unit" th:text="${se[2]}"></td>
+							<td class="importe" th:text="${se[3]}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="total" style="border: hidden">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody th:each="to: ${toinfo}">
+						<tr>
+							<td class="fecha"></td>
+							<td class="total_right">SUBTOTAL: $</td>
+							<td class="total_right" th:text="${to[0]}"></td>
+						<tr>
+							<td class="fecha"></td>
+							<td class="total_right">DESCUENTO: $</td>
+							<td class="total_right">0.00</td>
+						</tr>
+						<tr>
+							<td class="fecha"></td>
+							<td class="total_right">IVA 16%: $</td>
+							<td class="total_right" th:text="${to[1]}"></td>
+						</tr>
+						<tr>
+							<td class="fecha"></td>
+							<td class="total_right">TOTAL: $</td>
+							<td class="total_right" th:text="${to[2]}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="centrado">
+					¡GRACIAS POR SU COMPRA! <br>BeMedica.com
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
 </html>
