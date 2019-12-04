@@ -32,9 +32,9 @@ public  class VistaOrdenDaoImpl implements IVistaOrdenDao {
 	@Override
 	@Transactional
 	@OrderBy("orden_folio DESC")
-	public List<VistaOrden> findAll() {
+	public List<VistaOrden> findAll(Long orden_id) {
 		// TODO Auto-generated method stub
-		return em.createQuery("from VistaOrden vo where orden_estatus in ('pendiente','finalizada') order by vo.orden_id desc").setMaxResults(1).getResultList();
+		return em.createQuery("from VistaOrden where orden_id="+orden_id).setMaxResults(1).getResultList();
 
 	}
 

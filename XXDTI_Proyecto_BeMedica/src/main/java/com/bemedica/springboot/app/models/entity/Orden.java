@@ -44,7 +44,16 @@ public class Orden implements Serializable {
     public String metodo_pago;
     public String pago_final;
     public String fecha_liquidacion;
-    public String getPago_final() {
+    public String adeudo;
+    
+    
+    public String getAdeudo() {
+		return adeudo;
+	}
+	public void setAdeudo(String adeudo) {
+		this.adeudo = adeudo;
+	}
+	public String getPago_final() {
 		return pago_final;
 	}
 	public void setPago_final(String pago_final) {

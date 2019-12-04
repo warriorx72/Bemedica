@@ -116,7 +116,6 @@ public class PacienteController {
 		model.addAttribute("sucursales", sucursalDao.findAll());
 
 		model.addAttribute("ordenes", ordenDao.findAll());
-		model.addAttribute("vista_ordenes", vistaordenDao.findAll());
 		Orden orden = new Orden();
 		OrdenEstudio ordenestudio = new OrdenEstudio();
 
@@ -203,6 +202,7 @@ public class PacienteController {
 		}
 		///
 		//// orden.setOrden_folio("ORD");
+		orden.setMetodo_pago("efectivo");
 		ordenDao.save(orden);
 		orden.setOrden_folio("ORD" + (orden.getOrden_id() + 1000000));
 		ordenDao.save(orden);
@@ -234,7 +234,7 @@ public class PacienteController {
 		model.addAttribute("estudios", estudioDao.findBy());
 		model.addAttribute("empleados", vistaempleadoDao.findAll());
 		model.addAttribute("sucursales", sucursalDao.findAll());
-		model.addAttribute("vista_ordenes", vistaordenDao.findAll());
+		model.addAttribute("vista_ordenes", vistaordenDao.findAll(id));
 		model.addAttribute("paquetes", paquetesDao.findBy());
 		model.addAttribute("perfiles", perfilesDao.findBy());
 		model.addAttribute("ordenes", ordenDao.findAll());
@@ -501,38 +501,14 @@ public class PacienteController {
 			Estudio estudio, BindingResult result, Model model, Map<String, Object> m) {
 
 		if (id > 0) {
-			/// Direccion d = null;
-			/// Persona p = null;
-			// Paciente e = null;
-
-			// e=pacienteDao.findOne(id);
-			// p=personaDao.findOne(e.getPersona_id().longValue());
-			// Long idpersona = p.getPersona_id();
-			// d=direccionDao.findOne((long) p.getIdDireccion());
-			// Long iddi =d.getDireccion_id();
-
 			ordenestudioDao.delete(id);
-			// pacienteDao.delete(id);
-			/// personaDao.delete(idpersona);
-			//// direccionDao.delete(iddi);
 			Orden aux = null;
 
 			aux = ordenDao.findOne(id_o);
-			///// model.addAttribute("vistasEstudio", EstudioDao.findAll());
-			//// model.addAttribute("vistas", EmpresaDao.findAll());
-			Mostrar(id_o,model);
-			/// ordenestudio.setPrecio_unitario(estudio.getEstudio_precio());
-			/// ordenestudio.setTotal_linea(orden.getEmpleado_id());
-			//ordenestudioDao.save(ordenestudio);
 			ordenestudio.setOrden_id(id_o);
 			m.put("ordenestudio", ordenestudio);
-			//// ((Map<String, Object>) model).put("estudio", estudio);
 			m.put("orden", aux);
-			/// model.addAttribute("vista_convenio_estudio",
-			/// ConvenioEstudioDao.cev(aux.getConvenioId()));
-			model.addAttribute("orden_estudios", vistaordenestudioDao.voe(aux.getOrden_id()));
-			/// return"form_convenio";
-			model.addAttribute("orden_monto", vistaordenDao.vo(aux.getOrden_id()));
+			Mostrar(id_o,model);
 
 		}
 		return "operaciones_recepcion";
@@ -564,14 +540,39 @@ public class PacienteController {
 	 * prueba : pojoForm.getPrueba()) { PruebaDaoImpl.save(prueba); } return
 	 * "theview.jsp"; }
 	 */
-	////////////////////////////////// 7777
-	@RequestMapping(value = "/estatus_empleadoPC", method = RequestMethod.POST)
-	public String estatusPC(@RequestParam("id") Long id, @RequestParam() String status_id,
-			@RequestParam() String pago_inicial, @RequestParam() String pago_final, Model model,
-			RedirectAttributes redirectAttrs) {
-		Orden e;
+	@RequestMapping(value = "/form_metodo_pago", method = RequestMethod.POST)
+	public String MetodoPago(@RequestParam("id") Long id,@RequestParam() String metodo_pago,Model model,
+			RedirectAttributes redirectAttrs, Map<String, Object> m, Orden orden, OrdenEstudio ordenestudio) {
+		Orden e =null;
 
-		e = ordenDao.findOne(id.longValue());
+		e = ordenDao.findOne(id);
+		if (id > 1) {
+
+			// if(pac_id!=null) {
+			// e.setPaciente_id(pac_id);
+			// }
+			System.out.print("Im here metodo pago ");
+			e.setMetodo_pago(metodo_pago);
+			// ordenDao.save(e);
+			ordenDao.save(e);
+			Mostrar(id,model);
+			m.put("orden", e);
+			ordenestudio.setOrden_id(id);
+			m.put("ordenestudio", ordenestudio);
+			return "/operaciones_recepcion";
+		} else {
+			return "redirect:/operaciones_recepcion";
+		}
+
+	}
+	
+	@RequestMapping(value = "/estatus_empleadoPC", method = RequestMethod.POST)
+	public String estatusPC(@RequestParam("id") Long id,@RequestParam() String status_id,
+			@RequestParam() String pago_inicial, @RequestParam() String pago_final, Model model,
+			RedirectAttributes redirectAttrs, Map<String, Object> m, Orden orden, OrdenEstudio ordenestudio) {
+		Orden e =null;
+
+		e = ordenDao.findOne(id);
 		if (id > 1) {
 
 			// if(pac_id!=null) {
@@ -582,11 +583,17 @@ public class PacienteController {
 			e.setPago_final(pago_final);
 			// ordenDao.save(e);
 			ordenDao.save(e);
+			Mostrar(id,model);
+			m.put("orden", e);
+			ordenestudio.setOrden_id(id);
+			m.put("ordenestudio", ordenestudio);
+			System.out.print("Hola if "+id);
 			//// redirectAttrs
 			// .addFlashAttribute("mensaje", "Empleado desactivado ")
 			/// .addFlashAttribute("clase", "success");
-			return "redirect:/operaciones_recepcion";
+			return "/operaciones_recepcion";
 		} else {
+			System.out.print("Hola else "+id);
 			/// e.setEmpleadoEstatus("1");
 			// EmpleadosSucursalDao.save(e);
 
@@ -594,7 +601,7 @@ public class PacienteController {
 
 		}
 
-		return "redirect:/administracion_empleados";
+		return "/administracion_empleados";
 
 	}
 
@@ -642,12 +649,46 @@ public class PacienteController {
 
 	@RequestMapping(value = "/ticket", method = RequestMethod.POST)
 	public String imprimirticket(Orden orden, BindingResult result, Model model, Map<String, Object> m) {
-		model.addAttribute("eminfo", ticketDao.findEmpleado(orden.getOrden_id()));
-		model.addAttribute("painfo", ticketDao.findPaciente(orden.getOrden_id()));
-		model.addAttribute("feinfo", ticketDao.findFecha(orden.getOrden_id()));
-		model.addAttribute("seinfo", ticketDao.findFecha(orden.getOrden_id()));
 		esperar(4);
 		return "redirect:operaciones_recepcion";
 
+	}
+	
+	@RequestMapping(value = "/form_pago", method = RequestMethod.POST)
+	public String FormPago(Orden orden, BindingResult result, Model model, Map<String, Object> m,
+			@RequestParam("id") Long id,@RequestParam("primer_pago") String primer_pago,OrdenEstudio ordenestudio) {
+		if(id>0) {
+			orden = ordenDao.findOne(id);
+			orden.setPago_inicial(primer_pago);
+			ordenDao.save(orden);
+			ordenestudio.setOrden_id(id);
+			m.put("ordenestudio", ordenestudio);
+			m.put("orden", orden);
+			Mostrar(id,model);
+			return "operaciones_recepcion";
+		}
+		else {
+		return "redirect:operaciones_recepcion";
+		}
+	}
+	
+	@RequestMapping(value = "/liquidar_pago", method = RequestMethod.POST)
+	public String LiquidarPago(Orden orden, BindingResult result, Model model, Map<String, Object> m,
+			@RequestParam("id") Long id,OrdenEstudio ordenestudio) {
+		if(id>0) {
+			orden = ordenDao.findOne(id);
+            orden.setPago_final(orden.getMonto());
+            orden.setPago_inicial("0");
+            orden.setOrden_estatus("Pagado");
+			ordenDao.save(orden);
+			ordenestudio.setOrden_id(id);
+			m.put("ordenestudio", ordenestudio);
+			m.put("orden", orden);
+			Mostrar(id,model);
+			return "operaciones_recepcion";
+		}
+		else {
+		return "redirect:operaciones_recepcion";
+		}
 	}
 }

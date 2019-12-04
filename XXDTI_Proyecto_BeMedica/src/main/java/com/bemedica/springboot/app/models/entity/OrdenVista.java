@@ -56,6 +56,15 @@ public class OrdenVista implements Serializable{
 	@Column(name="medico_nombre")
 	private String MedicoNombre;
 	
+	@Column(name="metodo_pago")
+	private String MetodoPago;
+	
+	public String getMetodoPago() {
+		return MetodoPago;
+	}
+	public void setMetodoPago(String metodoPago) {
+		MetodoPago = metodoPago;
+	}
 	@Column(name="medico_ap")
 	private String MedicoAP;
 	

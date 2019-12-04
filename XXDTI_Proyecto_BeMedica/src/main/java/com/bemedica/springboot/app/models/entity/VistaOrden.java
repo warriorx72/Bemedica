@@ -42,8 +42,17 @@ public class VistaOrden implements Serializable {
 	private String monto;
 	private String pago_inicial;
 	private String adeudo;
+	private String metodo_pago;
 	private String pago_final;
 	private String fecha_liquidacion;
+	
+	
+	public String getMetodo_pago() {
+		return metodo_pago;
+	}
+	public void setMetodo_pago(String metodo_pago) {
+		this.metodo_pago = metodo_pago;
+	}
 	public String getPago_final() {
 		return pago_final;
 	}
