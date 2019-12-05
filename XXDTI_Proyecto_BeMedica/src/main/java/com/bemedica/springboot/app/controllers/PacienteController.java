@@ -43,6 +43,7 @@ import com.bemedica.springboot.app.models.dao.PruebaDaoImpl;
 import com.bemedica.springboot.app.models.dao.IVistaMedicoDao;
 import com.bemedica.springboot.app.models.dao.IVistaOrdenDao;
 import com.bemedica.springboot.app.models.dao.IVistaOrdenEstudioDao;
+import com.bemedica.springboot.app.models.dao.ICatalogoDao;
 import com.bemedica.springboot.app.models.dao.IDireccionDao;
 import com.bemedica.springboot.app.models.dao.IEstudioDao;
 import com.bemedica.springboot.app.models.dao.IOrdenEstudioDao;
@@ -102,10 +103,14 @@ public class PacienteController {
 	private IPerfilesDao perfilesDao;
 	@Autowired
 	private ITicketDao ticketDao;
+	@Autowired
+	private ICatalogoDao catalogoDao;
 
 	@RequestMapping(value = "/operaciones_recepcion", method = RequestMethod.GET) // vista operaciones_recepcion
 	public String operaciones_recepcion(Model model, Map<String, Object> m) {
 		model.addAttribute("titulo", "Listado de clientes");
+		model.addAttribute("button_estudio", "disabled");
+		model.addAttribute("button_terminar", "disabled");
 		// model.addAttribute("personas", personaDao.findAll());
 		// model.addAttribute("direcciones", direccionDao.findAll()); ///accede a
 		// IClienteService con el nombre clienteService al metodo findALL
@@ -134,14 +139,15 @@ public class PacienteController {
 		model.addAttribute("pacientes", vistapacienteDao.findAll());
 		model.addAttribute("medicos", vistamedicoDao.findAll());
 		/// model.addAttribute("estudios", estudioDao.findAll());
-		model.addAttribute("estudios", estudioDao.findBy());
-		////
-		model.addAttribute("paquetes", paquetesDao.findBy()); ///
-		model.addAttribute("perfiles", perfilesDao.findBy()); ///
+//		model.addAttribute("estudios", estudioDao.findBy());
+//		////
+//		model.addAttribute("paquetes", paquetesDao.findBy()); ///
+//		model.addAttribute("perfiles", perfilesDao.findBy()); ///
 		//// ///
 		model.addAttribute("empleados", vistaempleadoDao.findAll()); // 7
 		model.addAttribute("sucursales", sucursalDao.findAll());
 		model.addAttribute("ordenes", ordenDao.findAll()); //
+		model.addAttribute("catalogos", catalogoDao.findAll());
 		////////////////////////////////////////////////////////////////////////////// 7
 		return "operaciones_recepcion";
 
@@ -202,6 +208,8 @@ public class PacienteController {
 		}
 		///
 		//// orden.setOrden_folio("ORD");
+		model.addAttribute("button_estudio", "false");
+		model.addAttribute("button_terminar", "disabled");
 		orden.setMetodo_pago("efectivo");
 		ordenDao.save(orden);
 		orden.setOrden_folio("ORD" + (orden.getOrden_id() + 1000000));
@@ -245,6 +253,7 @@ public class PacienteController {
 		model.addAttribute("toinfo", ticketDao.findTotal(id));
 		model.addAttribute("orden_estudios", vistaordenestudioDao.voe(id));
 		model.addAttribute("orden_monto", vistaordenDao.vo(id));
+		model.addAttribute("catalogos", catalogoDao.findAll());
 	}
 
 	@RequestMapping(value = "/form_orden_estudios", method = RequestMethod.POST)
@@ -292,7 +301,8 @@ public class PacienteController {
 		((Map<String, Object>) model).put("orden", aux);
 		/// model.addAttribute("vista_convenio_estudio",
 		/// ConvenioEstudioDao.cev(aux.getConvenioId()));
-		
+		model.addAttribute("button_estudio", "false");
+		model.addAttribute("button_terminar", "false");
 		/// return"form_convenio";
 		return "operaciones_recepcion";
 	}

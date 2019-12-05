@@ -78,44 +78,45 @@ public class ResultadosDaoImpl implements IResultados {
 	@Transactional(readOnly=true)
 	@Override
 	public List<Object[]> LineasOrden(Long id) {
+		
 		List<Object[]> re= em.createNativeQuery("select \r\n" + 
-				"`test`.`orden`.`orden_id` AS `orden_id`,\r\n" + 
-				"`test`.`orden`.`orden_folio` AS `orden_folio`,\r\n" + 
-				"`test`.`estudios`.`estudio_id_text` AS `estudio_id_text`,\r\n" + 
-				"`test`.`estudios`.`estudio_nombre` AS `estudio_nombre`,\r\n" + 
-				"`test`.`orden_estudio`.`orden_estudio_id` AS `orden_estudio_id`,\r\n" + 
-				"`test`.`orden`.`orden_estatus` AS `orden_estatus`, \r\n" + 
-				" `test`.`orden_estudio`.`captura` AS `captura`,\r\n" + 
-				" `test`.`estudios`.`estudio_id` AS `id`,\r\n" + 
-				" `test`.`orden_estudio`.`tipo` AS `tipo` \r\n" + 
-				"from `test`.`orden` join `test`.`estudios` join `test`.`orden_estudio` where `test`.`estudios`.`estudio_id` = `test`.`orden_estudio`.`estudio_id` and `test`.`orden`.`orden_id` = `test`.`orden_estudio`.`orden_id` and `test`.`orden_estudio`.`tipo` = 'estudio'\r\n" + 
-				"and `test`.`orden`.`orden_id`="+id+"\r\n" + 
-				"union select \r\n" + 
-				"`test`.`orden`.`orden_id` AS `orden_id`,\r\n" + 
-				"`test`.`orden`.`orden_folio` AS `orden_folio`,\r\n" + 
-				"`test`.`paquetes`.`paquete_id_text` AS `paquete_id_text`,\r\n" + 
-				"`test`.`paquetes`.`paquete_nombre` AS `paquete_nombre`,\r\n" + 
-				"`test`.`orden_estudio`.`orden_estudio_id` AS `orden_estudio_id`,\r\n" + 
-				"`test`.`orden`.`orden_estatus` AS `orden_estatus`, \r\n" + 
-				"`test`.`orden_estudio`.`captura` AS `captura`, \r\n" + 
-				"`test`.`paquetes`.`paquete_id` AS `id`,\r\n" + 
-				" `test`.`orden_estudio`.`tipo` AS `tipo` \r\n" + 
-				"from `test`.`orden` join `test`.`paquetes` join `test`.`orden_estudio` where `test`.`paquetes`.`paquete_id` = `test`.`orden_estudio`.`estudio_id` and `test`.`orden`.`orden_id` = `test`.`orden_estudio`.`orden_id` and `test`.`orden_estudio`.`tipo` = 'paquete'\r\n" + 
-				"and `test`.`orden`.`orden_id` ="+id+"\r\n" + 
-				"union select \r\n" + 
-				"`test`.`orden`.`orden_id` AS `orden_id`,\r\n" + 
-				"`test`.`orden`.`orden_folio` AS `orden_folio`,\r\n" + 
-				"`test`.`perfiles`.`perfil_id_text` AS `perfil_id_text`,\r\n" + 
-				"`test`.`perfiles`.`perfil_nombre` AS `perfil_nombre`,\r\n" + 
-				"`test`.`orden_estudio`.`orden_estudio_id` AS `orden_estudio_id`,\r\n" + 
-				"`test`.`orden`.`orden_estatus` AS `orden_estatus`, \r\n" + 
-				"`test`.`orden_estudio`.`captura` AS `captura`, \r\n" + 
-				"`test`.`perfiles`.`perfil_id` AS `id`,\r\n" + 
-				" `test`.`orden_estudio`.`tipo` AS `tipo` \r\n" + 
-				"from `test`.`orden` join `test`.`perfiles` join `test`.`orden_estudio` where `test`.`perfiles`.`perfil_id` = `test`.`orden_estudio`.`estudio_id` and `test`.`orden`.`orden_id` = `test`.`orden_estudio`.`orden_id` and `test`.`orden_estudio`.`tipo` = 'perfil'\r\n" + 
-				"and `test`.`orden`.`orden_id` ="+id).getResultList();
+				"				orden.orden_id, \r\n" + 
+				"				orden.orden_folio, \r\n" + 
+				"				perfiles.perfil_id_text ,  \r\n" + 
+				"				perfiles.perfil_nombre , \r\n" + 
+				"				orden_estudio.orden_estudio_id, \r\n" + 
+				"				orden.orden_estatus, \r\n" + 
+				"				orden_estudio.captura ,  \r\n" + 
+				"				perfiles.perfil_id , \r\n" + 
+				"				orden_estudio.tipo \r\n" + 
+				"				from orden join perfiles join orden_estudio where perfiles.perfil_id = orden_estudio.estudio_id and orden.orden_id = orden_estudio.orden_id and orden_estudio.tipo = 'perfil' \r\n" + 
+				"				and orden.orden_id ="+id+"\r\n" + 
+				"				union select  \r\n" + 
+				"				orden.orden_id,\r\n" + 
+				"				orden.orden_folio, \r\n" + 
+				"				paquetes.paquete_id_text, \r\n" + 
+				"				paquetes.paquete_nombre, \r\n" + 
+				"				orden_estudio.orden_estudio_id, \r\n" + 
+				"				orden.orden_estatus, \r\n" + 
+				"				orden_estudio.captura, \r\n" + 
+				"				paquetes.paquete_id, \r\n" + 
+				"				orden_estudio.tipo \r\n" + 
+				"				from orden join paquetes join orden_estudio where paquetes.paquete_id = orden_estudio.estudio_id and orden.orden_id = orden_estudio.orden_id and orden_estudio.tipo = 'paquete'              \r\n" + 
+				"				and orden.orden_id ="+id+"\r\n" + 
+				"                union select \r\n" + 
+				"				orden.orden_id , \r\n" + 
+				"				orden.orden_folio, \r\n" + 
+				"				estudios.estudio_id_text,\r\n" + 
+				"				estudios.estudio_nombre, \r\n" + 
+				"				orden_estudio.orden_estudio_id, \r\n" + 
+				"				orden.orden_estatus , \r\n" + 
+				"				orden_estudio.captura,\r\n" + 
+				"				estudios.estudio_id ,  \r\n" + 
+				"				orden_estudio.tipo\r\n" + 
+				"				from orden join estudios join orden_estudio where estudios.estudio_id = orden_estudio.estudio_id and orden.orden_id = orden_estudio.orden_id and orden_estudio.tipo = 'estudio'\r\n" + 
+				"				and orden.orden_id="+id).getResultList();
 		return  re;
-	}
+			}
 
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)

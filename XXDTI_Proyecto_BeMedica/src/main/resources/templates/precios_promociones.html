@@ -245,15 +245,17 @@
 															<th width="10%">&nbsp; Id</th>
 															<th>Nombre</th>
 															<th width="25%">Nombre Catalogo</th>
+															<th width="25%">Descripcion</th>
 															<th width="15%">Eliminar</th>
 
 														</tr>
 													</thead>
 													<tbody>
-														<tr th:each="catalogo: ${vista}">
-															<td th:text="${catalogo.CatalogoId}"></td>
-															<td th:text="${catalogo.Nombre}"></td>
-															<td th:text="${catalogo.NombreCat}"></td>
+														<tr th:each="pro: ${promocion}">
+															<td th:text="${pro.PromocionIdText}"></td>
+															<td th:text="${pro.PromocionNombre}"></td>
+															<td th:text="${pro.PromocionDescuento}+'%'"></td>
+															<td th:text="${pro.PromocionDescripcion}"></td>
 															<td><a class="btn btn-danger btn-xs"
 																th:href="@{/eliminarcat/} + ${catalogo.CatalogoId}"
 																th:text="'eliminar'"
@@ -261,13 +263,6 @@
 
 														</tr>
 													</tbody>
-													<tfoot>
-														<tr>
-															<th>Id</th>
-															<th></th>
-															<th>Nombre Catalogo</th>
-														</tr>
-													</tfoot>
 												</table>
 											</div>
 										</div>
@@ -286,29 +281,24 @@
 												</div>
 												<div class="modal-body">
 
-													<form th:action="@{/catalogos_condicion}"
-														th:object="${catalogo}" method="post">
+													<form th:action="@{/form_promo}"
+														th:object="${promo}" method="post">
 														<table>
 															<tr>
 																<td>Nombre del registro</td>
-																<td><input type="text" th:field="*{Nombre}"
+																<td><input type="text" th:field="*{PromocionNombre}"
 																	class="form-control" /></td>
 															</tr>
 
 															<tr>
-																<td>Nombre del catalogo</td>
-																<td><select th:field="*{NombreCat}"
-																	class="form-control form-control-sm">
-																		<option value="no">Seleccione uno...</option>
-																		<option value="areas proceso">Areas Proceso</option>
-																		<option value="condiciones paciente">Condiciones
-																			Paciente</option>
-																		<option value="envases muestras">Envases Muestra</option>
-																		<option value="tipos de muestras">Tipos de Muestra</option>
-																		<option value="tecnicas estudios">Técnicas Estudios</option>
-																		<option value="unidades resultados">Unidades Resultados</option>
-																		<option value="variantes">Variantes</option>
-																</select></td>
+																<td>Descripcion</td>
+																<td><input type="text" th:field="*{PromocionDescripcion}"
+																	class="form-control" /></td>
+															</tr>
+															<tr>
+																<td>Descripcion</td>
+																<td><input type="text" th:field="*{PromocionDescuento}"
+																	class="form-control" /></td>
 															</tr>
 															<tr>
 
@@ -319,7 +309,7 @@
 														</table>
 													</form>
 												</div>
-												<div class="modal-footer"></div>
+												<div></div>
 											</div>
 										</div>
 									</div>

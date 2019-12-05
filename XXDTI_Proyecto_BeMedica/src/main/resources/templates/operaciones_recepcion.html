@@ -182,10 +182,11 @@
 						aria-labelledby="headingThree" data-parent="#accordionExample">
 						<div class="card-body">
 							<br>
-							<div class="modal fade  bs-example-modal-lg" id="modalNuevo" tabindex="-1"
-								role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-								style="display: none;">
-								<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+							<div class="modal fade  bs-example-modal-lg" id="modalNuevo"
+								tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+								aria-hidden="true" style="display: none;">
+								<div class="modal-dialog modal-lg modal-dialog-centered"
+									role="document">
 									<div class="modal-content">
 										<div class="modal-header">
 											<h4 class="modal-title" id="myModalLabel">Ingresar nueva
@@ -199,7 +200,7 @@
 										<form action="/formC" method="post" th:object="${orden}">
 											<div class="modal-body">
 												<h6>Datos paciente</h6>
-												<div class="form-row mb-6">	
+												<div class="form-row mb-6">
 													<!--    <div class="form-group col-md-3">
                                              <label for="inputNor" class="col-form-label-sm mb-0">Codigo Paciente</label>
                                              <input type="text" class="form-control form-control-sm" id="inputNor" name="paciente_id_tex">
@@ -248,8 +249,7 @@
 													<div class="form-group col-md-3">
 														<label for="input3" class="col-form-label-sm mb-0">Celular</label>
 														<input type="text" class="form-control form-control-sm"
-															id="inpu3" pattern="[0-9]{10}" 
-															name="persona_tel_cel">
+															id="inpu3" pattern="[0-9]{10}" name="persona_tel_cel">
 													</div>
 												</div>
 												<div class="form-row">
@@ -262,7 +262,7 @@
 														<label for="inputNor" class="col-form-label-sm mb-0">Telefono
 															oficina</label> <input type="text"
 															class="form-control form-control-sm" id="inputNor"
-														    name="persona_tel_oficina">
+															name="persona_tel_oficina">
 													</div>
 													<div class="form-group col-md-4">
 														<label for="input3" class="col-form-label-sm mb-0">Extension</label>
@@ -286,7 +286,7 @@
 													<div class="form-group col-md-3">
 														<label for="input2" class="col-form-label-sm mb-0">Numero
 															interior</label> <input type="text"
-															class="form-control form-control-sm" id="inpu2" 
+															class="form-control form-control-sm" id="inpu2"
 															name="direccion_num_inter">
 													</div>
 													<div class="form-group col-md-3">
@@ -309,21 +309,24 @@
 															name="direccion_postal">
 													</div>
 													<div class="form-group col-md-3">
-														<label for="inputNor" class="col-form-label-sm mb-0">Estado</label>															
-														<select id="inputNor" name="direccion_estado" class="form-control form-control-sm" required>
+														<label for="inputNor" class="col-form-label-sm mb-0">Estado</label>
+														<select id="inputNor" name="direccion_estado"
+															class="form-control form-control-sm" required>
 															<option value="">Seleccione uno...</option>
 															<option value="Aguascalientes">Aguascalientes</option>
 															<option value="Baja California">Baja California</option>
-															<option value="Baja California Sur">Baja California
-																Sur</option>
+															<option value="Baja California Sur">Baja
+																California Sur</option>
 															<option value="Campeche">Campeche</option>
 															<option value="Chiapas">Chiapas</option>
 															<option value="Chihuahua">Chihuahua</option>
 															<option value="Coahuila">Coahuila</option>
 															<option value="Colima">Colima</option>
-															<option value="Distrito Federal">Distrito Federal</option>
+															<option value="Distrito Federal">Distrito
+																Federal</option>
 															<option value="Durango">Durango</option>
-															<option value="Estado de México">Estado de México</option>
+															<option value="Estado de México">Estado de
+																México</option>
 															<option value="Guanajuato">Guanajuato</option>
 															<option value="Guerrero">Guerrero</option>
 															<option value="Hidalgo">Hidalgo</option>
@@ -345,13 +348,19 @@
 															<option value="Veracruz">Veracruz</option>
 															<option value="Yucatán">Yucatán</option>
 															<option value="Zacatecas">Zacatecas</option>
-														</select>	
-															
+														</select>
+
 													</div>
 													<div class="form-group col-md-3">
 														<label for="inputNor" class="col-form-label-sm mb-0">Diagnostico</label>
-														<input type="text" class="form-control form-control-sm"
-															id="inputNor" name="observacion">
+													    <select id="inputNor" name="observacion"
+															class="form-control form-control-sm">
+															<option th:value="''" th:text="'Seleccione...'"></option>
+															<option th:each="catalogo: ${catalogos}"
+																th:if="${catalogo.NombreCat == 'diagnostico'}"
+																th:value="${catalogo.CatalogoId}"
+																th:text="${catalogo.Nombre}"></option>
+														</select>
 													</div>
 												</div>
 												<h6>Datos medico</h6>
@@ -469,8 +478,7 @@
 												th:label="${sucursal.sucursal_nombre}" />
 										</select>
 									</div>
-									<div class="col-sm-3">
-									</div>
+									<div class="col-sm-3"></div>
 								</div>
 								<br> <input class="btn btn-primary" type="submit"
 									value="Guardar" id="submit"> <br> <input
@@ -518,7 +526,7 @@
                               </div>  ----->
 								</div>
 								<br> <input class="btn btn-primary" type="submit"
-									value="Guardar" id="submit">
+									value="Guardar" th:disabled="${button_estudio}" id="submit">
 							</form>
 							<br>
 							<!--Termina código de formulario-->
@@ -636,7 +644,7 @@
 								<input type="hidden" th:field="*{orden_id}" />
 								<div align="right">
 									<input type="submit" class="btn btn-primary"
-										th:value="Terminar">
+										th:value="Terminar" th:disabled="${button_terminar}">
 								</div>
 							</form>
 						</div>
