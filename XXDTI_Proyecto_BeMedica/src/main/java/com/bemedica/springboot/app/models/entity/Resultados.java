@@ -23,7 +23,7 @@ public class Resultados implements Serializable{
 	private Long OrdenEstudioId;
 	
 	@Column(name="resultado_cuanti")
-	private Long ResultadoCuanti;
+	private Double ResultadoCuanti;
 	
 	@Column(name="resultado_cuali")
 	private String ResultadoCuali;
@@ -40,6 +40,9 @@ public class Resultados implements Serializable{
 	@Column(name="comentario")
 	private String  Comentario;
 
+	@Column(name="perfil")
+	private String  perfil; 
+	
 	public Long getResultadoId() {
 		return ResultadoId;
 	}
@@ -56,11 +59,11 @@ public class Resultados implements Serializable{
 		OrdenEstudioId = ordenEstudioId;
 	}
 
-	public Long getResultadoCuanti() {
+	public Double getResultadoCuanti() {
 		return ResultadoCuanti;
 	}
 
-	public void setResultadoCuanti(Long resultadoCuanti) {
+	public void setResultadoCuanti(Double resultadoCuanti) {
 		ResultadoCuanti = resultadoCuanti;
 	}
 
@@ -108,5 +111,15 @@ public class Resultados implements Serializable{
 	public void setComentario(String comentario) {
 		Comentario = comentario;
 	}
+
+	public String getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
+	
+	
 
 }
