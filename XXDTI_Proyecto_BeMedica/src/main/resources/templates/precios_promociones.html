@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Bemédica Punto de venta</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+
+        <!-- Page level plugin CSS-->
+ <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+ 
+ <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+ 
+
+</head>
+
+<body>
+    <div><img th:src="@{/img/banner.jpg}" style="height:80px; width: 100%;"></div>
+    <div class="wrapper">
+         <nav id="sidebar">
+            <ul class="list-unstyled components">
+               <li>
+                  <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                  <i class="fas fa-address-card"></i>
+                  Operaciones
+                  </a>
+                  <ul class="collapse list-unstyled" id="homeSubmenu">
+                     <li>
+                        <a th:href="@{/operaciones_recepcion}">Recepcion del paciente</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/operaciones_folios}">Folios registrados</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/operaciones_facturacion}">Facturación</a>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                  <i class="fas fa-users-cog"></i>
+                  Administración
+                  </a>
+                  <ul class="collapse list-unstyled" id="homeSubmenu2">
+                     <li>
+                        <a th:href="@{/administracion_empleados}">Empleados</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/administracion_informacion}">Información Fiscal</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/administracion_sucursales}">Sucursales</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/administracion_usuarios}">Usuarios</a>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                  <i class="fas fa-file-medical"></i>
+                  Estudios
+                  </a>
+                  <ul class="collapse list-unstyled" id="homeSubmenu3">
+                     <li>
+                        <a th:href="@{/estudios_listar}">Listar estudios</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/estudios_examenes}">Exámenes</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/estudios_perfiles}">Perfiles</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/estudios_paquetes}">Paquetes</a>
+                     </li>
+                      <li>
+                        <a th:href="@{/gabinete}">Gabinete</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/estudios_calculos}">Cálculos</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/estudios_cultivos}">Cultivos</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/estudios_antibiogramas}">Antibiogramas</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/catalogos_antibiotico}">Antibióticos</a>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                  <i class="fas fa-dollar-sign"></i>
+                  Precios
+                  </a>
+                  <ul class="collapse list-unstyled" id="homeSubmenu4">
+                     <li>
+                        <a th:href="@{/precios_listas}">Listas de precios</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/precios_convenios}">Convenios</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/precios_promociones}">Promociones</a>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <a href="#homeSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                  <i class="fas fa-diagnoses"></i>
+                  Productos y servicios
+                  </a>
+                  <ul class="collapse list-unstyled" id="homeSubmenu5">
+                     <li>
+                        <a th:href="@{/proserv_productos}">Productos</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/proserv_servicios}">Servicios</a>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <a href="#homeSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                  <i class="fas fa-users-cog"></i>
+                  Catálogos
+                  </a>
+                  <ul class="collapse list-unstyled" id="homeSubmenu6">
+                     <li>
+                        <a th:href="@{/catalogos_alertas}">Alertas</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/catalogos_condicion}">Catalogo</a>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <a href="#homeSubmenu7" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                  <i class="fas fa-wrench"></i>
+                  Herramientas
+                  </a>
+                  <ul class="collapse list-unstyled" id="homeSubmenu7">
+                     <li>
+                        <a th:href="@{/herramientas_participaciones}">Participaciones médicos</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/herramientas_corte}">Corte de caja</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/herramientas_notificaciones}">Notificaciones</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/herramientas_reportes}">Reportes</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/herramientas_sistema}">Sistema</a>
+                     </li>
+                  </ul>
+               </li>
+              <li>
+                  <a href="#homeSubmenu8" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                  <i class="fas fa-question-circle"></i>
+                  Ayuda
+                  </a>
+                  <ul class="collapse list-unstyled" id="homeSubmenu8">
+                     <li>
+                        <a th:href="@{/herramientas_notificaciones}">Acerca de</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/herramientas_reportes}">Contacto</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/herramientas_sistema}">Registros</a>
+                     </li>
+                  </ul>
+               </li>
+            </ul>
+         </nav>
+         <!-- <script>
+            function cambia(src) {
+                src = "";
+                src = "https://img.icons8.com/color/48/000000/drag-list-down.png";
+                return src;
+            }
+
+        </script>
+        -->
+        <div id="content">
+			<div class="accordion" id="accordionExample">
+				<div class="card">
+					<div class="card-header" id="headingOne">
+						<h2 class="mb-0 form-row" style="font-size: 20px;">
+							Condiciones Paciente
+
+							   <div class="ml-auto" align="right">
+								<a href="javascript:window.history.back();"><button
+										class="btn btn-link" type="button" aria-expanded="true"
+										title="">
+										<i class="fas fa-arrow-left "></i> Regresar
+									</button></a>
+							</div>
+						</h2>
+					</div>
+					<br>
+
+					<div id="collapseOne" class="collapse show"
+						aria-labelledby="headingOne" data-parent="#accordionExample">
+						<div class="card-body">
+
+							<!--Inicia código de formulario-->
+
+							<div class="col-sm-12">
+								<div class="card mb-3">
+
+									<div class="card-header">
+										<div class="card-body">
+											<div class="table-responsive">
+
+												<table id="example" class="display" style="width: 100%">
+													<thead>
+														<tr class="table-primary">
+															<th width="10%">&nbsp; Id</th>
+															<th>Nombre</th>
+															<th width="25%">Nombre Catalogo</th>
+															<th width="15%">Eliminar</th>
+
+														</tr>
+													</thead>
+													<tbody>
+														<tr th:each="catalogo: ${vista}">
+															<td th:text="${catalogo.CatalogoId}"></td>
+															<td th:text="${catalogo.Nombre}"></td>
+															<td th:text="${catalogo.NombreCat}"></td>
+															<td><a class="btn btn-danger btn-xs"
+																th:href="@{/eliminarcat/} + ${catalogo.CatalogoId}"
+																th:text="'eliminar'"
+																onclick="return confirm('Esta seguro de que quieres eliminar');"></a></td>
+
+														</tr>
+													</tbody>
+													<tfoot>
+														<tr>
+															<th>Id</th>
+															<th></th>
+															<th>Nombre Catalogo</th>
+														</tr>
+													</tfoot>
+												</table>
+											</div>
+										</div>
+
+									</div>
+									<div class="modal fade" id="modalNuevo" tabindex="-1"
+										role="dialog" aria-labelledby="myModalLabel">
+										<div class="modal-dialog modal-sm-1" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h3 th:text="${titulo1}"></h3>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+
+													<form th:action="@{/catalogos_condicion}"
+														th:object="${catalogo}" method="post">
+														<table>
+															<tr>
+																<td>Nombre del registro</td>
+																<td><input type="text" th:field="*{Nombre}"
+																	class="form-control" /></td>
+															</tr>
+
+															<tr>
+																<td>Nombre del catalogo</td>
+																<td><select th:field="*{NombreCat}"
+																	class="form-control form-control-sm">
+																		<option value="no">Seleccione uno...</option>
+																		<option value="areas proceso">Areas Proceso</option>
+																		<option value="condiciones paciente">Condiciones
+																			Paciente</option>
+																		<option value="envases muestras">Envases Muestra</option>
+																		<option value="tipos de muestras">Tipos de Muestra</option>
+																		<option value="tecnicas estudios">Técnicas Estudios</option>
+																		<option value="unidades resultados">Unidades Resultados</option>
+																		<option value="variantes">Variantes</option>
+																</select></td>
+															</tr>
+															<tr>
+
+																<td><input type="submit" value="Crear registro" /></td>
+
+															</tr>
+
+														</table>
+													</form>
+												</div>
+												<div class="modal-footer"></div>
+											</div>
+										</div>
+									</div>
+									<br>
+									<br>
+									<div align="right">
+										<p>
+											<a th:href="@{/catalogos_condicion}"
+												class="btn btn-success btn-xs" data-toggle="modal"
+												data-target="#modalNuevo">Agregar nuevo</a>
+										</p>
+
+										<!--<button class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo">
+                              Agregar nuevo
+                              <span class="glyphicon glyphicon-plus"></span>
+                            </button>-->
+
+									</div>
+								</div>
+								<!--Termina código de formulario-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+               </div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+
+  <!-- Demo scripts for this page-->
+  <script src="js/demo/datatables-demo.js"></script>
+
+  <!-- Page level plugin JavaScript-->
+  <script src="vendor/datatables/jquery.dataTables.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+   <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+   </script>
+<script type="text/javascript">
+        $(documento).ready(function () {
+            $('#cat').select2 ();
+              
+        });
+</script>
+
+<script>
+	$(document).ready(function() {
+    $('#example').DataTable( {
+        initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }
+    } );
+} );
+				
+</script>
+</body>
+
+</html>
