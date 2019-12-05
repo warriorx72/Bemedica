@@ -29,11 +29,11 @@ public class FoliosRegistradosController {
 	@Autowired
 	private IOrdenDao OrdenDao;
 	
-	@RequestMapping (value="/folios_registrados", method=RequestMethod.GET)
+	@RequestMapping (value="/operaciones_folios", method=RequestMethod.GET)
 	public String listar (Model model) {
 		model.addAttribute("titulo","Folios registrados");
 		model.addAttribute("vista", OrdenVista.findAll2());
-		return "folios_registrados";
+		return "operaciones_folios";
 	}
 	
 	@RequestMapping (value="/detalles/{id}")
@@ -51,11 +51,11 @@ public class FoliosRegistradosController {
 		orden=OrdenDao.findOne(id);
 		if (Double.parseDouble(orden.getPago_inicial()) == 0) {
 			orden.setPago_final(orden.getMonto());
-			orden.setOrden_estatus("Pagado");
+			//orden.setOrden_estatus("Pagado");
 		}
 		else {
 			orden.setPago_final(String.valueOf( Double.parseDouble(orden.getMonto())-Double.parseDouble(orden.getPago_inicial())));
-			orden.setOrden_estatus("Pagado");
+			//orden.setOrden_estatus("Pagado");
 		}
 		
 		OrdenDao.save(orden);
@@ -64,6 +64,33 @@ public class FoliosRegistradosController {
 		return "redirect:/folios_registrados";
 	}
 	
+	@RequestMapping (value="/cancelar_orden/{id}",method = RequestMethod.GET)
+	public String cancelarOrden (Model model, @PathVariable (value="id") Long id) {
+		Orden orden ;
+		orden=OrdenDao.findOne(id);
+		orden.setOrden_estatus("Cancelada");
+		
+		OrdenDao.save(orden);
+		model.addAttribute("titulo","Folios registrados");
+		model.addAttribute("vista", OrdenVista.findAll2());
+		return "redirect:/operaciones_folios";
+	}
+	
+	@RequestMapping (value="/finalizar_orden/{id}",method = RequestMethod.GET)
+	public String finalizarOrden (Model model, @PathVariable (value="id") Long id) {
+		Orden orden ;
+		orden=OrdenDao.findOne(id);
+		
+		if (orden.getOrden_estatus().equals("A entrega") && orden.getAdeudo().equals("0.00")) {
+			orden.setOrden_estatus("Finalizada");
+		}
+		
+		
+		OrdenDao.save(orden);
+		model.addAttribute("titulo","Folios registrados");
+		model.addAttribute("vista", OrdenVista.findAll2());
+		return "redirect:/operaciones_folios";
+	}
 	
 	
 	
