@@ -3,6 +3,8 @@ package com.bemedica.springboot.app.models.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.apache.poi.ss.usermodel.Cell;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.bemedica.springboot.app.models.entity.Resultados;
@@ -50,16 +52,18 @@ public class ResultadosDaoImpl implements IResultados {
 	public List<Object[]> PacienteOrden(Long id) {
 		List<Object[]> re= em.createNativeQuery("select \r\n" + 
 				"paciente.paciente_id_tex, \r\n" + 
-				"persona.persona_nombre,\r\n" + 
+				"concat (persona.persona_nombre,' ',persona.persona_ap,' ',persona.persona_am) as 'paciente',\r\n" + 
 				"TIMESTAMPDIFF(YEAR,persona.persona_fecha_na,CURDATE()) as 'años',\r\n" + 
 				"timestampdiff(month,persona.persona_fecha_na,curdate())as  'meses', \r\n" + 
 				"persona.persona_genero,\r\n" + 
 				"orden.orden_fecha, \r\n" + 
 				"orden.orden_folio,\r\n" + 
-				"(select concat(pm.persona_nombre ,' ', pm.persona_ap ,' ', pm.persona_am) from orden , persona pm , medicos where orden.medico_id= medicos.medico_id \r\n" + 
-				"and medicos.persona_id=pm.persona_id and orden.orden_id="+id+")as 'medico_nombre' ,\r\n" + 
-				"concat (pe.persona_nombre ,' ', pe.persona_ap,' ', pe.persona_am) as 'empleado',\r\n" + 
-				"orden.orden_estatus\r\n" + 
+				"ifnull ( (select concat(pm.persona_nombre ,' ', pm.persona_ap ,' ', pm.persona_am) from orden , persona pm , medicos where orden.medico_id= medicos.medico_id \r\n" + 
+				"				and medicos.persona_id=pm.persona_id and orden.orden_id="+id+") , 'A QUIEN CORRESPONDA' ) as medico,\r\n" + 
+				"concat (pe.persona_nombre ,' ', pe.persona_ap,' ', pe.persona_am)  as 'empleado',\r\n" + 
+				"orden.orden_estatus, \r\n" + 
+				"timestampdiff(day,persona.persona_fecha_na,curdate())as  'dias', \r\n" +
+				"paciente.observacion \r\n" +
 				"from paciente,persona,orden  , persona pe , empleados_sucursal  where \r\n" + 
 				"1=1\r\n" + 
 				"and orden.paciente_id = paciente.paciente_id\r\n" + 
@@ -132,7 +136,11 @@ public class ResultadosDaoImpl implements IResultados {
 	@Transactional(readOnly=true)
 	@Override
 	public List<Object[]> Perfil(Long id) {
-		List<Object[]> re= em.createNativeQuery("select estudios.estudio_id,estudios.estudio_nombre, estudios.estudio_unidades_res from estudios, perfiles_estudios \r\n" + 
+		List<Object[]> re= em.createNativeQuery("select "
+				+ "estudios.estudio_id,"
+				+ "estudios.estudio_nombre, "
+				+ "estudios.estudio_unidades_res "
+				+ "from estudios, perfiles_estudios \r\n" + 
 				"where \r\n" + 
 				"1=1 \r\n" + 
 				"and perfiles_estudios.estudio_id= estudios.estudio_id \r\n" + 
@@ -146,19 +154,39 @@ public class ResultadosDaoImpl implements IResultados {
 	public List<Object[]> Paquete(Long id) {
 		
 		
-		List<Object[]> re= em.createNativeQuery("select estudios.estudio_id , estudios.estudio_nombre , estudios.estudio_unidades_res from \r\n" + 
-				"estudios, paquetes_estudios \r\n" + 
-				"where 1=1 \r\n" + 
-				"and paquetes_estudios.estudio_id= estudios.estudio_id\r\n" + 
-				"and paquetes_estudios.paquete_id="+id+"\r\n" + 
-				"union all\r\n" + 
-				"SELECT \r\n" + 
-				"estudios.estudio_id,estudios.estudio_nombre, estudios.estudio_unidades_res from estudios, paquetes_perfiles , perfiles_estudios\r\n" + 
-				"where \r\n" + 
-				"1=1 \r\n" + 
-				"and paquetes_perfiles.perfil_id = perfiles_estudios.perfil_id\r\n" + 
-				"and perfiles_estudios.estudio_id= estudios.estudio_id\r\n" + 
-				"and paquetes_perfiles.paquete_id="+id).getResultList();
+		List<Object[]> re= em.createNativeQuery("SELECT\r\n" + 
+				"	estudios.estudio_id,\r\n" + 
+				"	estudios.estudio_nombre,\r\n" + 
+				"	estudios.estudio_unidades_res,\r\n" + 
+				"	'null', \r\n" + 
+				"	'aux' \r\n" + 
+				"FROM\r\n" + 
+				"	estudios,\r\n" + 
+				"	paquetes_estudios \r\n" + 
+				"WHERE\r\n" + 
+				"	1 = 1 \r\n" + 
+				"	AND paquetes_estudios.estudio_id = estudios.estudio_id \r\n" + 
+				"	AND paquetes_estudios.paquete_id = "+id+
+				" UNION ALL\r\n" + 
+				"SELECT\r\n" + 
+				"	estudios.estudio_id,\r\n" + 
+				"	estudios.estudio_nombre,\r\n" + 
+				"	estudios.estudio_unidades_res,\r\n" + 
+				"	perfiles.perfil_id, \r\n" +
+				"	perfiles.perfil_nombre\r\n" +
+				"FROM\r\n" + 
+				"	estudios,\r\n" + 
+				"	paquetes_perfiles,\r\n" + 
+				"	perfiles_estudios,\r\n" + 
+				"	perfiles \r\n" + 
+				"WHERE\r\n" + 
+				"	1 = 1 \r\n" + 
+				"	AND perfiles.perfil_id = perfiles_estudios.perfil_id \r\n" + 
+				"	AND paquetes_perfiles.perfil_id = perfiles_estudios.perfil_id \r\n" + 
+				"	AND perfiles_estudios.estudio_id = estudios.estudio_id \r\n" + 
+				"	AND paquetes_perfiles.paquete_id ="+id+"\r\n" + 
+				"GROUP BY\r\n" + 
+				"	perfiles.perfil_id ").getResultList();
 		return  re;
 	}
 
@@ -207,6 +235,26 @@ public class ResultadosDaoImpl implements IResultados {
 			      "UPDATE Orden SET orden_estatus = 'A entrega' " +
 			      "WHERE orden_id = "+id).executeUpdate();
 		
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	@Override
+	public List<Object[]> Resultados(Long linea, Long estudio) {
+		List<Object[]> re = null;
+            	re= em.createNativeQuery("{call resultado ("+linea+","+estudio+")}").getResultList(); 
+            	
+		return re;
+	}
+
+
+	@Transactional(readOnly=true)
+	@Override	
+	public String NombrePerfil(Long id) {
+		
+		String nombre =(String) em.createNativeQuery("select perfiles.perfil_nombre from perfiles where perfiles.perfil_id="+id).getSingleResult();
+		return nombre;
 	}
 
 }

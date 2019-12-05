@@ -31,5 +31,9 @@ public interface IResultados {
 	public List <String>  ValidarOrden (Long id );
 	
 	public void Actualizacion_Orden (Long id );
+	
+	public List <Object []> Resultados (Long id, Long linea);
+	
+	public String NombrePerfil(Long id);
 
 }
