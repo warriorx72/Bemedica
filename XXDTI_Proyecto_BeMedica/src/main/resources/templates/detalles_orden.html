@@ -34,79 +34,7 @@
 
 		<!-- Page Content  -->
 		<div id="content">
-			<div class="accordion" id="accordionExample"
-				style="user-select: none;">
-				<div class="card">
-					<div class="card-header" id="headingOne">
-						<h2 class="mb-0 form-row" style="font-size: 20px;">Datos del
-							paciente</h2>
-					</div>
 
-					<div id="collapseOne" class="collapse show"
-						aria-labelledby="headingOne" data-parent="#accordionExample">
-
-						<div class="input-group mb-0 form-control-sm"
-							th:each="p: ${paciente}">
-							<div class="form-group col-md-3">
-								<label class="col-form-label-sm mb-0">ID Paciente:</label> <input
-									type="text" th:value="${p[0]}"
-									class="form-control form-control-sm" readonly />
-							</div>
-							<div class="form-group col-md-3">
-								<label class="col-form-label-sm mb-0">Nombre:</label> <input
-									type="text" th:value="${p[1]}"
-									class="form-control form-control-sm" readonly />
-							</div>
-							<div class="form-group col-md-3">
-								<label class="col-form-label-sm mb-0">Edad:</label> <input
-									type="text" th:value="${edad}"
-									class="form-control form-control-sm" readonly />
-							</div>
-							<div class="form-group col-md-3">
-							<label class="col-form-label-sm mb-0">Sexo:</label> <input
-								type="text" th:value="${p[4]}"
-								class="form-control form-control-sm" readonly />
-						</div>
-							
-						</div>
-
-					</div>
-
-					<div class="input-group mb-0 form-control-sm"
-						th:each="p: ${paciente}">
-						
-						<div class="form-group col-md-3">
-							<label class="col-form-label-sm mb-0">Fecha Orden:</label> <input
-								type="text" th:value="${p[5]}"
-								class="form-control form-control-sm" readonly />
-						</div>
-						<div class="form-group col-md-3">
-							<label class="col-form-label-sm mb-0">Medico:</label> <input
-								type="text" th:value="${p[7]}"
-								class="form-control form-control-sm" readonly />
-						</div>
-						
-						<div class="form-group col-md-3">
-							<label class="col-form-label-sm mb-0">Diagnistico:</label> <input
-								type="text" th:value="${p[11]}"
-								class="form-control form-control-sm" readonly />
-						</div>
-						
-						<div class="form-group col-md-3">
-							<label class="col-form-label-sm mb-0">Imprimir:</label> 
-							
-							<a th:href="@{/descargar_resultados/} + ${id}" class="form-control form-control-sm">Imprimir Resultados</a>
-						</div>
-						
-						
-						
-
-					</div>
-
-				</div>
-
-
-			</div>
 
 
 
@@ -131,16 +59,16 @@
 											<tr class="table-primary">
 												<th>ID Captura</th>
 												<th>Estudio</th>
-												<th>Captura</th>
+												
 											</tr>
 										</thead>
 										<tbody>
 											<tr th:each="l: ${lineas}">
 												<td><a class="text-primary"
-													th:href="@{/agregar_resultado/}+${l[0]}+'/'+${l[7]}+'/'+${l[8]}+'/'+${l[4]}"
+													th:href="@{/detalles_detalles/}+${l[0]}+'/'+${l[7]}+'/'+${l[8]}+'/'+${l[4]}"
 													th:text="${l[1]+'-'+l[4]}"> </a></td>
 												<td th:text="${l[8]+' '+ l[3]}"></td>
-												<td th:text="${l[6]}"></td>
+												
 											</tr>
 										</tbody>
 									</table>
@@ -173,9 +101,7 @@
 										<thead>
 											<tr class="table-primary">
 												<th>Nombre</th>
-												<th>Resultado</th>
-												<th>Comentarios</th>
-												<th>Validar</th>
+
 
 											</tr>
 										</thead>
@@ -183,59 +109,13 @@
 
 
 											<tr th:each="r: ${resul}">
-												<form th:action="@{/guardar_resultado_linea/}+${id}+'/'+${lo}"
-													th:id="${r.ResultadoId}" th:name="${r.ResultadoId}"
-													method="post" th:object="${aux}">
+								
 													
 												<td th:if="${r.perfil != ''}" th:utext="${r.perfil}+':'+'<br />'+${r.EstudioNombre}"> </td>
 												
 												<td th:if="${r.perfil == ''}" th:utext="${r.EstudioNombre}"> </td>
 													
-												
-												
-												
 
-												<td>
-													<input name="ResultadoCuanti"
-													th:if="${r.ResultadoCuali==null}" 
-													th:value="${r.ResultadoCuanti}"
-													required
-													type="number"> 
-													
-													<input
-													name="ResultadoCuali" th:if="${r.ResultadoCuanti == null}"
-													th:value="${r.ResultadoCuali}"
-													required
-													type="text"></td>
-												
-												
-												<td><input type="text" name="Comentario"
-													th:value="${r.Comentario}" /></td>
-
-												<td><input type="checkbox"
-													th:if="${r.Validacion == '1'}" checked value="0"
-													th:onclick="'post_form(' + ${r.ResultadoId} + ');'">
-
-													<input type="checkbox" th:if="${r.Validacion == '0'}"
-													value="1"
-													th:onclick="'post_form(' + ${r.ResultadoId} + ');'">
-
-
-												</td>
-												<input type="hidden" name="ResultadoId"
-													th:value="${r.ResultadoId}" />
-												<input type="hidden" name="OrdenEstudioId"
-													th:value="${r.OrdenEstudioId}" />
-												<input type="hidden" name="estudio_id"
-													th:value="${r.estudio_id}" />
-
-												<input type="hidden" name="EstudioNombre"
-													th:value="${r.EstudioNombre}" />
-													
-													<input type="hidden" name="perfil"
-													th:value="${r.perfil}" />
-
-												</form>
 											</tr>
 
 										</tbody>
