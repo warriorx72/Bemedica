@@ -252,15 +252,30 @@
 
                                         <a class="btn btn-outline-warning btn-sm" title="Abrir Orden"   th:onclick="'popup(' + ${orden.orden_id} + ');'" ><i
                                                 class="fas fa-folder-open"></i></a>
-                                        <a class="btn btn-outline-danger btn-sm" title="Cancelar Orden"
-                                            href=""><i class="fas fa-trash-alt"></i></a>
+                                        <a class="btn btn-outline-danger btn-sm" title="Cancelar Orden" th:onclick="return confirm('¿Desea cancelar la orden?');"
+                                            th:href="@{/cancelar_orden/} + ${orden.orden_id}"   ><i class="fas fa-trash-alt"></i></a>
 
                                         <a  th:onclick="'javascript:openDetallesModal(' + ${orden.orden_id} + ');'" class="btn btn-outline-info btn-sm" title="Estudio Solicitado:"
                                              ><i class="fas fa-question"></i></a>
                                         <a class="btn btn-outline-secondary btn-sm" title="Facturación"
                                            ><i class="fas fa-file-alt"></i></a>
                                     </td>
-                                    <td th:text="${orden.orden_folio}"></td>
+                                    
+                                    
+                                    
+                                    <td>
+
+															<a class="text-primary"
+
+																th:href="@{/finalizar_orden/} + ${orden.orden_id}"
+																th:text="${orden.orden_folio}"
+																th:onclick="return confirm('¿Desea finalizar la orden?');"
+
+																> </a>
+
+
+																</td>
+                                    
                                     <td th:text="${orden.nombre+' '+orden.persona_ap}"></td>
                                     <td th:text="${orden.orden_fecha}"></td>
                                     <td th:text="${orden.orden_estatus}"></td>
@@ -271,11 +286,7 @@
 
 																th:href="@{/liquidar_orden/} + ${orden.orden_id}"
 																th:text="${orden.adeudo}"
-
-
-
-
-																th:onclick="'return confirm(\'Desea liquidar la siguiente orden ' + ${orden.orden_id} + '\');'"
+																th:onclick="return confirm('¿Desea liquidar la orden?');"
 
 																> </a>
 
