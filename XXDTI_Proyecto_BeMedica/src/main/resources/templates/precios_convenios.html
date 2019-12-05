@@ -38,115 +38,167 @@
 	</div>
 	<div class="wrapper">
 		<!-- Sidebar  -->
-		<nav id="sidebar">
-			<ul class="list-unstyled components">
-				<li><a href="#homeSubmenu" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle"> <i
-						class="fas fa-address-card"></i> Operaciones
-				</a>
-					<ul class="collapse list-unstyled" id="homeSubmenu">
-						<li><a th:href="@{/operaciones_recepcion}">Recepcion del
-								paciente</a></li>
-						<li><a th:href="@{/operaciones_folios}">Folios
-								registrados</a></li>
-						<li><a th:href="@{/operaciones_facturacion}">Facturación</a>
-						</li>
-					</ul></li>
-				<li><a href="#homeSubmenu2" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle"> <i
-						class="fas fa-users-cog"></i> Administración
-				</a>
-					<ul class="collapse list-unstyled" id="homeSubmenu2">
-						<li><a th:href="@{/administracion_empleados}">Empleados</a></li>
-						<li><a th:href="@{/administracion_informacion}">Información
-								Fiscal</a></li>
-						<li><a th:href="@{/administracion_sucursales}">Sucursales</a>
-						</li>
-						<li><a th:href="@{/administracion_usuarios}">Usuarios</a></li>
-					</ul></li>
-				<li><a href="#homeSubmenu3" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle"> <i
-						class="fas fa-file-medical"></i> Estudios
-				</a>
-					<ul class="collapse list-unstyled" id="homeSubmenu3">
-<<<<<<< HEAD
-						<li><a th:href="@{/estudios_listar}">Listar estudios</a></li>
-						<li><a th:href="@{/estudios_examenes}">Exámenes</a></li>
-						<li><a th:href="@{/estudios_perfiles}">Perfiles</a></li>
-						<li><a th:href="@{/estudios_paquetes}">Paquetes</a></li>
-						<li><a th:href="@{/estudios_calculos}">Cálculos</a></li>
-						<li><a th:href="@{/estudios_cultivos}">Cultivos</a></li>
-						<li><a th:href="@{/estudios_antibiogramas}">Antibiogramas</a>
-						</li>
-						<li><a th:href="@{/catalogos_antibioticos}">Antibióticos</a>
-						</li>
-=======
-						<li><a href="estudios_listar.html">Listar estudios</a></li>
-						<li><a href="estudios_examenes.html">Exámenes</a></li>
-						<li><a href="estudios_perfiles.html">Perfiles</a></li>
-						<li><a href="estudios_paquetes.html">Paquetes</a></li>
-						 <li>
-                        <a th:href="@{/gabinete}">Gabinete</a>
-                        </li>
-						<li><a href="estudios_calculos.html">Cálculos</a></li>
-						<li><a href="estudios_cultivos.html">Cultivos</a></li>
-						<li><a href="estudios_antibiogramas.html">Antibiogramas</a></li>
-						<li><a href="estudios_antibiticos.html">Antibióticos</a></li>
->>>>>>> branch 'master' of https://github.com/warriorx72/Bemedica.git
-					</ul></li>
-				<li><a href="#homeSubmenu4" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle"> <i
-						class="fas fa-dollar-sign"></i> Precios
-				</a>
-					<ul class="collapse list-unstyled" id="homeSubmenu4">
-						<li><a th:href="@{/precios_listas}">Listas de precios</a></li>
-						<li><a th:href="@{/precios_convenios}">Convenios</a></li>
-						<li><a th:href="@{/precios_promociones}">Promociones</a></li>
-					</ul></li>
-				<li><a href="#homeSubmenu5" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle"> <i
-						class="fas fa-diagnoses"></i> Productos y servicios
-				</a>
-					<ul class="collapse list-unstyled" id="homeSubmenu5">
-						<li><a th:href="@{/proserv_productos}">Productos</a></li>
-						<li><a th:href="@{/proserv_servicios}">Servicios</a></li>
-					</ul></li>
-				<li><a href="#homeSubmenu6" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle"> <i
-						class="fas fa-users-cog"></i> Catálogos
-				</a>
-					<ul class="collapse list-unstyled" id="homeSubmenu6">
-						<li><a th:href="@{/catalogos_alertas}">Alertas</a></li>
-						<li><a th:href="@{/catalogos_condicion}">Catalogo</a></li>
-					</ul></li>
-				<li><a href="#homeSubmenu7" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle"> <i
-						class="fas fa-wrench"></i> Herramientas
-				</a>
-					<ul class="collapse list-unstyled" id="homeSubmenu7">
-						<li><a th:href="@{/herramientas_participaciones}">Participaciones
-								médicos</a></li>
-						<li><a th:href="@{/herramientas_corte}">Corte de caja</a></li>
-						<li><a th:href="@{/herramientas_notificaciones}">Notificaciones</a>
-						</li>
-						<li><a th:href="@{/herramientas_reportes}">Reportes</a></li>
-						<li><a th:href="@{/herramientas_sistema}">Sistema</a></li>
-					</ul></li>
-				<li><a href="#homeSubmenu8" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle"> <i
-						class="fas fa-question-circle"></i> Ayuda
-				</a>
-					<ul class="collapse list-unstyled" id="homeSubmenu8">
-						<li><a th:href="@{/herramientas_participaciones}">BeMedica
-								Support</a></li>
-						<li><a th:href="@{/herramientas_corte}">Registro Demos</a></li>
-						<li><a th:href="@{/herramientas_notificaciones}">Acerca
-								de</a></li>
-						<li><a th:href="@{/herramientas_reportes}">Contacto</a></li>
-						<li><a th:href="@{/herramientas_sistema}">Registros</a></li>
-					</ul></li>
-			</ul>
-		</nav>
+		 <nav id="sidebar">
+				<ul class="list-unstyled components">
+					 <li>
+							<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+							<i class="fas fa-address-card"></i>
+							Operaciones
+							</a>
+							<ul class="collapse list-unstyled" id="homeSubmenu">
+								 <li>
+										<a th:href="@{/operaciones_recepcion}">Recepcion del paciente</a>
+								 </li>
+								 <li>
+										<a th:href="@{/operaciones_folios}">Folios registrados</a>
+								 </li>
+								 <li>
+										<a th:href="@{/operaciones_facturacion}">Facturación</a>
+								 </li>
+							</ul>
+					 </li>
+					 <li>
+							<a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+							<i class="fas fa-users-cog"></i>
+							Administración
+							</a>
+							<ul class="collapse list-unstyled" id="homeSubmenu2">
+								 <li>
+										<a th:href="@{/administracion_empleados}">Empleados</a>
+								 </li>
+								 <li>
+										<a th:href="@{/administracion_informacion}">Información Fiscal</a>
+								 </li>
+								 <li>
+										<a th:href="@{/administracion_sucursales}">Sucursales</a>
+								 </li>
+								 <li>
+										<a th:href="@{/administracion_usuarios}">Usuarios</a>
+								 </li>
+							</ul>
+					 </li>
+					 <li>
+							<a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+							<i class="fas fa-file-medical"></i>
+							Estudios
+							</a>
+							<ul class="collapse list-unstyled" id="homeSubmenu3">
+								 <li>
+										<a th:href="@{/estudios_listar}">Listar estudios</a>
+								 </li>
+								 <li>
+										<a th:href="@{/estudios_examenes}">Exámenes</a>
+								 </li>
+								 <li>
+										<a th:href="@{/estudios_perfiles}">Perfiles</a>
+								 </li>
+								 <li>
+										<a th:href="@{/estudios_paquetes}">Paquetes</a>
+								 </li>
+									<li>
+										<a th:href="@{/gabinete}">Gabinete</a>
+								 </li>
+								 <li>
+										<a th:href="@{/estudios_calculos}">Cálculos</a>
+								 </li>
+								 <li>
+										<a th:href="@{/estudios_cultivos}">Cultivos</a>
+								 </li>
+								 <li>
+										<a th:href="@{/estudios_antibiogramas}">Antibiogramas</a>
+								 </li>
+								 <li>
+										<a th:href="@{/catalogos_antibiotico}">Antibióticos</a>
+								 </li>
+							</ul>
+					 </li>
+					 <li>
+							<a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+							<i class="fas fa-dollar-sign"></i>
+							Precios
+							</a>
+							<ul class="collapse list-unstyled" id="homeSubmenu4">
+								 <li>
+										<a th:href="@{/precios_listas}">Listas de precios</a>
+								 </li>
+								 <li>
+										<a th:href="@{/precios_convenios}">Convenios</a>
+								 </li>
+								 <li>
+										<a th:href="@{/precios_promociones}">Promociones</a>
+								 </li>
+							</ul>
+					 </li>
+					 <li>
+							<a href="#homeSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+							<i class="fas fa-diagnoses"></i>
+							Productos y servicios
+							</a>
+							<ul class="collapse list-unstyled" id="homeSubmenu5">
+								 <li>
+										<a th:href="@{/proserv_productos}">Productos</a>
+								 </li>
+								 <li>
+										<a th:href="@{/proserv_servicios}">Servicios</a>
+								 </li>
+							</ul>
+					 </li>
+					 <li>
+							<a href="#homeSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+							<i class="fas fa-users-cog"></i>
+							Catálogos
+							</a>
+							<ul class="collapse list-unstyled" id="homeSubmenu6">
+								 <li>
+										<a th:href="@{/catalogos_alertas}">Alertas</a>
+								 </li>
+								 <li>
+										<a th:href="@{/catalogos_condicion}">Catalogo</a>
+								 </li>
+							</ul>
+					 </li>
+					 <li>
+							<a href="#homeSubmenu7" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+							<i class="fas fa-wrench"></i>
+							Herramientas
+							</a>
+							<ul class="collapse list-unstyled" id="homeSubmenu7">
+								 <li>
+										<a th:href="@{/herramientas_participaciones}">Participaciones médicos</a>
+								 </li>
+								 <li>
+										<a th:href="@{/herramientas_corte}">Corte de caja</a>
+								 </li>
+								 <li>
+										<a th:href="@{/herramientas_notificaciones}">Notificaciones</a>
+								 </li>
+								 <li>
+										<a th:href="@{/herramientas_reportes}">Reportes</a>
+								 </li>
+								 <li>
+										<a th:href="@{/herramientas_sistema}">Sistema</a>
+								 </li>
+							</ul>
+					 </li>
+					 <li>
+							<a href="#homeSubmenu8" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+							<i class="fas fa-question-circle"></i>
+							Ayuda
+							</a>
+							<ul class="collapse list-unstyled" id="homeSubmenu8">
+								 <li>
+										<a th:href="@{/herramientas_notificaciones}">Acerca de</a>
+								 </li>
+								 <li>
+										<a th:href="@{/herramientas_reportes}">Contacto</a>
+								 </li>
+								 <li>
+										<a th:href="@{/herramientas_sistema}">Registros</a>
+								 </li>
+							</ul>
+					 </li>
+				</ul>
+		 </nav>
 		<!-- <script>
             function cambia(src) {
                 src = "";
@@ -168,8 +220,8 @@
 						aria-labelledby="headingOne" data-parent="#accordionExample">
 						<div class="card-body">
 							<!--Inicia código de formulario-->
-							
-							
+
+
 
 							<div class="col-sm-12">
 								<div class="card mb-3">
@@ -192,15 +244,15 @@
 													</thead>
 													<tbody>
 														<tr th:each="convenios: ${vista}">
-														
+
 															<td>
-																
+
 																<a class="text-primary"
 																th:href="@{/form_convenio_editar/} + ${convenios.ConvenioId}"
 																th:text="${convenios.ConvenioIdText}">
 																</a>
 															</td>
-															
+
 															<td th:text="${convenios.ConvenioNombre}" ></td>
 															<td th:text="${convenios.ConvenioDetalles}"></td>
 															<td th:text="${convenios.ConvenioCosto}"></td>
@@ -219,12 +271,12 @@
 
 									</div>
 									<div align="right">
-										
+
 										<a th:href="@{form_convenio}" class="btn btn-primary">Nuevo Convenio</a>
 									</div>
 									<br> <br>
 
-									
+
 								</div>
 								<!--Termina código de formulario-->
 							</div>

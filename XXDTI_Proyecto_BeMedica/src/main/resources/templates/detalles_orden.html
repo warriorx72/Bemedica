@@ -59,7 +59,7 @@
 											<tr class="table-primary">
 												<th>ID Captura</th>
 												<th>Estudio</th>
-												
+
 											</tr>
 										</thead>
 										<tbody>
@@ -68,7 +68,7 @@
 													th:href="@{/detalles_detalles/}+${l[0]}+'/'+${l[7]}+'/'+${l[8]}+'/'+${l[4]}"
 													th:text="${l[1]+'-'+l[4]}"> </a></td>
 												<td th:text="${l[8]+' '+ l[3]}"></td>
-												
+
 											</tr>
 										</tbody>
 									</table>
@@ -109,12 +109,12 @@
 
 
 											<tr th:each="r: ${resul}">
-								
-													
+
+
 												<td th:if="${r.perfil != ''}" th:utext="${r.perfil}+':'+'<br />'+${r.EstudioNombre}"> </td>
-												
+
 												<td th:if="${r.perfil == ''}" th:utext="${r.EstudioNombre}"> </td>
-													
+
 
 											</tr>
 
@@ -197,7 +197,7 @@
 					|| (document.documentElement.scrollTop + document.body.scrollTop);
 		}
 	</script>
-	
+
 	<script>
 $(document).ready(function() {
     $('#example').DataTable( {
