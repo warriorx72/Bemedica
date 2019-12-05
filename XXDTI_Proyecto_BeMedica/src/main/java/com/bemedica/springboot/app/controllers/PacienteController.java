@@ -400,15 +400,12 @@ public class PacienteController {
 		/// Persona personamedico = new Persona();
 		//// if(personamedico.getPersona_nombre().toString().contains("Med")) {}
 
-		Direccion direccionmedico = new Direccion();
-		direccionmedico.setDireccion_id(null);
-		direccionDao.save(direccionmedico);
 
 		if(!nombre_medico.equals("")) {
 		Persona personamedico = new Persona();
 		m.put("personamedico", personamedico);
 
-		personamedico.setIdDireccion(direccionmedico.getDireccion_id().intValue());
+		personamedico.setIdDireccion(direccion.getDireccion_id().intValue());
 		personamedico.setPersona_nombre(nombre_medico);
 		personamedico.setPersona_email(email_med);
 		personamedico.setPersona_tel_cel(cel_med);
