@@ -269,13 +269,13 @@
 
 															<a class="text-primary"
 
-																th:href="@{/liquidar_orden/} + ${orden.orden_folio}"
+																th:href="@{/liquidar_orden/} + ${orden.orden_id}"
 																th:text="${orden.adeudo}"
 
 
 
 
-																th:onclick="'return confirm(\'Desea liquidar la siguiente orden ' + ${orden.orden_folio} + '\');'"
+																th:onclick="'return confirm(\'Desea liquidar la siguiente orden ' + ${orden.orden_id} + '\');'"
 
 																> </a>
 
