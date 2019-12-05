@@ -242,13 +242,13 @@
 													<div class="form-group col-md-3">
 														<label for="input1" class="col-form-label-sm mb-0">Telefono
 															casa</label> <input type="text"
-															class="form-control form-control-sm" id="input1" required
+															class="form-control form-control-sm" id="input1"
 															name="persona_tel_casa">
 													</div>
 													<div class="form-group col-md-3">
 														<label for="input3" class="col-form-label-sm mb-0">Celular</label>
 														<input type="text" class="form-control form-control-sm"
-															id="inpu3" pattern="[0-9]{10}" required
+															id="inpu3" pattern="[0-9]{10}" 
 															name="persona_tel_cel">
 													</div>
 												</div>
@@ -256,18 +256,18 @@
 													<div class="form-group col-md-4">
 														<label for="input2" class="col-form-label-sm mb-0">Email</label>
 														<input type="text" class="form-control form-control-sm"
-															id="inpu2" required name="persona_email">
+															id="inpu2" name="persona_email">
 													</div>
 													<div class="form-group col-md-4">
 														<label for="inputNor" class="col-form-label-sm mb-0">Telefono
 															oficina</label> <input type="text"
 															class="form-control form-control-sm" id="inputNor"
-															required name="persona_tel_oficina">
+														    name="persona_tel_oficina">
 													</div>
 													<div class="form-group col-md-4">
 														<label for="input3" class="col-form-label-sm mb-0">Extension</label>
 														<input type="text" class="form-control form-control-sm"
-															id="inpu3" required name="persona_tel_exten">
+															id="inpu3" name="persona_tel_exten">
 													</div>
 												</div>
 												<div class="form-row">
@@ -286,7 +286,7 @@
 													<div class="form-group col-md-3">
 														<label for="input2" class="col-form-label-sm mb-0">Numero
 															interior</label> <input type="text"
-															class="form-control form-control-sm" id="inpu2" required
+															class="form-control form-control-sm" id="inpu2" 
 															name="direccion_num_inter">
 													</div>
 													<div class="form-group col-md-3">
@@ -309,9 +309,44 @@
 															name="direccion_postal">
 													</div>
 													<div class="form-group col-md-3">
-														<label for="inputNor" class="col-form-label-sm mb-0">Estado</label>
-														<input type="text" class="form-control form-control-sm"
-															id="inputNor" required name="direccion_estado">
+														<label for="inputNor" class="col-form-label-sm mb-0">Estado</label>															
+														<select th:field="${direccion.DireccionEstado}" id="inputNor" name="direccion_estado" class="form-control form-control-sm" required>
+															<option value="">Seleccione uno...</option>
+															<option value="Aguascalientes">Aguascalientes</option>
+															<option value="Baja California">Baja California</option>
+															<option value="Baja California Sur">Baja California
+																Sur</option>
+															<option value="Campeche">Campeche</option>
+															<option value="Chiapas">Chiapas</option>
+															<option value="Chihuahua">Chihuahua</option>
+															<option value="Coahuila">Coahuila</option>
+															<option value="Colima">Colima</option>
+															<option value="Distrito Federal">Distrito Federal</option>
+															<option value="Durango">Durango</option>
+															<option value="Estado de México">Estado de México</option>
+															<option value="Guanajuato">Guanajuato</option>
+															<option value="Guerrero">Guerrero</option>
+															<option value="Hidalgo">Hidalgo</option>
+															<option value="Jalisco">Jalisco</option>
+															<option value="Michoacán">Michoacán</option>
+															<option value="Morelos">Morelos</option>
+															<option value="Nayarit">Nayarit</option>
+															<option value="Nuevo León">Nuevo León</option>
+															<option value="Oaxaca">Oaxaca</option>
+															<option value="Puebla">Puebla</option>
+															<option value="Querétaro">Querétaro</option>
+															<option value="Quintana Roo">Quintana Roo</option>
+															<option value="San Luis Potosí">San Luis Potosí</option>
+															<option value="Sinaloa">Sinaloa</option>
+															<option value="Sonora">Sonora</option>
+															<option value="Tabasco">Tabasco</option>
+															<option value="Tamaulipas">Tamaulipas</option>
+															<option value="Tlaxcala">Tlaxcala</option>
+															<option value="Veracruz">Veracruz</option>
+															<option value="Yucatán">Yucatán</option>
+															<option value="Zacatecas">Zacatecas</option>
+														</select>	
+															
 													</div>
 													<div class="form-group col-md-3">
 														<label for="inputNor" class="col-form-label-sm mb-0">Diagnostico</label>
@@ -435,7 +470,6 @@
 										</select>
 									</div>
 									<div class="col-sm-3">
-										<label class="col-sm-12 col-form-label">Metodo de pago</label>
 									</div>
 								</div>
 								<br> <input class="btn btn-primary" type="submit"
