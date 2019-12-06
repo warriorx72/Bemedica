@@ -242,22 +242,22 @@
 												<table id="example" class="display" style="width: 100%">
 													<thead>
 														<tr class="table-primary">
-															<th width="10%">&nbsp; Id</th>
+															<th width="10%">&nbsp; ID</th>
 															<th>Nombre</th>
-															<th width="25%">Nombre Catalogo</th>
-															<th width="25%">Descripcion</th>
+															<th width="25%">Descripción</th>
+															<th width="25%">Descuento</th>
 															<th width="15%">Eliminar</th>
 
 														</tr>
 													</thead>
 													<tbody>
-														<tr th:each="pro: ${promocion}">
+														<tr th:each="pro: ${promociones}">
 															<td th:text="${pro.PromocionIdText}"></td>
 															<td th:text="${pro.PromocionNombre}"></td>
 															<td th:text="${pro.PromocionDescuento}+'%'"></td>
 															<td th:text="${pro.PromocionDescripcion}"></td>
 															<td><a class="btn btn-danger btn-xs"
-																th:href="@{/eliminarcat/} + ${catalogo.CatalogoId}"
+																th:href="@{/eliminar_pro/} + ${pro.PromocionId}"
 																th:text="'eliminar'"
 																onclick="return confirm('Esta seguro de que quieres eliminar');"></a></td>
 
@@ -285,7 +285,7 @@
 														th:object="${promo}" method="post">
 														<table>
 															<tr>
-																<td>Nombre del registro</td>
+																<td>Nombre:</td>
 																<td><input type="text" th:field="*{PromocionNombre}"
 																	class="form-control" /></td>
 															</tr>
@@ -296,7 +296,7 @@
 																	class="form-control" /></td>
 															</tr>
 															<tr>
-																<td>Descripcion</td>
+																<td>Porcentaje</td>
 																<td><input type="text" th:field="*{PromocionDescuento}"
 																	class="form-control" /></td>
 															</tr>
