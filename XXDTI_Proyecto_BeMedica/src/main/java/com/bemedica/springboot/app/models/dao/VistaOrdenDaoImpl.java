@@ -24,7 +24,8 @@ public  class VistaOrdenDaoImpl implements IVistaOrdenDao {
 	@OrderBy("orden_folio DESC")
 	public List<VistaOrden> findAll2() {
 		// TODO Auto-generated method stub
-		return em.createQuery("from VistaOrden").getResultList();
+		return em.createQuery("from VistaOrden where orden_estatus!='Cancelada' \r\n" + 
+				"and  orden_estatus!='Cotizacion'").getResultList();
 
 	}
 	
