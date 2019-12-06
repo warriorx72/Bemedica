@@ -234,7 +234,7 @@ public void pdf(HttpServletRequest request , Long id , String fullPath) throws F
 	    
 		
 		//Document documento = new Document();
-		Document documento = new Document(PageSize.A4, 36, 36, 162, 120);
+		Document documento = new Document(PageSize.A4, 36, 36, 192, 120);
 		
 		FileOutputStream ficheroPdf = new FileOutputStream(fullPath);
 		PdfWriter writer =PdfWriter.getInstance(documento, ficheroPdf);

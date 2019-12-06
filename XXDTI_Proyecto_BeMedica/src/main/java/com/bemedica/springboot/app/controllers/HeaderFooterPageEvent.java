@@ -34,26 +34,134 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     }
 
     private void addHeader(PdfWriter writer){
-        PdfPTable header = new PdfPTable(2);
+        PdfPTable header = new PdfPTable(4);
         try {
-        	 header.setWidths(new int[]{13, 13});
-             header.setTotalWidth(527);
-             header.setLockedWidth(true);
-  
-        	Paragraph info = new Paragraph("FECHA: "+fecha+"\nMEDICO: "+medico+"\nPACIENTE: "+pacienten+"",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
-    		Paragraph addr = new Paragraph("FOLIO: "+folio+"\nEDAD: "+edad+"\nSEXO: "+sexo+"",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
-    		  		
-    		PdfPCell cell = new PdfPCell(info);
-    		cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-    		cell.disableBorderSide(Rectangle.BOX);
-    		cell.setExtraParagraphSpace(1.5f);
-    		header.addCell(cell);
-    		cell = new PdfPCell(addr);
-    		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-    		cell.disableBorderSide(Rectangle.BOX);
-    		cell.setExtraParagraphSpace(1.5f);
-    		header.addCell(cell);
+        	header.setWidths(new int[]{20,100,14,25});
+            header.setTotalWidth(527);
+            header.setLockedWidth(true);
+            
+            
+           Paragraph fecha_t = new Paragraph("FECHA:",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.BOLD,BaseColor.BLACK));
+    		Paragraph paciente_t = new Paragraph("PACIENTE:",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.BOLD,BaseColor.BLACK));
+    		Paragraph medico_t = new Paragraph("MEDICO:",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.BOLD,BaseColor.BLACK));
+    		
+    		Paragraph fecha_b = new Paragraph(fecha,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
+     		Paragraph paciente_b = new Paragraph(pacienten,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
+     		Paragraph medico_b = new Paragraph(medico,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
+    		
+    	
+            
+           
+    	Paragraph folio_t = new Paragraph("FOLIO:",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.BOLD,BaseColor.BLACK));
+   		Paragraph edad_t = new Paragraph("EDAD:",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.BOLD,BaseColor.BLACK));
+   		Paragraph sexo_t = new Paragraph("SEXO:",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.BOLD,BaseColor.BLACK));
+   		
+    		
+   		Paragraph folio_b = new Paragraph(folio,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
+     		Paragraph edad_b = new Paragraph(edad,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
+     		Paragraph sexo_b = new Paragraph(sexo,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
+   		
 
+   		PdfPCell cel_fecha_t = new PdfPCell(fecha_t);
+   		PdfPCell cel_paciente_t = new PdfPCell(paciente_t);
+   		PdfPCell cel_medico_t = new PdfPCell(medico_t);
+   		
+   		PdfPCell cel_fecha_b = new PdfPCell(fecha_b);
+   		PdfPCell cel_paciente_b = new PdfPCell(paciente_b);
+   		PdfPCell cel_medico_b = new PdfPCell(medico_b);
+   		//PdfPCell cel_separacion = new PdfPCell(separacion);
+   		
+
+   		PdfPCell cel_folio_t = new PdfPCell(folio_t);
+   		PdfPCell cel_edad_t = new PdfPCell(edad_t);
+   		PdfPCell cel_sexo_t = new PdfPCell(sexo_t);
+   		
+   		PdfPCell cel_folio_b = new PdfPCell(folio_b);
+   		PdfPCell cel_edad_b = new PdfPCell(edad_b);
+   		PdfPCell cel_sexo_b = new PdfPCell(sexo_b);
+   		
+   		
+   		cel_fecha_t.setHorizontalAlignment(Element.ALIGN_LEFT);
+   		cel_fecha_t.disableBorderSide(Rectangle.BOX);
+   		cel_fecha_t.setExtraParagraphSpace(1.5f);
+   		
+   		
+   		cel_paciente_t.setHorizontalAlignment(Element.ALIGN_LEFT);
+   		cel_paciente_t.disableBorderSide(Rectangle.BOX);
+   		cel_paciente_t.setExtraParagraphSpace(1.5f);
+   		
+   		
+   		cel_medico_t.setHorizontalAlignment(Element.ALIGN_LEFT);
+   		cel_medico_t.disableBorderSide(Rectangle.BOX);
+   		cel_medico_t.setExtraParagraphSpace(1.5f);
+   		
+   		cel_folio_t.setHorizontalAlignment(Element.ALIGN_LEFT);
+   		cel_folio_t.disableBorderSide(Rectangle.BOX);
+   		cel_folio_t.setExtraParagraphSpace(1.5f);
+   		
+   		cel_edad_t.setHorizontalAlignment(Element.ALIGN_LEFT);
+   		cel_edad_t.disableBorderSide(Rectangle.BOX);
+   		cel_edad_t.setExtraParagraphSpace(1.5f);
+   		
+   		cel_sexo_t.setHorizontalAlignment(Element.ALIGN_LEFT);
+   		cel_sexo_t.disableBorderSide(Rectangle.BOX);
+   		cel_sexo_t.setExtraParagraphSpace(1.5f);
+   		
+   		
+//7777
+   		cel_fecha_b.setHorizontalAlignment(Element.ALIGN_LEFT);
+   		cel_fecha_b.disableBorderSide(Rectangle.BOX);
+   		cel_fecha_b.setExtraParagraphSpace(1.5f);
+   		
+   		
+   		cel_paciente_b.setHorizontalAlignment(Element.ALIGN_LEFT);
+   		cel_paciente_b.disableBorderSide(Rectangle.BOX);
+   		cel_paciente_b.setExtraParagraphSpace(1.5f);
+   		
+   		
+   		cel_medico_b.setHorizontalAlignment(Element.ALIGN_LEFT);
+   		cel_medico_b.disableBorderSide(Rectangle.BOX);
+   		cel_medico_b.setExtraParagraphSpace(1.5f);
+   		
+   		cel_folio_b.setHorizontalAlignment(Element.ALIGN_LEFT);
+   		cel_folio_b.disableBorderSide(Rectangle.BOX);
+   		cel_folio_b.setExtraParagraphSpace(1.5f);
+   		
+   		cel_edad_b.setHorizontalAlignment(Element.ALIGN_LEFT);
+   		cel_edad_b.disableBorderSide(Rectangle.BOX);
+   		cel_edad_b.setExtraParagraphSpace(1.5f);
+   		
+   		cel_sexo_b.setHorizontalAlignment(Element.ALIGN_LEFT);
+   		cel_sexo_b.disableBorderSide(Rectangle.BOX);
+   		cel_sexo_b.setExtraParagraphSpace(1.5f);
+  
+   		
+   		header.addCell(cel_fecha_t);
+   		header.addCell(cel_fecha_b);
+   		
+   		header.addCell(cel_folio_t);
+   		header.addCell(cel_folio_b);
+   	
+
+   		header.addCell(cel_paciente_t);
+   		header.addCell(cel_paciente_b);
+   		
+   		header.addCell(cel_edad_t);
+   		header.addCell(cel_edad_b);
+   		
+   		
+   		header.addCell(cel_medico_t);
+   		header.addCell(cel_medico_b);
+   	
+   		header.addCell(cel_sexo_t);
+   		header.addCell(cel_sexo_b);
+   	
+   	
+   	
+    		
+    		
+    		
+    		
             header.writeSelectedRows(0, -1, 34,720, writer.getDirectContent());
         } catch(DocumentException de) {
             throw new ExceptionConverter(de);
