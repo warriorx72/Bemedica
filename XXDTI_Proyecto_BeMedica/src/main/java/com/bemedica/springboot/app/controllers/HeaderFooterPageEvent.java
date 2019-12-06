@@ -36,14 +36,14 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     private void addHeader(PdfWriter writer){
         PdfPTable header = new PdfPTable(4);
         try {
-        	header.setWidths(new int[]{20,100,14,25});
+        	header.setWidths(new int[]{19,101,13,26});
             header.setTotalWidth(527);
             header.setLockedWidth(true);
             
             
-           Paragraph fecha_t = new Paragraph("FECHA:",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.BOLD,BaseColor.BLACK));
-    		Paragraph paciente_t = new Paragraph("PACIENTE:",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.BOLD,BaseColor.BLACK));
-    		Paragraph medico_t = new Paragraph("MEDICO:",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.BOLD,BaseColor.BLACK));
+           Paragraph fecha_t = new Paragraph("FECHA:",new Font(FontFamily.TIMES_ROMAN,10.0f,Font.BOLD,BaseColor.BLACK));
+    		Paragraph paciente_t = new Paragraph("PACIENTE:",new Font(FontFamily.TIMES_ROMAN,10.0f,Font.BOLD,BaseColor.BLACK));
+    		Paragraph medico_t = new Paragraph("MEDICO:",new Font(FontFamily.TIMES_ROMAN,10.0f,Font.BOLD,BaseColor.BLACK));
     		
     		Paragraph fecha_b = new Paragraph(fecha,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
      		Paragraph paciente_b = new Paragraph(pacienten,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
@@ -52,9 +52,9 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     	
             
            
-    	Paragraph folio_t = new Paragraph("FOLIO:",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.BOLD,BaseColor.BLACK));
-   		Paragraph edad_t = new Paragraph("EDAD:",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.BOLD,BaseColor.BLACK));
-   		Paragraph sexo_t = new Paragraph("SEXO:",new Font(FontFamily.TIMES_ROMAN,11.0f,Font.BOLD,BaseColor.BLACK));
+    	Paragraph folio_t = new Paragraph("FOLIO:",new Font(FontFamily.TIMES_ROMAN,10.0f,Font.BOLD,BaseColor.BLACK));
+   		Paragraph edad_t = new Paragraph("EDAD:",new Font(FontFamily.TIMES_ROMAN,10.0f,Font.BOLD,BaseColor.BLACK));
+   		Paragraph sexo_t = new Paragraph("SEXO:",new Font(FontFamily.TIMES_ROMAN,10.0f,Font.BOLD,BaseColor.BLACK));
    		
     		
    		Paragraph folio_b = new Paragraph(folio,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
