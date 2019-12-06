@@ -154,7 +154,7 @@ public class PacienteController {
 	}
 
 	@RequestMapping(value = "/formC")
-	public String crear(Map<String, Object> model) {
+	public String crear(Map<String, Object> model,Model m) {
 
 		Direccion direccion = new Direccion();
 		// 7direccion.getDireccion_id();
@@ -166,7 +166,8 @@ public class PacienteController {
 		Orden orden = new Orden();///////////////////////// crear la orden---------------------------
 		////////////////////////////////////////////////////////////////
 		model.put("direccion", direccion);/// Modelo entity Cliente para crear un objeto de tipo cliente la palabra
-											/// cliente es como llamaremos al objecto desde el ocntrolador
+		m.addAttribute("button_estudio", "disabled");
+		m.addAttribute("button_terminar", "disabled");							/// cliente es como llamaremos al objecto desde el ocntrolador
 		model.put("persona", persona);
 		model.put("paciente", paciente);
 		model.put("medico", medico);
