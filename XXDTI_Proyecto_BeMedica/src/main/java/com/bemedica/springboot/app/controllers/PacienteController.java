@@ -455,6 +455,8 @@ public class PacienteController {
 		model.addAttribute("empleados", vistaempleadoDao.findAll());
 		model.addAttribute("sucursales", sucursalDao.findAll());
 		model.addAttribute("ordenes", ordenDao.findAll());
+		model.addAttribute("button_estudio", "disabled");
+		model.addAttribute("button_terminar", "disabled");	
 		return "operaciones_recepcion";
 
 	}
