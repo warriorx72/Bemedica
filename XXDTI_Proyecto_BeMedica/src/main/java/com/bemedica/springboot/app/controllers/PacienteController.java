@@ -152,7 +152,6 @@ public class PacienteController {
 		return "operaciones_recepcion";
 
 	}
-
 	@RequestMapping(value = "/formC")
 	public String crear(Map<String, Object> model,Model m) {
 
