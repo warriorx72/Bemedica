@@ -35,6 +35,9 @@ public class Promociones implements Serializable{
 	
 	@Column(name="promocion_id_text")
 	private String PromocionIdText;
+	
+	@Column(name="promocion_estatus")
+	private Boolean PromocionEstatus;
 
 	public String getPromocionIdText() {
 		return PromocionIdText;
@@ -74,6 +77,14 @@ public class Promociones implements Serializable{
 
 	public void setPromocionDescuento(String promocionDescuento) {
 		PromocionDescuento = promocionDescuento;
+	}
+
+	public Boolean getPromocionEstatus() {
+		return PromocionEstatus;
+	}
+
+	public void setPromocionEstatus(Boolean promocionEstatus) {
+		PromocionEstatus = promocionEstatus;
 	}
 	
 	

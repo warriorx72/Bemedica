@@ -41,13 +41,13 @@ public class PromocionesController {
 	public String guardarPromo (Map<String, Object> m,Promociones promo,BindingResult result , Model model,SessionStatus status)
 	{		
 		promo.setPromocionIdText("");
-		
+		promo.setPromocionEstatus(true);
 		promocionesDao.save(promo);
 		if(promo.getPromocionIdText()=="") {
 			char buf[] = new char[3];
 			promo.getPromocionNombre().getChars(0,3,buf,0);
 			String IdText = String.valueOf(buf);
-			promo.setPromocionIdText(IdText.toLowerCase()+""+(promo.getPromocionId()+10000));
+			promo.setPromocionIdText("DES"+(promo.getPromocionId()+10000));
 		}
 		promocionesDao.save(promo);
 
@@ -59,7 +59,11 @@ public class PromocionesController {
 	public String eliminar(@PathVariable (value="id") Long id  , RedirectAttributes redirectAttrs) {
 		if (id > 0 )
 		{
-			promocionesDao.delete(id);
+			//promocionesDao.delete(id);
+			Promociones p= null;
+			p=promocionesDao.findOne(id);
+			p.setPromocionEstatus(false);
+			promocionesDao.save(p);
 			redirectAttrs
             .addFlashAttribute("mensaje", "Empleado eliminado correctamente")
             .addFlashAttribute("clase", "success");
