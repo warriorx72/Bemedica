@@ -20,7 +20,7 @@ public class PromocionesDaoImpl implements IPromocionesDao{
 	@Transactional
 	public List<Promociones> findAll() {
 		// TODO Auto-generated method stub
-		return em.createQuery("from Promociones").getResultList();
+		return em.createQuery("from Promociones where PromocionEstatus =1").getResultList();
 	}
 	 @Transactional
 	@Override
