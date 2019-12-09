@@ -39,7 +39,7 @@ public class SucursalE  implements Serializable{
 	
 	@Column(name="sucursal_correo")
 	private String SucursalCoreo;
-	
+	//hola
 	
 	@Column(name="sucursal_telefono")
 	private String SucursalTelefono;
