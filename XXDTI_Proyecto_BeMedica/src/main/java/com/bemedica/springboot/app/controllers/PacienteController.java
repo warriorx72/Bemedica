@@ -447,10 +447,6 @@ public class PacienteController {
 		model.addAttribute("pacientes", vistapacienteDao.findAll());
 		model.addAttribute("medicos", vistamedicoDao.findAll());
 		/// model.addAttribute("estudios", estudioDao.findAll());
-		model.addAttribute("estudios", estudioDao.findBy());
-
-		model.addAttribute("paquetes", paquetesDao.findBy());
-		model.addAttribute("perfiles", perfilesDao.findBy());
 		////
 		model.addAttribute("empleados", vistaempleadoDao.findAll());
 		model.addAttribute("sucursales", sucursalDao.findAll());

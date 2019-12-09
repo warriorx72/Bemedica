@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bemedica.springboot.app.models.dao.IOrdenDao;
+import com.bemedica.springboot.app.models.dao.IOrdenVistaDao;
 import com.bemedica.springboot.app.models.dao.IResultados;
+import com.bemedica.springboot.app.models.dao.ITicketDao;
 import com.bemedica.springboot.app.models.dao.IVistaOrdenDao;
 import com.bemedica.springboot.app.models.entity.Resultados;
 import com.bemedica.springboot.app.models.entity.Orden;
@@ -27,12 +29,20 @@ public class FoliosRegistradosController {
 	private IVistaOrdenDao OrdenVista;
 	
 	@Autowired
+	private IOrdenVistaDao vistaOrden;
+	
+	@Autowired
 	private IOrdenDao OrdenDao;
 	
+	@Autowired
+	private ITicketDao ticketDao;
+	
 	@RequestMapping (value="/operaciones_folios", method=RequestMethod.GET)
-	public String listar (Model model) {
+	public String listar (Model model,Map<String, Object> m) {
 		model.addAttribute("titulo","Folios registrados");
 		model.addAttribute("vista", OrdenVista.findAll2());
+		model.addAttribute("servicios", vistaOrden.findById());
+		model.addAttribute("message",ticketDao.findServAll());
 		return "operaciones_folios";
 	}
 	

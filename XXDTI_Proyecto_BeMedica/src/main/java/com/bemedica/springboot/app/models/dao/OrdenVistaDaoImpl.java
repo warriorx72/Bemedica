@@ -19,4 +19,10 @@ public class OrdenVistaDaoImpl implements IOrdenVistaDao {
 		return em.createQuery("From OrdenVista").getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Object[]> findById() {
+		// TODO Auto-generated method stub
+		return em.createQuery("Select e.EstudioNombre,o.orden_id From Estudios e,Orden o,OrdenEstudio oe where "
+				+ "e.EstudioId=oe.estudio_id and o.orden_id=oe.orden_id").getResultList();
+	}
 }

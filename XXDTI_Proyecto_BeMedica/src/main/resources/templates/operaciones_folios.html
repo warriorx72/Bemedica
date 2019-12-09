@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeLeaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -255,8 +255,8 @@
                                         <a class="btn btn-outline-danger btn-sm" title="Cancelar Orden" th:onclick="return confirm('¿Desea cancelar la orden?');"
                                             th:href="@{/cancelar_orden/} + ${orden.orden_id}"   ><i class="fas fa-trash-alt"></i></a>
 
-                                        <a  th:onclick="'javascript:openDetallesModal(' + ${orden.orden_id} + ');'" class="btn btn-outline-info btn-sm" title="Estudio Solicitado:"
-                                             ><i class="fas fa-question"></i></a>
+                                        <a  th:onclick="'javascript:openDetallesModal(' + ${orden.orden_id} + ');'" class="btn btn-outline-info btn-sm" 
+                                        data-toggle="popover" th:each="mes: ${message}" title="Servicios solicitados" th:if="${mes[1]==orden.orden_id}" th:data-content="${mes[0]}"><i class="fas fa-question"></i></a>
                                         <a class="btn btn-outline-secondary btn-sm" title="Facturación"
                                            ><i class="fas fa-file-alt"></i></a>
                                     </td>
@@ -266,7 +266,6 @@
                                     <td>
 
 															<a class="text-primary"
-
 																th:href="@{/finalizar_orden/} + ${orden.orden_id}"
 																th:text="${orden.orden_folio}"
 																th:onclick="return confirm('¿Desea finalizar la orden?');"
@@ -279,7 +278,6 @@
                                     <td th:text="${orden.nombre+' '+orden.persona_ap}"></td>
                                     <td th:text="${orden.orden_fecha}"></td>
                                     <td th:text="${orden.orden_estatus}"></td>
-
                                     <td>
 
 															<a class="text-primary"
@@ -326,8 +324,12 @@
 
 	<!-- Page level plugin JavaScript-->
 	<script src="vendor/datatables/jquery.dataTables.js"></script>
-	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-
+	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>	
+	
+	<script  type="text/javascript" th:inline="javascript">
+	$(document).ready(function(){
+	  $('[data-toggle="popover"]').popover({placement: "right",trigger: "hover"});});
+	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#sidebarCollapse').on('click', function() {

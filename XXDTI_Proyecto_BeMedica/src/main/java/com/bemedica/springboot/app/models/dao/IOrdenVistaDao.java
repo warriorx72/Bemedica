@@ -6,4 +6,5 @@ import com.bemedica.springboot.app.models.entity.OrdenVista;
 
 public interface IOrdenVistaDao {
 	public List<OrdenVista> findAll();
+	public List<Object[]> findById();
 }

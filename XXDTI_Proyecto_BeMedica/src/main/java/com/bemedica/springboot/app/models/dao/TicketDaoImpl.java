@@ -66,6 +66,14 @@ public class TicketDaoImpl implements ITicketDao{
 	@SuppressWarnings("unchecked")
 	@Transactional
 	@Override
+	public List<Object[]> findServAll() {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("call listar_serv()").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Override
 	public List<Object[]> findTotal(Long id) {
 		// TODO Auto-generated method stub
 		return em.createNativeQuery("call total_ticket("+id+")").getResultList();
