@@ -1,7 +1,7 @@
-#block1 {
+#block1,#block3{
     display: none;
 }
-#block2 {
+#block2,#block4{
     font-size: 10px;
     font-family: 'Times New Roman'; 
     display: block;

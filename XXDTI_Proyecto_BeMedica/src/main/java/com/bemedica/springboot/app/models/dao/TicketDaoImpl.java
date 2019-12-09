@@ -19,7 +19,7 @@ public class TicketDaoImpl implements ITicketDao{
 		// TODO Auto-generated method stub
 		return em.createNativeQuery("SELECT\r\n" + 
 				"UPPER(CONCAT(persona.persona_nombre,' ',persona.persona_ap,' ',persona.persona_am)) AS nombre,\r\n" + 
-				"TIMESTAMPDIFF(YEAR,persona.persona_fecha_na,CURDATE()),\r\n" + 
+				"IF(TIMESTAMPDIFF(YEAR,persona.persona_fecha_na,CURDATE())>=1,CONCAT(TIMESTAMPDIFF(YEAR,persona.persona_fecha_na,CURDATE()),' AÑO(S)'),IF(TIMESTAMPDIFF(MONTH,persona.persona_fecha_na,CURDATE())>=1,CONCAT(TIMESTAMPDIFF(MONTH,persona.persona_fecha_na,CURDATE()),' MES(ES)'),CONCAT(TIMESTAMPDIFF(DAY,persona.persona_fecha_na,CURDATE()),' DIA(S)'))),\r\n" + 
 				"LEFT(persona.persona_genero,1),\r\n" + 
 				"IF(direccion.direccion_postal <> '','DOMICILIO CONOCIDO','DOMICILIO DESCONOCIDO')\r\n" + 
 				"FROM\r\n" + 
