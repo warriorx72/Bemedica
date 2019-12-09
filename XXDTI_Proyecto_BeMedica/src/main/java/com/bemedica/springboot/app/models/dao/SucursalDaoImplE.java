@@ -60,5 +60,18 @@ public class SucursalDaoImplE implements ISucursal {
 		
 		
 	}
+	
 
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	@Override
+	public List<Object[]> listarSucursales() {
+		
+		List<Object[]> re= em.createNativeQuery("select sucursal.sucursal_id, sucursal.sucursal_id_text ,sucursal.sucursal_nombre, CONCAT(direccion.direccion_municipio,' No.',direccion.direccion_numero_ext ) as direccion from sucursal, direccion \r\n" + 
+				"	where 1=1\r\n" + 
+				"	and sucursal.direccion_id=direccion.direccion_id\r\n" + 
+				"	and sucursal.estatus=1").getResultList();
+		return  re;
+
+	}
 }

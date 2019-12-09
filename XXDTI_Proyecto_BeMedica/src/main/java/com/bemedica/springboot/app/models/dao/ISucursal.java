@@ -14,5 +14,7 @@ public interface ISucursal {
 	public SucursalE findOne (Long id );
 	
 	public void delete (Long id);
+	
+	public List <Object []> listarSucursales();
 
 }

@@ -22,13 +22,27 @@ public class SucursalE  implements Serializable{
 	@Column(name="sucursal_id")
 	private Long SucursalId;
 	
-	@NotEmpty
+	@Column(name="sucursal_id_text")
+	private String SucusalIdText;
+	
 	@Column(name="sucursal_nombre")
 	private String SucursalNombre;
 	
-	@NotEmpty
+	
 	@Column(name="direccion_id")
-	private Integer DireccionId;
+	private Long DireccionId;
+	
+	
+	@Column(name="estatus")
+	private boolean estatus;
+	
+	
+	@Column(name="sucursal_correo")
+	private String SucursalCoreo;
+	
+	
+	@Column(name="sucursal_telefono")
+	private String SucursalTelefono;
 
 	public Long getSucursalId() {
 		return SucursalId;
@@ -46,15 +60,44 @@ public class SucursalE  implements Serializable{
 		SucursalNombre = sucursalNombre;
 	}
 
-	public Integer getDireccionId() {
+	public Long getDireccionId() {
 		return DireccionId;
 	}
 
-	public void setDireccionId(Integer direccionId) {
+	public void setDireccionId(Long direccionId) {
 		DireccionId = direccionId;
 	}
-	
-	
-	
 
+	public String getSucursalCoreo() {
+		return SucursalCoreo;
+	}
+
+	public void setSucursalCoreo(String sucursalCoreo) {
+		SucursalCoreo = sucursalCoreo;
+	}
+
+	public String getSucursalTelefono() {
+		return SucursalTelefono;
+	}
+
+	public void setSucursalTelefono(String sucursalTelefono) {
+		SucursalTelefono = sucursalTelefono;
+	}
+
+	public boolean getEstatus() {
+		return estatus;
+	}
+
+	public void setEstatus(boolean estatus) {
+		this.estatus = estatus;
+	}
+
+	public String getSucusalIdText() {
+		return SucusalIdText;
+	}
+
+	public void setSucusalIdText(String sucusalIdText) {
+		SucusalIdText = sucusalIdText;
+	}
+	
 }
