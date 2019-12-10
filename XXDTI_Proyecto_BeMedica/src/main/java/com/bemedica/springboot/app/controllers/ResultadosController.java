@@ -168,24 +168,48 @@ public class ResultadosController {
 				List <Object[]> aux  = ResultadosDao.Paquete(i);
 				for (Object[] a : aux) {
 					Resultados resul = new Resultados ();
-					 resul.setOrdenEstudioId(lo);
-					 if (a[2].toString().equals("Cualitativo")){
-						 resul.setResultadoCuali("Resultado...");
-					 }
-					 if (a[2].toString().equals("Cuantitativo")){
-						 resul.setResultadoCuanti(0.00);
-					 }
-					 resul.setComentario("");
-					 resul.setValidacion("0");
-					 if (a[3].toString()=="null" || a[3].toString().equals("null") ){
-						 resul.setPerfil(a[1].toString());
-					 }else {
-						 resul.setPerfil(a[3].toString());
-					 }						 
-					 resul.setEstudio_id(Long.valueOf(a[0].toString()));
-					 resul.setEstudioNombre(a[1].toString());
-					 ResultadosDao.save(resul);
-					}	
+					if(a[3].equals("null")){
+						resul.setOrdenEstudioId(lo);
+						 if (a[2].toString().equals("Cualitativo")){
+							 resul.setResultadoCuali("Resultado...");
+						 }
+						 if (a[2].toString().equals("Cuantitativo")){
+							 resul.setResultadoCuanti(0.00);
+						 }
+						 resul.setComentario("");
+						 resul.setValidacion("0");
+						 if (a[3].toString()=="null" || a[3].toString().equals("null") ){
+							 resul.setPerfil(a[1].toString());
+						 }else {
+							 resul.setPerfil(a[3].toString());
+						 }						 
+						 resul.setEstudio_id(Long.valueOf(a[0].toString()));
+						 resul.setEstudioNombre(a[1].toString());
+						 ResultadosDao.save(resul);
+			
+					}
+					else {
+						
+						List <Object[]> aux2  = ResultadosDao.Perfil((Long.valueOf(a[3].toString())));
+						String nombre2 = ResultadosDao.NombrePerfil((Long.valueOf(a[3].toString())));
+						for (Object[] a2 : aux2) {
+							Resultados resul2 = new Resultados ();
+							 resul2.setOrdenEstudioId(lo);
+							 if (a2[2].toString().equals("Cualitativo")){
+								 resul2.setResultadoCuali("Resultado...");
+							 }
+							 if (a2[2].toString().equals("Cuantitativo")){
+								 resul2.setResultadoCuanti(0.00);
+							 }
+							 resul2.setValidacion("0");
+							 resul2.setEstudio_id(Long.valueOf(a2[0].toString()));
+							 resul2.setEstudioNombre(a2[1].toString());
+							 resul2.setPerfil(nombre2);
+							 ResultadosDao.save(resul2);
+							}
+						
+					}
+				}	
 			}
 		}
 		m.addAttribute("resul",  ResultadosDao.findAll(lo));
@@ -522,8 +546,6 @@ public void pdf(HttpServletRequest request , Long id , String fullPath) throws F
 				tableR.addCell("");
 				tableR.addCell("");
 				tableR.addCell("");
-				
-			
 				
 				List<Object []> paquete =ResultadosDao.Paquete((Long.valueOf(lo[7].toString())));
 				
