@@ -50,4 +50,5 @@ case "DD-MMM-YYYY DDD":
 //return converted_date;	
 // to show it I used innerHTMl in a <p> tag
 document.getElementById("TimeTicket").innerHTML = converted_date;
+document.getElementById("TimeTicket2").innerHTML = converted_date;
 }

@@ -198,13 +198,13 @@
 												<td>
 													<input name="ResultadoCuanti"
 													th:if="${r.ResultadoCuali==null}" 
-													th:value="${r.ResultadoCuanti}"
+													th:placeholder="${r.ResultadoCuanti}" pattern="^[0-9]+"
 													required
 													type="number"> 
 													
 													<input
 													name="ResultadoCuali" th:if="${r.ResultadoCuanti == null}"
-													th:value="${r.ResultadoCuali}"
+													th:placeholder="${r.ResultadoCuali}"
 													required
 													type="text"></td>
 												

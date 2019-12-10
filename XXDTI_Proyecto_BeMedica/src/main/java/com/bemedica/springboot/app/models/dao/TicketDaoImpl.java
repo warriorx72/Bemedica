@@ -42,8 +42,8 @@ public class TicketDaoImpl implements ITicketDao{
 				"empleados_sucursal\r\n" + 
 				"INNER JOIN persona ON empleados_sucursal.persona_id = persona.persona_id\r\n" + 
 				"INNER JOIN orden ON orden.empleado_id = empleados_sucursal.empleado_id\r\n" + 
-				"INNER JOIN medicos ON orden.medico_id=medicos.medico_id\r\n" + 
-				"INNER JOIN persona AS p2 ON medicos.persona_id = p2.persona_id\r\n" + 
+				"LEFT JOIN medicos ON orden.medico_id=medicos.medico_id\r\n" + 
+				"LEFT JOIN persona AS p2 ON medicos.persona_id = p2.persona_id\r\n" + 
 				"WHERE orden.orden_id="+id).getResultList();
 	}
 	

@@ -202,9 +202,9 @@ public class PacienteController {
 		}
 		// quitar
 		if (orden.getPaciente_id() == null && orden.getMedico_id() == null) {
-			orden.setOrden_estatus("cotizacion");
+			orden.setOrden_estatus("Cotizacion");
 		} else {
-			orden.setOrden_estatus("pendiente");
+			orden.setOrden_estatus("Pendiente");
 		}
 		///
 		//// orden.setOrden_folio("ORD");
@@ -303,6 +303,10 @@ public class PacienteController {
 		/// ConvenioEstudioDao.cev(aux.getConvenioId()));
 		model.addAttribute("button_estudio", "false");
 		model.addAttribute("button_terminar", "false");
+		if(aux.getOrden_estatus().equals("Cotizacion")) {
+		model.addAttribute("tipo_ticket", "block3");
+		}
+		else model.addAttribute("tipo_ticket", "block1");
 		/// return"form_convenio";
 		return "operaciones_recepcion";
 	}
@@ -564,6 +568,10 @@ public class PacienteController {
 			m.put("orden", e);
 			ordenestudio.setOrden_id(id);
 			m.put("ordenestudio", ordenestudio);
+			if(orden.getOrden_estatus().equals("Cotizacion")) {
+				model.addAttribute("tipo_ticket", "block3");
+				}
+		    else model.addAttribute("tipo_ticket", "block1");
 			return "/operaciones_recepcion";
 		} else {
 			return "redirect:/operaciones_recepcion";
@@ -670,6 +678,10 @@ public class PacienteController {
 			m.put("ordenestudio", ordenestudio);
 			m.put("orden", orden);
 			Mostrar(id,model);
+			if(orden.getOrden_estatus().equals("Cotizacion")) {
+				model.addAttribute("tipo_ticket", "block3");
+				}
+		    else model.addAttribute("tipo_ticket", "block1");
 			return "operaciones_recepcion";
 		}
 		else {
@@ -690,6 +702,10 @@ public class PacienteController {
 			m.put("ordenestudio", ordenestudio);
 			m.put("orden", orden);
 			Mostrar(id,model);
+			if(orden.getOrden_estatus().equals("Cotizacion")) {
+				model.addAttribute("tipo_ticket", "block3");
+				}
+		    else model.addAttribute("tipo_ticket", "block1");
 			return "operaciones_recepcion";
 		}
 		else {
