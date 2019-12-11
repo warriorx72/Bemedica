@@ -523,6 +523,8 @@
 										<th>SERVICIO</th>
 										<th>CANT.</th>
 										<th>PRECIO UNIT.</th>
+										<th>DSC %</th>
+										<th>DSC $</th>
 										<th>IMPORTE</th>
 										<th>ELIMINAR</th>
 									</tr>
@@ -532,6 +534,34 @@
 										<td th:text="${se[0]}"></td>
 										<td th:text="${se[1]}"></td>
 										<td th:text="${se[2]}"></td>
+										<td >
+																
+															<form th:action="@{/linea_porcentaje}"   method="post">
+
+															<input type="number" name="porcentaje" required  step="0.01" min="1" pattern="^[0-9]+"
+															
+															class="form-control form-control-sm" style="width:100px;height:30px" />
+															
+															<input type="hidden" name="id" th:value="${se[4]}" />
+															<input type="hidden" name="linea" th:value="${se[5]}" />
+																
+																</form>
+															</td>
+															
+															
+															<td >
+																
+															<form th:action="@{/linea_descuento}"   method="post">
+															
+															<input type="number" name="descuento" required  step="0.01" min="1" pattern="^[0-9]+"
+															
+															class="form-control form-control-sm" style="width:100px;height:30px" />
+															
+															<input type="hidden" name="id" th:value="${se[4]}" />
+															<input type="hidden" name="linea" th:value="${se[5]}" />
+																
+																</form>
+															</td>
 										<td th:text="${se[3]}"></td>
 										<td><a class="btn btn-danger btn-xs"
 											th:href="@{/eliminar3/} + ${se[4]} +@{/}+ ${se[5]}"
@@ -627,7 +657,7 @@
 								>
 								<input type="hidden" th:field="*{orden_id}" />
 								<div align="right">
-									<input type="submit" class="btn btn-primary" th:onclick="printPage([[${tipo_ticket}]]);"
+									<input type="submit" class="btn btn-primary" th:onclick="printPage('block1');"
 										th:value="Terminar" th:disabled="${button_terminar}">
 								</div>
 							</form>
@@ -1178,24 +1208,55 @@
 					TLAXCALA
 
 				</p>
-				<p class="notas">¡NOTAS IMPORTANTES! <br> ***No es comprobante de pago***</p>
-				<label class="notass" style="font-size: 11px;">
-					<b>PRECIOS SUJETOS A CAMBIO SIN PREVIO AVISO.</b>
-				</label>
+				<p class="notas">¡NOTAS IMPORTANTES!</p>
+				<p class="notass">
+					1. SI SU COMPROBANTE NO INDICA LA CANTIDAD EXACTA QUE USTED PAGÓ
+					REPORTELO CON SEL. <br>2. ESTE DOCUMENTO NO ES FACTURA Y NO
+					TIENE VALOR FISCAL. <br>3. TIENE 7 DÍAS NATURALES PARA LA
+					ENTREGA O TOMA DE SUS MUESTRAS PENDIENTES. <br>4. CONSULTE
+					NUESTRO AVISO DE PRIVACIDAD
+
+				</p>
+				<p class="notas">
+					COMPROBANTE <br>ORDEN DE SERVICIO
+				</p>
+				<p class="centrado" style="font-size: 14px;">
+					:::::::::::::::ID PACIENTE::::::::::::::: <br> <b
+						style="font-size: 14px;">vfeghnkc8</b>
+				</p>
 				<table class="centrado" style="border: hidden">
 					<thead>
 						<tr>
+							<th></th>
 							<th></th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
+							<td class="fecha" style="width: 10mm"></td>
 							<td class="fecha_right">Fecha de impresion:</td>
-							<td class="fecha_left" id="TimeTicket2"></td>
+							<td class="fecha_left" id="TimeTicket"></td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha"></td>
+							<td class="fecha_right">Fecha de trabajo:</td>
+							<td class="fecha_left" th:text="${fe[0]}">00-00-0000</td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha"></td>
+							<td class="fecha_right">Folio:</td>
+							<td class="fecha_left" th:text="${fe[1]}"></td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha"></td>
+							<td class="fecha_right">Fecha de Entrega:</td>
+							<td class="fecha_left" th:text="${fe[2]}"></td>
 						</tr>
 					</tbody>
 				</table>
+				<p class="notas">"PARA LA ENTREGA DE RESULTADOS FAVOR DE
+					PRESENTAR ESTE TICKET"</p>
 				<p class="justify">
 					<b>LUGAR DE EXPEDICIÓN:</b>
 				</p>
@@ -1204,7 +1265,9 @@
 				</p>
 				<p class="justify">5 SUR NÚMERO 2, SECCIÓN 1RA, SAN MIGUEL
 					TENANCINGO C.P. 90880, TLAXCALA</p>
-				<hr style="border-top: 1px solid black">
+
+				<hr style="border-bottom: 1px solid black">
+
 				<table style="border: hidden">
 					<thead>
 						<tr>
@@ -1227,8 +1290,28 @@
 					</tbody>
 				</table>
 				<hr style="border-top: 1px solid black">
-				<label th:each="em: ${eminfo}"
-					th:text="${em[2]}"></label><b>SERVICIO(S)
+				<table class="datos">
+					<thead>
+					</thead>
+					<tbody>
+						<tr>
+							<td><b>DATOS DEL PACIENTE:</b></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td th:text="${pa[0]}"></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td><label>EDAD:&nbsp</label><label th:text="${pa[1]}"></label><label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSEXO:&nbsp</label><label
+								th:text="${pa[2]}"></label></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td th:text="${pa[3]}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<hr style="border-top: 1px solid black">
+				<b>DATOS DEL MEDICO:</b><br> <label th:each="em: ${eminfo}"
+					th:text="${em[2]}"></label><br> <br> <b>SERVICIO(S)
 					SOLICITADO(S):</b><br> <br>
 				<table
 					style="border-top: 1px solid black; border-collapse: collapse;">
@@ -1247,10 +1330,6 @@
 							<td class="precio_unit" th:text="${se[2]}"></td>
 							<td class="importe" th:text="${se[3]}"></td>
 						</tr>
-							
-						<tr th:each="se: ${seinfo}">
-							<td class="servicio" th:text="${se[0]}"></td>
-						</tr>
 					</tbody>
 				</table>
 				<table class="total" style="border: hidden">
@@ -1258,9 +1337,14 @@
 						<tr>
 							<th></th>
 							<th></th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody th:each="to: ${toinfo}">
+						<tr>
+							<td class="fecha"></td>
+							<td class="total_right">SUBTOTAL: $</td>
+							<td class="total_right" th:text="${to[0]}"></td>
 						<tr>
 							<td class="fecha"></td>
 							<td class="total_right">DESCUENTO: $</td>
@@ -1268,13 +1352,36 @@
 						</tr>
 						<tr>
 							<td class="fecha"></td>
-							<td class="total_right"><b>TOTAL: $</b></td>
-							<td class="total_right" th:text="${to[2]}" style="font-weight: bold;"></td>
+							<td class="total_right">IVA 16%: $</td>
+							<td class="total_right" th:text="${to[1]}"></td>
+						</tr>
+						<tr>
+							<td class="fecha"></td>
+							<td class="total_right">TOTAL: $</td>
+							<td class="total_right" th:text="${to[2]}"></td>
+						</tr>
+						<tr th:each=" orde: ${vista_ordenes}"
+							th:unless="${orde.orden_estatus=='Pagado'}">
+							<td class="fecha"></td>
+							<td class="total_right">ANTICIPO: $</td>
+							<td class="total_right" th:text="${orde.pago_inicial}"></td>
+						</tr>
+						<tr th:each=" orde: ${vista_ordenes}"
+							th:unless="${orde.orden_estatus=='Pagado'}">
+							<td class="fecha"></td>
+							<td class="total_right">ADEUDO: $</td>
+							<td class="total_right" th:text="${orde.adeudo}"></td>
+						</tr>
+						<tr th:each=" orde: ${vista_ordenes}"
+							th:if="${orde.orden_estatus=='Pagado'}">
+							<td class="fecha"></td>
+							<td class="total_right"></td>
+							<td class="total_right">PAGADO</td>
 						</tr>
 					</tbody>
 				</table>
 				<p class="centrado">
-					BeMedica.com
+					¡GRACIAS POR SU COMPRA! <br>BeMedica.com
 				</p>
 			</div>
 		</div>
