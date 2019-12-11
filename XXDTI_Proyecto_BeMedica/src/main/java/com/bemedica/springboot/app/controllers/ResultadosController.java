@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +20,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.bemedica.springboot.app.models.dao.IResultados;
 import com.bemedica.springboot.app.models.entity.Resultados;
 import com.itextpdf.text.BaseColor;
@@ -87,7 +85,19 @@ public class ResultadosController {
 			@Valid Resultados resultado,
 			Map<String, Object> model, Model m) {
 		m.addAttribute("id", id);
+		// count = (request.getParameter("counter") == null) ? 0 : Integer.parseInt(request.getParameter("counter")); 
+		if(resultado.getResultadoCuanti().equals("")) {
+			m.addAttribute("resul",  ResultadosDao.findAll(lo));
+			m.addAttribute("paciente", ResultadosDao.PacienteOrden(id));
+			m.addAttribute("lineas", ResultadosDao.LineasOrden(id));
 		
+			if (ResultadosDao.LineasOrden(id).size() == ResultadosDao.ValidarOrden(id).size() ){
+				 System.out.println("la condicion se cumpple ");
+				 ResultadosDao.Actualizacion_Orden(id);
+			}
+			
+			return "listar_ordenes";
+		}
 		resultado.setValidacion("1");
 		Long auxLineas= resultado.getOrdenEstudioId();
 		int i=0;
@@ -134,9 +144,11 @@ public class ResultadosController {
 					 resul.setOrdenEstudioId(lo);
 					 if (a[2].toString().equals("Cualitativo")){
 						 resul.setResultadoCuali("Resultado...");
+						 m.addAttribute("con", "cual" );
 					 }
 					 if (a[2].toString().equals("Cuantitativo")){
-						 resul.setResultadoCuanti(0.00);
+						 resul.setResultadoCuanti("0.00");
+						 m.addAttribute("con", "cuan" );
 					 }
 					 resul.setValidacion("0");
 					 resul.setEstudio_id(Long.valueOf(a[0].toString()));
@@ -155,7 +167,7 @@ public class ResultadosController {
 						 resul.setResultadoCuali("Resultado...");
 					 }
 					 if (a[2].toString().equals("Cuantitativo")){
-						 resul.setResultadoCuanti(0.00);
+						 resul.setResultadoCuanti("0.00");
 					 }
 					 resul.setValidacion("0");
 					 resul.setEstudio_id(Long.valueOf(a[0].toString()));
@@ -174,7 +186,7 @@ public class ResultadosController {
 							 resul.setResultadoCuali("Resultado...");
 						 }
 						 if (a[2].toString().equals("Cuantitativo")){
-							 resul.setResultadoCuanti(0.00);
+							 resul.setResultadoCuanti("0.00");
 						 }
 						 resul.setComentario("");
 						 resul.setValidacion("0");
@@ -199,7 +211,7 @@ public class ResultadosController {
 								 resul2.setResultadoCuali("Resultado...");
 							 }
 							 if (a2[2].toString().equals("Cuantitativo")){
-								 resul2.setResultadoCuanti(0.00);
+								 resul2.setResultadoCuanti("0.00");
 							 }
 							 resul2.setValidacion("0");
 							 resul2.setEstudio_id(Long.valueOf(a2[0].toString()));

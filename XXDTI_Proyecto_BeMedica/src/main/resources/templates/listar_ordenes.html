@@ -196,21 +196,26 @@
 												
 
 												<td>
-													<input name="ResultadoCuanti"
-													th:if="${r.ResultadoCuali==null}" 
-													th:placeholder="${r.ResultadoCuanti}" pattern="^[0-9]+"
+													<input 
+													th:if="${r.ResultadoCuali==null}"
+													name="ResultadoCuanti" 
+													th:placeholder="${r.ResultadoCuanti}"
+													
 													required
 													type="number"> 
 													
 													<input
-													name="ResultadoCuali" th:if="${r.ResultadoCuanti == null}"
+													th:if="${r.ResultadoCuanti == null}"
+													name="ResultadoCuali" 
 													th:placeholder="${r.ResultadoCuali}"
 													required
-													type="text"></td>
+													type="text">
+												</td>
 												
 												
 												<td><input type="text" name="Comentario"
-													th:value="${r.Comentario}" /></td>
+													th:placeholder="${r.Comentario}" />
+													</td>
 
 												<td><input type="checkbox"
 													th:if="${r.Validacion == '1'}" checked value="0"

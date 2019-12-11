@@ -23,7 +23,7 @@ public class Resultados implements Serializable{
 	private Long OrdenEstudioId;
 	
 	@Column(name="resultado_cuanti")
-	private Double ResultadoCuanti;
+	private String ResultadoCuanti;
 	
 	@Column(name="resultado_cuali")
 	private String ResultadoCuali;
@@ -59,11 +59,11 @@ public class Resultados implements Serializable{
 		OrdenEstudioId = ordenEstudioId;
 	}
 
-	public Double getResultadoCuanti() {
+	public String getResultadoCuanti() {
 		return ResultadoCuanti;
 	}
 
-	public void setResultadoCuanti(Double resultadoCuanti) {
+	public void setResultadoCuanti(String resultadoCuanti) {
 		ResultadoCuanti = resultadoCuanti;
 	}
 

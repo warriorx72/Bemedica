@@ -125,7 +125,7 @@ public class FoliosRegistradosController {
 						 resul.setResultadoCuali("Resultado...");
 					 }
 					 if (a[2].toString().equals("Cuantitativo")){
-						 resul.setResultadoCuanti(0.00);
+						 resul.setResultadoCuanti("0.00");
 					 }
 					 resul.setValidacion("0");
 					 resul.setEstudio_id(Long.valueOf(a[0].toString()));
@@ -144,7 +144,7 @@ public class FoliosRegistradosController {
 						 resul.setResultadoCuali("Resultado...");
 					 }
 					 if (a[2].toString().equals("Cuantitativo")){
-						 resul.setResultadoCuanti(0.00);
+						 resul.setResultadoCuanti("0.00");
 					 }
 					 resul.setValidacion("0");
 					 resul.setEstudio_id(Long.valueOf(a[0].toString()));
@@ -162,7 +162,7 @@ public class FoliosRegistradosController {
 						 resul.setResultadoCuali("Resultado...");
 					 }
 					 if (a[2].toString().equals("Cuantitativo")){
-						 resul.setResultadoCuanti(0.00);
+						 resul.setResultadoCuanti("0.00");
 					 }
 					 resul.setComentario("");
 					 resul.setValidacion("0");
