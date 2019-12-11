@@ -73,7 +73,7 @@ public class SucursalController {
 	
 	
 	}
-	//hola
+	//holaque tranzaaaaaaaaaaaa
 	@RequestMapping(value= "/form_sucursal_editar/{id}")
 	public String editar(@PathVariable (value="id") Long id, Map<String, Object> model, Model m ) {
 		DireccionE d;
@@ -96,7 +96,7 @@ public class SucursalController {
 		}
 		
 		
-		
+		//fghjkljhgfdsdfghjkl
 		
 	}
 

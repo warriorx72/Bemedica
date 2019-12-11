@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.ByteArrayInputStream;
+import java.sql.Date;
 import java.util.List;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,7 @@ import com.bemedica.springboot.app.models.dao.ICatalogoDao;
 import com.bemedica.springboot.app.models.dao.IDireccionDao;
 import com.bemedica.springboot.app.models.dao.IEstudioDao;
 import com.bemedica.springboot.app.models.dao.IOrdenEstudioDao;
-
+import com.bemedica.springboot.app.models.dao.IOrdenEstudioDaoE;
 import com.bemedica.springboot.app.models.dao.IPacienteDao;
 import com.bemedica.springboot.app.models.dao.IPaquetesDao;
 import com.bemedica.springboot.app.models.dao.IPerfilesDao;
@@ -58,7 +59,10 @@ import com.bemedica.springboot.app.models.entity.Medico;
 import com.bemedica.springboot.app.models.entity.Orden;
 import com.bemedica.springboot.app.models.entity.VistaOrdenEstudio;
 import com.bemedica.springboot.app.models.entity.OrdenEstudio;
+import com.bemedica.springboot.app.models.entity.OrdenEstudioE;
 import com.bemedica.springboot.app.models.entity.Estudio;
+import com.bemedica.springboot.app.models.entity.EstudioE;
+
 import javax.persistence.EntityManager;
 
 import com.bemedica.springboot.app.models.entity.Direccion;
@@ -105,6 +109,8 @@ public class PacienteController {
 	private ITicketDao ticketDao;
 	@Autowired
 	private ICatalogoDao catalogoDao;
+	@Autowired
+	private IOrdenEstudioDaoE orden_estudioE;
 
 	@RequestMapping(value = "/operaciones_recepcion", method = RequestMethod.GET) // vista operaciones_recepcion
 	public String operaciones_recepcion(Model model, Map<String, Object> m) {
@@ -202,9 +208,9 @@ public class PacienteController {
 		}
 		// quitar
 		if (orden.getPaciente_id() == null && orden.getMedico_id() == null) {
-			orden.setOrden_estatus("Cotizacion");
+			orden.setOrden_estatus("cotizacion");
 		} else {
-			orden.setOrden_estatus("Pendiente");
+			orden.setOrden_estatus("pendiente");
 		}
 		///
 		//// orden.setOrden_folio("ORD");
@@ -303,10 +309,6 @@ public class PacienteController {
 		/// ConvenioEstudioDao.cev(aux.getConvenioId()));
 		model.addAttribute("button_estudio", "false");
 		model.addAttribute("button_terminar", "false");
-		if(aux.getOrden_estatus().equals("Cotizacion")) {
-		model.addAttribute("tipo_ticket", "block3");
-		}
-		else model.addAttribute("tipo_ticket", "block1");
 		/// return"form_convenio";
 		return "operaciones_recepcion";
 	}
@@ -568,10 +570,6 @@ public class PacienteController {
 			m.put("orden", e);
 			ordenestudio.setOrden_id(id);
 			m.put("ordenestudio", ordenestudio);
-			if(orden.getOrden_estatus().equals("Cotizacion")) {
-				model.addAttribute("tipo_ticket", "block3");
-				}
-		    else model.addAttribute("tipo_ticket", "block1");
 			return "/operaciones_recepcion";
 		} else {
 			return "redirect:/operaciones_recepcion";
@@ -678,10 +676,6 @@ public class PacienteController {
 			m.put("ordenestudio", ordenestudio);
 			m.put("orden", orden);
 			Mostrar(id,model);
-			if(orden.getOrden_estatus().equals("Cotizacion")) {
-				model.addAttribute("tipo_ticket", "block3");
-				}
-		    else model.addAttribute("tipo_ticket", "block1");
 			return "operaciones_recepcion";
 		}
 		else {
@@ -702,14 +696,61 @@ public class PacienteController {
 			m.put("ordenestudio", ordenestudio);
 			m.put("orden", orden);
 			Mostrar(id,model);
-			if(orden.getOrden_estatus().equals("Cotizacion")) {
-				model.addAttribute("tipo_ticket", "block3");
-				}
-		    else model.addAttribute("tipo_ticket", "block1");
 			return "operaciones_recepcion";
 		}
 		else {
 		return "redirect:operaciones_recepcion";
 		}
 	}
+	
+	
+	@RequestMapping(value= "/linea_porcentaje", method=RequestMethod.POST)
+	public String porcentaje (
+			@RequestParam("id") Long id, 
+			@RequestParam("porcentaje") Double porcentaje,
+			@RequestParam("linea") Long linea,
+			OrdenEstudio ordenestudio,
+			Model model , Map<String, Object> mo){
+		if(id>0) {
+		OrdenEstudioE aux = new OrdenEstudioE();
+		aux= orden_estudioE.findOne(id);
+		
+		aux.setDescuento(((porcentaje/100)*aux.getTotalLinea()));
+		
+		//aux.setTotalLinea(((porcentaje/100)*aux.getTotalLinea())+porcentaje);
+		orden_estudioE.save(aux);
+		Orden orden = null;
+		orden = ordenDao.findOne(linea);
+		ordenestudio.setOrden_id(linea);
+		mo.put("ordenestudio", ordenestudio);
+		mo.put("orden", orden);
+		Mostrar(linea,model);
+		}
+		return "operaciones_recepcion";
+	}
+	
+	
+	@RequestMapping(value= "/linea_descuento", method=RequestMethod.POST)
+	public String descuento (
+			@RequestParam("id") Long id, 
+			@RequestParam("descuento") Double descuento,
+			@RequestParam("linea") Long linea,
+			OrdenEstudio ordenestudio,
+			Model model , Map<String, Object> mo){
+		if(id>0) {
+		OrdenEstudioE aux = new OrdenEstudioE();
+		aux= orden_estudioE.findOne(id);
+		aux.setDescuento(descuento);
+		orden_estudioE.save(aux);
+		Orden orden = null;
+		orden = ordenDao.findOne(linea);
+		ordenestudio.setOrden_id(linea);
+		mo.put("ordenestudio", ordenestudio);
+		mo.put("orden", orden);
+		Mostrar(linea,model);
+		}
+		return "operaciones_recepcion";
+	}
+
+	
 }
