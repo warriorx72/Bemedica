@@ -39,6 +39,9 @@ public class OrdenEstudioE implements Serializable{
 	
 	@Column(name="comentario")
 	private String Comentario;
+	
+	@Column(name="descuento")
+	private Double descuento;
 
 	public Long getOrdenEstudioId() {
 		return OrdenEstudioId;
@@ -106,6 +109,14 @@ public class OrdenEstudioE implements Serializable{
 
 	public void setComentario(String comentario) {
 		Comentario = comentario;
+	}
+
+	public Double getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(Double descuento) {
+		this.descuento = descuento;
 	}
 	
 	
