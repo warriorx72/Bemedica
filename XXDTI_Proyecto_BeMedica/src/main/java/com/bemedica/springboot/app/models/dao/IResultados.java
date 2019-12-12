@@ -35,5 +35,7 @@ public interface IResultados {
 	public List <Object []> Resultados (Long id, Long linea);
 	
 	public String NombrePerfil(Long id);
+	
+	public void UpdateImp(Long id,int con);
 
 }

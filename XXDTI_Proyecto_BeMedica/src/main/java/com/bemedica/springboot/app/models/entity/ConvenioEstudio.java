@@ -30,27 +30,34 @@ public class ConvenioEstudio implements Serializable {
 	@NotNull
 	@Column(name = "estudio_id")
 	private Long EstudioId;
-	
-	
+
+
 	public Long getCeId() {
 		return CeId;
 	}
+
+
 	public void setCeId(Long ceId) {
 		CeId = ceId;
 	}
+
+
 	public Long getConvenioId() {
 		return ConvenioId;
 	}
+
+
 	public void setConvenioId(Long convenioId) {
 		ConvenioId = convenioId;
 	}
+
+
 	public Long getEstudioId() {
 		return EstudioId;
 	}
+
+
 	public void setEstudioId(Long estudioId) {
 		EstudioId = estudioId;
 	}
-	
-	
-
 }

@@ -8,11 +8,11 @@
 
 <!-- Bootstrap CSS CDN -->
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+	th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css}"
 	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
 	crossorigin="anonymous">
 <!-- Our Custom CSS -->
-<link rel="stylesheet" href="http://localhost:8090/css/style.css">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 
 <!-- Font Awesome JS -->
 <script defer
@@ -63,18 +63,18 @@
 									class="form-control form-control-sm" readonly />
 							</div>
 							<div class="form-group col-md-3">
-							<label class="col-form-label-sm mb-0">Sexo:</label> <input
-								type="text" th:value="${p[4]}"
-								class="form-control form-control-sm" readonly />
-						</div>
-							
+								<label class="col-form-label-sm mb-0">Sexo:</label> <input
+									type="text" th:value="${p[4]}"
+									class="form-control form-control-sm" readonly />
+							</div>
+
 						</div>
 
 					</div>
 
 					<div class="input-group mb-0 form-control-sm"
 						th:each="p: ${paciente}">
-						
+
 						<div class="form-group col-md-3">
 							<label class="col-form-label-sm mb-0">Fecha Orden:</label> <input
 								type="text" th:value="${p[5]}"
@@ -85,21 +85,21 @@
 								type="text" th:value="${p[7]}"
 								class="form-control form-control-sm" readonly />
 						</div>
-						
+
 						<div class="form-group col-md-3">
 							<label class="col-form-label-sm mb-0">Diagnistico:</label> <input
 								type="text" th:value="${p[11]}"
 								class="form-control form-control-sm" readonly />
 						</div>
-						
+
 						<div class="form-group col-md-3">
-							<label class="col-form-label-sm mb-0">Imprimir:</label> 
-							
-							<a th:href="@{/descargar_resultados/} + ${id}" class="form-control form-control-sm">Imprimir Resultados</a>
+							<label class="col-form-label-sm mb-0">Imprimir:</label> <a
+								th:href="@{/descargar_resultados/} + ${id}"
+								class="form-control form-control-sm">Imprimir Resultados</a>
 						</div>
-						
-						
-						
+
+
+
 
 					</div>
 
@@ -125,22 +125,31 @@
 
 							<div class="card-header">
 								<div class="table-responsive">
-									<table class="table table-bordered" id="dataTable" width="100%"
+									<table class="table table-bordered" width="100%"
 										cellspacing="0">
 										<thead>
 											<tr class="table-primary">
 												<th>ID Captura</th>
 												<th>Estudio</th>
 												<th>Captura</th>
+												<th>Impresion</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr th:each="l: ${lineas}">
 												<td><a class="text-primary"
 													th:href="@{/agregar_resultado/}+${l[0]}+'/'+${l[7]}+'/'+${l[8]}+'/'+${l[4]}"
-													th:text="${l[1]+'-'+l[4]}"> </a></td>
+													th:text="${l[1]+'-'+l[4]}"></a></td>
 												<td th:text="${l[8]+' '+ l[3]}"></td>
 												<td th:text="${l[6]}"></td>
+												<td>
+													<a class="btn btn-primary btn-sm btn-block"
+													th:href="@{/select_all/}+${l[0]}+'/'+${l[7]}+'/'+${l[8]}+'/'+${l[4]}"
+													th:text="${'select all'}"></a>
+													<a class="btn btn-danger btn-sm btn-block"
+													th:href="@{/deselect_all/}+${l[0]}+'/'+${l[7]}+'/'+${l[8]}+'/'+${l[4]}"
+													th:text="${'deselect all'}"></a>
+												</td>
 											</tr>
 										</tbody>
 									</table>
@@ -168,7 +177,7 @@
 							<div class="card-header">
 								<div class="table-responsive">
 
-									<table class="table table-bordered" id="dataTable" width="100%"
+									<table class="table table-bordered" width="100%"
 										cellspacing="0">
 										<thead>
 											<tr class="table-primary">
@@ -176,6 +185,7 @@
 												<th>Resultado</th>
 												<th>Comentarios</th>
 												<th>Validar</th>
+												<th>Imprimir</th>
 
 											</tr>
 										</thead>
@@ -183,64 +193,73 @@
 
 
 											<tr th:each="r: ${resul}">
-												<form th:action="@{/guardar_resultado_linea/}+${id}+'/'+${lo}"
+												<form
+													th:action="@{/guardar_resultado_linea/}+${id}+'/'+${lo}"
 													th:id="${r.ResultadoId}" th:name="${r.ResultadoId}"
 													method="post" th:object="${aux}">
-													
-												<td th:if="${r.perfil != ''}" th:utext="${r.perfil}+':'+'<br />'+${r.EstudioNombre}"> </td>
-												
-												<td th:if="${r.perfil == ''}" th:utext="${r.EstudioNombre}"> </td>
-													
-												
-												
-												
 
-												<td>
-													<input 
-													th:if="${r.ResultadoCuali==null}"
-													name="ResultadoCuanti" 
-													th:placeholder="${r.ResultadoCuanti}"
-													
-													required
-													type="number"> 
-													
-													<input
-													th:if="${r.ResultadoCuanti == null}"
-													name="ResultadoCuali" 
-													th:placeholder="${r.ResultadoCuali}"
-													required
-													type="text">
-												</td>
-												
-												
-												<td><input type="text" name="Comentario"
-													th:placeholder="${r.Comentario}" />
+													<td th:if="${r.perfil != ''}"
+														th:utext="${r.perfil}+':'+'<br />'+${r.EstudioNombre}">
 													</td>
 
-												<td><input type="checkbox"
-													th:if="${r.Validacion == '1'}" checked value="0"
-													th:onclick="'post_form(' + ${r.ResultadoId} + ');'">
-
-													<input type="checkbox" th:if="${r.Validacion == '0'}"
-													value="1"
-													th:onclick="'post_form(' + ${r.ResultadoId} + ');'">
+													<td th:if="${r.perfil == ''}" th:utext="${r.EstudioNombre}">
+													</td>
 
 
-												</td>
-												<input type="hidden" name="ResultadoId"
-													th:value="${r.ResultadoId}" />
-												<input type="hidden" name="OrdenEstudioId"
-													th:value="${r.OrdenEstudioId}" />
-												<input type="hidden" name="estudio_id"
-													th:value="${r.estudio_id}" />
 
-												<input type="hidden" name="EstudioNombre"
-													th:value="${r.EstudioNombre}" />
-													
-													<input type="hidden" name="perfil"
-													th:value="${r.perfil}" />
+
+
+													<td><input th:if="${r.ResultadoCuali==null}"
+														name="ResultadoCuanti"
+														th:placeholder="${r.ResultadoCuanti}" required
+														type="number"> <input
+														th:if="${r.ResultadoCuanti == null}" name="ResultadoCuali"
+														th:placeholder="${r.ResultadoCuali}" required type="text">
+													</td>
+
+
+													<td><input type="text" name="Comentario"
+														th:placeholder="${r.Comentario}" /></td>
+
+													<td><input type="checkbox"
+														th:if="${r.Validacion == '1'}" checked value="0"
+														th:onclick="'post_form(' + ${r.ResultadoId} + ');'">
+
+														<input type="checkbox" th:if="${r.Validacion == '0'}"
+														value="1"
+														th:onclick="'post_form(' + ${r.ResultadoId} + ');'">
+
+
+													</td> <input type="hidden" name="ResultadoId"
+														th:value="${r.ResultadoId}" /> <input type="hidden"
+														name="OrdenEstudioId" th:value="${r.OrdenEstudioId}" /> <input
+														type="hidden" name="estudio_id" th:value="${r.estudio_id}" />
+
+													<input type="hidden" name="EstudioNombre"
+														th:value="${r.EstudioNombre}" /> <input type="hidden"
+														name="perfil" th:value="${r.perfil}" />
 
 												</form>
+												<td>
+												<form th:action="@{/estatus_imp}"
+														method="post" th:id="${r.ResultadoId}+'2'"
+														th:name="${r.ResultadoId}+'2'">
+														<input type="checkbox" th:if="${r.Impresion == true}"
+															checked value="0"
+															th:onclick="'post_form2(' + ${r.ResultadoId}+'2'+ ');'">
+
+														<input type="checkbox" th:if="${r.Impresion == false}"
+															value="1"
+															th:onclick="'post_form2(' + ${r.ResultadoId}+'2'+ ');'">
+
+
+														<input type="hidden" name="aux"
+															th:value="${r.Impresion}" />
+														<input type="hidden" name="id" th:value="${id}" />
+														<input type="hidden" name="id_res" th:value="${r.ResultadoId}" />
+														<input type="hidden" name="lo" th:value="${lo}" />
+
+													</form></td>
 											</tr>
 
 										</tbody>
@@ -297,21 +316,24 @@
 
 
 	<script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-        });
-    </script>
+		$(document).ready(function() {
+			$('#sidebarCollapse').on('click', function() {
+				$('#sidebar').toggleClass('active');
+			});
+		});
+	</script>
 
 
 	<script type="text/javascript">
-  function post_form( id_form )
-  {
-    document.getElementById(id_form).submit();
-  }
-</script>
-
+		function post_form(id_form) {
+			document.getElementById(id_form).submit();
+		}
+	</script>
+	<script type="text/javascript">
+		function post_form2(id_form2) {
+			document.getElementById(id_form2).submit();
+		}
+	</script>
 	<script>
 		window.onload = function() {
 			var pos = window.name || 0;
@@ -322,24 +344,25 @@
 					|| (document.documentElement.scrollTop + document.body.scrollTop);
 		}
 	</script>
-	
+
 	<script>
-$(document).ready(function() {
-    $('#example').DataTable( {
-        stateSave: true
-    } );
-} );
-window.onload=function(){
-	var pos=window.name || 0;
-	window.scrollTo(0,pos);
-	}
-	window.onunload=function(){
-	window.name=self.pageYOffset || (document.documentElement.scrollTop+document.body.scrollTop);
-	}
-</script>
+		$(document).ready(function() {
+			$('#example').DataTable({
+				stateSave : true
+			});
+		});
+		window.onload = function() {
+			var pos = window.name || 0;
+			window.scrollTo(0, pos);
+		}
+		window.onunload = function() {
+			window.name = self.pageYOffset
+					|| (document.documentElement.scrollTop + document.body.scrollTop);
+		}
+	</script>
 
 
-<script>
+	<script>
 		window.onload = function() {
 			var pos = window.name || 0;
 			window.scrollTo(0, pos);

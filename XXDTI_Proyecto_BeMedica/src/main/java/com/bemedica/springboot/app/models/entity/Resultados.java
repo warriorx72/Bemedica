@@ -1,6 +1,7 @@
 package com.bemedica.springboot.app.models.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,6 +44,17 @@ public class Resultados implements Serializable{
 	@Column(name="perfil")
 	private String  perfil; 
 	
+	@Column(name="impresion")
+	private Boolean Impresion; 
+		
+	public Boolean getImpresion() {
+		return Impresion;
+	}
+
+	public void setImpresion(Boolean impresion) {
+		Impresion = impresion;
+	}
+
 	public Long getResultadoId() {
 		return ResultadoId;
 	}

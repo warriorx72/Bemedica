@@ -258,4 +258,10 @@ public class ResultadosDaoImpl implements IResultados {
 		return nombre;
 	}
 
+	@Transactional
+	@Override
+	public void UpdateImp(Long id, int con) {
+		 em.createNativeQuery("call UpdateImp ("+id+","+con+")").executeUpdate();
+	}
+
 }
