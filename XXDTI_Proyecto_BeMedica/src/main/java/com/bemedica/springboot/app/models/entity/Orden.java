@@ -45,7 +45,7 @@ public class Orden implements Serializable {
     public String pago_final;
     public String fecha_liquidacion;
     public String adeudo;
-    
+    public String promocion_id;
     
     public String getAdeudo() {
 		return adeudo;
@@ -161,4 +161,12 @@ public String getOrden_fecha() {
 	public void setMonto(String monto) {
 		this.monto = monto;
 	}
+	public String getPromocion_id() {
+		return promocion_id;
+	}
+	public void setPromocion_id(String promocion_id) {
+		this.promocion_id = promocion_id;
+	}
+	
+	
 }

@@ -571,6 +571,8 @@
 									<tr th:each="to: ${toinfo}">
 										<td></td>
 										<td></td>
+										<td></td>
+										<td></td>
 										<td style="background-color: #A9D0F5;">TOTAL: $</td>
 										<td style="background-color: #A9D0F5;" th:text="${to[2]}"></td>
 										<td></td>
@@ -607,6 +609,7 @@
 												<select class="form-control" th:name="metodo_pago"
 													th:value="${orde.metodo_pago}"
 													th:onchange="post_form('met_pag')">
+													
 													<option th:value="${orde.metodo_pago}"
 														th:label="${#strings.capitalize(orde.metodo_pago)}" />
 													<option th:if="${orde.metodo_pago=='tarjeta'}"
@@ -618,21 +621,21 @@
 										</td>
 										<td>
 											<form th:id="promo" th:name="promo"
-												th:action="@{/form_metodo_pago}" method="post">
-												<select class="form-control" th:name="metodo_pago"
-													th:value="${orde.metodo_pago}"
-													th:onchange="post_form('promo')">
-													<option>Promo Lunes</option>
-													<!-- 										     			<option th:value="${orde.metodo_pago}" th:label="${#strings.capitalize(orde.metodo_pago)}" /> -->
-													<!-- 														<option th:if="${orde.metodo_pago=='tarjeta'}" th:value="efectivo" th:label="Efectivo"></option> -->
-													<!-- 														<option th:if="${orde.metodo_pago=='efectivo'}" th:value="tarjeta" th:label="Tarjeta"></option> -->
-												</select> <input type="hidden" name="id" th:value="${orde.orden_id}" />
+												th:action="@{/form_descuento_orden}" method="post">
+												<select class="form-control" th:name="descuento" th:value="${orde.promocion_id}"  th:onchange="post_desc('promo')">
+														
+														<option th:each="p:${promociones}"
+															th:value="${p.PromocionId}"
+															th:label="${p.PromocionNombre}" 
+															/>
+												</select>
+												<input type="hidden" name="id" th:value="${orde.orden_id}" />
 											</form>
 										</td>
 										<td>
 											<form th:action="@{/form_pago}" method="post">
 												<input type="hidden" name="id" th:value="${orde.orden_id}" />
-												<input type="number" name="primer_pago" required step="0.01"
+												<input type="number" name="primer_pago" required step="0.01" style="width:100px;height:35px"
 													min="1" th:max="${orde.adeudo}" pattern="^[0-9]+"
 													th:value="${orde.pago_inicial}"
 													class="form-control form-control-sm" />
@@ -915,6 +918,9 @@
 	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
 	<script type="text/javascript">
 		function post_form(id_form) {
+			document.getElementById(id_form).submit();
+		}
+		function post_desc(id_form) {
 			document.getElementById(id_form).submit();
 		}
 	</script>

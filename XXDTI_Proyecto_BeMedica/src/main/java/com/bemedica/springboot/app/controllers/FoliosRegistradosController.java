@@ -123,7 +123,7 @@ public class FoliosRegistradosController {
 					 resul.setOrdenEstudioId(lo);
 					 if (a[2].toString().equals("Cualitativo")){
 						 resul.setResultadoCuali("Resultado...");
-					 }
+					 }//ggg
 					 if (a[2].toString().equals("Cuantitativo")){
 						 resul.setResultadoCuanti("0.00");
 					 }

@@ -46,6 +46,8 @@ public class VistaOrden implements Serializable {
 	private String pago_final;
 	private String fecha_liquidacion;
 	
+	private String promocion_id;
+	
 	
 	public String getMetodo_pago() {
 		return metodo_pago;
@@ -125,6 +127,13 @@ public class VistaOrden implements Serializable {
 	public void setAdeudo(String adeudo) {
 		this.adeudo = adeudo;
 	}
-
+	public String getPromocion_id() {
+		return promocion_id;
+	}
+	public void setPromocion_id(String promocion_id) {
+		this.promocion_id = promocion_id;
+	}
+	
+	
 
 }

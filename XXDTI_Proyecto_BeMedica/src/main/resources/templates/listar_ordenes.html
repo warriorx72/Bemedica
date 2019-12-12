@@ -219,18 +219,21 @@
 
 
 													<td><input type="text" name="Comentario"
-														th:placeholder="${r.Comentario}" /></td>
+														th:placeholder="${r.Comentario}" />
+														</td>
 
-													<td><input type="checkbox"
-														th:if="${r.Validacion == '1'}" checked value="0"
-														th:onclick="'post_form(' + ${r.ResultadoId} + ');'">
+													<td>
+												   <!-- <input type="checkbox"
+													th:if="${r.Validacion == '1'}" checked value="0"
+													th:onclick="'post_form(' + ${r.ResultadoId} + ');'">
 
-														<input type="checkbox" th:if="${r.Validacion == '0'}"
-														value="1"
-														th:onclick="'post_form(' + ${r.ResultadoId} + ');'">
+													<input type="checkbox" th:if="${r.Validacion == '0'}"
+													value="1"
+													th:onclick="'post_form(' + ${r.ResultadoId} + ');'"> -->
+												<input type="submit" class="btn btn-primary" th:value="${r.Validacion}" />
 
-
-													</td> <input type="hidden" name="ResultadoId"
+												</td>
+													<input type="hidden" name="ResultadoId"
 														th:value="${r.ResultadoId}" /> <input type="hidden"
 														name="OrdenEstudioId" th:value="${r.OrdenEstudioId}" /> <input
 														type="hidden" name="estudio_id" th:value="${r.estudio_id}" />

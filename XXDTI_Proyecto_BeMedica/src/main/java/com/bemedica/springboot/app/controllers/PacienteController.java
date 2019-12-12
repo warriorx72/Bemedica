@@ -35,6 +35,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bemedica.springboot.app.models.dao.IPersonaDao;
+import com.bemedica.springboot.app.models.dao.IPromocionesDao;
 import com.bemedica.springboot.app.models.dao.ISucursalDao;
 import com.bemedica.springboot.app.models.dao.ITicketDao;
 import com.bemedica.springboot.app.models.dao.IVistaEmpleadoDao;
@@ -111,6 +112,8 @@ public class PacienteController {
 	private ICatalogoDao catalogoDao;
 	@Autowired
 	private IOrdenEstudioDaoE orden_estudioE;
+	@Autowired
+	private IPromocionesDao PromocionDao;
 
 	@RequestMapping(value = "/operaciones_recepcion", method = RequestMethod.GET) // vista operaciones_recepcion
 	public String operaciones_recepcion(Model model, Map<String, Object> m) {
@@ -260,6 +263,7 @@ public class PacienteController {
 		model.addAttribute("orden_estudios", vistaordenestudioDao.voe(id));
 		model.addAttribute("orden_monto", vistaordenDao.vo(id));
 		model.addAttribute("catalogos", catalogoDao.findAll());
+		model.addAttribute("promociones", PromocionDao.findAll());
 	}
 
 	@RequestMapping(value = "/form_orden_estudios", method = RequestMethod.POST)
@@ -576,6 +580,34 @@ public class PacienteController {
 		}
 
 	}
+	
+	
+	@RequestMapping(value = "/form_descuento_orden", method = RequestMethod.POST)
+	public String descuentoOrden(@RequestParam("id") Long id,@RequestParam() String descuento,Model model,
+			RedirectAttributes redirectAttrs, Map<String, Object> m, Orden orden, OrdenEstudio ordenestudio) {
+		Orden e =null;
+
+		e = ordenDao.findOne(id);
+		if (id > 1) {
+
+			// if(pac_id!=null) {
+			// e.setPaciente_id(pac_id);
+			// }
+			System.out.print("Im here discount");
+			e.setPromocion_id(descuento);
+			// ordenDao.save(e);
+			ordenDao.save(e);
+			Mostrar(id,model);
+			m.put("orden", e);
+			ordenestudio.setOrden_id(id);
+			m.put("ordenestudio", ordenestudio);
+			return "/operaciones_recepcion";
+		} else {
+			return "redirect:/operaciones_recepcion";
+		}
+
+	}
+
 	
 	@RequestMapping(value = "/estatus_empleadoPC", method = RequestMethod.POST)
 	public String estatusPC(@RequestParam("id") Long id,@RequestParam() String status_id,
