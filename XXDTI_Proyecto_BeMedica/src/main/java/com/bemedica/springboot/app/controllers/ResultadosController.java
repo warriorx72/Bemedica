@@ -424,7 +424,7 @@ public class ResultadosController {
 					cvr.disableBorderSide(Rectangle.BOX);
 					cvr.setExtraParagraphSpace(1.5f);
 
-					Paragraph Validacion = new Paragraph("Estudio(s) validado por: Q.F.B: El doctor Chapatín",
+					Paragraph Validacion = new Paragraph("Estudio(s) validado por: Q.F.B: El doctor Chapatín\n\n\n",
 							fuen_validacion);
 
 					PdfPCell cell = new PdfPCell(Comentario);
@@ -533,7 +533,7 @@ public class ResultadosController {
 					}
 				}
 
-				Paragraph Validacion = new Paragraph("   Estudio(s) validado por: Q.F.B: El doctor Chapatín",
+				Paragraph Validacion = new Paragraph("   Estudio(s) validado por: Q.F.B: El doctor Chapatín\n\n\n",
 						fuen_validacion);
 				Paragraph Comentario = new Paragraph("   OBSERVACIONES\n    " + auxComentario, fuen_comentario);
 				PdfPCell cell = new PdfPCell(Comentario);
@@ -622,7 +622,7 @@ public class ResultadosController {
 							cvr.setExtraParagraphSpace(1.5f);
 
 							Paragraph Validacion = new Paragraph(
-									"   Estudio(s) validado por: Q.F.B: El doctor Chapatín", fuen_validacion);
+									"   Estudio(s) validado por: Q.F.B: El doctor Chapatín \n\n\n", fuen_validacion);
 							PdfPCell cell = new PdfPCell(Comentario);
 							PdfPCell cell2 = new PdfPCell(Validacion);
 
@@ -731,7 +731,7 @@ public class ResultadosController {
 							}
 						}
 
-						Paragraph Validacion = new Paragraph("     Estudio(s) validado por: Q.F.B: El doctor Chapatín",
+						Paragraph Validacion = new Paragraph("     Estudio(s) validado por: Q.F.B: El doctor Chapatín\n\n\n",
 								fuen_validacion);
 						Paragraph Comentario = new Paragraph("     OBSERVACIONES\n      " + auxComentario,
 								fuen_comentario);
