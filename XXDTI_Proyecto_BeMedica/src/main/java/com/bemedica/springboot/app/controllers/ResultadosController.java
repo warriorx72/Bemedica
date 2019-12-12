@@ -85,17 +85,6 @@ public class ResultadosController {
 		m.addAttribute("id", id);
 		// count = (request.getParameter("counter") == null) ? 0 :
 		// Integer.parseInt(request.getParameter("counter"));
-		if (resultado.getResultadoCuanti().equals("")) {
-			m.addAttribute("resul", ResultadosDao.findAll(lo));
-			m.addAttribute("paciente", ResultadosDao.PacienteOrden(id));
-			m.addAttribute("lineas", ResultadosDao.LineasOrden(id));
-			if (ResultadosDao.LineasOrden(id).size() == ResultadosDao.ValidarOrden(id).size()) {
-				System.out.println("la condicion se cumpple ");
-				ResultadosDao.Actualizacion_Orden(id);
-			}
-
-			return "listar_ordenes";
-		}
 		resultado.setValidacion("1");
 		Long auxLineas = resultado.getOrdenEstudioId();
 		int i = 0;
