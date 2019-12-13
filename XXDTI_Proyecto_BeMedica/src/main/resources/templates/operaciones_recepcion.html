@@ -656,7 +656,7 @@
 							</table>
 							<br>
 							<!--  </form> --->
-							<form th:action="ticket" th:method="post" th:object="${orden}"
+							<form th:action="@{/ticket}" th:method="post" th:object="${orden}"
 								>
 								<input type="hidden" th:field="*{orden_id}" />
 								<div align="right">
@@ -1276,17 +1276,17 @@
 							<th class="importe">IMPORTE</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr th:each="se: ${seinfo}">
+					<tbody th:each="se: ${seinfo}">
+						<tr>
 							<td class="servicio" th:text="${se[0]}"></td>
 							<td class="cantidad" th:text="${se[1]}"></td>
 							<td class="precio_unit" th:text="${se[2]}"></td>
 							<td class="importe" th:text="${se[3]}"></td>
 						</tr>
-							
-						<tr th:each="se: ${seinfo}">
-							<td class="servicio" th:text="${se[0]}"></td>
+						<tr>
+							<td COLSPAN=4 class="servicio" th:text="${'*'+se[6]+'*'}"></td>
 						</tr>
+
 					</tbody>
 				</table>
 				<table class="total" style="border: hidden">

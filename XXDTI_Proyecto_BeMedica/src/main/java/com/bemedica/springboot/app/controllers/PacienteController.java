@@ -313,10 +313,10 @@ public class PacienteController {
 		/// ConvenioEstudioDao.cev(aux.getConvenioId()));
 		model.addAttribute("button_estudio", "false");
 		model.addAttribute("button_terminar", "false");
-		if(aux.getOrden_estatus().equals("Cotizacion")) {
+		if(aux.getOrden_estatus().equals("cotizacion")) {
 		model.addAttribute("tipo_ticket", "block3");
 		}
-		else model.addAttribute("tipo_ticket", "block1");
+		else model.addAttribute("tipo_ticket", "block1"); 
 		/// return"form_convenio";
 		return "operaciones_recepcion";
 	}
