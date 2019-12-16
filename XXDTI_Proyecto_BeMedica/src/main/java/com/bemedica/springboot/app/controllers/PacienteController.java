@@ -220,6 +220,7 @@ public class PacienteController {
 		model.addAttribute("button_estudio", "false");
 		model.addAttribute("button_terminar", "disabled");
 		orden.setMetodo_pago("efectivo");
+		orden.setPromocion_id(0);
 		ordenDao.save(orden);
 		orden.setOrden_folio("ORD" + (orden.getOrden_id() + 1000000));
 		ordenDao.save(orden);
@@ -240,6 +241,11 @@ public class PacienteController {
 		model.addAttribute("empleados", vistaempleadoDao.findAll());
 		model.addAttribute("sucursales", sucursalDao.findAll());
 		model.addAttribute("ordenes", ordenDao.findAll());
+		if(orden.getOrden_estatus().equals("cotizacion")) {
+			model.addAttribute("coti", "disabled");
+		}
+		else model.addAttribute("coti", "false");
+		
 		return "operaciones_recepcion";
 
 	}
@@ -315,8 +321,13 @@ public class PacienteController {
 		model.addAttribute("button_terminar", "false");
 		if(aux.getOrden_estatus().equals("cotizacion")) {
 		model.addAttribute("tipo_ticket", "block3");
+		model.addAttribute("coti", "disabled");
 		}
-		else model.addAttribute("tipo_ticket", "block1"); 
+		else {
+			model.addAttribute("tipo_ticket", "block1"); 
+			model.addAttribute("coti", "false");
+		}
+	
 		/// return"form_convenio";
 		return "operaciones_recepcion";
 	}
@@ -528,7 +539,14 @@ public class PacienteController {
 			m.put("ordenestudio", ordenestudio);
 			m.put("orden", aux);
 			Mostrar(id_o,model);
-
+			if(aux.getOrden_estatus().equals("cotizacion")) {
+				model.addAttribute("tipo_ticket", "block3");
+				model.addAttribute("coti", "disabled");
+				}
+			else {
+					model.addAttribute("tipo_ticket", "block1"); 
+					model.addAttribute("coti", "false");
+				}
 		}
 		return "operaciones_recepcion";
 	}
@@ -587,7 +605,7 @@ public class PacienteController {
 	
 	
 	@RequestMapping(value = "/form_descuento_orden", method = RequestMethod.POST)
-	public String descuentoOrden(@RequestParam("id") Long id,@RequestParam() String descuento,Model model,
+	public String descuentoOrden(@RequestParam("id") Long id,@RequestParam() int descuento,Model model,
 			RedirectAttributes redirectAttrs, Map<String, Object> m, Orden orden, OrdenEstudio ordenestudio) {
 		Orden e =null;
 
@@ -605,6 +623,14 @@ public class PacienteController {
 			m.put("orden", e);
 			ordenestudio.setOrden_id(id);
 			m.put("ordenestudio", ordenestudio);
+			if(e.getOrden_estatus().equals("cotizacion")) {
+				model.addAttribute("tipo_ticket", "block3");
+				model.addAttribute("coti", "disabled");
+				}
+			else {
+					model.addAttribute("tipo_ticket", "block1"); 
+					model.addAttribute("coti", "false");
+				}
 			return "/operaciones_recepcion";
 		} else {
 			return "redirect:/operaciones_recepcion";
@@ -769,6 +795,14 @@ public class PacienteController {
 		mo.put("ordenestudio", ordenestudio);
 		mo.put("orden", orden);
 		Mostrar(linea,model);
+		if(orden.getOrden_estatus().equals("cotizacion")) {
+			model.addAttribute("tipo_ticket", "block3");
+			model.addAttribute("coti", "disabled");
+			}
+		else {
+				model.addAttribute("tipo_ticket", "block1"); 
+				model.addAttribute("coti", "false");
+			}
 		}
 		return "operaciones_recepcion";
 	}
@@ -792,6 +826,14 @@ public class PacienteController {
 		mo.put("ordenestudio", ordenestudio);
 		mo.put("orden", orden);
 		Mostrar(linea,model);
+		if(orden.getOrden_estatus().equals("cotizacion")) {
+			model.addAttribute("tipo_ticket", "block3");
+			model.addAttribute("coti", "disabled");
+			}
+		else {
+				model.addAttribute("tipo_ticket", "block1"); 
+				model.addAttribute("coti", "false");
+			}
 		}
 		return "operaciones_recepcion";
 	}

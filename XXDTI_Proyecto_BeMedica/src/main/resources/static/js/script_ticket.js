@@ -19,6 +19,20 @@ function printPage(id)
       
 }
 
+function printPage2(id)
+
+{
+	   var html="<html>";
+	   html+= document.getElementById(id).innerHTML;
+		
+	   html+="</html>";
+
+	   var printWin = window.open('http://localhost:8080/operaciones_recepcion','','left=10000,top=10000,width=1,height=1,toolbar=0,scrollbars=0,status=0');
+	   printWin.document.write(html);
+	   printWin.document.close();
+}
+
+
 
 
 setInterval(function(){

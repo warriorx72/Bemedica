@@ -53,6 +53,15 @@ public class FoliosRegistradosController {
 		m.addAttribute("lineas", ResultadosDao.LineasOrden(id));
 		return "detalles_orden";
 	}
+	@RequestMapping (value="/ticket/{id}")
+	public String ImpTicket (@PathVariable (value="id") Long id, Model model) {
+			model.addAttribute("eminfo", ticketDao.findEmpleado(id));
+			model.addAttribute("painfo", ticketDao.findPaciente(id));
+			model.addAttribute("feinfo", ticketDao.findFecha(id));
+			model.addAttribute("seinfo", ticketDao.findServ(id));
+			model.addAttribute("toinfo", ticketDao.findTotal(id));
+		return "ticket";
+	}
 	
 	
 	@RequestMapping (value="/liquidar_orden/{id}",method = RequestMethod.GET)

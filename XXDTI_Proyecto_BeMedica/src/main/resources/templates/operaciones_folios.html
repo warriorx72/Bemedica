@@ -195,6 +195,9 @@
     		function popup(id){
        		window.open("listar_ordenes/"+id, 'window', 'width=820, height=600');
     		}
+    		function popup2(id){
+           		window.open("ticket/"+id, 'window', 'width=820, height=600');
+        		}
 		</script>
 
 		<script>
@@ -247,8 +250,8 @@
                                 <tbody>
                                   <tr th:each="orden: ${vista}">
                                     <td>
-                                        <a class="btn btn-outline-primary btn-sm" title="Imprimir Orden"
-                                            href=""><i class="fas fa-print"></i></a>
+                                        <button class="btn btn-outline-primary btn-sm" title="Imprimir Orden" th:onclick="'popup2(' + ${orden.orden_id} + ');'" 
+     									><i class="fas fa-print"></i></button>
 
                                         <a class="btn btn-outline-warning btn-sm" title="Abrir Orden"   th:onclick="'popup(' + ${orden.orden_id} + ');'" ><i
                                                 class="fas fa-folder-open"></i></a>
@@ -354,6 +357,8 @@
 					|| (document.documentElement.scrollTop + document.body.scrollTop);
 		}
 	</script>
+	<script th:src="@{/js/script_ticket.js}"></script>
+	
 </body>
 
 </html>
