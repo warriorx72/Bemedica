@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.bemedica.springboot.app.models.dao.IDireccion;
 import com.bemedica.springboot.app.models.dao.IEmpresa;
-import com.bemedica.springboot.app.models.entity.Direccion;
 import com.bemedica.springboot.app.models.entity.DireccionE;
 import com.bemedica.springboot.app.models.entity.Empresa;
 
@@ -64,7 +63,7 @@ public class EmpresaController {
 	@RequestMapping(value="/form_empresa")
 	public String crear (Map<String, Object> model , Model m)
 	{
-		Direccion d = new Direccion();
+		DireccionE d = new DireccionE();
 		Empresa e = new Empresa();
 		model.put("direccion", d);
 		model.put("empresa",e);
