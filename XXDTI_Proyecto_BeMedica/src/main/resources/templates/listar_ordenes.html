@@ -212,7 +212,7 @@
 													<td><input th:if="${r.ResultadoCuali==null}"
 														name="ResultadoCuanti"
 														th:placeholder="${r.ResultadoCuanti}" required
-														type="number"  step="any"> <input
+														type="number"> <input
 														th:if="${r.ResultadoCuanti == null}" name="ResultadoCuali"
 														th:placeholder="${r.ResultadoCuali}" required type="text">
 													</td>
@@ -230,8 +230,10 @@
 													<input type="checkbox" th:if="${r.Validacion == '0'}"
 													value="1"
 													th:onclick="'post_form(' + ${r.ResultadoId} + ');'"> -->
-												<input type="submit" class="btn btn-primary" th:value="${r.Validacion}" />
+													
 
+												<input type="submit" class="btn btn-primary" th:if="${r.Validacion == '1'}"  value="Validado" />
+												<input type="submit" class="btn btn-primary" th:if="${r.Validacion == '0'}"  value="No validado" />	
 												</td>
 													<input type="hidden" name="ResultadoId"
 														th:value="${r.ResultadoId}" /> <input type="hidden"
