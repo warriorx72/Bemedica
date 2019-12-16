@@ -35,31 +35,47 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
 
     private void addHeader(PdfWriter writer){
         PdfPTable header = new PdfPTable(4);
+        PdfPTable headerNumP = new PdfPTable(1);
+        Font fuen_1 = new Font(FontFamily.HELVETICA, 9.0f,Font.BOLD,BaseColor.BLACK);
+        Font fuen_2 = new Font(FontFamily.HELVETICA, 10.0f,Font.NORMAL,BaseColor.BLACK);
         try {
         	header.setWidths(new int[]{19,101,13,26});
             header.setTotalWidth(527);
             header.setLockedWidth(true);
+            headerNumP.setTotalWidth(527);
+            headerNumP.setLockedWidth(true);
             
+            Paragraph  pag = new Paragraph(String.format("Pág. %d ", writer.getPageNumber()), new Font(Font.FontFamily.HELVETICA, 8));
             
-           Paragraph fecha_t = new Paragraph("FECHA:",new Font(FontFamily.TIMES_ROMAN,10.0f,Font.BOLD,BaseColor.BLACK));
-    		Paragraph paciente_t = new Paragraph("PACIENTE:",new Font(FontFamily.TIMES_ROMAN,10.0f,Font.BOLD,BaseColor.BLACK));
-    		Paragraph medico_t = new Paragraph("MEDICO:",new Font(FontFamily.TIMES_ROMAN,10.0f,Font.BOLD,BaseColor.BLACK));
+            PdfPCell cell_pag = new PdfPCell(pag);
+       		
+       		
+       		cell_pag.setHorizontalAlignment(Element.ALIGN_RIGHT);
+       		cell_pag.disableBorderSide(Rectangle.BOX);
+       		cell_pag.setExtraParagraphSpace(1.5f);
+       		
+       		headerNumP.addCell(cell_pag);
+            headerNumP.writeSelectedRows(0, -1, 34,800, writer.getDirectContent());
+            
+           Paragraph fecha_t = new Paragraph("FECHA:",fuen_1);
+    		Paragraph paciente_t = new Paragraph("PACIENTE:",fuen_1);
+    		Paragraph medico_t = new Paragraph("MEDICO:",fuen_1);
     		
-    		Paragraph fecha_b = new Paragraph(fecha,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
-     		Paragraph paciente_b = new Paragraph(pacienten,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
-     		Paragraph medico_b = new Paragraph(medico,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
+    		Paragraph fecha_b = new Paragraph(fecha,fuen_2);
+     		Paragraph paciente_b = new Paragraph(pacienten,fuen_2);
+     		Paragraph medico_b = new Paragraph(medico,fuen_2);
     		
     	
             
            
-    	Paragraph folio_t = new Paragraph("FOLIO:",new Font(FontFamily.TIMES_ROMAN,10.0f,Font.BOLD,BaseColor.BLACK));
-   		Paragraph edad_t = new Paragraph("EDAD:",new Font(FontFamily.TIMES_ROMAN,10.0f,Font.BOLD,BaseColor.BLACK));
-   		Paragraph sexo_t = new Paragraph("SEXO:",new Font(FontFamily.TIMES_ROMAN,10.0f,Font.BOLD,BaseColor.BLACK));
+    	Paragraph folio_t = new Paragraph("FOLIO:",fuen_1);
+   		Paragraph edad_t = new Paragraph("EDAD:",fuen_1);
+   		Paragraph sexo_t = new Paragraph("SEXO:",fuen_1);
    		
     		
-   		Paragraph folio_b = new Paragraph(folio,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
-     		Paragraph edad_b = new Paragraph(edad,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
-     		Paragraph sexo_b = new Paragraph(sexo,new Font(FontFamily.TIMES_ROMAN,11.0f,Font.NORMAL,BaseColor.BLACK));
+   		Paragraph folio_b = new Paragraph(folio,fuen_2);
+     		Paragraph edad_b = new Paragraph(edad,fuen_2);
+     		Paragraph sexo_b = new Paragraph(sexo,fuen_2);
    		
 
    		PdfPCell cel_fecha_t = new PdfPCell(fecha_t);
@@ -92,8 +108,9 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
    		
    		
    		cel_medico_t.setHorizontalAlignment(Element.ALIGN_LEFT);
-   		cel_medico_t.disableBorderSide(Rectangle.BOX);
-   		cel_medico_t.setExtraParagraphSpace(1.5f);
+   		cel_medico_t.setBorder(Rectangle.BOTTOM);
+   		//cel_medico_t.disableBorderSide(Rectangle.BOX);
+   		cel_medico_t.setExtraParagraphSpace(10.5f);
    		
    		cel_folio_t.setHorizontalAlignment(Element.ALIGN_LEFT);
    		cel_folio_t.disableBorderSide(Rectangle.BOX);
@@ -104,8 +121,9 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
    		cel_edad_t.setExtraParagraphSpace(1.5f);
    		
    		cel_sexo_t.setHorizontalAlignment(Element.ALIGN_LEFT);
-   		cel_sexo_t.disableBorderSide(Rectangle.BOX);
-   		cel_sexo_t.setExtraParagraphSpace(1.5f);
+   		cel_sexo_t.setBorder(Rectangle.BOTTOM);
+   		//cel_sexo_t.disableBorderSide(Rectangle.BOX);
+   		cel_sexo_t.setExtraParagraphSpace(10.5f);
    		
    		
 //7777
@@ -120,8 +138,9 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
    		
    		
    		cel_medico_b.setHorizontalAlignment(Element.ALIGN_LEFT);
-   		cel_medico_b.disableBorderSide(Rectangle.BOX);
-   		cel_medico_b.setExtraParagraphSpace(1.5f);
+   		cel_medico_b.setBorder(Rectangle.BOTTOM);
+   		//cel_medico_b.disableBorderSide(Rectangle.BOX);
+   		cel_medico_b.setExtraParagraphSpace(10.5f);
    		
    		cel_folio_b.setHorizontalAlignment(Element.ALIGN_LEFT);
    		cel_folio_b.disableBorderSide(Rectangle.BOX);
@@ -132,8 +151,9 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
    		cel_edad_b.setExtraParagraphSpace(1.5f);
    		
    		cel_sexo_b.setHorizontalAlignment(Element.ALIGN_LEFT);
-   		cel_sexo_b.disableBorderSide(Rectangle.BOX);
-   		cel_sexo_b.setExtraParagraphSpace(1.5f);
+   		cel_sexo_b.setBorder(Rectangle.BOTTOM);
+   		//cel_sexo_b.disableBorderSide(Rectangle.BOX);
+   		cel_sexo_b.setExtraParagraphSpace(10.5f);
   
    		
    		header.addCell(cel_fecha_t);
@@ -181,7 +201,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
      
     		Paragraph uno = new Paragraph("RESPONSABLE DEL LABORATORIO:" ,new Font(FontFamily.TIMES_ROMAN,10.0f,Font.NORMAL,BaseColor.BLACK));
     		Paragraph  dos = new Paragraph("Q.F.B SELENE lEDEZMA RUIZ\nCED. PFOF. 2661181" ,new Font(FontFamily.TIMES_ROMAN,10.0f,Font.NORMAL,BaseColor.BLACK));
-    		Paragraph  pag = new Paragraph(String.format("Pág. %d ", writer.getPageNumber()), new Font(Font.FontFamily.HELVETICA, 8));
+    		Paragraph  pag = new Paragraph("", new Font(Font.FontFamily.HELVETICA, 8));
     		
     		PdfPCell ce = new PdfPCell(uno);
     		PdfPCell cr = new PdfPCell(dos);
@@ -221,7 +241,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
             // write page
             PdfContentByte canvas = writer.getDirectContent();
             canvas.beginMarkedContentSequence(PdfName.ARTIFACT);
-            footer.writeSelectedRows(0, -1, 34, 100, canvas);
+            footer.writeSelectedRows(0, -1, 34, 115, canvas);
             canvas.endMarkedContentSequence();
         } catch(DocumentException de) {
             throw new ExceptionConverter(de);
