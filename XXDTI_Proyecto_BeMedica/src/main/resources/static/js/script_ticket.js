@@ -1,7 +1,6 @@
-function printPage(id)
+function printPage(id,id2)
 
 {
-   location.reload();
    var html="<html>";
    html+= document.getElementById(id).innerHTML;
 	
@@ -11,12 +10,10 @@ function printPage(id)
    printWin.document.write(html);
    printWin.document.close();
    setTimeout(function(){ printWin.print(); printWin.close(); }, 300);
-   
-//   var printWin2 = window.open('','','left=10000,top=10000,width=1,height=1,toolbar=0,scrollbars=0,status=0')
-//   printWin2.document.write(html);
-//   printWin2.document.close();
-//   setTimeout(function(){ printWin2.print(); printWin2.close(); }, 600);
-      
+     
+   setTimeout(function(){printPage2(id2);},1000)
+     
+    
 }
 
 function printPage2(id)
@@ -27,9 +24,10 @@ function printPage2(id)
 		
 	   html+="</html>";
 
-	   var printWin = window.open('http://localhost:8080/operaciones_recepcion','','left=10000,top=10000,width=1,height=1,toolbar=0,scrollbars=0,status=0');
+	   var printWin = window.open('','','left=10000,top=10000,width=1,height=1,toolbar=0,scrollbars=0,status=0');
 	   printWin.document.write(html);
 	   printWin.document.close();
+	   setTimeout(function(){ printWin.print(); printWin.close(); }, 300);
 }
 
 
@@ -57,7 +55,7 @@ switch(format){
   converted_date = month + "-" + year + "-" + date;
   break;
 case "DD-MMM-YYYY DDD":
-  converted_date = date + "-" + months[parseInt(month)-1] + "-" + year	
+  converted_date = date + "/" + months[parseInt(month)-1] + "/" + year	
   + " " + hours + ":" + minutes + ":" + seconds;
   break;
 }

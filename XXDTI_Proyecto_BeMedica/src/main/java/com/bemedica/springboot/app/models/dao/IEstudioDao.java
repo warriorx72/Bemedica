@@ -8,7 +8,8 @@ public interface IEstudioDao {
 
 	public List<Estudio> findAll();
 	public List<Estudio> findBy();
-
+	public List<Estudio> findCultivo();
+	public List<Estudio> findGabinete();
 	public void save(Estudio estudio);
 	
 	public Estudio findOne(Long id);

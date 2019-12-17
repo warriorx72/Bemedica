@@ -30,6 +30,8 @@ public class FoliosRegistradosController {
 	
 	@Autowired
 	private IOrdenVistaDao vistaOrden;
+	@Autowired
+	private IVistaOrdenDao vistaordenDao;
 	
 	@Autowired
 	private IOrdenDao OrdenDao;
@@ -60,6 +62,7 @@ public class FoliosRegistradosController {
 			model.addAttribute("feinfo", ticketDao.findFecha(id));
 			model.addAttribute("seinfo", ticketDao.findServ(id));
 			model.addAttribute("toinfo", ticketDao.findTotal(id));
+			model.addAttribute("vista_ordenes", vistaordenDao.findAll(id));
 		return "ticket";
 	}
 	
@@ -80,7 +83,7 @@ public class FoliosRegistradosController {
 		OrdenDao.save(orden);
 		model.addAttribute("titulo","Folios registrados");
 		model.addAttribute("vista", OrdenVista.findAll2());
-		return "redirect:/folios_registrados";
+		return "redirect:/operaciones_folios";
 	}
 	
 	@RequestMapping (value="/cancelar_orden/{id}",method = RequestMethod.GET)

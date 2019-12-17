@@ -21,7 +21,7 @@ public class TicketDaoImpl implements ITicketDao{
 				"UPPER(CONCAT(persona.persona_nombre,' ',persona.persona_ap,' ',persona.persona_am)) AS nombre,\r\n" + 
 				"IF(TIMESTAMPDIFF(YEAR,persona.persona_fecha_na,CURDATE())>=1,CONCAT(TIMESTAMPDIFF(YEAR,persona.persona_fecha_na,CURDATE()),' AÑO(S)'),IF(TIMESTAMPDIFF(MONTH,persona.persona_fecha_na,CURDATE())>=1,CONCAT(TIMESTAMPDIFF(MONTH,persona.persona_fecha_na,CURDATE()),' MES(ES)'),CONCAT(TIMESTAMPDIFF(DAY,persona.persona_fecha_na,CURDATE()),' DIA(S)'))),\r\n" + 
 				"LEFT(persona.persona_genero,1),\r\n" + 
-				"IF(direccion.direccion_postal <> '','DOMICILIO CONOCIDO','DOMICILIO DESCONOCIDO')\r\n" + 
+				"IF(direccion.direccion_postal <> '','DOMICILIO CONOCIDO','DOMICILIO DESCONOCIDO'),paciente.paciente_id_tex\r\n" +
 				"FROM\r\n" + 
 				"persona\r\n" + 
 				"INNER JOIN paciente ON paciente.persona_id = persona.persona_id\r\n" + 
@@ -37,7 +37,7 @@ public class TicketDaoImpl implements ITicketDao{
 		return em.createNativeQuery("SELECT\r\n" + 
 				"empleados_sucursal.empleado_id_text,\r\n" + 
 				"UPPER( CONCAT( persona.persona_nombre,' ', persona.persona_ap,' ', persona.persona_am ) ),\r\n" + 
-				"UPPER( CONCAT( p2.persona_nombre,' ', p2.persona_ap,' ', p2.persona_am ) )\r\n" + 
+				"IFNULL(UPPER( CONCAT( p2.persona_nombre,' ', p2.persona_ap,' ', p2.persona_am ) ),'A QUIEN CORRESPONA')\r\n" + 
 				"FROM\r\n" + 
 				"empleados_sucursal\r\n" + 
 				"INNER JOIN persona ON empleados_sucursal.persona_id = persona.persona_id\r\n" + 

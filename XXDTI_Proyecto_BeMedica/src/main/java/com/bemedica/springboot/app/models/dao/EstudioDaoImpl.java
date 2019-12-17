@@ -30,9 +30,21 @@ public  class EstudioDaoImpl implements IEstudioDao {
 	@Transactional
 	public List<Estudio> findBy() {
 		// TODO Auto-generated method stub
-		return em.createNativeQuery("select * from estudios where estudio_individual=1 and estudio_estatus=1").getResultList();
+		return em.createNativeQuery("select * from estudios where estudio_individual=1 and estudio_estatus=1 and estudio_tipo=1").getResultList();
+	}
+	@Override
+	@Transactional
+	public List<Estudio> findCultivo() {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("select * from estudios where estudio_tipo=2 and estudio_estatus=1").getResultList();
 	}
 	
+	@Override
+	@Transactional
+	public List<Estudio> findGabinete() {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("select * from estudios where estudio_tipo=3 and estudio_estatus=1").getResultList();
+	}
 	    
 	
 	 @Transactional

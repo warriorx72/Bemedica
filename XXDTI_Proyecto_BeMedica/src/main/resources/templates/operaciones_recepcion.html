@@ -474,7 +474,7 @@
 								th:object="${ordenestudio}" method="post">
 								<div class="form-row">
 									<input type="hidden" th:field="*{orden_id}" />
-									<div class="col-sm-3">
+									<div class="col-sm-6">
 										<label class="col-sm-12 col-form-label"></label> <select
 											id="" class="form-control" th:field="*{estudio_id}">
 											<optgroup label="Estudios">
@@ -483,18 +483,31 @@
 													th:value="${estudio[0] + 'est'}"
 													th:label="${estudio[2]  +   '   $' + estudio[4] + '  MXN '}" />
 											</optgroup>
+											<optgroup label="Perfiles">
+
+												<option th:each="perfil:${perfiles}"
+													th:value="${perfil[0] + 'per'}"
+													th:label="${perfil[1] + ' $' + perfil[5] + 'MXN'}" />
+
+											</optgroup>
 											<optgroup label="Paquetes">
 
 												<option th:each="paquete:${paquetes}"
 													th:value="${paquete[0] + 'paq'}"
 													th:label="${paquete[1] + ' $' + paquete[3] + 'MXN'}" />
 											</optgroup>
+											<optgroup label="Cultivos">
 
-											<optgroup label="Perfiles">
+												<option th:each="cul:${cultivos}"
+													th:value="${cul[0] + 'est'}"
+													th:label="${cul[2] + ' $' + cul[4] + 'MXN'}" />
 
-												<option th:each="perfil:${perfiles}"
-													th:value="${perfil[0] + 'per'}"
-													th:label="${perfil[1] + ' $' + perfil[5] + 'MXN'}" />
+											</optgroup>
+											<optgroup label="Gabinete">
+
+												<option th:each="gab:${gabinetes}"
+													th:value="${gab[0] + 'est'}"
+													th:label="${gab[2] + ' $' + gab[4] + 'MXN'}" />
 
 											</optgroup>
 										</select>
@@ -658,11 +671,11 @@
 							</table>
 							<br>
 							<!--  </form> --->
-							<form th:action="@{/ticket}" th:method="post" th:object="${orden}"
+							<form th:action="@{/ticket_orden}" th:method="post" th:object="${orden}" th:onsubmit="printPage([[${tipo_ticket}]],[[${mini_ticket}]]);"
 								>
 								<input type="hidden" th:field="*{orden_id}" />
 								<div align="right">
-									<input type="submit" class="btn btn-primary" th:onclick="printPage([[${tipo_ticket}]]);"
+									<input type="submit" class="btn btn-primary" 
 										th:value="Terminar" th:disabled="${button_terminar}">
 								</div>
 							</form>
@@ -1040,7 +1053,7 @@
 				</p>
 				<p class="centrado" style="font-size: 14px;">
 					:::::::::::::::ID PACIENTE::::::::::::::: <br> <b
-						style="font-size: 14px;">vfeghnkc8</b>
+						style="font-size: 14px;" th:each="pa: ${painfo}" th:text="${pa[4]}"></b>
 				</p>
 				<table class="centrado" style="border: hidden">
 					<thead>
@@ -1309,6 +1322,81 @@
 							<td class="fecha"></td>
 							<td class="total_right"><b>TOTAL: $</b></td>
 							<td class="total_right" th:text="${to[2]}" style="font-weight: bold;"></td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="centrado">
+					BeMedica.com
+				</p>
+			</div>
+		</div>
+	</div>
+	<div id="block7">
+		<div id="block8">
+			<link rel="stylesheet" th:href="@{/css/style_ticket.css}">
+			<div class="ticket">
+				<img class="example-print" th:src="@{/img/logo_ticket.png}">
+				<hr style="border-top: 1px solid black">
+				<table class="centrado" style="border: hidden">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="fecha_left">Fecha de impresion:</td>
+							<td class="fecha_left" id="TimeTicket2"></td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha_left">Fecha de trabajo:</td>
+							<td class="fecha_left" th:text="${fe[0]}"></td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha_left">Folio:</td>
+							<td class="fecha_left" th:text="${fe[1]}"></td>
+					</tbody>
+				</table>
+				<hr style="border-top: 1px solid black">
+				<table class="datos">
+					<thead>
+					</thead>
+					<tbody>
+						<tr>
+							
+						</tr>
+						<tr th:each="pa: ${painfo}">
+						<td><b>DATOS DEL PACIENTE:</b></td>
+							<td th:text="${pa[0]}"></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td><label>EDAD:&nbsp</label><label th:text="${pa[1]}"></label><label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSEXO:&nbsp</label><label
+								th:text="${pa[2]}"></label></td>
+						</tr>
+						<tr >
+							<td><b>MEDICO:</b> <label th:each="em: ${eminfo}"
+								th:text="${em[2]}"></label></td>
+						</tr>
+					</tbody>
+				</table>
+				<hr style="border-top: 1px solid black">
+				<div style="text-align: center"><b >ESTUDIOS SOLICITADOS</b><br></div>
+				
+				<table
+					style="border-top: 0px solid black; border-collapse: collapse;">
+					<thead>
+						<tr>
+							<th class="servicio">SERVICIO(S)</th>
+							<th class="cantidad"></th>
+							<th class="precio_unit"></th>
+							<th class="importe"></th>
+						</tr>
+					</thead>
+					<tbody th:each="se: ${seinfo}">
+						<tr>
+							<td colspan="4" class="servicio" th:text="${se[0]}"></td>
+
 						</tr>
 					</tbody>
 				</table>

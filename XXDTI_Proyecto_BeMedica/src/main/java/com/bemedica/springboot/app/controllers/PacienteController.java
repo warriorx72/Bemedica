@@ -234,6 +234,7 @@ public class PacienteController {
 		model.addAttribute("medicos", vistamedicoDao.findAll());
 		/// model.addAttribute("estudios", estudioDao.findAll());
 		model.addAttribute("estudios", estudioDao.findBy());
+		model.addAttribute("cultivos", estudioDao.findCultivo());
 
 		model.addAttribute("paquetes", paquetesDao.findBy());
 		model.addAttribute("perfiles", perfilesDao.findBy());
@@ -261,6 +262,8 @@ public class PacienteController {
 		model.addAttribute("paquetes", paquetesDao.findBy());
 		model.addAttribute("perfiles", perfilesDao.findBy());
 		model.addAttribute("ordenes", ordenDao.findAll());
+		model.addAttribute("cultivos", estudioDao.findCultivo());
+		model.addAttribute("gabinetes", estudioDao.findGabinete());
 		model.addAttribute("eminfo", ticketDao.findEmpleado(id));
 		model.addAttribute("painfo", ticketDao.findPaciente(id));
 		model.addAttribute("feinfo", ticketDao.findFecha(id));
@@ -321,10 +324,12 @@ public class PacienteController {
 		model.addAttribute("button_terminar", "false");
 		if(aux.getOrden_estatus().equals("cotizacion")) {
 		model.addAttribute("tipo_ticket", "block3");
+		model.addAttribute("mini_ticket", ""); 
 		model.addAttribute("coti", "disabled");
 		}
 		else {
 			model.addAttribute("tipo_ticket", "block1"); 
+			model.addAttribute("mini_ticket", "block7"); 
 			model.addAttribute("coti", "false");
 		}
 	
@@ -541,10 +546,12 @@ public class PacienteController {
 			Mostrar(id_o,model);
 			if(aux.getOrden_estatus().equals("cotizacion")) {
 				model.addAttribute("tipo_ticket", "block3");
+				model.addAttribute("mini_ticket", ""); 
 				model.addAttribute("coti", "disabled");
 				}
-			else {
+				else {
 					model.addAttribute("tipo_ticket", "block1"); 
+					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
 				}
 		}
@@ -625,10 +632,12 @@ public class PacienteController {
 			m.put("ordenestudio", ordenestudio);
 			if(e.getOrden_estatus().equals("cotizacion")) {
 				model.addAttribute("tipo_ticket", "block3");
+				model.addAttribute("mini_ticket", ""); 
 				model.addAttribute("coti", "disabled");
 				}
-			else {
+				else {
 					model.addAttribute("tipo_ticket", "block1"); 
+					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
 				}
 			return "/operaciones_recepcion";
@@ -720,8 +729,8 @@ public class PacienteController {
 		}
 	}
 
-	@RequestMapping(value = "/ticket", method = RequestMethod.POST)
-	public String imprimirticket(Orden orden, BindingResult result, Model model, Map<String, Object> m) {
+	@RequestMapping(value = "/ticket_orden", method = RequestMethod.POST)
+	public String ImprimirTicket(Orden orden, BindingResult result, Model model, Map<String, Object> m) {
 		esperar(4);
 		return "redirect:operaciones_recepcion";
 
@@ -738,10 +747,16 @@ public class PacienteController {
 			m.put("ordenestudio", ordenestudio);
 			m.put("orden", orden);
 			Mostrar(id,model);
-			if(orden.getOrden_estatus().equals("Cotizacion")) {
+			if(orden.getOrden_estatus().equals("cotizacion")) {
 				model.addAttribute("tipo_ticket", "block3");
+				model.addAttribute("mini_ticket", ""); 
+				model.addAttribute("coti", "disabled");
 				}
-		    else model.addAttribute("tipo_ticket", "block1");
+				else {
+					model.addAttribute("tipo_ticket", "block1"); 
+					model.addAttribute("mini_ticket", "block7"); 
+					model.addAttribute("coti", "false");
+				}
 			return "operaciones_recepcion";
 		}
 		else {
@@ -762,10 +777,16 @@ public class PacienteController {
 			m.put("ordenestudio", ordenestudio);
 			m.put("orden", orden);
 			Mostrar(id,model);
-			if(orden.getOrden_estatus().equals("Cotizacion")) {
+			if(orden.getOrden_estatus().equals("cotizacion")) {
 				model.addAttribute("tipo_ticket", "block3");
+				model.addAttribute("mini_ticket", ""); 
+				model.addAttribute("coti", "disabled");
 				}
-		    else model.addAttribute("tipo_ticket", "block1");
+				else {
+					model.addAttribute("tipo_ticket", "block1"); 
+					model.addAttribute("mini_ticket", "block7"); 
+					model.addAttribute("coti", "false");
+				}
 			return "operaciones_recepcion";
 		}
 		else {
@@ -797,10 +818,12 @@ public class PacienteController {
 		Mostrar(linea,model);
 		if(orden.getOrden_estatus().equals("cotizacion")) {
 			model.addAttribute("tipo_ticket", "block3");
+			model.addAttribute("mini_ticket", ""); 
 			model.addAttribute("coti", "disabled");
 			}
-		else {
+			else {
 				model.addAttribute("tipo_ticket", "block1"); 
+				model.addAttribute("mini_ticket", "block7"); 
 				model.addAttribute("coti", "false");
 			}
 		}
@@ -828,10 +851,12 @@ public class PacienteController {
 		Mostrar(linea,model);
 		if(orden.getOrden_estatus().equals("cotizacion")) {
 			model.addAttribute("tipo_ticket", "block3");
+			model.addAttribute("mini_ticket", ""); 
 			model.addAttribute("coti", "disabled");
 			}
-		else {
+			else {
 				model.addAttribute("tipo_ticket", "block1"); 
+				model.addAttribute("mini_ticket", "block7"); 
 				model.addAttribute("coti", "false");
 			}
 		}
