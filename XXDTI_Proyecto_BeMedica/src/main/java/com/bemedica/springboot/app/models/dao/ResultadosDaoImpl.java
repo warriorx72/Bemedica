@@ -3,8 +3,6 @@ package com.bemedica.springboot.app.models.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import org.apache.poi.ss.usermodel.Cell;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.bemedica.springboot.app.models.entity.Resultados;
@@ -79,42 +77,8 @@ public class ResultadosDaoImpl implements IResultados {
 	@Override
 	public List<Object[]> LineasOrden(Long id) {
 		
-		List<Object[]> re= em.createNativeQuery("select \r\n" + 
-				"				orden.orden_id, \r\n" + 
-				"				orden.orden_folio, \r\n" + 
-				"				perfiles.perfil_id_text ,  \r\n" + 
-				"				perfiles.perfil_nombre , \r\n" + 
-				"				orden_estudio.orden_estudio_id, \r\n" + 
-				"				orden.orden_estatus, \r\n" + 
-				"				orden_estudio.captura ,  \r\n" + 
-				"				perfiles.perfil_id , \r\n" + 
-				"				orden_estudio.tipo \r\n" + 
-				"				from orden join perfiles join orden_estudio where perfiles.perfil_id = orden_estudio.estudio_id and orden.orden_id = orden_estudio.orden_id and orden_estudio.tipo = 'perfil' \r\n" + 
-				"				and orden.orden_id ="+id+"\r\n" + 
-				"				union select  \r\n" + 
-				"				orden.orden_id,\r\n" + 
-				"				orden.orden_folio, \r\n" + 
-				"				paquetes.paquete_id_text, \r\n" + 
-				"				paquetes.paquete_nombre, \r\n" + 
-				"				orden_estudio.orden_estudio_id, \r\n" + 
-				"				orden.orden_estatus, \r\n" + 
-				"				orden_estudio.captura, \r\n" + 
-				"				paquetes.paquete_id, \r\n" + 
-				"				orden_estudio.tipo \r\n" + 
-				"				from orden join paquetes join orden_estudio where paquetes.paquete_id = orden_estudio.estudio_id and orden.orden_id = orden_estudio.orden_id and orden_estudio.tipo = 'paquete'              \r\n" + 
-				"				and orden.orden_id ="+id+"\r\n" + 
-				"                union select \r\n" + 
-				"				orden.orden_id , \r\n" + 
-				"				orden.orden_folio, \r\n" + 
-				"				estudios.estudio_id_text,\r\n" + 
-				"				estudios.estudio_nombre, \r\n" + 
-				"				orden_estudio.orden_estudio_id, \r\n" + 
-				"				orden.orden_estatus , \r\n" + 
-				"				orden_estudio.captura,\r\n" + 
-				"				estudios.estudio_id ,  \r\n" + 
-				"				orden_estudio.tipo\r\n" + 
-				"				from orden join estudios join orden_estudio where estudios.estudio_id = orden_estudio.estudio_id and orden.orden_id = orden_estudio.orden_id and orden_estudio.tipo = 'estudio'\r\n" + 
-				"				and orden.orden_id="+id).getResultList();
+		List<Object[]> re;
+		re= em.createNativeQuery("{call LineasOrden ("+id+")}").getResultList(); 
 		return  re;
 			}
 
@@ -137,15 +101,18 @@ public class ResultadosDaoImpl implements IResultados {
 	@Transactional(readOnly=true)
 	@Override
 	public List<Object[]> Perfil(Long id) {
-		List<Object[]> re= em.createNativeQuery("select "
-				+ "estudios.estudio_id,"
-				+ "estudios.estudio_nombre, "
-				+ "estudios.estudio_unidades_res "
-				+ "from estudios, perfiles_estudios \r\n" + 
+		List<Object[]> re= em.createNativeQuery("select estudios.estudio_id,estudios.estudio_nombre, estudios.estudio_unidades_res, 'estudio' from estudios, perfiles_estudios \r\n" + 
 				"where \r\n" + 
 				"1=1 \r\n" + 
 				"and perfiles_estudios.estudio_id= estudios.estudio_id \r\n" + 
-				"and perfiles_estudios.perfil_id="+id).getResultList();
+				"and perfiles_estudios.perfil_id="+id+"\r\n" + 
+				"UNION\r\n" + 
+				"select estudios.estudio_id,estudios.estudio_nombre, estudios.estudio_unidades_res , 'cultivo'\r\n" + 
+				"from estudios, perfiles_cultivos\r\n" + 
+				"where \r\n" + 
+				"1=1 \r\n" + 
+				"and perfiles_cultivos.cultivo_id= estudios.estudio_id\r\n" + 
+				"and perfiles_cultivos.perfil_id="+id).getResultList();
 		return  re;
 	}
 
@@ -262,6 +229,24 @@ public class ResultadosDaoImpl implements IResultados {
 	@Override
 	public void UpdateImp(Long id, int con) {
 		 em.createNativeQuery("call UpdateImp ("+id+","+con+")").executeUpdate();
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	@Override
+	public List<Resultados> findAllEstudio(Long id) {
+		// TODO Auto-generated method stub
+		return em.createQuery ("from Resultados where tipo =1 and orden_estudio_id="+id).getResultList();
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	@Override
+	public List<Resultados> findAllCultivo(Long id) {
+		// TODO Auto-generated method stub
+		return em.createQuery ("from Resultados where tipo= 2 and orden_estudio_id="+id).getResultList();
 	}
 
 }

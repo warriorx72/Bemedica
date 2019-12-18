@@ -37,5 +37,9 @@ public interface IResultados {
 	public String NombrePerfil(Long id);
 	
 	public void UpdateImp(Long id,int con);
+	
+	public List<Resultados> findAllEstudio( Long id );
+	
+	public List<Resultados> findAllCultivo( Long id );
 
 }

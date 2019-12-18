@@ -44,6 +44,9 @@ public class Resultados implements Serializable{
 	@Column(name="perfil")
 	private String  perfil; 
 	
+	@Column(name="tipo")
+	private String  tipo;
+	
 	@Column(name="impresion")
 	private Boolean Impresion; 
 		
@@ -132,6 +135,13 @@ public class Resultados implements Serializable{
 		this.perfil = perfil;
 	}
 	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 	
 
 }

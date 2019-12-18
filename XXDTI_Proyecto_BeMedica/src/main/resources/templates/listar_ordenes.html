@@ -277,6 +277,122 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="card">
+				<div class="card-header" id="headingOne">
+					<h2 class="mb-0 form-row" style="font-size: 20px;">Captura de
+						Resultados Cultivos</h2>
+				</div>
+
+				<div class="card-body">
+					<!--Inicia código de tabla-->
+
+					<div class="col-sm-12">
+						<div class="card mb-3">
+
+							<div class="card-header">
+								<div class="table-responsive">
+
+									<table class="table table-bordered" width="100%"
+										cellspacing="0">
+										<thead>
+											<tr class="table-primary">
+												<th>Nombre</th>
+												<th>Resultado</th>
+												<th>Comentarios</th>
+												<th>Validar</th>
+												<th>Imprimir</th>
+
+											</tr>
+										</thead>
+										<tbody>
+
+
+											<tr th:each="r: ${resulCultivo}">
+												<form
+													th:action="@{/guardar_resultado_linea/}+${id}+'/'+${lo}"
+													th:id="${r.ResultadoId}" th:name="${r.ResultadoId}"
+													method="post" th:object="${aux}">
+
+													<td th:if="${r.perfil != ''}"
+														th:utext="${r.perfil}+':'+'<br />'+${r.EstudioNombre}">
+													</td>
+
+													<td th:if="${r.perfil == ''}" th:utext="${r.EstudioNombre}">
+													</td>
+
+													<td>	
+														<select
+															class="form-control form-control-sm" required>
+															<option value="Resultado..."></option>
+															<option value="Masculino">Masculino</option>
+															<option value="Femenino">Femenino</option>
+														</select>
+														
+												
+													</td>
+
+
+													<td><input type="text" name="Comentario"
+														th:placeholder="${r.Comentario}" />
+														</td>
+
+													<td>
+												   <!-- <input type="checkbox"
+													th:if="${r.Validacion == '1'}" checked value="0"
+													th:onclick="'post_form(' + ${r.ResultadoId} + ');'">
+
+													<input type="checkbox" th:if="${r.Validacion == '0'}"
+													value="1"
+													th:onclick="'post_form(' + ${r.ResultadoId} + ');'"> -->
+													
+
+												<input type="submit" class="btn btn-primary" th:if="${r.Validacion == '1'}"  value="Validado" />
+												<input type="submit" class="btn btn-primary" th:if="${r.Validacion == '0'}"  value="No validado" />	
+												</td>
+													<input type="hidden" name="ResultadoId"
+														th:value="${r.ResultadoId}" /> <input type="hidden"
+														name="OrdenEstudioId" th:value="${r.OrdenEstudioId}" /> <input
+														type="hidden" name="estudio_id" th:value="${r.estudio_id}" />
+
+													<input type="hidden" name="EstudioNombre"
+														th:value="${r.EstudioNombre}" /> <input type="hidden"
+														name="perfil" th:value="${r.perfil}" />
+
+												</form>
+												<td>
+												<form th:action="@{/estatus_imp}"
+														method="post" th:id="${r.ResultadoId}+'2'"
+														th:name="${r.ResultadoId}+'2'">
+														<input type="checkbox" th:if="${r.Impresion == true}"
+															checked value="0"
+															th:onclick="'post_form2(' + ${r.ResultadoId}+'2'+ ');'">
+
+														<input type="checkbox" th:if="${r.Impresion == false}"
+															value="1"
+															th:onclick="'post_form2(' + ${r.ResultadoId}+'2'+ ');'">
+
+
+														<input type="hidden" name="aux"
+															th:value="${r.Impresion}" />
+														<input type="hidden" name="id" th:value="${id}" />
+														<input type="hidden" name="id_res" th:value="${r.ResultadoId}" />
+														<input type="hidden" name="lo" th:value="${lo}" />
+
+													</form></td>
+											</tr>
+
+										</tbody>
+									</table>
+
+
+
+									<!--Termina código de tabla-->
+								</div>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 

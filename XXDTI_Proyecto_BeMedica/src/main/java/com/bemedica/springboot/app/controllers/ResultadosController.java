@@ -122,6 +122,7 @@ public class ResultadosController {
 		Resultados auxr = new Resultados();
 		m.addAttribute("aux", auxr);
 		if (ResultadosDao.findAll(lo) == null || ResultadosDao.findAll(lo).isEmpty()) {
+			
 			if (tipo.equals("estudio")) {
 				List<Object[]> aux = ResultadosDao.Estudios(i);
 				Resultados resul = new Resultados();
@@ -139,6 +140,7 @@ public class ResultadosController {
 					resul.setEstudioNombre(a[1].toString());
 					resul.setPerfil(a[1].toString());
 					resul.setImpresion(true);
+					resul.setTipo("1");
 					ResultadosDao.save(resul);
 				}
 			}
@@ -146,20 +148,44 @@ public class ResultadosController {
 				List<Object[]> aux = ResultadosDao.Perfil(i);
 				String nombre = ResultadosDao.NombrePerfil(i);
 				for (Object[] a : aux) {
-					Resultados resul = new Resultados();
-					resul.setOrdenEstudioId(lo);
-					if (a[2].toString().equals("Cualitativo")) {
+					
+					if ( a[3].toString().equals("estudio")) {
+						
+						Resultados resul = new Resultados();
+						resul.setOrdenEstudioId(lo);
+						if (a[2].toString().equals("Cualitativo")) {
+							resul.setResultadoCuali("Resultado...");
+						}
+						if (a[2].toString().equals("Cuantitativo")) {
+							resul.setResultadoCuanti("0.00");
+						}
+						resul.setValidacion("0");
+						resul.setEstudio_id(Long.valueOf(a[0].toString()));
+						resul.setEstudioNombre(a[1].toString());
+						resul.setPerfil(nombre);
+						resul.setImpresion(true);
+						resul.setTipo("1");
+						ResultadosDao.save(resul);
+					}
+					
+					
+					if ( a[3].toString().equals("cultivo")) {
+						
+						Resultados resul = new Resultados();
+						resul.setOrdenEstudioId(lo);
+					
 						resul.setResultadoCuali("Resultado...");
+						
+						resul.setValidacion("0");
+						resul.setEstudio_id(Long.valueOf(a[0].toString()));
+						resul.setEstudioNombre(a[1].toString());
+						resul.setPerfil(nombre);
+						resul.setImpresion(true);
+						resul.setTipo("2");
+						ResultadosDao.save(resul);
 					}
-					if (a[2].toString().equals("Cuantitativo")) {
-						resul.setResultadoCuanti("0.00");
-					}
-					resul.setValidacion("0");
-					resul.setEstudio_id(Long.valueOf(a[0].toString()));
-					resul.setEstudioNombre(a[1].toString());
-					resul.setPerfil(nombre);
-					resul.setImpresion(true);
-					ResultadosDao.save(resul);
+					
+				
 				}
 			}
 			if (tipo.equals("paquete")) {
@@ -184,6 +210,7 @@ public class ResultadosController {
 						resul.setEstudio_id(Long.valueOf(a[0].toString()));
 						resul.setEstudioNombre(a[1].toString());
 						resul.setImpresion(true);
+						resul.setTipo("1");
 						ResultadosDao.save(resul);
 
 					} else {
@@ -203,15 +230,52 @@ public class ResultadosController {
 							resul2.setEstudio_id(Long.valueOf(a2[0].toString()));
 							resul2.setEstudioNombre(a2[1].toString());
 							resul2.setPerfil(nombre2);
-							resul.setImpresion(true);
+							resul2.setImpresion(true);
+							resul2.setTipo("1");
 							ResultadosDao.save(resul2);
 						}
 
 					}
 				}
 			}
+			
+			if (tipo.equals("cultivo")) {
+				List<Object[]> aux = ResultadosDao.Estudios(i);
+				Resultados resul = new Resultados();
+				for (Object[] a : aux) {
+					resul.setOrdenEstudioId(lo);
+					resul.setResultadoCuali("Resultado...");
+					resul.setValidacion("0");
+					resul.setEstudio_id(Long.valueOf(a[0].toString()));
+					resul.setEstudioNombre(a[1].toString());
+					resul.setPerfil(a[1].toString());
+					resul.setImpresion(true);
+					resul.setTipo("2");
+					ResultadosDao.save(resul);
+				}
+			}
+			
+			if (tipo.equals("gabinete")) {
+				List<Object[]> aux = ResultadosDao.Estudios(i);
+				Resultados resul = new Resultados();
+				for (Object[] a : aux) {
+					resul.setOrdenEstudioId(lo);
+					
+					resul.setResultadoCuali("Resultado...");
+					
+					resul.setResultadoCuanti("0.00");
+					resul.setValidacion("0");
+					resul.setEstudio_id(Long.valueOf(a[0].toString()));
+					resul.setEstudioNombre(a[1].toString());
+					resul.setPerfil(a[1].toString());
+					resul.setImpresion(true);
+					resul.setTipo("3");
+					ResultadosDao.save(resul);
+				}
+			}
 		}
-		m.addAttribute("resul", ResultadosDao.findAll(lo));
+		m.addAttribute("resul", ResultadosDao.findAllEstudio(lo));
+		m.addAttribute("resulCultivo", ResultadosDao.findAllCultivo(lo));
 		m.addAttribute("paciente", ResultadosDao.PacienteOrden(id));
 		m.addAttribute("lineas", ResultadosDao.LineasOrden(id));
 		return "listar_ordenes";
@@ -442,6 +506,7 @@ public class ResultadosController {
 				}
 			}
 			if (lo[8].toString().equals("perfil")) {
+				documento.newPage();
 				Paragraph perfilTitulo;
 				Paragraph perfilTituloR;
 				Paragraph perfilTituloE;
@@ -588,7 +653,7 @@ public class ResultadosController {
 				
 			}
 			if (lo[8].toString().equals("paquete")) {
-				
+				documento.newPage();
 				int contadorTitulo=0;
 				Paragraph paqueteTitulo;
 				Paragraph paqueteTituloR;
