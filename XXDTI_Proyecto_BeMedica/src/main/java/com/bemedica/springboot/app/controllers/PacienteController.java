@@ -264,6 +264,7 @@ public class PacienteController {
 		model.addAttribute("ordenes", ordenDao.findAll());
 		model.addAttribute("cultivos", estudioDao.findCultivo());
 		model.addAttribute("gabinetes", estudioDao.findGabinete());
+		model.addAttribute("antibiogramas", estudioDao.findAntibiograma());
 		model.addAttribute("eminfo", ticketDao.findEmpleado(id));
 		model.addAttribute("painfo", ticketDao.findPaciente(id));
 		model.addAttribute("feinfo", ticketDao.findFecha(id));
@@ -307,6 +308,24 @@ public class PacienteController {
 			for (String a : id)
 				ordenestudio.setEstudio_id(a);
 			ordenestudio.setTipo("perfil");
+		}
+		if (ordenestudio.getEstudio_id().toString().contains("cul")) {
+			String[] id = ordenestudio.getEstudio_id().split("cul");
+			for (String a : id)
+				ordenestudio.setEstudio_id(a);
+			ordenestudio.setTipo("cultivo");
+		}
+		if (ordenestudio.getEstudio_id().toString().contains("gab")) {
+			String[] id = ordenestudio.getEstudio_id().split("gab");
+			for (String a : id)
+				ordenestudio.setEstudio_id(a);
+			ordenestudio.setTipo("gabinete");
+		}
+		if (ordenestudio.getEstudio_id().toString().contains("ant")) {
+			String[] id = ordenestudio.getEstudio_id().split("ant");
+			for (String a : id)
+				ordenestudio.setEstudio_id(a);
+			ordenestudio.setTipo("antibiograma");
 		}
 
 		/// if(ordenestudio.getEstudio_id()==estudio.estudio_id+2) {
@@ -617,7 +636,7 @@ public class PacienteController {
 		Orden e =null;
 
 		e = ordenDao.findOne(id);
-		if (id > 1) {
+		if (id > 0) {
 
 			// if(pac_id!=null) {
 			// e.setPaciente_id(pac_id);
@@ -640,7 +659,7 @@ public class PacienteController {
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
 				}
-			return "/operaciones_recepcion";
+			return "operaciones_recepcion";
 		} else {
 			return "redirect:/operaciones_recepcion";
 		}

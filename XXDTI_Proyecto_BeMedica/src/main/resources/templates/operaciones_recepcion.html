@@ -499,15 +499,22 @@
 											<optgroup label="Cultivos">
 
 												<option th:each="cul:${cultivos}"
-													th:value="${cul[0] + 'est'}"
+													th:value="${cul[0] + 'cul'}"
 													th:label="${cul[2] + ' $' + cul[4] + 'MXN'}" />
 
 											</optgroup>
 											<optgroup label="Gabinete">
 
 												<option th:each="gab:${gabinetes}"
-													th:value="${gab[0] + 'est'}"
+													th:value="${gab[0] + 'gab'}"
 													th:label="${gab[2] + ' $' + gab[4] + 'MXN'}" />
+
+											</optgroup>
+											<optgroup label="Antibiograma">
+
+												<option th:each="ant:${antibiogramas}"
+													th:value="${ant[0] + 'ant'}"
+													th:label="${ant[1] + '$' + ' 0' + 'MXN'}" />
 
 											</optgroup>
 										</select>
@@ -1279,8 +1286,7 @@
 					</tbody>
 				</table>
 				<hr style="border-top: 1px solid black">
-				<label th:each="em: ${eminfo}"
-					th:text="${em[2]}"></label><b>SERVICIO(S)
+				 <b>SERVICIO(S)
 					SOLICITADO(S):</b><br> <br>
 				<table
 					style="border-top: 1px solid black; border-collapse: collapse;">

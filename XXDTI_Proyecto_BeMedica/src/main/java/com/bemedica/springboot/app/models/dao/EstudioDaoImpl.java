@@ -45,6 +45,12 @@ public  class EstudioDaoImpl implements IEstudioDao {
 		// TODO Auto-generated method stub
 		return em.createNativeQuery("select * from estudios where estudio_tipo=3 and estudio_estatus=1").getResultList();
 	}
+	@Override
+	@Transactional
+	public List<Estudio> findAntibiograma() {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("SELECT * FROM `antibiogramas` WHERE `anti_estatus`=1").getResultList();
+	}
 	    
 	
 	 @Transactional
