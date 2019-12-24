@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import com.bemedica.springboot.app.models.dao.IAntibiogramasDao;
 import com.bemedica.springboot.app.models.dao.IResultados;
+import com.bemedica.springboot.app.models.dao.IResultadosAntiDao;
 import com.bemedica.springboot.app.models.entity.Resultados;
+import com.bemedica.springboot.app.models.entity.ResultadosAnti;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -32,7 +34,6 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -46,7 +47,13 @@ public class ResultadosController {
 	@Autowired
 	@Qualifier("ResultadosDaoJPA")
 	private IResultados ResultadosDao;
-
+	
+	@Autowired
+	private IAntibiogramasDao AntibiogramasDao;
+	
+	@Autowired
+	private IResultadosAntiDao ResultadosAntiDao;
+	
 	@Autowired
 	private ServletContext context;
 
@@ -101,16 +108,144 @@ public class ResultadosController {
 		if (i == aux.size()) {
 			ResultadosDao.Actualizacion_linea(auxLineas);
 		}
-		m.addAttribute("resul", ResultadosDao.findAll(lo));
+		m.addAttribute("resul", ResultadosDao.findAllEstudio(lo));
 		m.addAttribute("paciente", ResultadosDao.PacienteOrden(id));
 		m.addAttribute("lineas", ResultadosDao.LineasOrden(id));
-
+		m.addAttribute("resulCultivo", ResultadosDao.findAllCultivo(lo));
+		m.addAttribute("antibiograma", AntibiogramasDao.findAll()); 
 		if (ResultadosDao.LineasOrden(id).size() == ResultadosDao.ValidarOrden(id).size()) {
 			System.out.println("la condicion se cumpple ");
 			ResultadosDao.Actualizacion_Orden(id);
 		}
 
 		return "listar_ordenes";
+	}
+	
+	
+	
+	@RequestMapping(value = "/guardar_resultado_linea_cultivo/{id}/{lo}", method = RequestMethod.POST)
+	public String guardarCultivos(
+			@PathVariable(value = "id") Long id, @PathVariable(value = "lo") Long lo,@Valid Resultados resultado, Map<String, Object> model, Model m, @RequestParam(value = "antibiograma", defaultValue="0") Long anti){
+		
+		if (resultado.getResultadoCuanti().equals("0.0000")) {
+			m.addAttribute("id", id);
+			resultado.setValidacion("1");
+			Long auxLineas = resultado.getOrdenEstudioId();
+			int i = 0;
+			resultado.setImpresion(true);
+			resultado.setResultadoCuali("Negativo");
+			resultado.setAntiIdR(null);
+			ResultadosDao.save(resultado);
+
+			List<String> aux = ResultadosDao.ValidarLinea(auxLineas);
+			for (String a : aux) {
+				if (a.equals("Validado")) {
+					i++;
+				}
+			}
+			if (i == aux.size()) {
+				ResultadosDao.Actualizacion_linea(auxLineas);
+			}
+			if (ResultadosDao.LineasOrden(id).size() == ResultadosDao.ValidarOrden(id).size()) {
+				ResultadosDao.Actualizacion_Orden(id);
+			}
+	
+		}
+		if (resultado.getResultadoCuanti().equals("1.0000")) {
+			
+			
+			m.addAttribute("id", id);
+			resultado.setValidacion("1");
+			Long auxLineas = resultado.getOrdenEstudioId();
+			int i = 0;
+			resultado.setImpresion(true);
+			resultado.setAntiIdR(anti);
+			ResultadosDao.save(resultado);
+
+			List<String> aux = ResultadosDao.ValidarLinea(auxLineas);
+			for (String a : aux) {
+				if (a.equals("Validado")) {
+					i++;
+				}
+			}
+			if (i == aux.size()) {
+				ResultadosDao.Actualizacion_linea(auxLineas);
+			}
+			if (ResultadosDao.LineasOrden(id).size() == ResultadosDao.ValidarOrden(id).size()) {
+				ResultadosDao.Actualizacion_Orden(id);
+			}
+			
+			
+			if (ResultadosAntiDao.verficarExistencia(resultado.getResultadoId()) == null || ResultadosAntiDao.verficarExistencia(resultado.getResultadoId()).isEmpty()) 
+			{
+				List<Object []> auxAnti = ResultadosAntiDao.antibioticos(anti);
+				 
+				for (Object [] ant : auxAnti) {
+					ResultadosAnti resAnti = new ResultadosAnti ();
+					
+					//resultado_id
+					resAnti.setResultadoId(resultado.getResultadoId());
+					
+					// anti_id
+					resAnti.setAntiId(anti);
+					
+					// resultado 
+					resAnti.setResultado("1");
+					
+					// antibiotico_id
+					resAnti.setAntibioticoId(  Long.valueOf(ant[0].toString()));
+					
+					// nombre antibiotico
+					resAnti.setAntibioticoNombre(ant[1].toString());
+					
+					ResultadosAntiDao.save(resAnti);
+				}
+				
+				
+
+			}
+			m.addAttribute("resulCultivo_anti", ResultadosAntiDao.verficarExistencia(resultado.getResultadoId()));
+			
+			m.addAttribute("Nombre_Antibiograma", ResultadosAntiDao.AntibiogramaNombre(resultado.getResultadoId()));
+			
+			
+		}
+		m.addAttribute("paciente", ResultadosDao.PacienteOrden(id));
+		m.addAttribute("lineas", ResultadosDao.LineasOrden(id));
+		m.addAttribute("resulCultivo", ResultadosDao.findAllCultivo(lo));
+		m.addAttribute("antibiograma", AntibiogramasDao.findAll());
+		m.addAttribute("resul", ResultadosDao.findAllEstudio(lo));
+		
+	
+		return "listar_ordenes";
+			
+	}
+	
+	
+	
+	@RequestMapping(value = "/guardar_resultado_linea_cultivo_anti/{id}/{lo}", method = RequestMethod.POST)
+	public String guardarCultivos_Anti(
+			@PathVariable(value = "id") Long id, 
+			@PathVariable(value = "lo") Long lo,
+			@Valid ResultadosAnti resultado, 
+			Map<String, Object> model, 
+			Model m){
+		
+			m.addAttribute("id", id);
+			
+
+			ResultadosAntiDao.save(resultado);
+
+
+			m.addAttribute("paciente", ResultadosDao.PacienteOrden(id));
+			m.addAttribute("lineas", ResultadosDao.LineasOrden(id));
+			m.addAttribute("resulCultivo", ResultadosDao.findAllCultivo(lo));
+			m.addAttribute("antibiograma", AntibiogramasDao.findAll());
+			m.addAttribute("resul", ResultadosDao.findAllEstudio(lo));
+			m.addAttribute("resulCultivo_anti", ResultadosAntiDao.verficarExistencia(resultado.getResultadoId()));
+			return "listar_ordenes";
+					
+			
 	}
 
 	@RequestMapping(value = "/agregar_resultado/{id}/{i}/{t}/{lo}", method = RequestMethod.GET)
@@ -133,7 +268,6 @@ public class ResultadosController {
 					}
 					if (a[2].toString().equals("Cuantitativo")) {
 						resul.setResultadoCuanti("0.00");
-						m.addAttribute("con", "cuan");
 					}
 					resul.setValidacion("0");
 					resul.setEstudio_id(Long.valueOf(a[0].toString()));
@@ -174,7 +308,9 @@ public class ResultadosController {
 						Resultados resul = new Resultados();
 						resul.setOrdenEstudioId(lo);
 					
-						resul.setResultadoCuali("Resultado...");
+						
+						
+						resul.setResultadoCuanti("0.0000");
 						
 						resul.setValidacion("0");
 						resul.setEstudio_id(Long.valueOf(a[0].toString()));
@@ -192,7 +328,11 @@ public class ResultadosController {
 				List<Object[]> aux = ResultadosDao.Paquete(i);
 				for (Object[] a : aux) {
 					Resultados resul = new Resultados();
-					if (a[3].equals("null")) {
+					
+					
+					
+					// en el paquete hay estudios solos 
+					if (a[3].equals("null") &&  a[4].equals("aux")) {
 						resul.setOrdenEstudioId(lo);
 						if (a[2].toString().equals("Cualitativo")) {
 							resul.setResultadoCuali("Resultado...");
@@ -213,27 +353,67 @@ public class ResultadosController {
 						resul.setTipo("1");
 						ResultadosDao.save(resul);
 
-					} else {
+					} 
+					
+					// perfiles dentro del paquete
+					if (!a[3].equals("null") &&  !a[4].equals("cultivo")  &&  !a[4].equals("aux")) {
 
 						List<Object[]> aux2 = ResultadosDao.Perfil((Long.valueOf(a[3].toString())));
 						String nombre2 = ResultadosDao.NombrePerfil((Long.valueOf(a[3].toString())));
 						for (Object[] a2 : aux2) {
-							Resultados resul2 = new Resultados();
-							resul2.setOrdenEstudioId(lo);
-							if (a2[2].toString().equals("Cualitativo")) {
-								resul2.setResultadoCuali("Resultado...");
+							
+							if ( a2[3].toString().equals("estudio")) {
+								Resultados resul2 = new Resultados();
+								resul2.setOrdenEstudioId(lo);
+								if (a2[2].toString().equals("Cualitativo")) {
+									resul2.setResultadoCuali("Resultado...");
+								}
+								if (a2[2].toString().equals("Cuantitativo")) {
+									resul2.setResultadoCuanti("0.00");
+								}
+								resul2.setValidacion("0");
+								resul2.setEstudio_id(Long.valueOf(a2[0].toString()));
+								resul2.setEstudioNombre(a2[1].toString());
+								resul2.setPerfil(nombre2);
+								resul2.setImpresion(true);
+								resul2.setTipo("1");
+								ResultadosDao.save(resul2);
+								
 							}
-							if (a2[2].toString().equals("Cuantitativo")) {
-								resul2.setResultadoCuanti("0.00");
+							
+							if ( a2[3].toString().equals("cultivo")) {
+								
+								Resultados resul2 = new Resultados();
+								resul2.setOrdenEstudioId(lo);
+								resul.setResultadoCuanti("0.0000");
+								resul2.setValidacion("0");
+								resul2.setEstudio_id(Long.valueOf(a2[0].toString()));
+								resul2.setEstudioNombre(a2[1].toString());
+								resul2.setPerfil(nombre2);
+								resul2.setImpresion(true);
+								resul2.setTipo("2");
+								ResultadosDao.save(resul2);
+							
+								
 							}
-							resul2.setValidacion("0");
-							resul2.setEstudio_id(Long.valueOf(a2[0].toString()));
-							resul2.setEstudioNombre(a2[1].toString());
-							resul2.setPerfil(nombre2);
-							resul2.setImpresion(true);
-							resul2.setTipo("1");
-							ResultadosDao.save(resul2);
+							
 						}
+
+					}
+					
+					// existe un cultiivo individual en el paquete 
+					if (a[3].equals("null") && a[4].equals("cultivo")) {
+						resul.setOrdenEstudioId(lo);
+						
+						resul.setResultadoCuanti("0.0000");
+						
+						resul.setValidacion("0");
+						resul.setEstudio_id(Long.valueOf(a[0].toString()));
+						resul.setEstudioNombre(a[1].toString());
+						resul.setPerfil(a[1].toString());
+						resul.setImpresion(true);
+						resul.setTipo("2");
+						ResultadosDao.save(resul);
 
 					}
 				}
@@ -244,7 +424,7 @@ public class ResultadosController {
 				Resultados resul = new Resultados();
 				for (Object[] a : aux) {
 					resul.setOrdenEstudioId(lo);
-					resul.setResultadoCuali("Resultado...");
+					resul.setResultadoCuanti("0.0000");
 					resul.setValidacion("0");
 					resul.setEstudio_id(Long.valueOf(a[0].toString()));
 					resul.setEstudioNombre(a[1].toString());
@@ -276,16 +456,12 @@ public class ResultadosController {
 		}
 		m.addAttribute("resul", ResultadosDao.findAllEstudio(lo));
 		m.addAttribute("resulCultivo", ResultadosDao.findAllCultivo(lo));
+		m.addAttribute("antibiograma", AntibiogramasDao.findAll());
 		m.addAttribute("paciente", ResultadosDao.PacienteOrden(id));
 		m.addAttribute("lineas", ResultadosDao.LineasOrden(id));
 		return "listar_ordenes";
 	}
 
-	@RequestMapping(value = "/ayuda", method = RequestMethod.GET)
-	public String ayuda(Map<String, Object> model, Model m) {
-
-		return "ayuda";
-	}
 
 	@RequestMapping(value = "/descargar_resultados/{id}")
 	public void listaar(@PathVariable(value = "id") Long id, Model model, HttpServletRequest request,

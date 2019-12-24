@@ -49,6 +49,10 @@ public class Resultados implements Serializable{
 	
 	@Column(name="impresion")
 	private Boolean Impresion; 
+	
+	
+	@Column(name="antibiograma_id")
+	private Long AntiIdR; 
 		
 	public Boolean getImpresion() {
 		return Impresion;
@@ -142,6 +146,18 @@ public class Resultados implements Serializable{
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+
+	public Long getAntiIdR() {
+		return AntiIdR;
+	}
+
+	public void setAntiIdR(Long antiIdR) {
+		AntiIdR = antiIdR;
+	}
+
+	
+	
+	
 	
 
 }

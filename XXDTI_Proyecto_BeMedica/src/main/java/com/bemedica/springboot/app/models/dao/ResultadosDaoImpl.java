@@ -134,14 +134,14 @@ public class ResultadosDaoImpl implements IResultados {
 				"WHERE\r\n" + 
 				"	1 = 1 \r\n" + 
 				"	AND paquetes_estudios.estudio_id = estudios.estudio_id \r\n" + 
-				"	AND paquetes_estudios.paquete_id = "+id+
-				" UNION ALL\r\n" + 
+				"	AND paquetes_estudios.paquete_id = "+id+" "
+						+ "UNION ALL\r\n" + 
 				"SELECT\r\n" + 
 				"	estudios.estudio_id,\r\n" + 
 				"	estudios.estudio_nombre,\r\n" + 
 				"	estudios.estudio_unidades_res,\r\n" + 
-				"	perfiles.perfil_id, \r\n" +
-				"	perfiles.perfil_nombre\r\n" +
+				"	perfiles.perfil_id, \r\n" + 
+				"	perfiles.perfil_nombre\r\n" + 
 				"FROM\r\n" + 
 				"	estudios,\r\n" + 
 				"	paquetes_perfiles,\r\n" + 
@@ -154,7 +154,21 @@ public class ResultadosDaoImpl implements IResultados {
 				"	AND perfiles_estudios.estudio_id = estudios.estudio_id \r\n" + 
 				"	AND paquetes_perfiles.paquete_id ="+id+"\r\n" + 
 				"GROUP BY\r\n" + 
-				"	perfiles.perfil_id ").getResultList();
+				"	perfiles.perfil_id\r\n" + 
+				"    UNION\r\n" + 
+				"    SELECT\r\n" + 
+				"	estudios.estudio_id,\r\n" + 
+				"	estudios.estudio_nombre,\r\n" + 
+				"	estudios.estudio_unidades_res,\r\n" + 
+				"	'null', \r\n" + 
+				"	'cultivo' \r\n" + 
+				"FROM\r\n" + 
+				"	estudios,\r\n" + 
+				"	paquetes_cultivos \r\n" + 
+				"WHERE\r\n" + 
+				"	1 = 1 \r\n" + 
+				"    and paquetes_cultivos.cultivo_id=estudios.estudio_id\r\n" + 
+				"    and paquetes_cultivos.paquete_id="+id).getResultList();
 		return  re;
 	}
 
