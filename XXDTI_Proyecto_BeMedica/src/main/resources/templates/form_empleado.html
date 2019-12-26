@@ -270,7 +270,7 @@
 									<div class="form-group col-md-3">
 										<label for="inputFecha_nac" class="col-form-label-sm mb-0">Número Ext:</label>
 										<input type="text"   th:field="${direccion.DireccionNumeroExt}" 
-											class="form-control form-control-sm" required pattern="[0-9]{1,5}"/>
+											class="form-control form-control-sm" pattern="[0-9]{1,5}"/>
 											
 									</div>
 									
@@ -304,7 +304,7 @@
 									<div class="form-group col-md-3">
 										<label for="inputCel" class="col-form-label-sm mb-0">Celular</label>
 										<input type="text" th:field="${persona.PersonaTelCel}"  pattern="[0-9]{10}"
-											class="form-control form-control-sm" id="inputCel" required />
+											class="form-control form-control-sm" id="inputCel"  />
 									</div>
 								</div>
 
@@ -343,7 +343,7 @@
 										<label for="inputEmail" class="col-form-label-sm mb-0">Numero
 											afiliacion</label> <input type="text" pattern="[0-9]{11}"
 											th:field="${empleadosSucursal.AfiliacionImss}" 
-											class="form-control form-control-sm" id="inputEmail" required  />
+											class="form-control form-control-sm" id="inputEmail"   />
 									</div>
 									
 										<div class="form-group col-md-3">

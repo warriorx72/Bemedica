@@ -10,7 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;
 import com.bemedica.springboot.app.models.dao.IOrdenDao;
 import com.bemedica.springboot.app.models.dao.IOrdenVistaDao;
 import com.bemedica.springboot.app.models.dao.IResultados;
@@ -69,14 +70,18 @@ public class FoliosRegistradosController {
 	
 	@RequestMapping (value="/liquidar_orden/{id}",method = RequestMethod.GET)
 	public String liquidarOrden (Model model, @PathVariable (value="id") Long id) {
+		   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		   LocalDateTime now = LocalDateTime.now();  
 		Orden orden ;
 		orden=OrdenDao.findOne(id);
 		if (Double.parseDouble(orden.getPago_inicial()) == 0) {
 			orden.setPago_final(orden.getMonto());
+			orden.setFecha_liquidacion(dtf.format(now));
 			//orden.setOrden_estatus("Pagado");
 		}
 		else {
 			orden.setPago_final(String.valueOf( Double.parseDouble(orden.getMonto())-Double.parseDouble(orden.getPago_inicial())));
+			orden.setFecha_liquidacion(dtf.format(now));		
 			//orden.setOrden_estatus("Pagado");
 		}
 		

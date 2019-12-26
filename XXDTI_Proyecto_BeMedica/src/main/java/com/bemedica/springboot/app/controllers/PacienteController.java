@@ -1,4 +1,4 @@
-package com.bemedica.springboot.app.controllers;
+	package com.bemedica.springboot.app.controllers;
 
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +70,9 @@ import com.bemedica.springboot.app.models.entity.Direccion;
 import com.bemedica.springboot.app.models.entity.Paciente; //Modelo de entidad para crear objecto de tipo Cliente
 import com.bemedica.springboot.app.models.entity.Paquetes;
 import com.bemedica.springboot.app.models.entity.Perfiles;
+
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;
 
 //.springboot.app.models.service.IPacienteService;   
 
@@ -506,6 +509,62 @@ public class PacienteController {
 
 	}
 
+	@RequestMapping(value = "/formC2", method = RequestMethod.POST)
+	public String guardar2(@Valid Direccion direccion, Persona persona,
+			Paciente paciente, Medico medico, Orden orden, BindingResult result, Model model, SessionStatus status,
+			Map<String, Object> m) {
+
+		String nombre, ap, am;
+		if (result.hasErrors()) {
+			model.addAttribute("titulo", "Formulario de Cliente");
+			return "formC";
+		}
+
+		direccionDao.save(direccion);
+		persona.setIdDireccion(direccion.getDireccion_id().intValue());
+
+		nombre = persona.getPersona_nombre().toUpperCase();
+		ap = persona.getPersona_ap().toUpperCase();
+		am = persona.getPersona_am().toUpperCase();
+		persona.setPersona_nombre(nombre);
+		persona.setPersona_ap(ap);
+		persona.setPersona_am(am);
+		personaDao.save(persona);
+		paciente.setPersona_id((long) persona.getPersona_id().intValue());
+		paciente.setPaciente_id_tex("PAC" + persona.getPersona_ap().charAt(0) + persona.getPersona_am().charAt(0)
+				+ persona.getPersona_nombre().charAt(0) + "" + (persona.getPersona_id() + 100000));
+
+		pacienteDao.save(paciente);
+		///////////////////////////////
+		/// Persona personamedico = new Persona();
+		//// if(personamedico.getPersona_nombre().toString().contains("Med")) {}
+
+		/////////////////////////////////////// 77
+		orden.setPaciente_id(paciente.getPaciente_id().intValue());//////////////////////////////// 7
+		ordenDao.save(orden);
+		orden.setOrden_folio("ORD" + (orden.getOrden_id() + 1000000));
+		orden.setOrden_estatus("pendiente");
+		ordenDao.save(orden);
+
+		/////////////////////////// 7
+		OrdenEstudio ordenestudio = new OrdenEstudio();
+		ordenestudio.setOrden_id(orden.getOrden_id());
+		m.put("ordenestudio", ordenestudio);
+		/// model.put("titulo", "Formulario de Cliente");
+//		status.setComplete();
+		model.addAttribute("pacientes", vistapacienteDao.findAll());
+		model.addAttribute("medicos", vistamedicoDao.findAll());
+		/// model.addAttribute("estudios", estudioDao.findAll());
+		////
+		model.addAttribute("empleados", vistaempleadoDao.findAll());
+		model.addAttribute("sucursales", sucursalDao.findAll());
+		model.addAttribute("ordenes", ordenDao.findAll());
+		model.addAttribute("button_estudio", "disabled");
+		model.addAttribute("button_terminar", "disabled");	
+		return "operaciones_recepcion";
+
+	}
+
 	@RequestMapping(value = "/form2", method = RequestMethod.POST)
 	public String guardardoctor(@Valid Direccion direccion, Persona persona, Medico medico, BindingResult result,
 			Model model, SessionStatus status) {
@@ -529,7 +588,7 @@ public class PacienteController {
 
 	}
 
-	@RequestMapping(value = "/eliminar/{id}")
+	@RequestMapping(value = "/eliminar_pa/{id}")
 	public String eliminarpa(@PathVariable(value = "id") Long id) {
 
 		if (id > 0) {
@@ -786,6 +845,8 @@ public class PacienteController {
 	@RequestMapping(value = "/liquidar_pago", method = RequestMethod.POST)
 	public String LiquidarPago(Orden orden, BindingResult result, Model model, Map<String, Object> m,
 			@RequestParam("id") Long id,OrdenEstudio ordenestudio) {
+		   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		   LocalDateTime now = LocalDateTime.now();
 		if(id>0) {
 			orden = ordenDao.findOne(id);
             orden.setPago_final(orden.getMonto());
@@ -793,6 +854,7 @@ public class PacienteController {
             orden.setOrden_estatus("Pagado");
 			ordenDao.save(orden);
 			ordenestudio.setOrden_id(id);
+			orden.setFecha_liquidacion(dtf.format(now));
 			m.put("ordenestudio", ordenestudio);
 			m.put("orden", orden);
 			Mostrar(id,model);
