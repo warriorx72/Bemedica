@@ -284,7 +284,6 @@
 														<th>Cultivo</th>
 														<th>Resultado</th>
 														<th>Bacteria</th>
-														<th>Antibiograma</th>
 														<th>Comentario</th>
 														<th>Validar</th>
 														<th>Imprimir</th>
@@ -345,8 +344,8 @@
 																
 																<input type="text" th:if="${r.ResultadoCuanti != '0.0000'}"   required  name="ResultadoCuali" th:id="'bac'+${r.ResultadoId}"
 																th:placeholder="${r.ResultadoCuali}" />
-															</td>
-															<td>
+																
+																<br><br>
 																<select th:if="${r.ResultadoCuanti == '0.0000'}"  disabled required  class="form-control form-control-sm"
 																th:id="${r.ResultadoId}"  name="antibiograma" >
 																<option value="">Seleccione..</option>
@@ -368,14 +367,10 @@
 																	th:value="${anti.AntiId}" 
 																	th:text="${anti.AntiNombre}"
 																	th:selected="${anti.AntiId}== ${r.AntiIdR}">
-																</option>
-																
-																
-																
-																
-																
+																</option>		
 																</select> 
 															</td>
+														
 															
 
 

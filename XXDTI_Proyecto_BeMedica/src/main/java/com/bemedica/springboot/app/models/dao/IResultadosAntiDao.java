@@ -18,4 +18,8 @@ public interface IResultadosAntiDao {
 	public List<ResultadosAnti> verficarExistencia( Long id );
 	
 	public List <Object []> AntibiogramaNombre ( Long id );
+	
+	public List <Object []> ResultadoCultivo ( Long linea , Long id  );
+	
+	public List <Object []> ResultadoAntibio ( Long linea , Long id  );
 }

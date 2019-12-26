@@ -73,4 +73,23 @@ public class ResultadosAntiDapImpl implements IResultadosAntiDao {
     			"GROUP by antibiogramas.anti_id").getResultList(); 
     	return re;
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	@Override
+	public List<Object[]> ResultadoCultivo(Long linea , Long id) {
+		List<Object[]> re = null;
+    	re= em.createNativeQuery("{call resultado_cult (" +linea +","+id+")}").getResultList(); 
+    	return re;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	@Override
+	public List<Object[]> ResultadoAntibio (Long linea , Long id) {
+		List<Object[]> re = null;
+    	re= em.createNativeQuery("{call resultado_anti (" +linea +","+id+")}").getResultList(); 
+    	return re;
+	}
 }

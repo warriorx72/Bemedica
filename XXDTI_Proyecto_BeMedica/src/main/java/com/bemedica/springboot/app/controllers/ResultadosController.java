@@ -101,7 +101,7 @@ public class ResultadosController {
 
 		List<String> aux = ResultadosDao.ValidarLinea(auxLineas);
 		for (String a : aux) {
-			if (a.equals("Validado")) {
+			if (a.equals("1")) {
 				i++;
 			}
 		}
@@ -139,7 +139,7 @@ public class ResultadosController {
 
 			List<String> aux = ResultadosDao.ValidarLinea(auxLineas);
 			for (String a : aux) {
-				if (a.equals("Validado")) {
+				if (a.equals("1")) {
 					i++;
 				}
 			}
@@ -164,7 +164,7 @@ public class ResultadosController {
 
 			List<String> aux = ResultadosDao.ValidarLinea(auxLineas);
 			for (String a : aux) {
-				if (a.equals("Validado")) {
+				if (a.equals("1")) {
 					i++;
 				}
 			}
@@ -1139,6 +1139,155 @@ public class ResultadosController {
 				} // llave de la consulta de pauete
 
 			} // llave de la condición de la paquete
+			
+			
+			if (lo[8].toString().equals("cultivo")) {
+				List<Object[]> estudio = ResultadosAntiDao.ResultadoCultivo((Long.valueOf(lo[4].toString())), (Long.valueOf(lo[7].toString())));
+				for (Object[] e : estudio) {
+					String Valor = "";
+
+					Estudio = new Paragraph(e[0].toString(), fuen_1);
+					Resultado = new Paragraph(e[1].toString(), fuen_2);
+					Espacio = new Paragraph("  ");
+					VR = new Paragraph(Valor, fuen_2);
+					Paragraph Comentario = null;
+
+				
+
+					ce = new PdfPCell(Estudio);
+					cr = new PdfPCell(Resultado);
+					esp = new PdfPCell(Espacio);
+					cvr = new PdfPCell(VR);
+
+					ce.setHorizontalAlignment(Element.ALIGN_LEFT);
+					ce.disableBorderSide(Rectangle.BOX);
+					ce.setExtraParagraphSpace(1.5f);
+
+					cr.setHorizontalAlignment(Element.ALIGN_RIGHT);
+					cr.disableBorderSide(Rectangle.BOX);
+					cr.setExtraParagraphSpace(1.5f);
+
+					esp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+					esp.disableBorderSide(Rectangle.BOX);
+					esp.setExtraParagraphSpace(1.5f);
+
+					cvr.setHorizontalAlignment(Element.ALIGN_LEFT);
+					cvr.disableBorderSide(Rectangle.BOX);
+					cvr.setExtraParagraphSpace(1.5f);
+
+					Paragraph Validacion = new Paragraph("Estudio(s) validado por: Q.F.B: El doctor Chapatín",
+							fuen_validacion);
+
+					PdfPCell cell = new PdfPCell(Comentario);
+
+					PdfPCell cell2 = new PdfPCell(Validacion);
+					
+					tableR.addCell(ce);
+					tableR.addCell(cr);
+					tableR.addCell(esp);
+					tableR.addCell(cvr);
+					
+					
+					
+					if (!e[1].toString().equals("Negativo")) {
+						
+						List<Object[]> antibiograma = ResultadosAntiDao.ResultadoAntibio((Long.valueOf(lo[4].toString())), (Long.valueOf(lo[7].toString())));
+						
+						
+						Estudio = new Paragraph("Antibiograma", fuen_1);
+						Resultado = new Paragraph("", fuen_2);
+						Espacio = new Paragraph("  ");
+						VR = new Paragraph(Valor, fuen_2);
+						
+
+					
+
+						ce = new PdfPCell(Estudio);
+						cr = new PdfPCell(Resultado);
+						esp = new PdfPCell(Espacio);
+						cvr = new PdfPCell(VR);
+
+						ce.setHorizontalAlignment(Element.ALIGN_LEFT);
+						ce.disableBorderSide(Rectangle.BOX);
+						ce.setExtraParagraphSpace(1.5f);
+
+						cr.setHorizontalAlignment(Element.ALIGN_RIGHT);
+						cr.disableBorderSide(Rectangle.BOX);
+						cr.setExtraParagraphSpace(1.5f);
+
+						esp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+						esp.disableBorderSide(Rectangle.BOX);
+						esp.setExtraParagraphSpace(1.5f);
+
+						cvr.setHorizontalAlignment(Element.ALIGN_LEFT);
+						cvr.disableBorderSide(Rectangle.BOX);
+						cvr.setExtraParagraphSpace(1.5f);
+						
+						tableR.addCell(ce);
+						tableR.addCell(cr);
+						tableR.addCell(esp);
+						tableR.addCell(cvr);
+						
+						
+						for (Object[] a : antibiograma) {
+				
+							Estudio = new Paragraph("   "+a[0].toString(), fuen_2	);
+							Resultado = new Paragraph(a[1].toString(), fuen_2);
+							Espacio = new Paragraph("  ");
+							VR = new Paragraph("", fuen_2);
+						
+
+						
+
+							ce = new PdfPCell(Estudio);
+							cr = new PdfPCell(Resultado);
+							esp = new PdfPCell(Espacio);
+							cvr = new PdfPCell(VR);
+
+							ce.setHorizontalAlignment(Element.ALIGN_LEFT);
+							ce.disableBorderSide(Rectangle.BOX);
+							ce.setExtraParagraphSpace(1.5f);
+
+							cr.setHorizontalAlignment(Element.ALIGN_RIGHT);
+							cr.disableBorderSide(Rectangle.BOX);
+							cr.setExtraParagraphSpace(1.5f);
+
+							esp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+							esp.disableBorderSide(Rectangle.BOX);
+							esp.setExtraParagraphSpace(1.5f);
+
+							cvr.setHorizontalAlignment(Element.ALIGN_LEFT);
+							cvr.disableBorderSide(Rectangle.BOX);
+							cvr.setExtraParagraphSpace(1.5f);
+
+							
+							
+
+							tableR.addCell(ce);
+							tableR.addCell(cr);
+							tableR.addCell(esp);
+							tableR.addCell(cvr);
+							
+						}
+					}
+
+					
+					cell.setBorder(PdfPCell.NO_BORDER);
+					cell2.setBorder(PdfPCell.NO_BORDER);
+					tableR.addCell(ce);
+					tableR.addCell(cr);
+					tableR.addCell(esp);
+					tableR.addCell(cvr);
+					tableR.addCell(cell);
+					tableR.addCell(esp);
+					tableR.addCell(esp);
+					tableR.addCell(esp);
+					tableR.addCell(cell2);
+					tableR.addCell(esp);
+					tableR.addCell(esp);
+					tableR.addCell(esp);
+				}
+			}
 
 		}
 

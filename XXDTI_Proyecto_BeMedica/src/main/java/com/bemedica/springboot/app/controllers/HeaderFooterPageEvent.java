@@ -199,8 +199,8 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
             footer.getDefaultCell().setBorder(Rectangle.TOP);
             footer.getDefaultCell().setBorderColor(BaseColor.LIGHT_GRAY);
      
-    		Paragraph uno = new Paragraph("RESPONSABLE DEL LABORATORIO:" ,new Font(FontFamily.TIMES_ROMAN,10.0f,Font.NORMAL,BaseColor.BLACK));
-    		Paragraph  dos = new Paragraph("Q.F.B SELENE lEDEZMA RUIZ\nCED. PFOF. 2661181" ,new Font(FontFamily.TIMES_ROMAN,10.0f,Font.NORMAL,BaseColor.BLACK));
+    		Paragraph uno = new Paragraph("RESPONSABLE DEL LABORATORIO:" ,new Font(FontFamily.HELVETICA,10.0f,Font.NORMAL,BaseColor.BLACK));
+    		Paragraph  dos = new Paragraph("Q.F.B SELENE lEDEZMA RUIZ\nCED. PFOF. 2661181" ,new Font(FontFamily.HELVETICA,10.0f,Font.NORMAL,BaseColor.BLACK));
     		Paragraph  pag = new Paragraph("", new Font(Font.FontFamily.HELVETICA, 8));
     		
     		PdfPCell ce = new PdfPCell(uno);
