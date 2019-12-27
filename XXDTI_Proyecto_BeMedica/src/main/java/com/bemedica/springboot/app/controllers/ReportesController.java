@@ -55,19 +55,13 @@ public class ReportesController {
 			@RequestParam("ff") Date ff, @RequestParam("fi") Date fi, @RequestParam("periodo") String periodo)
 			throws Exception {
 
-		//SimpleDateFormat formatoEsMX = new SimpleDateFormat("yyyy-MM-dd");
-		//String fecha1 = formatoEsMX.format(fi);
-		//String fecha2 = formatoEsMX.format(ff);
-		// this.excel( request, fecha1,fecha2,periodo);
-
-		//this.pdf(request, fecha1, fecha2, periodo);
-		
-		//this.pdf(request);
-		// String fullPath =
-		// request.getServletContext().getRealPath("/"+"Reporte"+".xls");
-		//String fullPaths = request.getServletContext().getRealPath("/" + "Resultado" + ".pdf");
-		// filedownload(fullPath, response);
-		//filedownloadPDF(fullPaths, response);
+		SimpleDateFormat formatoEsMX = new SimpleDateFormat("yyyy-MM-dd");
+				String fecha1 = formatoEsMX.format(fi);
+				String fecha2 = formatoEsMX.format(ff);
+				this.excel( request, fecha1,fecha2,periodo);
+				String fullPath =request.getServletContext().getRealPath("/"+"Reporte"+".xls");
+				filedownload(fullPath, response);
+				
 
 	}
 

@@ -473,10 +473,20 @@
 
 
 													<td>
-														<input type="text" name="Resultado"
-																th:placeholder="${r.Resultado}" />
 														
-														</td>
+																
+																
+																<select   class="form-control form-control-sm"
+																 name="Resultado" th:value="${r.Resultado}" >
+																
+																<option value="">Seleccione uno...</option>
+																<option value="S" th:selected="${r.Resultado} == S"> Sensible</option>
+																<option value="R" th:selected="${r.Resultado} == R" >Resistente</option>
+															
+																
+																</select>
+														
+													</td>
 
 													<td>
 														<input type="submit" class="btn btn-primary"

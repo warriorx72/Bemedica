@@ -1246,9 +1246,6 @@ public class ResultadosController {
 								List<Object[]> estudio = ResultadosAntiDao.ResultadoCultivo((Long.valueOf(lo[4].toString())), (Long.valueOf(aux2[0].toString())) );
 								
 								for (Object[] e : estudio) {
-									
-									
-									
 									if (contadorTitulo == 0) {
 										
 										contadorTitulo++;
@@ -1511,8 +1508,8 @@ public class ResultadosController {
 							
 							
 							if (!e[1].toString().equals("Negativo")) {
-								String NombreAnti = ResultadosAntiDao.NombreAntibiograma ((Long.valueOf(lo[4].toString())), (Long.valueOf(lo[7].toString())) );
-								List<Object[]> antibiograma = ResultadosAntiDao.ResultadoAntibio((Long.valueOf(lo[4].toString())), (Long.valueOf(lo[7].toString())));
+								String NombreAnti = ResultadosAntiDao.NombreAntibiograma((Long.valueOf(lo[4].toString())), (Long.valueOf(aux[0].toString())));
+								List<Object[]> antibiograma = ResultadosAntiDao.ResultadoAntibio((Long.valueOf(lo[4].toString())), (Long.valueOf(aux[0].toString())));
 								
 								
 								Estudio = new Paragraph("Antibiograma: "+NombreAnti, fuen_1);
@@ -1592,7 +1589,32 @@ public class ResultadosController {
 								}
 							}
 
+							esp = new PdfPCell(Espacio);
+							esp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+							esp.disableBorderSide(Rectangle.BOX);
+							esp.setExtraParagraphSpace(1.5f);
+
+							//Paragraph Validacion = new Paragraph("   Estudio(s) validado por: Q.F.B: El doctor Chapatín",fuen_validacion);
+							PdfPCell cell_validacion = new  PdfPCell(Validacion);
 							
+							//Paragraph Comentario = new Paragraph("   OBSERVACIONES:\n    " + auxComentario, fuen_comentario);
+							PdfPCell cell_comentario = new  PdfPCell(Comentario);
+							
+							cell_validacion.setBorder(PdfPCell.NO_BORDER);
+							cell_validacion.disableBorderSide(Rectangle.BOX);
+							cell_validacion.setExtraParagraphSpace(1.5f);
+							cell_comentario.setBorder(PdfPCell.NO_BORDER);
+							cell_comentario.disableBorderSide(Rectangle.BOX);
+							cell_comentario.setExtraParagraphSpace(1.5f);
+							
+							tableR.addCell(cell_comentario);
+							tableR.addCell(esp);
+							tableR.addCell(esp);
+							tableR.addCell(esp);
+							tableR.addCell(cell_validacion);
+							tableR.addCell(esp);
+							tableR.addCell(esp);
+							tableR.addCell(esp);
 							
 						}
 						
