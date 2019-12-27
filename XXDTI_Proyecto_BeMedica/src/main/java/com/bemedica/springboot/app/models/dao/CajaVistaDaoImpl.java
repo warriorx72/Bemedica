@@ -25,8 +25,8 @@ public class CajaVistaDaoImpl implements ICajaVistaDao {
 	@Transactional(readOnly =true)
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Object[]> findAll2(int num1, int num2, int num3) {
-		return em.createNativeQuery("call ReporteCorteCierre("+num1+","+num2+","+num3+")").getResultList();
+	public List<Object[]> findAll2(int num1, int num2) {
+		return em.createNativeQuery("call ReporteCorteCierre("+num1+","+num2+")").getResultList();
 	}
 
 	@Transactional(readOnly =true)
@@ -41,16 +41,16 @@ public class CajaVistaDaoImpl implements ICajaVistaDao {
 	@Transactional(readOnly =true)
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Object[]> findAll4(int num1, int num2, int num3) {
-		return em.createNativeQuery("call Fechas("+num1+","+num2+","+num3+")").getResultList();
+	public List<Object[]> findAll4(int num1, int num2) {
+		return em.createNativeQuery("call Fechas("+num1+","+num2+")").getResultList();
 	}
 
 	@Transactional(readOnly =true)
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Object[]> findAll5(int num1, int num2, int num3) {
+	public List<Object[]> findAll5(int num1, int num2) {
 	
-		return em.createNativeQuery("call TotalEfecTarje("+num1+","+num2+","+num3+")").getResultList();	
+		return em.createNativeQuery("call TotalEfecTarje("+num1+","+num2+")").getResultList();	
 	}
 
 }

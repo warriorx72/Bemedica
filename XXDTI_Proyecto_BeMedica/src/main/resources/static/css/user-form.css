@@ -1,0 +1,21 @@
+.card{
+	opacity: .95;
+}
+.card-body{
+    background-color: #FFFFF;
+    box-shadow: 0px 0px 3px #848484;
+}
+
+label{
+	font-weight: bold;
+}
+
+.nav-tabs .nav-item a:not(.active){
+	background-color:#1E90FF;
+color: white;
+	font-weight: bold;
+}
+
+.nav-tabs{
+	border-bottom:0px;
+}
