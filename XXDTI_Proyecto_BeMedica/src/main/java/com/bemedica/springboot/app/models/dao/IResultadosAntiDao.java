@@ -22,4 +22,6 @@ public interface IResultadosAntiDao {
 	public List <Object []> ResultadoCultivo ( Long linea , Long id  );
 	
 	public List <Object []> ResultadoAntibio ( Long linea , Long id  );
+	
+	public String NombreAntibiograma	 ( Long linea , Long id  );
 }

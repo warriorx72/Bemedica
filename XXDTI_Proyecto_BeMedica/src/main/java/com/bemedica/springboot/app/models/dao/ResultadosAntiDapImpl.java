@@ -92,4 +92,13 @@ public class ResultadosAntiDapImpl implements IResultadosAntiDao {
     	re= em.createNativeQuery("{call resultado_anti (" +linea +","+id+")}").getResultList(); 
     	return re;
 	}
+	
+	
+	@Transactional(readOnly=true)
+	@Override
+	public  String NombreAntibiograma (Long linea , Long id) {
+		
+		String re= (String) em.createNativeQuery("{call NombreAntibiograma (" +linea +","+id+")}").getSingleResult(); 
+    	return re;
+	}
 }

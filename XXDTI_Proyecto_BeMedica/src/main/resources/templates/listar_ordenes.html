@@ -140,7 +140,7 @@
 												<td><a class="text-primary"
 													th:href="@{/agregar_resultado/}+${l[0]}+'/'+${l[7]}+'/'+${l[8]}+'/'+${l[4]}"
 													th:text="${l[1]+'-'+l[4]}"></a></td>
-												<td th:text="${l[8]+' '+ l[3]}"></td>
+												<td th:text="${l[3]}"></td>
 												<td th:text="${l[6]}"></td>
 												<td><a class="btn btn-primary btn-sm btn-block"
 													th:href="@{/select_all/}+${l[0]}+'/'+${l[7]}+'/'+${l[8]}+'/'+${l[4]}"
@@ -345,7 +345,7 @@
 																<input type="text" th:if="${r.ResultadoCuanti != '0.0000'}"   required  name="ResultadoCuali" th:id="'bac'+${r.ResultadoId}"
 																th:placeholder="${r.ResultadoCuali}" />
 																
-																<br><br>
+																<br><br>	
 																<select th:if="${r.ResultadoCuanti == '0.0000'}"  disabled required  class="form-control form-control-sm"
 																th:id="${r.ResultadoId}"  name="antibiograma" >
 																<option value="">Seleccione..</option>
