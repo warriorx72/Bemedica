@@ -93,10 +93,13 @@ public class FoliosRegistradosController {
 	
 	@RequestMapping (value="/cancelar_orden/{id}",method = RequestMethod.GET)
 	public String cancelarOrden (Model model, @PathVariable (value="id") Long id) {
+		   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		   LocalDateTime now = LocalDateTime.now();  
+		   
 		Orden orden ;
 		orden=OrdenDao.findOne(id);
 		orden.setOrden_estatus("Cancelada");
-		
+		orden.setFecha_cancelacion(dtf.format(now));
 		OrdenDao.save(orden);
 		model.addAttribute("titulo","Folios registrados");
 		model.addAttribute("vista", OrdenVista.findAll2());
