@@ -72,7 +72,13 @@
 					<div id="outer">
 						<div class="inner">
 							<form th:action="@{/corte}" th:object="${caja}" method="post">
-
+								<label for="inputFecha_nac" class="col-form-label-sm mb-0">Costo:</label>
+								
+								<input type="number" name ="EnCaja"
+											class="form-control form-control-sm"  /> 
+											
+								<br>
+											
 								<input type="submit" value="Corte"
 									class="form-control btn btn-success" th:field="*{FechaInicial}" />
 							</form>

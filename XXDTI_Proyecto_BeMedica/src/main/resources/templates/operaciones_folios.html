@@ -119,7 +119,7 @@
                                     <td th:text="${orden.nombre+' '+orden.persona_ap+' '+orden.persona_am}"></td>
                                     <td th:text="${orden.orden_fecha}"></td>
                                     <td th:text="${orden.orden_estatus}"></td>
-                                    <td>
+                                    <td th:if=" ${orden.adeudo != '0.00' }">
 
 															<a class="text-primary"
 
@@ -130,9 +130,19 @@
 																> </a>
 
 
-																</td>
+									</td>
+									
+									<td th:if=" ${orden.adeudo == '0.00' }" th:text="${orden.adeudo}">
+
+														
+
+
+									</td>
+									
 
                                       </tr>
+                                      
+                                      
                                     </tbody>
 
                                   </table>

@@ -1,5 +1,6 @@
 package com.bemedica.springboot.app.models.dao;
 
+import java.sql.Timestamp;
 //import java.text.DateFormat;
 //import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -61,6 +62,18 @@ public class CajaDaoImpl implements ICajaDao {
 		return auxs1 ;
 	}		
 		
+	
+	
+	@Transactional(readOnly=true)
+	@Override	
+	public String caja(Long id) {
+		
+		Timestamp  Timestamp  =  (java.sql.Timestamp) em.createNativeQuery("SELECT caja.fecha_final from caja where caja.caja_id="+id).getSingleResult();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		String string  = dateFormat.format(Timestamp);
+		return string ;
+	}	
 		
 		
 		

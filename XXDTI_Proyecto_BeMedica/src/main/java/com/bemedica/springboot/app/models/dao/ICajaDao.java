@@ -13,4 +13,5 @@ public interface ICajaDao {
 	
 	public String findLastCajaId();
 	
+	public String caja (Long id);
 }

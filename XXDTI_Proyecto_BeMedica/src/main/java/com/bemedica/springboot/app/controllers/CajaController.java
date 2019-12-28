@@ -13,11 +13,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import com.bemedica.springboot.app.models.dao.ICajaDao;
 import com.bemedica.springboot.app.models.dao.ICajaVistaDao;
+import com.bemedica.springboot.app.models.dao.IOrdenDao;
 import com.bemedica.springboot.app.models.entity.Caja;
+import com.bemedica.springboot.app.models.entity.Orden;
 
 
 @Controller
@@ -29,6 +32,9 @@ public class CajaController {
 	
 	@Autowired
 	private ICajaVistaDao cajaVistaDao;
+	
+	@Autowired
+	private IOrdenDao OrdenDao;
 	
 	
 	@RequestMapping(value="/herramientas_corte", method=RequestMethod.GET)
@@ -47,7 +53,10 @@ public class CajaController {
 	   }
 	
 		@RequestMapping(value="/corte", method=RequestMethod.POST)
-		public String guardar(@Valid Caja caja ,BindingResult result, Model model, SessionStatus status,  Map<String, Object> m) {
+		public String guardar(@Valid Caja caja ,BindingResult result, Model model, SessionStatus status,  Map<String, Object> m,
+				@RequestParam(value = "EnCaja", defaultValue="0") String EnCaja) {
+			
+			Orden orden =new Orden ();
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");   	
 		    Date date = new Date();  
@@ -57,11 +66,37 @@ public class CajaController {
 			model.addAttribute("titulo", "Formulario de cliente");
 			return "herramientas_corte";
 		}
-	
+		
+
+		orden.setOrden_id(null);
+		orden.setOrden_folio("EnCaja");
+		orden.setPaciente_id(null);
+		orden.setSucursal_id(null);
+		orden.setEmpleado_id(null);
+		orden.setPago_inicial("0.00");
+		orden.setOrden_estatus("Corte Caja");
+		orden.setOrden_fecha(formatter.format(date)+" "+"06:00:00");
+		orden.setMonto(EnCaja);
+		orden.setPago_final(EnCaja);
+		orden.setFecha_liquidacion(formatter.format(date)+" "+"06:00:00");
+		
+		OrdenDao.save(orden);
 		
 		caja.setFechaInicial(formatter.format(date) +" "+"06:00:00");
 		cajaDao.save(caja);
-		status.setComplete();
+		Caja CajaAux ;
+		
+		CajaAux=cajaDao.findOne(caja.getCajaId());
+		
+		String aux = cajaDao.caja(caja.getCajaId());
+		
+		
+		
+		orden.setOrden_fecha(aux);
+		orden.setFecha_liquidacion(aux);
+		
+		 OrdenDao.save(orden);
+		//status.setComplete();
 		m.put("caja", caja);
 		return "redirect:/herramientas_corte";
         }
@@ -72,6 +107,7 @@ public class CajaController {
 		public String guardar2(@Valid Caja caja ,BindingResult result, Model model, SessionStatus status, Map<String, Object> me) {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
 			Date date = new Date();  
+			Orden orden =new Orden ();
 			
 			//Establecemos la fecha que deseamos en un Calendario
 			Calendar cal = Calendar.getInstance();
@@ -93,12 +129,14 @@ public class CajaController {
 			
 			caja.setFechaInicial(auxs);
 			
-			caja.setFechaInicial(auxs);
 			cajaDao.save(caja);
-			status.setComplete();
+			
+		
 			
 		    Date date1 = new Date();  
 		    System.out.println(formatter.format(date1)); 
+		    
+		    
 		   
 		
 		return "redirect:/herramientas_corte";
