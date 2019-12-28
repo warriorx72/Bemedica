@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+<title th:text="${titulo}">Bemédica Punto de venta</title>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	crossorigin="anonymous"></script>
+
+<!-- Bootstrap CSS CDN -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+	crossorigin="anonymous">
+<!-- Our Custom CSS -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+<link rel="stylesheet" th:href="@{/css/user-form.css}">
+
+<!-- Font Awesome JS -->
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+	crossorigin="anonymous"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+	crossorigin="anonymous"></script>
+<!-- Page level plugin CSS-->
+<link th:href="@{/vendor/datatables/dataTables.bootstrap4.css}"
+	rel="stylesheet">
+
+
+</head>
+
+<body>
+	<div>
+		<img th:src="@{/img/banner.jpg}" style="height: 80px; width: 100%;">
+	</div>
+	<!-- th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USER'')')})" -->
+	<div class="wrapper">
+		<!-- Sidebar  -->
+		<div th:include="navegacion.html" th:remove="tag"></div>
+		<!-- <script>
+            function cambia(src) {
+                src = "";
+                src = "https://img.icons8.com/color/48/000000/drag-list-down.png";
+                return src;
+            }
+
+        </script>
+        -->
+		<!-- Page Content  -->
+		<div class="container" id="content">
+			<div class="accordion" id="accordionExample">
+				<div class="mx-auto col-sm-11 main-section" id="myTab"
+					role="tablist">
+					<ul class="nav nav-tabs justify-content-end">
+						<li class="nav-item"><a class="nav-link"
+							style="border-radius: 10px" th:classappend=" ${listTab}"
+							id="list-tab" data-toggle="tab" href="#list" role="tab"
+							aria-controls="list" aria-selected="false">Usuarios</a></li>
+						<li class="nav-item"><a class="nav-link"
+							style="border-radius: 10px" th:classappend=" ${formTab}"
+							id="form-tab" data-toggle="tab" href="#form" role="tab"
+							aria-controls="form" aria-selected="true">Formulario</a></li>
+
+					</ul>
+
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show" th:classappend=" ${listTab}"
+							id="list" role="tabpanel" aria-labelledby="list-tab">
+							<div class="card">
+								<div
+									th:classappend="'alert-' + (${clase != null} ? ${clase} : info)"
+									th:if="${mensaje != null}" th:text="${mensaje}" class="alert">
+								</div>
+								<div class="card-header">
+									<h4>Listado</h4>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<div class="col-sm-12">
+											<table class="table table-bordered" id="userList"
+												style="text-align: center;" width="100%">
+												<thead>
+													<tr class="table-primary">
+														<th></th>
+														<th>Nombre</th>
+														<th>Username</th>
+														<th>Email</th>
+														<th title="Usuario Activo"><img
+															src="https://img.icons8.com/officexs/20/000000/light-on.png"></th>
+														<!-- 														<th title="Capturar Información"><img -->
+														<!-- 															src="https://img.icons8.com/nolan/20/000000/info.png"></th> -->
+														<!-- 														<th title="Editar/Borrar"><img -->
+														<!-- 															src="https://img.icons8.com/color/20/000000/edit-file.png"></th> -->
+														<!-- 														<th title="Gestionar Precios"><img -->
+														<!-- 															src="https://img.icons8.com/officexs/20/000000/estimate.png"></th> -->
+														<!-- 														<th title="Administrar Descuentos"><img -->
+														<!-- 															src="https://img.icons8.com/officexs/20/000000/discount.png"></th> -->
+														<!-- 														<th title="Facturar"><img -->
+														<!-- 															src="https://img.icons8.com/dusk/20/000000/invoice.png"></th> -->
+														<!-- 														<th title="Ingreso a Reportes"><img -->
+														<!-- 															src="https://img.icons8.com/color/20/000000/business-report.png"> -->
+														<!-- 														</th> -->
+														<!-- 														<th title="Configurar Sistema"><img -->
+														<!-- 															src="https://img.icons8.com/cute-clipart/20/000000/printer-maintenance.png"> -->
+														<!-- 														</th> -->
+														<!-- 														<th title="Aprovar Resultados"><img -->
+														<!-- 															src="https://img.icons8.com/color/20/000000/ok--v2.png"></th> -->
+														<!-- 														<th title="Administar Usuarios"><img -->
+														<!-- 															src="https://img.icons8.com/offices/20/000000/select-users.png"> -->
+														<!-- 														</th> -->
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="user: ${userList}">
+														<td style="text-align: center;"><a
+															class="btn btn-warning btn-sm" title="Editar" href="#"
+															th:href="@{'/editUser/' + ${user.id}}"><i
+																class="fas fa-pencil-alt"></i></a> <a
+															th:onclick="'javascript:confirmDelete(\''+ ${user.id} + '\');'"
+															class="btn btn-danger btn-sm" title="Borrar" href="#"><i
+																class="fas fa-trash-alt"></i></a></td>
+														<td th:text="${user.firstName}"><a> <!--class="text-primary"
+															th:href="@{'/editUser/' + ${user.id}}" -->
+														</a></td>
+														<td th:text="${user.username}"></td>
+														<td th:text="${user.email}"></td>
+
+														<td style="text-align: center; width: 30px;">
+															<!-- 															<div class="form-check"> --> <!-- 																<input class="form-check-input" type="checkbox" -->
+															<!-- 																	id="inlineCheckbox1" value="option1"> -->
+															<!-- 															</div> -->
+															<form th:action="@{/user_status}" method="post"
+																th:id="${user.id}" th:name="${user.id}">
+
+																<input type="checkbox" th:if="${user.userStatus== '1'}"
+																	checked value="0"
+																	th:onclick="'post_form(' + ${user.id} + ');'">
+
+																<input type="checkbox" th:if="${user.userStatus== '0'}"
+																	value="1" th:onclick="'post_form(' + ${user.id} + ');'">
+
+
+																<input type="hidden" name="id" th:value="${user.id}" />
+
+																<input type="hidden" name="aux"
+																	th:value="${user.userStatus}" />
+
+
+															</form>
+														</td>
+														<!-- 														<td style="text-align: center; width: 30px;"> -->
+														<!-- 															<div class="form-check"> -->
+														<!-- 																<input class="form-check-input" type="checkbox" -->
+														<!-- 																	id="inlineCheckbox1" value="option1"> -->
+														<!-- 															</div> -->
+														<!-- 														</td> -->
+														<!-- 														<td style="text-align: center; width: 30px;"> -->
+														<!-- 															<div class="form-check"> -->
+														<!-- 																<input class="form-check-input" type="checkbox" -->
+														<!-- 																	id="inlineCheckbox1" value="option1"> -->
+														<!-- 															</div> -->
+														<!-- 														</td> -->
+														<!-- 														<td style="text-align: center; width: 30px;"> -->
+														<!-- 															<div class="form-check"> -->
+														<!-- 																<input class="form-check-input" type="checkbox" -->
+														<!-- 																	id="inlineCheckbox1" value="option1"> -->
+														<!-- 															</div> -->
+														<!-- 														</td> -->
+														<!-- 														<td style="text-align: center; width: 30px;"> -->
+														<!-- 															<div class="form-check"> -->
+														<!-- 																<input class="form-check-input" type="checkbox" -->
+														<!-- 																	id="inlineCheckbox1" value="option1"> -->
+														<!-- 															</div> -->
+														<!-- 														</td> -->
+														<!-- 														<td style="text-align: center; width: 30px;"> -->
+														<!-- 															<div class="form-check"> -->
+														<!-- 																<input class="form-check-input" type="checkbox" -->
+														<!-- 																	id="inlineCheckbox1" value="option1"> -->
+														<!-- 															</div> -->
+														<!-- 														</td> -->
+														<!-- 														<td style="text-align: center; width: 30px;"> -->
+														<!-- 															<div class="form-check"> -->
+														<!-- 																<input class="form-check-input" type="checkbox" -->
+														<!-- 																	id="inlineCheckbox1" value="option1"> -->
+														<!-- 															</div> -->
+														<!-- 														</td> -->
+														<!-- 														<td style="text-align: center; width: 30px;"> -->
+														<!-- 															<div class="form-check"> -->
+														<!-- 																<input class="form-check-input" type="checkbox" -->
+														<!-- 																	id="inlineCheckbox1" value="option1"> -->
+														<!-- 															</div> -->
+														<!-- 														</td> -->
+														<!-- 														<td style="text-align: center; width: 30px;"> -->
+														<!-- 															<div class="form-check"> -->
+														<!-- 																<input class="form-check-input" type="checkbox" -->
+														<!-- 																	id="inlineCheckbox1" value="option1"> -->
+														<!-- 															</div> -->
+														<!-- 														</td> -->
+														<!-- 														<td style="text-align: center; width: 30px;"> -->
+														<!-- 															<div class="form-check"> -->
+														<!-- 																<input class="form-check-input" type="checkbox" -->
+														<!-- 																	id="blankCheckbox" value="option1"> -->
+														<!-- 															</div> -->
+														<!-- 														</td> -->
+													</tr>
+
+												</tbody>
+
+											</table>
+											<div class="alert-danger text-center"
+												th:if="${listErrorMessage}" th:text="${listErrorMessage}">Error
+												Message</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade show" th:classappend=" ${formTab}"
+							id="form" role="tabpanel" aria-labelledby="form-tab">
+							<div class="card">
+								<div class="card-header">
+									<h4>Información del usuario</h4>
+								</div>
+								<div class="card-body">
+									<form class="form" role="form" autocomplete="off"
+										th:object="${userForm}"
+										th:action="${editMode} ?@{/editUser} :@{/administracion_usuarios}"
+										method="post">
+
+										<!-- Es necesario para poder pasar la validación del Model -->
+										<input class="form-control" type="hidden"
+											th:field="${userForm.id}" th:if="${editMode}" /> <input
+											class="form-control" type="hidden"
+											th:field="${userForm.password}" th:if="${editMode}" />
+
+										<div class="form-row mb-0">
+<!-- 											<div class="form-group col-md-3"> -->
+<!-- 												<label class="col-form-label-sm mb-0">Nombre</label><input -->
+<!-- 													type="text" class="form-control form-control-sm" -->
+<!-- 													th:field="${userForm.firstName}" /> -->
+<!-- 												<div class="alert-danger" -->
+<!-- 													th:if="${#fields.hasErrors('firstName')}" -->
+<!-- 													th:errors="*{firstName}">Name Error</div> -->
+<!-- 											</div> -->
+<!-- 											<div class="form-group col-md-3"> -->
+<!-- 												<label class="col-form-label-sm mb-0">Apellidos</label> <input -->
+<!-- 													type="text" class="form-control form-control-sm" -->
+<!-- 													th:field="${userForm.lastName}" /> -->
+<!-- 												<div class="alert-danger" -->
+<!-- 													th:if="${#fields.hasErrors('lastName')}" -->
+<!-- 													th:errors="*{lastName}">Name Error</div> -->
+<!-- 											</div> -->
+<!-- 											<div class="form-group col-md-3"> -->
+<!-- 												<label class="col-form-label-sm mb-0">Correo -->
+<!-- 													Electronico</label> <input type="text" -->
+<!-- 													class="form-control form-control-sm" -->
+<!-- 													th:field="${userForm.email}" /> -->
+<!-- 												<div class="alert-danger" -->
+<!-- 													th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name -->
+<!-- 													Error</div> -->
+<!-- 											</div> -->
+											<div class="form-group col-md-4.5">
+												<label class="col-form-label-sm mb-0">Empleado</label> 
+												<select class="form-control">
+													<option value="">Seleccione Empleado...</option>
+													<option th:each="empleado: ${empleado_vista}"
+													th:value="empleado.EmpleadoId" th:text="${empleado.PersonaNombre}+' '+${empleado.PersonaAp}+' '+${empleado.PersonaEmail}"></option>
+												</select>
+												<div class="alert-danger"
+													th:if="${#fields.hasErrors('username')}"
+													th:errors="*{username}">Name Error</div>
+											</div>
+											<div class="form-group col-md-3">
+												<label class="col-form-label-sm mb-0">Nombre de
+													Usuario</label> <input type="text"
+													class="form-control form-control-sm"
+													th:field="${userForm.username}" />
+												<div class="alert-danger"
+													th:if="${#fields.hasErrors('username')}"
+													th:errors="*{username}">Name Error</div>
+											</div>
+											<div class="form-group col-md-3">
+												<label class="col-form-label-sm mb-0">Rol de Usuario</label>
+												<select class="form-control" size="1"
+													th:field="${userForm.roles}">
+													<option value="">Seleccione...</option>
+													<option th:each="role :${roles}" th:value="${role.id}"
+														th:text="${role.name}"></option>
+												</select>
+												<div class="alert-danger"
+													th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">Name
+													Error</div>
+											</div>
+											<div class="form-group col-md-3"
+												th:if="${editMode==null or editMode==false}">
+												<label class="col-form-label-sm mb-0">Contraseña</label> <input
+													type="password" class="form-control form-control-sm"
+													th:field="${userForm.password}" />
+												<div class="alert-danger"
+													th:if="${#fields.hasErrors('password')}"
+													th:errors="*{password}">Name Error</div>
+											</div>
+											<div class="form-group col-md-3"
+												th:if="${editMode==null or editMode==false}">
+												<label class="col-form-label-sm mb-0">Confirmar
+													Contraseña</label> <input type="password"
+													class="form-control form-control-sm"
+													th:field="${userForm.confirmPassword}" />
+												<div class="alert-danger"
+													th:if="${#fields.hasErrors('confirmPassword')}"
+													th:errors="*{confirmPassword}">Name Error</div>
+											</div>
+											<div class="form-group col-md-3">
+												<label class="col-form-label-sm mb-0">Status Usuario</label>
+												<select class="form-control" size="1"
+													th:field="${userForm.userStatus}">
+													<option value="">Seleccione...</option>
+													<option value="1">Activo</option>
+													<option value="0">Inactivo</option>
+												</select>
+												<div class="alert-danger"
+													th:if="${#fields.hasErrors('userStatus')}"
+													th:errors="*{userStatus}">Name Error</div>
+											</div>
+										</div>
+
+
+										<div class="form-group row">
+											<div class="col-lg-12 text-center">
+												<a class="btn btn-secondary"
+													th:href="@{'/administracion_usuarios/cancel'}">Cancelar</a>
+												<button type="button" class="btn btn-secondary"
+													data-toggle="modal" th:if="${editMode}"
+													data-target="#changePasswordModal">Cambiar Contraseña</button>
+												<input type="submit" class="btn btn-primary" value="Guardar"
+													th:value="${editMode}?'Guardar Cambios':'Crear Usuario'">
+											</div>
+										</div>
+										<div class="alert alert-danger text-center"
+											th:if="${formErrorMessage}" th:text="${formErrorMessage}">Error
+											Message</div>
+										<div class="alert alert-success text-center d-none"
+											id="formSuccess" th:if="${editMode}">Success Message</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Modal -->
+					<div class="modal fade" id="deleteModal" tabindex="-1"
+						role="dialog" aria-labelledby="deleteModalTitle"
+						aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLongTitle">Confirmar Eliminaci&oacute;n</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									Est&aacute; seguro de elimar este usuario? <input type="hidden"
+										id="userIdHiddenInput" name="userIdHiddenInput" />
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Cerrar</button>
+									<button type="button" class="btn btn-primary"
+										th:onclick="deleteUser()">Eliminar Usuario</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END MODAL DELETE -->
+
+					<!-- MODAL CHANGE PASSWORD -->
+					<div class="modal fade" id="changePasswordModal" tabindex="-1"
+						role="dialog" aria-labelledby="changePasswordModalTitle"
+						aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="changePasswordLongModal">Cambiar Contraseña</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form id="changePasswordForm" th:object="${passwordForm}"
+										method="post" class="form" role="form">
+										<input class="form-control" type="hidden"
+											th:field="${passwordForm.id}"> 
+										<input
+											th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+											type="hidden" id="currentPassword"
+											value="blank" />
+										<div th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="form-group row">
+											<label class="col-lg-3 col-form-label 	form-control-label">Current
+												Password</label>
+											<div class="col-lg-9">
+												<input class="form-control" type="password"
+													th:field="${passwordForm.currentPassword}">
+												<div class="alert-danger"
+													th:if="${#fields.hasErrors('currentPassword')}"
+													th:errors="*{currentPassword}">Password</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-lg-3 col-form-label 	form-control-label">Nueva Contraseña</label>
+											<div class="col-lg-9">
+												<input class="form-control" type="password"
+													th:field="${passwordForm.newPassword}">
+												<div class="alert-danger"
+													th:if="${#fields.hasErrors('newPassword')}"
+													th:errors="*{newPassword}">Password</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-lg-3 col-form-label form-control-label">Confirmar Contraseña</label>
+											<div class="col-lg-9">
+												<input class="form-control" type="password"
+													th:field="${passwordForm.confirmPassword}">
+												<div class="alert-danger"
+													th:if="${#fields.hasErrors('confirmPassword')}"
+													th:errors="*{confirmPassword}">Confirm Password</div>
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<div class="alert alert-danger d-none text-center"
+												id="changePasswordError">Change Password Error</div>
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Cerrar</button>
+									<button type="button" onClick="submitChangePassword()"
+										class="btn btn-primary">Guardar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END MODAL CHANGE PASSWORD -->
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<!-- 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" -->
+	<!-- 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" -->
+	<!-- 		crossorigin="anonymous"></script> -->
+	<!-- Popper.JS -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+		integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+		integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+		crossorigin="anonymous"></script>
+	<!-- Demo scripts for this page-->
+	<script th:src="@{/js/demo/datatables-demo.js}"></script>
+
+	<!-- Page level plugin JavaScript-->
+	<script th:src="@{/vendor/datatables/jquery.dataTables.js}"></script>
+	<script th:src="@{/vendor/datatables/dataTables.bootstrap4.js}"></script>
+
+	<script type="text/javascript">
+		function submitChangePassword() {
+			var params = {};
+			params["id"] = $("#id").val();
+			params["currentPassword"] = $("#currentPassword").val();
+			params["newPassword"] = $("#newPassword").val();
+			params["confirmPassword"] = $("#confirmPassword").val();
+
+			$.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : "/editUser/changePassword",
+				data : JSON.stringify(params),
+				dataType : 'text',
+				cache : false,
+				timeout : 600000,
+				success : function(data) {
+					$("#changePasswordForm")[0].reset();
+
+					$("#changePasswordError").addClass("d-none");
+					$("#formSuccess").removeClass("d-none");
+					$("#formSuccess").html("Contraseña Actualizada Correctamente!");
+
+					$('#changePasswordModal').modal('toggle');
+					setTimeout(function() {
+						$("#formSuccess").hide('slow');
+					}, 2000);
+				},
+				error : function(e) {
+					$("#changePasswordError").removeClass("d-none");
+					$("#formSuccess").addClass("d-none");
+					$("#changePasswordError").html(e.responseText);
+				}
+			});
+
+		}
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#sidebarCollapse').on('click', function() {
+				$('#sidebar').toggleClass('active');
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			//Asegurate que el id que le diste a la tabla sea igual al texto despues del simbolo #
+			$('#userList').DataTable();
+		});
+	</script>
+
+	<script type="text/javascript">
+		function confirmDelete(id) {
+			$('#deleteModal').modal('show');
+			$("#userIdHiddenInput").val(id);
+		}
+
+		function deleteUser() {
+			var id = $("#userIdHiddenInput").val();
+			window.location = "deleteUser/" + id;
+		}
+	</script>
+
+	<script type="text/javascript">
+		function post_form(id_form) {
+			document.getElementById(id_form).submit();
+		}
+	</script>
+
+</body>
+
+</html>
