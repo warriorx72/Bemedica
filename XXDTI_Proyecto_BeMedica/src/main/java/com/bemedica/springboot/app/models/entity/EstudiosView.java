@@ -12,10 +12,10 @@ public class EstudiosView {
 	 
 	@Column(name="id")
 	private Long Id;
-	@Id 
+	
 	@Column(name="id_text")
 	private String IdText;
-	
+	@Id 
 	@Column(name="nombre")
 	private String Nombre;
 	

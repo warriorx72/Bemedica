@@ -67,10 +67,10 @@ public class EstudioDaoImplE implements IEstudio {
 		
 		
 		
-		List<Object[]> re= em.createNativeQuery("SELECT estudios.estudio_nombre, estudios.estudio_id\r\n" + 
+		List<Object[]> re= em.createNativeQuery("SELECT estudios.estudio_nombre, estudios.estudio_id,estudios.estudio_tipo\r\n" + 
 				"FROM estudios   \r\n" + 
 				"WHERE \r\n" + 
-				"1=1 \r\n" + 
+				"1=1 and estudios.estudio_estatus=1\r\n" + 
 				"and estudios.estudio_id NOT IN \r\n" + 
 				"(SELECT convenio_estudio.estudio_id \r\n" + 
 				" FROM  estudios , convenio_estudio \r\n" + 

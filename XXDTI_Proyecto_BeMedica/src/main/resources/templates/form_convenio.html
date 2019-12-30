@@ -26,42 +26,48 @@
 
 </head>
 
-<body>
+<body onload="validar();">
 	<div>
-		<img th:src="@{/img/banner.jpg}" 
-	
-			style="height: 80px; width: 100%;">
+		<img th:src="@{/img/banner.jpg}" style="height: 80px; width: 100%;">
 	</div>
 	<div class="wrapper">
 		<!-- Sidebar  -->
-      <div th:include="navegacion.html" th:remove="tag">
-      </div>
+		<div th:include="navegacion.html" th:remove="tag"></div>
 		<div id="content">
 			<div class="accordion" id="accordionExample">
 				<div class="card">
 					<div
-					th:classappend="'alert-' + (${clase != null} ? ${clase} : info)"
-					th:if="${mensaje != null}" th:text="${mensaje}" class="alert">
-				</div>
-			
-					<div class="card-header" id="headingOne">
-						<h2 class="mb-0" style="font-size: 20px;">Información
-							Convenio</h2>
+						th:classappend="'alert-' + (${clase != null} ? ${clase} : info)"
+						th:if="${mensaje != null}" th:text="${mensaje}" class="alert">
 					</div>
-					
-				
+
+					<div class="card-header" id="headingOne">
+						<h2 class="mb-0 form-row" style="font-size: 20px;">
+							Información Convenio
+							<div class="ml-auto">
+
+								<a th:href="@{/precios_convenios}"><button
+										class="btn btn-link" type="button" aria-expanded="true"
+										title="Guardar">
+										<i class="fas fa-save"></i>
+									</button></a>
+
+							</div>
+						</h2>
+					</div>
+
+
 					<div id="collapseOne" class="collapse show"
 						aria-labelledby="headingOne" data-parent="#accordionExample">
 						<div class="card-body">
 
-							<form th:action="@{/form_convenio_convenio}" th:object="${convenio}"
-								method="post">
+							<form th:action="@{/form_convenio_convenio}"
+								th:object="${convenio}" method="post">
 								<div class="form-row mb-0">
 									<div class="form-group col-md-3">
-										<label class="col-form-label-sm mb-0">Nombre</label> 
-										<input
+										<label class="col-form-label-sm mb-0">Nombre</label> <input
 											type="text" th:field="*{ConvenioNombre}"
-											class="form-control form-control-sm" required  />
+											class="form-control form-control-sm" required />
 									</div>
 									<div class="form-group col-md-3">
 										<label for="inputSexo" class="col-form-label-sm mb-0">Detalles</label>
@@ -71,11 +77,11 @@
 									<div class="form-group col-md-3">
 										<label for="inputFecha_nac" class="col-form-label-sm mb-0">Costo:</label>
 										<input type="number" th:field="*{ConvenioCosto}"
-											class="form-control form-control-sm"  required/>
+											class="form-control form-control-sm" required />
 									</div>
 									<div class="form-group col-md-3">
 										<label for="inputEmail" class="col-form-label-sm mb-0">Empresa</label>
-										<select th:field="*{EmpresaId}" 
+										<select th:field="*{EmpresaId}"
 											class="form-control form-control-sm" required>
 											<option value="">Seleccione una...</option>
 											<option th:each="empresa: ${vistas}"
@@ -89,7 +95,7 @@
 								<div align="right">
 									<input type="submit" class="btn btn-primary" value="Guardar" />
 								</div>
-								
+
 								<input type="hidden" th:field="*{ConvenioId}" />
 							</form>
 
@@ -99,95 +105,232 @@
 				</div>
 
 				<div class="card">
-				
-				
+
+
 					<div class="card-header" id="headingOne">
 						<h2 class="mb-0" style="font-size: 20px;">Estudios que se
 							integraran:</h2>
 					</div>
-					<div
-					th:classappend="'alert-' + (${clase2 != null} ? ${clase2} : info)"
-					th:if="${mensaje2 != null}" th:text="${mensaje2}" class="alert">
-				</div>
 					<div id="collapseOne" class="collapse show"
 						aria-labelledby="headingOne" data-parent="#accordionExample">
 						<div class="card-body">
+							<!--Inicia código de formulario-->
+							<div class="card-header" id="headingOne">
+								<h2 class="mb-0 form-row" style="font-size: 20px;">
+									Examenes</h2>
+							</div>
 
-							<form th:action="@{/form_convenio_estudios}" method="post" th:object="${ce}">
-								<div class="form-row mb-0">
-								
-									<input type="hidden" th:field="*{ConvenioId}" />
-								
-									<div class="form-group col-md-4">
-										<label for="inputEmail" class="col-form-label-sm mb-0">Estudio</label>
-										<select  th:field="*{EstudioId}" required  class="form-control form-control-sm" th:errorclass="'form-control alert-danger'">
-											<option value="">Seleccione uno...</option>
-											
-											<option th:each="estudio: ${vistasEstudio}"
-												th:value="${estudio[1]}"
-												th:text="${estudio[0]}">
-											</option>
+							<form th:action="@{/form_convenio_estudios}" th:object="${ce}"
+								method="post">
 
-										</select>
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<label class="col-form-label-sm mb-0">Nombre Estudio</label>
+										<select id="Select1" class="form-control form-control-sm"
+											th:field="*{EstudioTipo}">
+											<option value="" selected disabled>Seleccione un
+												estudio</option>
+											<optgroup label="Examenes">
+												<option th:each="estudio:${vistasEstudio}"
+												th:if="${estudio[2]==1}"
+													th:value="${estudio[1]+ 'examen'}"
+													th:label="${estudio[0]}" />
+											</optgroup>
+											<optgroup label="Cultivos">
+												<option th:each="estudio:${vistasEstudio}"
+												th:if="${estudio[2]==2}"
+													th:value="${estudio[1]+ 'cultivo'}"
+													th:label="${estudio[0]}" />
+											</optgroup>
+											<optgroup label="Gabinete">
+												<option th:each="estudio:${vistasEstudio}"
+												th:if="${estudio[2]==3}"
+													th:value="${estudio[1]+ 'gabinete'}"
+													th:label="${estudio[0]}" />
+											</optgroup>
+										</select> <input type="hidden" th:field="*{ConvenioId}" />
+
+									</div>
+									<button class="btn btn-link" type="button" onclick="tenerId()"
+										id="EliminarRecurso" aria-expanded="true" title="">
+										<i class="fa fa-step-backward"></i>
+
+									</button>
+									<input disabled="disabled" type="text" id="bbb"
+										style="display: none" /> <input disabled="disabled"
+										type="text" id="bbbb" th:field="*{ConvenioId}"
+										style="display: none" />
+
+									<button class="btn btn-link" type="submit" aria-expanded="true"
+										title="" id="Submit1">
+										<i class="	fa fa-step-forward"></i>
+									</button>
+									<br>
+									<div class="form-group"
+										style="width: 59.5%; margin-left: 71px;">
+										<table class="table table-hover table-sm" id="mytable">
+
+											<thead>
+												<tr>
+													<th id="col1" scope="col" style="display: none">ID</th>
+													<th id="col2" scope="col">Estudios</th>
+
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+
+												<tr th:each="estudio: ${vista_convenio_estudio}">
+
+													<td th:text="${estudio.CeId}" style="display: none"></td>
+													<td th:text="${estudio.EstudioNombre}	"></td>
+												</tr>
+
+											</tbody>
+										</table>
 									</div>
 								</div>
-								<br>
-
-
-
-
-								
-								<div align="right">
-									<input type="submit" class="btn btn-primary" value="Guardar" th:disabled="${disableSecondButton}"/>
-								</div>
-
-
 
 							</form>
-							
-							
-							<br>
-							<table class="table table-bordered" id="dataTable">
-								<thead>
-									<tr class="table-primary">
-										
-										
-										<th>Convenio</th>
-										<th>Estudio</th>
-										<th>Eliminar</th>
-									
-									</tr>
-								</thead>
-								<tbody>
-										<tr th:each="convenioEstudio: ${vista_convenio_estudio}">
-															
-															<td th:text="${convenioEstudio.ConvenioNombre}"></td>
-															<td th:text="${convenioEstudio.EstudioNombre}"></td>
-															<td><a class="btn btn-danger btn-sm"
-																th:href="@{/eliminar_ce/}+${convenioEstudio.CeId}+'/'+${convenioEstudio.ConvenioId}"
-																onclick="return confirm ('¿Estas seguro que quieres eliminar?');">Borrar</a>
-															</td>
-					
-														
-														</tr>
-								</tbody>
 
-							</table>
-							
-							<div align="right">
-										
-										<a th:href="@{/precios_convenios}" class="btn btn-primary">Terminar</a>
-									</div>
-
-							<!--Termina código de formulario-->
 						</div>
 					</div>
+					<!--Termina código de formulario-->
+					<div id="collapseOne" class="collapse show"
+						aria-labelledby="headingOne" data-parent="#accordionExample">
+						<div class="card-body">
+							<!--Inicia código de formulario-->
+							<div class="card-header" id="headingOne">
+								<h2 class="mb-0 form-row" style="font-size: 20px;">
+									Perfiles</h2>
+							</div>
+
+							<form th:action="@{/form_convenio_perfiles}" th:object="${cope}"
+								method="post">
+
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<label class="col-form-label-sm mb-0">Nombre Perfiles</label>
+
+										<select class="form-control form-control-sm" id="Select2"
+											th:field="*{PerfilId}">
+											<option value="" selected disabled>Seleccione un
+												perfil</option>
+											<option th:each="perfil: ${vistasPerfil}"
+												th:value="${perfil[1]}" th:text="${perfil[0]}"></option>
+										</select> <input type="hidden" th:field="*{ConvenioId}" />
+
+									</div>
+									<button class="btn btn-link" type="button" onclick="tenerId2()"
+										id="EliminarRecurso2" aria-expanded="true" title="">
+										<i class="fa fa-step-backward"></i>
+
+									</button>
+									<input disabled="disabled" type="text" id="aaa"
+										style="display: none" /> <input disabled="disabled"
+										type="text" id="aaaa" th:field="*{ConvenioId}"
+										style="display: none" />
+
+									<button class="btn btn-link" type="submit" id="Submit2"
+										aria-expanded="true" title="">
+										<i class="	fa fa-step-forward"></i>
+									</button>
+									<br>
+									<div class="form-group"
+										style="width: 59.5%; margin-left: 71px;">
+										<table class="table table-hover table-sm" id="mytable2">
+
+											<thead>
+												<tr>
+													<th id="col1" scope="col" style="display: none">ID</th>
+													<th id="col2" scope="col">Perfiles</th>
+
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+
+												<tr th:each="perfil2: ${vista_convenio_perfil}">
+
+													<td th:text="${perfil2[1]}" style="display: none"></td>
+													<td th:text="${perfil2[0]}">
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+							</form>
+						</div>
+					</div>
+					<!--Termina código de formulario-->
 				</div>
+				<div id="collapseOne" class="collapse show"
+					aria-labelledby="headingOne" data-parent="#accordionExample">
+					<div class="card-body">
+						<!--Inicia código de formulario-->
+						<div class="card-header" id="headingOne">
+							<h2 class="mb-0 form-row" style="font-size: 20px;">Paquetes</h2>
+						</div>
 
+						<form th:action="@{/form_convenio_paquetes}"
+							th:object="${copa}" method="post">
 
+							<div class="form-row">
+								<div class="form-group col-md-3">
+									<label class="col-form-label-sm mb-0">Nombre Paquetes</label> <select
+										class="form-control form-control-sm" th:field="*{PaqueteId}"
+										id="Select3">
+										<option value="" selected disabled>Seleccione un
+											paquete</option>
+										<option th:each="vp: ${vistasPaquete}"
+											th:value="${vp[1]}"
+											th:text="${vp[0]}"></option>
+									</select> <input type="hidden" th:field="*{ConvenioId}" />
 
+								</div>
+								<button class="btn btn-link" type="button" onclick="tenerId3()"
+									id="EliminarRecurso3" aria-expanded="true" title="">
+									<i class="fa fa-step-backward"></i>
 
+								</button>
+								<input disabled="disabled" type="text" id="ccc"
+									style="display: none" /> <input disabled="disabled" type="text"
+									id="cccc" th:field="*{ConvenioId}" style="display: none" />
 
+								<button class="btn btn-link" type="submit" aria-expanded="true"
+									title="" id="Submit3">
+									<i class="	fa fa-step-forward"></i>
+								</button>
+								<br>
+								<div class="form-group" style="width: 59.5%; margin-left: 71px;">
+									<table class="table table-hover table-sm" id="mytable3">
+
+										<thead>
+											<tr>
+												<th id="col1" scope="col" style="display: none">ID</th>
+												<th id="col2" scope="col">Paquetes</th>
+
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+
+											<tr th:each="vcp: ${vista_convenio_paquete}">
+
+												<td th:text="${vcp[1]}" style="display: none"></td>
+												<td th:text="${vcp[0]}">
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</form>
+						<!--Termina código de formulario-->
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -216,6 +359,206 @@
             });
         });
     </script>
+		<script src="/js/jquery.min.js"></script>
+
+
+		<script type="text/javascript" th:inline="javascript">
+var Anterior = "";
+var Anterior2 = "";
+var Anterior3 = "";
+var click = "0";
+var click2 = "0";
+var click3 = "0";
+var link = /*[[@{/eliminar_ce/}]]*/;
+$(document).on("ready", function(){ 
+ $("#mytable tbody tr").click(function() {
+     var celda =$(this).find("td:eq(0)");
+     document.getElementById('bbb').value = celda.html();
+        
+     validar1();
+     //alert(celda.html()+Anterior+"hola");
+     //document.write(tenerId());
+   });
+});
+
+$(document).on("ready", function(){ 
+	 $("#mytable2 tbody tr").click(function() {
+	     var celda2 =$(this).find("td:eq(0)");
+	     document.getElementById('aaa').value = celda2.html();
+	     validar2();
+	     //alert(celda.html()+Anterior+"hola");
+	     //document.write(tenerId());
+	   });
+	});
+$(document).on("ready", function(){ 
+	 $("#mytable3 tbody tr").click(function() {
+	     var celda3 =$(this).find("td:eq(0)");
+	     document.getElementById('ccc').value = celda3.html();
+	     validar3();
+	     //alert(celda.html()+Anterior+"hola");
+	     //document.write(tenerId());
+	   });
+	});
+
+function tenerId(){
+ var tipoRecursoId = document.getElementById("bbb").value;
+ var Id = document.getElementById("bbbb").value;
+ 
+     var mensaje = confirm("¿Est\u00E1s seguro que quieres eliminar?");
+     if (mensaje) {
+          window.location.href = link + tipoRecursoId + "/"+Id+"/1";
+      }else { 
+      }
+}
+
+function tenerId2(){
+	 var tipoRecursoId2 = document.getElementById("aaa").value;
+	 var Id2 = document.getElementById("aaaa").value;
+	 
+	     var mensaje = confirm("¿Est\u00E1s seguro que quieres eliminar?");
+	     if (mensaje) {
+	          window.location.href = link + tipoRecursoId2 + "/"+Id2+"/2";
+	      }else { 
+	      }
+	}
+function tenerId3(){
+	 var tipoRecursoId3 = document.getElementById("ccc").value;
+	 var Id3 = document.getElementById("cccc").value;
+	 
+	     var mensaje = confirm("¿Est\u00E1s seguro que quieres eliminar?");
+	     if (mensaje) {
+	          window.location.href = link + tipoRecursoId3 + "/"+Id3+"/3";
+	      }else { 
+	      }
+	}
+       /*var Anterior="";
+     var click="0";*/
+
+     function validar1(){
+      
+         var tipoRecursoId=document.getElementById("bbb").value;
+         
+         if(tipoRecursoId==Anterior){
+          if(click=="0"){
+           $("#EliminarRecurso").attr('disabled','disabled');
+           Anterior=tipoRecursoId;
+          }else{
+           $("#EliminarRecurso").attr('disabled','disabled');
+           Anterior="";
+          }	
+          
+         }
+         else{
+          $("#EliminarRecurso").removeAttr('disabled');
+          Anterior=tipoRecursoId;
+          click="1";
+         }
+
+     }
+     function validar2(){
+         
+         var tipoRecursoId2=document.getElementById("aaa").value;
+         if(tipoRecursoId2==Anterior2){
+             if(click2=="0"){
+              $("#EliminarRecurso2").attr('disabled','disabled');
+              Anterior2=tipoRecursoId2;
+             }else{
+              $("#EliminarRecurso2").attr('disabled','disabled');
+              Anterior2="";
+             }
+             
+            }
+         else{
+             $("#EliminarRecurso2").removeAttr('disabled');
+             Anterior2=tipoRecursoId2;
+             click2="1";
+            }
+
+     }
+     function validar3(){
+         
+         var tipoRecursoId3=document.getElementById("ccc").value;
+         if(tipoRecursoId3==Anterior3){
+             if(click3=="0"){
+              $("#EliminarRecurso3").attr('disabled','disabled');
+              Anterior3=tipoRecursoId3;
+             }else{
+              $("#EliminarRecurso3").attr('disabled','disabled');
+              Anterior3="";
+             }
+             
+            }
+         else{
+             $("#EliminarRecurso3").removeAttr('disabled');
+             Anterior3=tipoRecursoId3;
+             click3="1";
+            }
+
+     }
+     function validar4(){
+         
+         var tipoRecursoId=document.getElementById("Select1").value;
+         
+         if(tipoRecursoId==""){
+           $("#Submit1").attr('disabled','disabled');       
+         }
+         else{
+          $("#Submit1").removeAttr('disabled');
+         }
+
+     }
+     function validar5(){
+         
+         var tipoRecursoId=document.getElementById("Select2").value;
+         
+         if(tipoRecursoId==""){
+           $("#Submit2").attr('disabled','disabled');       
+         }
+         else{
+          $("#Submit2").removeAttr('disabled');
+         }
+
+     }
+     function validar6(){
+         
+         var tipoRecursoId=document.getElementById("Select3").value;
+         
+         if(tipoRecursoId==""){
+           $("#Submit3").attr('disabled','disabled');       
+         }
+         else{
+          $("#Submit3").removeAttr('disabled');
+         }
+
+     }
+     
+     function validar(){
+    	 validar2();
+    	 validar1();
+     	 validar3();
+    	 validar4();
+     	 validar5();
+     	 validar6();
+    	 
+     }
+
+     
+     
+     
+     
+     /*buscador*/
+ 
+</script>
+		<script>
+validar();
+window.onload=function(){
+var pos=window.name || 0;
+window.scrollTo(0,pos);
+}
+window.onunload=function(){
+window.name=self.pageYOffset || (document.documentElement.scrollTop+document.body.scrollTop);
+}
+</script>
 </body>
 
 </html>

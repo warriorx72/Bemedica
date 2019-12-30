@@ -30,6 +30,20 @@ public class ConvenioEstudio implements Serializable {
 	@NotNull
 	@Column(name = "estudio_id")
 	private Long EstudioId;
+	
+	@NotNull
+	@Column(name = "estudio_tipo")
+	private String EstudioTipo;
+
+
+	public String getEstudioTipo() {
+		return EstudioTipo;
+	}
+
+
+	public void setEstudioTipo(String estudioTipo) {
+		EstudioTipo = estudioTipo;
+	}
 
 
 	public Long getCeId() {

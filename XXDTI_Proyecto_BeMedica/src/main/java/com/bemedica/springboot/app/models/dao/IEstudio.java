@@ -14,7 +14,7 @@ public interface IEstudio {
 	
 	public void delete (Long id);
 	
-	public List<Object[]> select(Long id );
+	public List<Object[]> select(Long id);
 	
 	
 	

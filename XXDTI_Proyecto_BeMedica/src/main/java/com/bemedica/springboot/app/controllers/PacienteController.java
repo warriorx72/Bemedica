@@ -324,12 +324,6 @@ public class PacienteController {
 				ordenestudio.setEstudio_id(a);
 			ordenestudio.setTipo("gabinete");
 		}
-		if (ordenestudio.getEstudio_id().toString().contains("ant")) {
-			String[] id = ordenestudio.getEstudio_id().split("ant");
-			for (String a : id)
-				ordenestudio.setEstudio_id(a);
-			ordenestudio.setTipo("antibiograma");
-		}
 
 		/// if(ordenestudio.getEstudio_id()==estudio.estudio_id+2) {
 		/// ordenestudio.setTipo("paque");
