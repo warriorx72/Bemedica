@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<link rel="stylesheet" th:href="@{/css/style_ticket.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<body>
+<input type="button" class="btn btn-primary btn-block" onclick="printPage2('block5')" value="Imprimir ticket" /><br>
+<input type="button" class="btn btn-primary btn-block" onclick="printPage2('block7')" value="Imprimir miniticket" />
+<div id="block5">
+		<div id="block6">
+			<link rel="stylesheet" th:href="@{/css/style_ticket.css}">
+			<div class="ticket">
+				<img class="example-print" th:src="@{/img/logo_ticket.png}">
+
+
+				<p class="justify">
+					BEMEDICA CIS S.A. DE C.V. <br>R.F.C: SVBHCSJHBSC9 <br>5
+					SUR NÚMERO 2, SECCIÓN 1RA, SAN MIGUEL TENANCINGO C.P. 90880,
+					TLAXCALA
+
+				</p>
+				<p class="notas">¡NOTAS IMPORTANTES!</p>
+				<p class="notass">
+					1. SI SU COMPROBANTE NO INDICA LA CANTIDAD EXACTA QUE USTED PAGÓ
+					REPORTELO CON SEL. <br>2. ESTE DOCUMENTO NO ES FACTURA Y NO
+					TIENE VALOR FISCAL. <br>3. TIENE 7 DÍAS NATURALES PARA LA
+					ENTREGA O TOMA DE SUS MUESTRAS PENDIENTES. <br>4. CONSULTE
+					NUESTRO AVISO DE PRIVACIDAD
+
+				</p>
+				<p class="notas">
+					COMPROBANTE <br>ORDEN DE SERVICIO
+				</p>
+				<p class="centrado" style="font-size: 14px;">
+					:::::::::::::::ID PACIENTE::::::::::::::: <br> <b
+						style="font-size: 14px;" th:each="pa: ${painfo}" th:text="${pa[4]}"></b>
+				</p>
+				<table class="centrado" style="border: hidden">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="fecha" style="width: 10mm"></td>
+							<td class="fecha_right">Fecha de impresion:</td>
+							<td class="fecha_left" id="TimeTicket"></td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha"></td>
+							<td class="fecha_right">Fecha de trabajo:</td>
+							<td class="fecha_left" th:text="${fe[0]}">00-00-0000</td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha"></td>
+							<td class="fecha_right">Folio:</td>
+							<td class="fecha_left" th:text="${fe[1]}"></td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha"></td>
+							<td class="fecha_right">Fecha de Entrega:</td>
+							<td class="fecha_left" th:text="${fe[2]}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="notas">"PARA LA ENTREGA DE RESULTADOS FAVOR DE
+					PRESENTAR ESTE TICKET"</p>
+				<p class="justify">
+					<b>LUGAR DE EXPEDICIÓN:</b>
+				</p>
+				<p class="justify">
+					<b>TLAXCALA</b>
+				</p>
+				<p class="justify">5 SUR NÚMERO 2, SECCIÓN 1RA, SAN MIGUEL
+					TENANCINGO C.P. 90880, TLAXCALA</p>
+
+				<hr style="border-bottom: 1px solid black">
+
+				<table style="border: hidden">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="em: ${eminfo}">
+							<td class="fecha_left"><b>CAJERO:</b></td>
+							<td class="fecha" style="width: 10mm"></td>
+							<td class="fecha_center" th:text="${em[1]}"></td>
+						<tr>
+						<tr th:each="em: ${eminfo}">
+							<td class="fecha_left"><b></b></td>
+							<td class="fecha" style="width: 10mm"></td>
+							<td class="fecha_center" th:text="${em[0]}"></td>
+						<tr>
+					</tbody>
+				</table>
+				<hr style="border-top: 1px solid black">
+				<table class="datos">
+					<thead>
+					</thead>
+					<tbody>
+						<tr>
+							<td><b>DATOS DEL PACIENTE:</b></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td th:text="${pa[0]}"></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td><label>EDAD:&nbsp</label><label th:text="${pa[1]}"></label><label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSEXO:&nbsp</label><label
+								th:text="${pa[2]}"></label></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td th:text="${pa[3]}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<hr style="border-top: 1px solid black">
+				<b>DATOS DEL MEDICO:</b><br> <label th:each="em: ${eminfo}"
+					th:text="${em[2]}"></label><br> <br> <b>SERVICIO(S)
+					SOLICITADO(S):</b><br> <br>
+				<table
+					style="border-top: 1px solid black; border-collapse: collapse;">
+					<thead>
+						<tr>
+							<th class="servicio">SERVICIO</th>
+							<th class="cantidad">CANT.</th>
+							<th class="precio_unit">PRECIO UNIT.</th>
+							<th class="importe">IMPORTE</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="se: ${seinfo}">
+							<td class="servicio" th:text="${se[0]}"></td>
+							<td class="cantidad" th:text="${se[1]}"></td>
+							<td class="precio_unit" th:text="${se[2]}"></td>
+							<td class="importe" th:text="${se[7]}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="total" style="border: hidden">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody th:each="to: ${toinfo}">
+						<tr>
+							<td class="fecha"></td>
+							<td class="total_right">SUBTOTAL: $</td>
+							<td class="total_right" th:text="${to[0]}"></td>
+						<tr>
+							<td class="fecha"></td>
+							<td class="total_right">DESCUENTO: $</td>
+							<td class="total_right" th:text="${to[3]}"></td>
+						</tr>
+						<tr>
+							<td class="fecha"></td>
+							<td class="total_right">IVA 16%: $</td>
+							<td class="total_right" th:text="${to[1]}"></td>
+						</tr>
+						<tr>
+							<td class="fecha"></td>
+							<td class="total_right">TOTAL: $</td>
+							<td class="total_right" th:text="${to[2]}"></td>
+						</tr>
+						<tr th:each=" orde: ${vista_ordenes}"
+							th:unless="${orde.orden_estatus=='Pagado'}">
+							<td class="fecha"></td>
+							<td class="total_right">ANTICIPO: $</td>
+							<td class="total_right" th:text="${orde.pago_inicial}"></td>
+						</tr>
+						<tr th:each=" orde: ${vista_ordenes}"
+							th:unless="${orde.orden_estatus=='Pagado'}">
+							<td class="fecha"></td>
+							<td class="total_right">ADEUDO: $</td>
+							<td class="total_right" th:text="${orde.adeudo}"></td>
+						</tr>
+						<tr th:each=" orde: ${vista_ordenes}"
+							th:if="${orde.orden_estatus=='Pagado'}">
+							<td class="fecha"></td>
+							<td class="total_right"></td>
+							<td class="total_right">PAGADO</td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="centrado">
+					¡GRACIAS POR SU COMPRA! <br>BeMedica.com
+				</p>
+			</div>
+		</div>
+	</div>
+	<div id="block7">
+		<div id="block8">
+			<link rel="stylesheet" th:href="@{/css/style_ticket.css}">
+			<div class="ticket">
+				<img class="example-print" th:src="@{/img/logo_ticket.png}">
+				<hr style="border-top: 1px solid black">
+				<table class="centrado" style="border: hidden">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="fecha_left">Fecha de impresion:</td>
+							<td class="fecha_left" id="TimeTicket2"></td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha_left">Fecha de trabajo:</td>
+							<td class="fecha_left" th:text="${fe[0]}"></td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha_left">Folio:</td>
+							<td class="fecha_left" th:text="${fe[1]}"></td>
+					</tbody>
+				</table>
+				<hr style="border-top: 1px solid black">
+				<table class="datos">
+					<thead>
+					</thead>
+					<tbody>
+						<tr>
+							
+						</tr>
+						<tr th:each="pa: ${painfo}">
+						<td><b>DATOS DEL PACIENTE:</b></td>
+							<td th:text="${pa[0]}"></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td><label>EDAD:&nbsp</label><label th:text="${pa[1]}"></label><label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSEXO:&nbsp</label><label
+								th:text="${pa[2]}"></label></td>
+						</tr>
+						<tr >
+							<td><b>MEDICO:</b> <label th:each="em: ${eminfo}"
+								th:text="${em[2]}"></label></td>
+						</tr>
+					</tbody>
+				</table>
+				<hr style="border-top: 1px solid black">
+				<div style="text-align: center"><b >ESTUDIOS SOLICITADOS</b><br></div>
+				
+				<table
+					style="border-top: 0px solid black; border-collapse: collapse;">
+					<thead>
+						<tr>
+							<th class="servicio">SERVICIO(S)</th>
+							<th class="cantidad"></th>
+							<th class="precio_unit"></th>
+							<th class="importe"></th>
+						</tr>
+					</thead>
+					<tbody th:each="se: ${seinfo}">
+						<tr>
+							<td colspan="4" class="servicio" th:text="${se[0]}"></td>
+
+						</tr>
+					</tbody>
+				</table>
+				<p class="centrado">
+					BeMedica.com
+				</p>
+			</div>
+		</div>
+	</div>
+<script th:src="@{/js/script_ticket.js}"></script>
+<!-- <script type="text/javascript">
+  window.onload=function(){
+  window.print();}</script> -->
+</body>
+</html>
