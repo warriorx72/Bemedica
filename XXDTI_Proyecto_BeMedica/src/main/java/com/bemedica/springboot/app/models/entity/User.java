@@ -29,7 +29,7 @@ public class User implements Serializable{
 	@GenericGenerator(name="native",strategy="native")
 	private Long id;
 	
-	@Column 
+	/*@Column 
 	@NotBlank
 	private String firstName;
 	
@@ -40,8 +40,21 @@ public class User implements Serializable{
 	@Column(unique = true) 
 	@Email 
 	@NotBlank
-	private String email;
+	private String email; 
+	*/
+	@Column 
+	private Integer empleado_id;
 	
+	
+
+	public Integer getEmpleado_id() {
+		return empleado_id;
+	}
+
+	public void setEmpleado_id(Integer empleado_id) {
+		this.empleado_id = empleado_id;
+	}
+
 	@Column(unique = true)
 	@NotBlank
 	private String username;
@@ -77,7 +90,7 @@ public class User implements Serializable{
 		this.id = id;
 	}
 
-	public String getFirstName() {
+/*	public String getFirstName() {
 		return firstName;
 	}
 
@@ -100,7 +113,7 @@ public class User implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+*/
 	public String getUsername() {
 		return username;
 	}
@@ -143,8 +156,7 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", username=" + username + ", password=" + password + ", confirmPassword=" + confirmPassword + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", confirmPassword=" + confirmPassword + "]";
 	}
 
 	@Override
@@ -152,10 +164,10 @@ public class User implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((confirmPassword == null) ? 0 : confirmPassword.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		///result = prime * result + ((email == null) ? 0 : email.hashCode());
+	///	result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		///result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -175,7 +187,7 @@ public class User implements Serializable{
 				return false;
 		} else if (!confirmPassword.equals(other.confirmPassword))
 			return false;
-		if (email == null) {
+		/*if (email == null) {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
@@ -184,17 +196,17 @@ public class User implements Serializable{
 			if (other.firstName != null)
 				return false;
 		} else if (!firstName.equals(other.firstName))
-			return false;
+			return false;*/
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
+	///	if (lastName == null) {
+		///	if (other.lastName != null)
+			///	return false;
+		///} else if (!lastName.equals(other.lastName))
+			///return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
