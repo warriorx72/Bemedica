@@ -32,6 +32,24 @@ public class UserDaoImpl implements IUserDao {
 		
 		return em.createQuery("from EmpleadoVista").getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	@Override
+	public List<Object> lista() {
+		
+		return em.createNativeQuery("select user.*,empleado_vista.empleado_id_text,empleado_vista.persona_nombre,empleado_vista.persona_ap,\r\n" + 
+				"empleado_vista.persona_am,empleado_vista.persona_email,empleado_vista.sucursal_nombre,empleado_vista.empleado_estatus\r\n" + 
+				",user_roles.*,role.id as role_id_2, role.description,role.name from user,empleado_vista,user_roles,role\r\n" + 
+				"where user.empleado_id=empleado_vista.empleado_id\r\n" + 
+				"and empleado_vista.empleado_id=user.empleado_id\r\n" + 
+				"and user.id=user_roles.user_id\r\n" + 
+				"and user_roles.user_id=user.id\r\n" + 
+				"and user_roles.role_id=role.id\r\n" + 
+				"and role.id=user_roles.role_id\r\n" + 
+				"order by user.id desc\r\n" + 
+				";").getResultList();
+	}
 
 	@Override
 	@Transactional
