@@ -11,6 +11,7 @@ public interface IEstudioDao {
 	public List<Estudio> findAntibiograma();
 	public List<Estudio> findCultivo();
 	public List<Estudio> findGabinete();
+	public List<Object[]> findConvenio();
 	public void save(Estudio estudio);
 	
 	public Estudio findOne(Long id);

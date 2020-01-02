@@ -46,6 +46,7 @@ import com.bemedica.springboot.app.models.dao.IVistaMedicoDao;
 import com.bemedica.springboot.app.models.dao.IVistaOrdenDao;
 import com.bemedica.springboot.app.models.dao.IVistaOrdenEstudioDao;
 import com.bemedica.springboot.app.models.dao.ICatalogoDao;
+import com.bemedica.springboot.app.models.dao.IConvenioEstudio;
 import com.bemedica.springboot.app.models.dao.IDireccionDao;
 import com.bemedica.springboot.app.models.dao.IEstudioDao;
 import com.bemedica.springboot.app.models.dao.IOrdenEstudioDao;
@@ -117,6 +118,8 @@ public class PacienteController {
 	private IOrdenEstudioDaoE orden_estudioE;
 	@Autowired
 	private IPromocionesDao PromocionDao;
+	@Autowired
+	private IConvenioEstudio coEsDao;
 
 	@RequestMapping(value = "/operaciones_recepcion", method = RequestMethod.GET) // vista operaciones_recepcion
 	public String operaciones_recepcion(Model model, Map<String, Object> m) {
@@ -267,6 +270,7 @@ public class PacienteController {
 		model.addAttribute("ordenes", ordenDao.findAll());
 		model.addAttribute("cultivos", estudioDao.findCultivo());
 		model.addAttribute("gabinetes", estudioDao.findGabinete());
+		model.addAttribute("convenios", estudioDao.findConvenio());
 		model.addAttribute("antibiogramas", estudioDao.findAntibiograma());
 		model.addAttribute("eminfo", ticketDao.findEmpleado(id));
 		model.addAttribute("painfo", ticketDao.findPaciente(id));
@@ -286,6 +290,7 @@ public class PacienteController {
 		Orden aux = null;
 
 		aux = ordenDao.findOne(ordenestudio.getOrden_id());
+		orden=ordenDao.findOne(ordenestudio.getOrden_id());
 		///// model.addAttribute("vistasEstudio", EstudioDao.findAll());
 		//// model.addAttribute("vistas", EmpresaDao.findAll());
 
@@ -299,37 +304,70 @@ public class PacienteController {
 			for (String a : id)
 				ordenestudio.setEstudio_id(a);
 			ordenestudio.setTipo("estudio");
+			ordenestudioDao.save(ordenestudio);
 		}
 		if (ordenestudio.getEstudio_id().toString().contains("paq")) {
 			String[] id = ordenestudio.getEstudio_id().split("paq");
 			for (String a : id)
 				ordenestudio.setEstudio_id(a);
 			ordenestudio.setTipo("paquete");
+			ordenestudioDao.save(ordenestudio);
 		}
 		if (ordenestudio.getEstudio_id().toString().contains("per")) {
 			String[] id = ordenestudio.getEstudio_id().split("per");
 			for (String a : id)
 				ordenestudio.setEstudio_id(a);
 			ordenestudio.setTipo("perfil");
+			ordenestudioDao.save(ordenestudio);
 		}
 		if (ordenestudio.getEstudio_id().toString().contains("cul")) {
 			String[] id = ordenestudio.getEstudio_id().split("cul");
 			for (String a : id)
 				ordenestudio.setEstudio_id(a);
 			ordenestudio.setTipo("cultivo");
+			ordenestudioDao.save(ordenestudio);
 		}
 		if (ordenestudio.getEstudio_id().toString().contains("gab")) {
 			String[] id = ordenestudio.getEstudio_id().split("gab");
 			for (String a : id)
 				ordenestudio.setEstudio_id(a);
 			ordenestudio.setTipo("gabinete");
+			ordenestudioDao.save(ordenestudio);
 		}
+		if (ordenestudio.getEstudio_id().toString().contains("con")) {
+			String[] id = ordenestudio.getEstudio_id().split("con");
+			for (Object x:coEsDao.findExa(id[0])) {
+				ordenestudio.setEstudio_id(x.toString());
+				ordenestudio.setTipo("estudio");
+				ordenestudioDao.save(ordenestudio);
+			}	
+			for (Object x:coEsDao.findGab(id[0])) {
+				ordenestudio.setEstudio_id(x.toString());
+				ordenestudio.setTipo("gabinete");
+				ordenestudioDao.save(ordenestudio);
+			}
+			for (Object x:coEsDao.findCul(id[0])) {
+				ordenestudio.setEstudio_id(x.toString());
+				ordenestudio.setTipo("cultivo");
+				ordenestudioDao.save(ordenestudio);
+			}
+			for (Object x:coEsDao.findPaq(id[0])) {
+				ordenestudio.setEstudio_id(x.toString());
+				ordenestudio.setTipo("paquete");
+				ordenestudioDao.save(ordenestudio);
+			}
+			for (Object x:coEsDao.findPer(id[0])) {
+				ordenestudio.setEstudio_id(x.toString());
+				ordenestudio.setTipo("perfil");
+				ordenestudioDao.save(ordenestudio);
+			}
 
+		}
 		/// if(ordenestudio.getEstudio_id()==estudio.estudio_id+2) {
 		/// ordenestudio.setTipo("paque");
 		// }
 
-		ordenestudioDao.save(ordenestudio);
+		
 		Mostrar(orden.getOrden_id(),model);
 		((Map<String, Object>) model).put("ordenestudio", ordenestudio);
 		//// ((Map<String, Object>) model).put("estudio", estudio);
@@ -348,7 +386,8 @@ public class PacienteController {
 			model.addAttribute("mini_ticket", "block7"); 
 			model.addAttribute("coti", "false");
 		}
-	
+		orden.setMonto("100");
+		ordenDao.save(orden);
 		/// return"form_convenio";
 		return "operaciones_recepcion";
 	}

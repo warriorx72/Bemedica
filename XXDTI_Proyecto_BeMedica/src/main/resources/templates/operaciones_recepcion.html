@@ -377,9 +377,10 @@
 							</form>
 							<br> <br>
 							<h5>Estudios</h5>
-							<form th:action="@{/form_orden_estudios}"
+							<form th:action="@{/form_orden_estudios}" th:id="form_o_e"
 								th:object="${ordenestudio}" method="post">
 								<div class="form-row">
+									
 									<input type="hidden" th:field="*{orden_id}" />
 									<div class="col-sm-6">
 										<label class="col-sm-12 col-form-label"></label> <select
@@ -417,22 +418,24 @@
 													th:label="${gab[2] + ' $' + gab[4] + 'MXN'}" />
 
 											</optgroup>
+											<optgroup label="Convenio">
+
+												<option th:each="con:${convenios}"
+													th:value="${con[0] + 'con'}"
+													th:label="${con[2] + ' $' + con[4] + 'MXN'}" />
+
+											</optgroup>
 										</select>
 
 									</div>
-
-
-
-									<!--    <div class="col-sm-3">
-                                 <label class="col-sm-12 col-form-label">Cantidad</label> 
-                                 <input type="number" class="form-control form-control-sm" id="inputNor" required th:field="*{cantidad_estudio}" min="1">
-                              
-                              </div>  ----->
 								</div>
+								
+
 								<br> <input class="btn btn-primary" type="submit"
 									value="Guardar" th:disabled="${button_estudio}" id="submit">
 							</form>
-							<br>
+
+							<br><br>
 							<!--Termina código de formulario-->
 							<h5>Estudios orden</h5>
 							<br>

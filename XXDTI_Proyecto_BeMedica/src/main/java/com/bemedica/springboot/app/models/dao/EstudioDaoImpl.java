@@ -26,12 +26,14 @@ public  class EstudioDaoImpl implements IEstudioDao {
 		return em.createQuery("from Estudio").getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public List<Estudio> findBy() {
 		// TODO Auto-generated method stub
 		return em.createNativeQuery("select * from estudios where estudio_individual=1 and estudio_estatus=1 and estudio_tipo=1").getResultList();
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public List<Estudio> findCultivo() {
@@ -39,17 +41,26 @@ public  class EstudioDaoImpl implements IEstudioDao {
 		return em.createNativeQuery("select * from estudios where estudio_tipo=2 and estudio_estatus=1").getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public List<Estudio> findGabinete() {
 		// TODO Auto-generated method stub
 		return em.createNativeQuery("select * from estudios where estudio_tipo=3 and estudio_estatus=1").getResultList();
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public List<Estudio> findAntibiograma() {
 		// TODO Auto-generated method stub
 		return em.createNativeQuery("SELECT * FROM `antibiogramas` WHERE `anti_estatus`=1").getResultList();
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<Object[]> findConvenio() {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("select * from convenio co where co.convenio_estatus=1").getResultList();
 	}
 	    
 	

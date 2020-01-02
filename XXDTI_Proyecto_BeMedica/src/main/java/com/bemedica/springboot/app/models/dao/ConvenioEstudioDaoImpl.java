@@ -67,6 +67,74 @@ public class ConvenioEstudioDaoImpl implements IConvenioEstudio {
 		
 	}
 
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object> findExa(String id) {
+		// TODO Auto-generated method stub
+		
+		return em.createNativeQuery("SELECT\r\n" + 
+				"	coes.estudio_id\r\n" + 
+				"FROM\r\n" + 
+				"	convenio co\r\n" + 
+				"	INNER JOIN convenio_estudio coes ON co.convenio_id = coes.convenio_id\r\n" + 
+				"WHERE 1=1 AND co.convenio_id="+id+" AND coes.estudio_tipo='examen'").getResultList();
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object> findCul(String id) {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("SELECT\r\n" + 
+				"	coes.estudio_id\r\n" + 
+				"FROM\r\n" + 
+				"	convenio co\r\n" + 
+				"	INNER JOIN convenio_estudio coes ON co.convenio_id = coes.convenio_id\r\n" + 
+				"WHERE 1=1 AND co.convenio_id="+id+" AND coes.estudio_tipo='cultivo'").getResultList();
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object> findGab(String id) {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("SELECT\r\n" + 
+				"	coes.estudio_id\r\n" + 
+				"FROM\r\n" + 
+				"	convenio co\r\n" + 
+				"	INNER JOIN convenio_estudio coes ON co.convenio_id = coes.convenio_id\r\n" + 
+				"WHERE 1=1 AND co.convenio_id="+id+" AND coes.estudio_tipo='gabinete'").getResultList();
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object> findPaq(String id) {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("SELECT\r\n" + 
+				"	copa.paquete_id \r\n" + 
+				"FROM\r\n" + 
+				"	convenio co\r\n" + 
+				"	INNER JOIN convenio_paquete copa ON co.convenio_id = copa.convenio_id \r\n" + 
+				"WHERE\r\n" + 
+				"	co.convenio_id ="+id).getResultList();
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object> findPer(String id) {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("SELECT\r\n" + 
+				"	cope.perfil_id \r\n" + 
+				"FROM\r\n" + 
+				"	convenio co\r\n" + 
+				"	INNER JOIN convenio_perfil cope ON co.convenio_id = cope.convenio_id \r\n" + 
+				"WHERE\r\n" + 
+				"	co.convenio_id ="+id).getResultList();
+	}
+
 	
 	
 
