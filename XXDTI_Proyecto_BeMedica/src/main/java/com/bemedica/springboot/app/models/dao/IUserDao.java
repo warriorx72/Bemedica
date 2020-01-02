@@ -8,6 +8,6 @@ import com.bemedica.springboot.app.models.entity.User;
 public interface IUserDao {
 
 	public List<EmpleadoVista> ev();
-	
+	public List<Object>lista();
 	public void save (User user);
 }
