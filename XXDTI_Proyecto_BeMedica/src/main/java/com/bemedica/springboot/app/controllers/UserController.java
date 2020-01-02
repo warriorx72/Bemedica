@@ -55,7 +55,8 @@ public class UserController {
 	@GetMapping("/administracion_usuarios")
 	public String userForm(Model model, Map<String, Object> m) {
 		model.addAttribute("userForm", new User());
-		model.addAttribute("userList", userService.getAllUsers());
+		///model.addAttribute("userList", userService.getAllUsers());////comentado por el momento
+		model.addAttribute("userList",userDao.lista());
 		model.addAttribute("roles", roleRepository.findAll());
 		model.addAttribute("titulo","Usuarios");
 		model.addAttribute("listTab", "active");
@@ -69,7 +70,8 @@ public class UserController {
 	@PostMapping("/administracion_usuarios")
 	public String createUser(@Valid User user, Model model, Map<String, Object> m) {
 		model.addAttribute("userForm", user);
-		model.addAttribute("userList", userService.getAllUsers());
+		///model.addAttribute("userList", userService.getAllUsers()); ///comentado por el momento
+	model.addAttribute("userList",userDao.lista());
 		model.addAttribute("roles", roleRepository.findAll());
 		model.addAttribute("titulo","Usuarios");
 		model.addAttribute("listTab", "active");
@@ -84,8 +86,11 @@ public class UserController {
 	@GetMapping("/editUser/{id}")
 	public String getEditUserForm(Model model, @PathVariable(name="id")Long id) throws Exception{
 		User userToEdit = userService.getUserById(id);
+		///System.out.println(userToEdit.getEmpleado_id());
+		model.addAttribute("empleado_vista",userDao.ev());
 		model.addAttribute("userForm", userToEdit);
-		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("userList", userDao.lista());
+		///model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("roles", roleRepository.findAll());
 		model.addAttribute("titulo","Usuarios");
 		model.addAttribute("formTab", "active");
@@ -96,15 +101,16 @@ public class UserController {
 	
 	@PostMapping("/editUser")
 	public String postEditUserForm(@Valid @ModelAttribute("userForm")User user , BindingResult result, ModelMap model, Map<String, Object> m) {
-		if(result.hasErrors()) {
-			model.addAttribute("userForm", user);
-			model.addAttribute("titulo","Usuarios");
-			model.addAttribute("formTab", "active");
-			model.addAttribute("editMode", "true");
-			model.addAttribute("passwordForm",new ChangePasswordForm(user.getId()));
-			model.addAttribute("empleado_vista",userDao.ev());
-			EmpleadoVista empv = new EmpleadoVista();
-			m.put("empleadovista", empv);
+		if(user.getId()<0) {
+			System.out.println(user.getId());
+			//model.addAttribute("userForm", user);
+			//model.addAttribute("titulo","Usuarios");
+			//model.addAttribute("formTab", "active");
+			//model.addAttribute("editMode", "true");
+			//model.addAttribute("passwordForm",new ChangePasswordForm(user.getId()));
+			//model.addAttribute("empleado_vista",userDao.ev());
+			//EmpleadoVista empv = new EmpleadoVista();
+			//m.put("empleadovista", empv);
 		}else {
 			try {
 				userService.updateUser(user);
@@ -120,7 +126,8 @@ public class UserController {
 				model.addAttribute("userForm", user);
 				model.addAttribute("titulo","Usuarios");
 				model.addAttribute("formTab", "active");
-				model.addAttribute("userList", userService.getAllUsers());
+				model.addAttribute("userList", userDao.lista());
+				////	model.addAttribute("userList", userService.getAllUsers());
 				model.addAttribute("roles", roleRepository.findAll());
 				model.addAttribute("editMode", "true");
 				model.addAttribute("passwordForm",new ChangePasswordForm(user.getId()));
@@ -129,7 +136,8 @@ public class UserController {
 				m.put("empleadovista", empv);
 			}
 		}
-		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("userList", userDao.lista());
+		////model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("roles", roleRepository.findAll());
 		
 	return "administracion_usuarios";
