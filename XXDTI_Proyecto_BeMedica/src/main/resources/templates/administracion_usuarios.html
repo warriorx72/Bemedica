@@ -93,7 +93,7 @@
 														<th></th>
 														<th>Nombre</th>
 														<th>Username</th>
-														<th>Email</th>
+														<th>Rol</th>
 														<th title="Usuario Activo"><img
 															src="https://img.icons8.com/officexs/20/000000/light-on.png"></th>
 														<!-- 														<th title="Capturar Información"><img -->
@@ -123,36 +123,37 @@
 													<tr th:each="user: ${userList}">
 														<td style="text-align: center;"><a
 															class="btn btn-warning btn-sm" title="Editar" href="#"
-															th:href="@{'/editUser/' + ${user.id}}"><i
-																class="fas fa-pencil-alt"></i></a> <a
-															th:onclick="'javascript:confirmDelete(\''+ ${user.id} + '\');'"
+															th:href="@{'/editUser/' + ${user[0]}}">
+													
+															<i class="fas fa-pencil-alt"></i></a> <a
+															th:onclick="'javascript:confirmDelete(\''+ ${user[0]} + '\');'"
 															class="btn btn-danger btn-sm" title="Borrar" href="#"><i
 																class="fas fa-trash-alt"></i></a></td>
-														<td th:text="${user.firstName}"><a> <!--class="text-primary"
+													<td th:text="${user[8]}+' '+${user[9]}+' '+${user[10]}+' '+${user[11]}"><a> <!--class="text-primary"
 															th:href="@{'/editUser/' + ${user.id}}" -->
-														</a></td>
-														<td th:text="${user.username}"></td>
-														<td th:text="${user.email}"></td>
+													<!-- 	</a></td>--->
+														<td th:text="${user[6]}"></td>
+														 <td th:text="${user[19]}"></td> 
 
 														<td style="text-align: center; width: 30px;">
 															<!-- 															<div class="form-check"> --> <!-- 																<input class="form-check-input" type="checkbox" -->
 															<!-- 																	id="inlineCheckbox1" value="option1"> -->
 															<!-- 															</div> -->
 															<form th:action="@{/user_status}" method="post"
-																th:id="${user.id}" th:name="${user.id}">
+																th:id="${user[0]}" th:name="${user[0]}">
 
-																<input type="checkbox" th:if="${user.userStatus== '1'}"
+																<input type="checkbox" th:if="${user[7]== '1'}"
 																	checked value="0"
-																	th:onclick="'post_form(' + ${user.id} + ');'">
+																	th:onclick="'post_form(' + ${user[0]} + ');'">
 
-																<input type="checkbox" th:if="${user.userStatus== '0'}"
-																	value="1" th:onclick="'post_form(' + ${user.id} + ');'">
+																<input type="checkbox" th:if="${user[7]== '0'}"
+																	value="1" th:onclick="'post_form(' + ${user[0]} + ');'">
 
 
-																<input type="hidden" name="id" th:value="${user.id}" />
+																<input type="hidden" name="id" th:value="${user[0]}" />
 
 																<input type="hidden" name="aux"
-																	th:value="${user.userStatus}" />
+																	th:value="${user[7]}" />
 
 
 															</form>
@@ -243,37 +244,37 @@
 											th:field="${userForm.password}" th:if="${editMode}" />
 
 										<div class="form-row mb-0">
-<!-- 											<div class="form-group col-md-3"> -->
-<!-- 												<label class="col-form-label-sm mb-0">Nombre</label><input -->
-<!-- 													type="text" class="form-control form-control-sm" -->
-<!-- 													th:field="${userForm.firstName}" /> -->
-<!-- 												<div class="alert-danger" -->
-<!-- 													th:if="${#fields.hasErrors('firstName')}" -->
-<!-- 													th:errors="*{firstName}">Name Error</div> -->
-<!-- 											</div> -->
-<!-- 											<div class="form-group col-md-3"> -->
-<!-- 												<label class="col-form-label-sm mb-0">Apellidos</label> <input -->
-<!-- 													type="text" class="form-control form-control-sm" -->
-<!-- 													th:field="${userForm.lastName}" /> -->
-<!-- 												<div class="alert-danger" -->
-<!-- 													th:if="${#fields.hasErrors('lastName')}" -->
-<!-- 													th:errors="*{lastName}">Name Error</div> -->
-<!-- 											</div> -->
-<!-- 											<div class="form-group col-md-3"> -->
-<!-- 												<label class="col-form-label-sm mb-0">Correo -->
-<!-- 													Electronico</label> <input type="text" -->
-<!-- 													class="form-control form-control-sm" -->
-<!-- 													th:field="${userForm.email}" /> -->
-<!-- 												<div class="alert-danger" -->
-<!-- 													th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name -->
-<!-- 													Error</div> -->
-<!-- 											</div> -->
+ 										<!-- 	<div class="form-group col-md-3"> 
+ 												<label class="col-form-label-sm mb-0">Nombre</label><input
+ 													type="text" class="form-control form-control-sm"
+ 													th:field="${userForm.firstName}" /> 
+ 												<div class="alert-danger" 
+ 													th:if="${#fields.hasErrors('firstName')}"
+												th:errors="*{firstName}">Name Error</div> 
+ 											</div> --->
+ 										<!-- 	<div class="form-group col-md-3"> 
+ 												<label class="col-form-label-sm mb-0">Apellidos</label> <input
+ 													type="text" class="form-control form-control-sm"
+ 													th:field="${userForm.lastName}" /> 
+ 												<div class="alert-danger" 
+ 													th:if="${#fields.hasErrors('lastName')}" 
+ 													th:errors="*{lastName}">Name Error</div>
+ 											</div> ---> 
+ 										<!--	<div class="form-group col-md-3"> 
+ 												<label class="col-form-label-sm mb-0">Correo 
+ 													Electronico</label> <input type="text"
+ 													class="form-control form-control-sm"
+ 													th:field="${userForm.email}" /> 
+ 												<div class="alert-danger"
+ 													th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name
+											Error</div> 
+										</div> --->
 											<div class="form-group col-md-4.5">
 												<label class="col-form-label-sm mb-0">Empleado</label> 
-												<select class="form-control">
-													<option value="">Seleccione Empleado...</option>
+												<select class="form-control" th:field=*{empleado_id}>
+												<!-- 	<option value="">Seleccione Empleado...</option> --->
 													<option th:each="empleado: ${empleado_vista}"
-													th:value="empleado.EmpleadoId" th:text="${empleado.PersonaNombre}+' '+${empleado.PersonaAp}+' '+${empleado.PersonaEmail}"></option>
+													th:value="${empleado.EmpleadoId}" th:text="${empleado.PersonaNombre}+' '+${empleado.PersonaAp}+' '+${empleado.PersonaAm}+' '+${empleado.EmpleadoIdText}"></option>
 												</select>
 												<div class="alert-danger"
 													th:if="${#fields.hasErrors('username')}"
