@@ -26,7 +26,17 @@ public class Caja implements Serializable{
 	@Column(name="fecha_final")
 	private String FechaFinal;
 	
+	@Column(name="corte_tipo")
+	private boolean CorteTipo;	
+
 	
+	public boolean isCorteTipo() {
+		return CorteTipo;
+	}
+
+	public void setCorteTipo(boolean corteTipo) {
+		CorteTipo = corteTipo;
+	}
 
 	public Long getCajaId() {
 		return CajaId;

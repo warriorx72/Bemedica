@@ -75,6 +75,7 @@ public class CajaController {
 		orden.setEmpleado_id(null);
 		orden.setPago_inicial("0.00");
 		orden.setOrden_estatus("Corte Caja");
+		orden.setMetodo_pago("efectivo");
 		orden.setOrden_fecha(formatter.format(date)+" "+"06:00:00");
 		orden.setMonto(EnCaja);
 		orden.setPago_final(EnCaja);
@@ -83,6 +84,7 @@ public class CajaController {
 		OrdenDao.save(orden);
 		
 		caja.setFechaInicial(formatter.format(date) +" "+"06:00:00");
+		caja.setCorteTipo(false);
 		cajaDao.save(caja);
 		Caja CajaAux ;
 		
@@ -128,7 +130,7 @@ public class CajaController {
 			
 			
 			caja.setFechaInicial(auxs);
-			
+			caja.setCorteTipo(true);
 			cajaDao.save(caja);
 			
 		

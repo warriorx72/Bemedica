@@ -19,6 +19,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.poi.util.SystemOutLogger;
 import org.hibernate.Session;
 import org.hibernate.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -233,6 +234,7 @@ public class PacienteController {
 		OrdenEstudio ordenestudio = new OrdenEstudio();
 		ordenestudio.setOrden_id(orden.getOrden_id());
 		m.put("ordenestudio", ordenestudio);
+		m.put("orden", orden);
 		/// model.put("titulo", "Formulario de Cliente");
 //		status.setComplete();
 		Mostrar(orden.getOrden_id(),model);
@@ -290,15 +292,6 @@ public class PacienteController {
 		Orden aux = null;
 
 		aux = ordenDao.findOne(ordenestudio.getOrden_id());
-		orden=ordenDao.findOne(ordenestudio.getOrden_id());
-		///// model.addAttribute("vistasEstudio", EstudioDao.findAll());
-		//// model.addAttribute("vistas", EmpresaDao.findAll());
-
-		/// ordenestudio.setPrecio_unitario(estudio.getEstudio_precio());
-		/// ordenestudio.setTotal_linea(orden.getEmpleado_id());
-		// if(ordenestudio.getEstudio_id()>0) {
-		// ordenestudio.setTipo("estudio");
-//	}System.out.println("The Keyword :example: is found in given string");
 		if (ordenestudio.getEstudio_id().toString().contains("est")) {
 			String[] id = ordenestudio.getEstudio_id().split("est");
 			for (String a : id)
@@ -361,11 +354,15 @@ public class PacienteController {
 				ordenestudio.setTipo("perfil");
 				ordenestudioDao.save(ordenestudio);
 			}
-
+			orden = ordenDao.findOne(ordenestudio.getOrden_id());
+			orden.setConvenio_id(id[0]);
+			orden.setMonto("100");
+			ordenDao.save(orden);
+			System.out.println("i´m here bitch"+orden.getMonto());
+			System.out.println("i´m here bitch"+orden.getOrden_id());
 		}
-		/// if(ordenestudio.getEstudio_id()==estudio.estudio_id+2) {
-		/// ordenestudio.setTipo("paque");
-		// }
+
+		
 
 		
 		Mostrar(orden.getOrden_id(),model);
@@ -386,8 +383,8 @@ public class PacienteController {
 			model.addAttribute("mini_ticket", "block7"); 
 			model.addAttribute("coti", "false");
 		}
-		orden.setMonto("100");
-		ordenDao.save(orden);
+
+		
 		/// return"form_convenio";
 		return "operaciones_recepcion";
 	}

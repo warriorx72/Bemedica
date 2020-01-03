@@ -47,8 +47,16 @@ public class Orden implements Serializable {
     public String fecha_cancelacion;
     public String adeudo;
     public Integer promocion_id;
+    public String convenio_id;
     
-    public String getFecha_cancelacion() {
+    
+    public String getConvenio_id() {
+		return convenio_id;
+	}
+	public void setConvenio_id(String convenio_id) {
+		this.convenio_id = convenio_id;
+	}
+	public String getFecha_cancelacion() {
 		return fecha_cancelacion;
 	}
 	public void setFecha_cancelacion(String fecha_cancelacion) {
