@@ -35,7 +35,18 @@ public class EmpleadoVista implements Serializable {
 	@Column(name = "persona_ap")
 	private String PersonaAp;
 	
+	@NotEmpty
+	@Column(name = "persona_am")
+	private String PersonaAm;
 	
+	public String getPersonaAm() {
+		return PersonaAm;
+	}
+
+	public void setPersonaAm(String personaAm) {
+		PersonaAm = personaAm;
+	}
+
 	@NotEmpty
 	@Column(name = "persona_email")
 	private String PersonaEmail;
