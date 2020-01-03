@@ -64,7 +64,7 @@ public class EstudiosDaoImpl implements IEstudiosDao {
 	@Override
 	public List<EstudiosView> findAllEstudios() {
 		// TODO Auto-generated method stub
-		return em.createQuery ("from EstudiosView").getResultList();
+		return em.createNativeQuery("call estudios_view()",EstudiosView.class).getResultList(); 
 	}
 
 

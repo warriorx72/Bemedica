@@ -6,16 +6,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="estudios_view")
 public class EstudiosView {
 	
-	 
+	@Id 
+	@Column(name="id2")
+	private Long Id2;
 	@Column(name="id")
 	private Long Id;
-	
 	@Column(name="id_text")
 	private String IdText;
-	@Id 
+	
 	@Column(name="nombre")
 	private String Nombre;
 	

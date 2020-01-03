@@ -176,19 +176,19 @@
 							<td class="total_right" th:text="${to[2]}"></td>
 						</tr>
 						<tr th:each=" orde: ${vista_ordenes}"
-							th:unless="${orde.orden_estatus=='Pagado'}">
+							th:unless="${orde.adeudo=='0.00'}">
 							<td class="fecha"></td>
 							<td class="total_right">ANTICIPO: $</td>
 							<td class="total_right" th:text="${orde.pago_inicial}"></td>
 						</tr>
 						<tr th:each=" orde: ${vista_ordenes}"
-							th:unless="${orde.orden_estatus=='Pagado'}">
+							th:unless="${orde.adeudo=='0.00'}">
 							<td class="fecha"></td>
 							<td class="total_right">ADEUDO: $</td>
 							<td class="total_right" th:text="${orde.adeudo}"></td>
 						</tr>
 						<tr th:each=" orde: ${vista_ordenes}"
-							th:if="${orde.orden_estatus=='Pagado'}">
+							th:if="${orde.adeudo=='0.00'}">
 							<td class="fecha"></td>
 							<td class="total_right"></td>
 							<td class="total_right">PAGADO</td>

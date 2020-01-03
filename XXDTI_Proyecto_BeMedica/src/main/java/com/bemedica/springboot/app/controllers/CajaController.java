@@ -49,13 +49,29 @@ public class CajaController {
 		model.addAttribute("vistas", cajaVistaDao.findAll());
 		m.put("caja", caja);
 		cajaDao.findAll();
+		
+		if (cajaDao.cajaTipo()==false) {
+			model.addAttribute("form_cierre", "false");
+			model.addAttribute("form_corte", "disabled");
+		}
+		else {
+			model.addAttribute("form_cierre", "disabled");
+			model.addAttribute("form_corte", "false");
+		}
 		return "herramientas_corte";
 	   }
 	
 		@RequestMapping(value="/corte", method=RequestMethod.POST)
 		public String guardar(@Valid Caja caja ,BindingResult result, Model model, SessionStatus status,  Map<String, Object> m,
 				@RequestParam(value = "EnCaja", defaultValue="0") String EnCaja) {
-			
+			if (cajaDao.cajaTipo()==false) {
+				model.addAttribute("form_cierre", "false");
+				model.addAttribute("form_corte", "disabled");
+			}
+			else {
+				model.addAttribute("form_cierre", "disabled");
+				model.addAttribute("form_corte", "false");
+			}
 			Orden orden =new Orden ();
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");   	
@@ -107,6 +123,14 @@ public class CajaController {
 		
 		@RequestMapping(value="/cierre", method=RequestMethod.POST)
 		public String guardar2(@Valid Caja caja ,BindingResult result, Model model, SessionStatus status, Map<String, Object> me) {
+			if (cajaDao.cajaTipo()==false) {
+				model.addAttribute("form_cierre", "false");
+				model.addAttribute("form_corte", "disabled");
+			}
+			else {
+				model.addAttribute("form_cierre", "disabled");
+				model.addAttribute("form_corte", "false");
+			}
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
 			Date date = new Date();  
 			Orden orden =new Orden ();

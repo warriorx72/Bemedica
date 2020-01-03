@@ -73,13 +73,21 @@ public class CajaDaoImpl implements ICajaDao {
 		
 		String string  = dateFormat.format(Timestamp);
 		return string ;
-	}	
+	}
+
+	@Override
+	@Transactional
+	public boolean cajaTipo() {
+		String tipo =(em.createNativeQuery ("Select IF((Select count(*) FROM caja)=0,1,(SELECT corte_tipo FROM caja ORDER BY caja_id DESC LIMIT 1)) ").getSingleResult().toString());
+		boolean x;
+		if(tipo.equals("1")) {
+			x=true;
+			return x;
+		}
+		else {
+			x=false;
+			return x;
+		}
 		
-		
-		
-		
-		
-	
-	
-			
+	}				
 }
