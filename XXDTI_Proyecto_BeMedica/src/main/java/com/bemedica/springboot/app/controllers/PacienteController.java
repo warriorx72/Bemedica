@@ -19,7 +19,6 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.apache.poi.util.SystemOutLogger;
 import org.hibernate.Session;
 import org.hibernate.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.util.ArrayUtils;
 
 import com.bemedica.springboot.app.models.dao.IPersonaDao;
 import com.bemedica.springboot.app.models.dao.IPromocionesDao;
@@ -47,7 +47,6 @@ import com.bemedica.springboot.app.models.dao.IVistaMedicoDao;
 import com.bemedica.springboot.app.models.dao.IVistaOrdenDao;
 import com.bemedica.springboot.app.models.dao.IVistaOrdenEstudioDao;
 import com.bemedica.springboot.app.models.dao.ICatalogoDao;
-import com.bemedica.springboot.app.models.dao.IConvenioEstudio;
 import com.bemedica.springboot.app.models.dao.IDireccionDao;
 import com.bemedica.springboot.app.models.dao.IEstudioDao;
 import com.bemedica.springboot.app.models.dao.IOrdenEstudioDao;
@@ -61,6 +60,7 @@ import com.bemedica.springboot.app.models.entity.Persona;
 import com.bemedica.springboot.app.models.entity.Medico;
 import com.bemedica.springboot.app.models.entity.Orden;
 import com.bemedica.springboot.app.models.entity.VistaOrdenEstudio;
+import com.bemedica.springboot.app.models.entity.VistaPaciente;
 import com.bemedica.springboot.app.models.entity.OrdenEstudio;
 import com.bemedica.springboot.app.models.entity.OrdenEstudioE;
 import com.bemedica.springboot.app.models.entity.Estudio;
@@ -69,6 +69,7 @@ import com.bemedica.springboot.app.models.entity.EstudioE;
 import javax.persistence.EntityManager;
 
 import com.bemedica.springboot.app.models.entity.Direccion;
+
 import com.bemedica.springboot.app.models.entity.Paciente; //Modelo de entidad para crear objecto de tipo Cliente
 import com.bemedica.springboot.app.models.entity.Paquetes;
 import com.bemedica.springboot.app.models.entity.Perfiles;
@@ -119,8 +120,6 @@ public class PacienteController {
 	private IOrdenEstudioDaoE orden_estudioE;
 	@Autowired
 	private IPromocionesDao PromocionDao;
-	@Autowired
-	private IConvenioEstudio coEsDao;
 
 	@RequestMapping(value = "/operaciones_recepcion", method = RequestMethod.GET) // vista operaciones_recepcion
 	public String operaciones_recepcion(Model model, Map<String, Object> m) {
@@ -210,8 +209,26 @@ public class PacienteController {
 	 */
 
 	@RequestMapping(value = "/guardarorden", method = RequestMethod.POST)
-	public String guardarorden(@Valid Orden orden, BindingResult result, Model model, Map<String, Object> m) {
+	public String guardarorden(@RequestParam("rol") String rol,@RequestParam("user") String user ,@Valid Orden orden, BindingResult result, Model model, Map<String, Object> m) {
+		///System.out.println(rol.replace("[","").replace("]", ""));
+		String rol2=rol.replace("[", "").replace("]","");
+		///System.out.println(rol2);
+		///System.out.println(user);
+		
+		////String suc=vistaordenestudioDao.emp_suc(rol2, user).get(0).getSucursal_id();
+		///System.out.println(( vistaordenestudioDao.emp_suc(rol2, user).toArray()));
+	Object[] hola=vistaordenestudioDao.emp_suc(rol2, user).toArray();
+///System.out.println(hola[0]);
+	
+		
+		
+			Object[] hola3=(Object[]) hola[0];
+		    
+		   
 
+///System.out.println(hola3[0]);
+///System.out.println(hola3[1]);
+////System.out.println(hola3[0].toString());
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de Cliente");
 			return "redirect:operaciones_recepcion";
@@ -223,22 +240,30 @@ public class PacienteController {
 			orden.setOrden_estatus("pendiente");
 		}
 		///
+		System.out.println("holhola");
 		//// orden.setOrden_folio("ORD");
 		model.addAttribute("button_estudio", "false");
 		model.addAttribute("button_terminar", "disabled");
 		orden.setMetodo_pago("efectivo");
 		orden.setPromocion_id(0);
+	
+			orden.setEmpleado_id(hola3[0].toString());
+			orden.setSucursal_id(hola3[1].toString());
+		
+		
 		ordenDao.save(orden);
 		orden.setOrden_folio("ORD" + (orden.getOrden_id() + 1000000));
 		ordenDao.save(orden);
 		OrdenEstudio ordenestudio = new OrdenEstudio();
 		ordenestudio.setOrden_id(orden.getOrden_id());
 		m.put("ordenestudio", ordenestudio);
-		m.put("orden", orden);
 		/// model.put("titulo", "Formulario de Cliente");
 //		status.setComplete();
 		Mostrar(orden.getOrden_id(),model);
 		model.addAttribute("pacientes", vistapacienteDao.findAll());
+		String idtext=vistapacienteDao.findAll().get(0).getPaciente_id_tex();
+		System.out.println(idtext);
+		
 		model.addAttribute("medicos", vistamedicoDao.findAll());
 		/// model.addAttribute("estudios", estudioDao.findAll());
 		model.addAttribute("estudios", estudioDao.findBy());
@@ -259,6 +284,10 @@ public class PacienteController {
 
 	}
 	
+	@Override
+	public String toString() {
+		return "PacienteController [vistaordenestudioDao=" + vistaordenestudioDao + "]";
+	}
 	public void Mostrar(Long id,Model model) {
 		
 		model.addAttribute("pacientes", vistapacienteDao.findAll());
@@ -272,7 +301,6 @@ public class PacienteController {
 		model.addAttribute("ordenes", ordenDao.findAll());
 		model.addAttribute("cultivos", estudioDao.findCultivo());
 		model.addAttribute("gabinetes", estudioDao.findGabinete());
-		model.addAttribute("convenios", estudioDao.findConvenio());
 		model.addAttribute("antibiogramas", estudioDao.findAntibiograma());
 		model.addAttribute("eminfo", ticketDao.findEmpleado(id));
 		model.addAttribute("painfo", ticketDao.findPaciente(id));
@@ -292,79 +320,56 @@ public class PacienteController {
 		Orden aux = null;
 
 		aux = ordenDao.findOne(ordenestudio.getOrden_id());
+		///// model.addAttribute("vistasEstudio", EstudioDao.findAll());
+		//// model.addAttribute("vistas", EmpresaDao.findAll());
+
+		/// ordenestudio.setPrecio_unitario(estudio.getEstudio_precio());
+		/// ordenestudio.setTotal_linea(orden.getEmpleado_id());
+		// if(ordenestudio.getEstudio_id()>0) {
+		// ordenestudio.setTipo("estudio");
+//	}System.out.println("The Keyword :example: is found in given string");
 		if (ordenestudio.getEstudio_id().toString().contains("est")) {
 			String[] id = ordenestudio.getEstudio_id().split("est");
 			for (String a : id)
 				ordenestudio.setEstudio_id(a);
 			ordenestudio.setTipo("estudio");
-			ordenestudioDao.save(ordenestudio);
 		}
 		if (ordenestudio.getEstudio_id().toString().contains("paq")) {
 			String[] id = ordenestudio.getEstudio_id().split("paq");
 			for (String a : id)
 				ordenestudio.setEstudio_id(a);
 			ordenestudio.setTipo("paquete");
-			ordenestudioDao.save(ordenestudio);
 		}
 		if (ordenestudio.getEstudio_id().toString().contains("per")) {
 			String[] id = ordenestudio.getEstudio_id().split("per");
 			for (String a : id)
 				ordenestudio.setEstudio_id(a);
 			ordenestudio.setTipo("perfil");
-			ordenestudioDao.save(ordenestudio);
 		}
 		if (ordenestudio.getEstudio_id().toString().contains("cul")) {
 			String[] id = ordenestudio.getEstudio_id().split("cul");
 			for (String a : id)
 				ordenestudio.setEstudio_id(a);
 			ordenestudio.setTipo("cultivo");
-			ordenestudioDao.save(ordenestudio);
 		}
 		if (ordenestudio.getEstudio_id().toString().contains("gab")) {
 			String[] id = ordenestudio.getEstudio_id().split("gab");
 			for (String a : id)
 				ordenestudio.setEstudio_id(a);
 			ordenestudio.setTipo("gabinete");
-			ordenestudioDao.save(ordenestudio);
 		}
-		if (ordenestudio.getEstudio_id().toString().contains("con")) {
-			String[] id = ordenestudio.getEstudio_id().split("con");
-			for (Object x:coEsDao.findExa(id[0])) {
-				ordenestudio.setEstudio_id(x.toString());
-				ordenestudio.setTipo("estudio");
-				ordenestudioDao.save(ordenestudio);
-			}	
-			for (Object x:coEsDao.findGab(id[0])) {
-				ordenestudio.setEstudio_id(x.toString());
-				ordenestudio.setTipo("gabinete");
-				ordenestudioDao.save(ordenestudio);
-			}
-			for (Object x:coEsDao.findCul(id[0])) {
-				ordenestudio.setEstudio_id(x.toString());
-				ordenestudio.setTipo("cultivo");
-				ordenestudioDao.save(ordenestudio);
-			}
-			for (Object x:coEsDao.findPaq(id[0])) {
-				ordenestudio.setEstudio_id(x.toString());
-				ordenestudio.setTipo("paquete");
-				ordenestudioDao.save(ordenestudio);
-			}
-			for (Object x:coEsDao.findPer(id[0])) {
-				ordenestudio.setEstudio_id(x.toString());
-				ordenestudio.setTipo("perfil");
-				ordenestudioDao.save(ordenestudio);
-			}
-			orden = ordenDao.findOne(ordenestudio.getOrden_id());
-			orden.setConvenio_id(id[0]);
-			orden.setMonto("100");
-			ordenDao.save(orden);
-			System.out.println("i´m here bitch"+orden.getMonto());
-			System.out.println("i´m here bitch"+orden.getOrden_id());
+		if (ordenestudio.getEstudio_id().toString().contains("ant")) {
+			String[] id = ordenestudio.getEstudio_id().split("ant");
+			for (String a : id)
+				ordenestudio.setEstudio_id(a);
+			ordenestudio.setTipo("antibiograma");
 		}
 
-		
+		/// if(ordenestudio.getEstudio_id()==estudio.estudio_id+2) {
+		/// ordenestudio.setTipo("paque");
+		// }
 
-		
+		ordenestudioDao.save(ordenestudio);
 		Mostrar(orden.getOrden_id(),model);
 		((Map<String, Object>) model).put("ordenestudio", ordenestudio);
 		//// ((Map<String, Object>) model).put("estudio", estudio);
@@ -383,8 +388,7 @@ public class PacienteController {
 			model.addAttribute("mini_ticket", "block7"); 
 			model.addAttribute("coti", "false");
 		}
-
-		
+	
 		/// return"form_convenio";
 		return "operaciones_recepcion";
 	}
