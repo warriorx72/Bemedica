@@ -210,54 +210,80 @@ public String crear(Map<String, Object> model,Model m) {
  */
 
 @RequestMapping(value = "/guardarorden", method = RequestMethod.POST)
-public String guardarorden(@Valid Orden orden, BindingResult result, Model model, Map<String, Object> m) {
-
-	if (result.hasErrors()) {
-		model.addAttribute("titulo", "Formulario de Cliente");
-		return "redirect:operaciones_recepcion";
-	}
-	// quitar
-	if (orden.getPaciente_id() == null && orden.getMedico_id() == null) {
-		orden.setOrden_estatus("cotizacion");
-	} else {
-		orden.setOrden_estatus("pendiente");
-	}
-	///
-	//// orden.setOrden_folio("ORD");
-	model.addAttribute("button_estudio", "false");
-	model.addAttribute("button_terminar", "disabled");
-	orden.setMetodo_pago("efectivo");
-	orden.setPromocion_id(0);
-	ordenDao.save(orden);
-	orden.setOrden_folio("ORD" + (orden.getOrden_id() + 1000000));
-	ordenDao.save(orden);
-	OrdenEstudio ordenestudio = new OrdenEstudio();
-	ordenestudio.setOrden_id(orden.getOrden_id());
-	m.put("ordenestudio", ordenestudio);
-	m.put("orden", orden);
-	/// model.put("titulo", "Formulario de Cliente");
-//		status.setComplete();
-	Mostrar(orden.getOrden_id(),model);
-	model.addAttribute("pacientes", vistapacienteDao.findAll());
-	model.addAttribute("medicos", vistamedicoDao.findAll());
-	/// model.addAttribute("estudios", estudioDao.findAll());
-	model.addAttribute("estudios", estudioDao.findBy());
-	model.addAttribute("cultivos", estudioDao.findCultivo());
-
-	model.addAttribute("paquetes", paquetesDao.findBy());
-	model.addAttribute("perfiles", perfilesDao.findBy());
-	////
-	model.addAttribute("empleados", vistaempleadoDao.findAll());
-	model.addAttribute("sucursales", sucursalDao.findAll());
-	model.addAttribute("ordenes", ordenDao.findAll());
-	if(orden.getOrden_estatus().equals("cotizacion")) {
-		model.addAttribute("coti", "disabled");
-	}
-	else model.addAttribute("coti", "false");
+	public String guardarorden(@RequestParam("rol") String rol,@RequestParam("user") String user ,@Valid Orden orden, BindingResult result, Model model, Map<String, Object> m) {
+		///System.out.println(rol.replace("[","").replace("]", ""));
+		String rol2=rol.replace("[", "").replace("]","");
+		///System.out.println(rol2);
+		///System.out.println(user);
+		
+		////String suc=vistaordenestudioDao.emp_suc(rol2, user).get(0).getSucursal_id();
+		///System.out.println(( vistaordenestudioDao.emp_suc(rol2, user).toArray()));
+	Object[] hola=vistaordenestudioDao.emp_suc(rol2, user).toArray();
+///System.out.println(hola[0]);
 	
-	return "operaciones_recepcion";
+		
+		
+			Object[] hola3=(Object[]) hola[0];
+		    
+		   
 
-}
+///System.out.println(hola3[0]);
+///System.out.println(hola3[1]);
+////System.out.println(hola3[0].toString());
+		if (result.hasErrors()) {
+			model.addAttribute("titulo", "Formulario de Cliente");
+			return "redirect:operaciones_recepcion";
+		}
+		// quitar
+		if (orden.getPaciente_id() == null && orden.getMedico_id() == null) {
+			orden.setOrden_estatus("cotizacion");
+		} else {
+			orden.setOrden_estatus("pendiente");
+		}
+		///
+		System.out.println("holhola");
+		//// orden.setOrden_folio("ORD");
+		model.addAttribute("button_estudio", "false");
+		model.addAttribute("button_terminar", "disabled");
+		orden.setMetodo_pago("efectivo");
+		orden.setPromocion_id(0);
+	
+			orden.setEmpleado_id(hola3[0].toString());
+			orden.setSucursal_id(hola3[1].toString());
+		
+		
+		ordenDao.save(orden);
+		orden.setOrden_folio("ORD" + (orden.getOrden_id() + 1000000));
+		ordenDao.save(orden);
+		OrdenEstudio ordenestudio = new OrdenEstudio();
+		ordenestudio.setOrden_id(orden.getOrden_id());
+		m.put("ordenestudio", ordenestudio);
+		/// model.put("titulo", "Formulario de Cliente");
+//		status.setComplete();
+		Mostrar(orden.getOrden_id(),model);
+		model.addAttribute("pacientes", vistapacienteDao.findAll());
+		String idtext=vistapacienteDao.findAll().get(0).getPaciente_id_tex();
+		System.out.println(idtext);
+		
+		model.addAttribute("medicos", vistamedicoDao.findAll());
+		/// model.addAttribute("estudios", estudioDao.findAll());
+		model.addAttribute("estudios", estudioDao.findBy());
+		model.addAttribute("cultivos", estudioDao.findCultivo());
+
+		model.addAttribute("paquetes", paquetesDao.findBy());
+		model.addAttribute("perfiles", perfilesDao.findBy());
+		////
+		model.addAttribute("empleados", vistaempleadoDao.findAll());
+		model.addAttribute("sucursales", sucursalDao.findAll());
+		model.addAttribute("ordenes", ordenDao.findAll());
+		if(orden.getOrden_estatus().equals("cotizacion")) {
+			model.addAttribute("coti", "disabled");
+		}
+		else model.addAttribute("coti", "false");
+		
+		return "operaciones_recepcion";
+
+	}
 
 public void Mostrar(Long id,Model model) {
 	
