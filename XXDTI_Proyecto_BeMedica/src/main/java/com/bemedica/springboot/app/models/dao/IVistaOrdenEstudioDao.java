@@ -8,4 +8,6 @@ public interface IVistaOrdenEstudioDao {
 	public List<VistaOrdenEstudio> findAll();
 
 	public List<VistaOrdenEstudio> voe(Long orden_id);
+	
+	List<Object> emp_suc(String rol, String user);
 }
