@@ -94,7 +94,15 @@
 													</thead>
 													<tbody>
 														<tr th:each="estudio: ${estudios}">
-															<td><a class="text-primary"
+														<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')}">
+														<a 
+																th:text="${estudio.IdText}"
+																
+																></a>
+															
+														</td><!--  -->
+															<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')
+												or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}"><a class="text-primary"
 																th:text="${estudio.IdText}"
 																th:if="${estudio.Catalogo=='Examenes'}"
 																th:href="@{/estudios_examenes/} +${estudio.Id}"></a>
@@ -117,7 +125,10 @@
 															<td th:text="${estudio.Nombre}"></td>
 															<td th:text="${estudio.Descripcion}"></td>
 															<td th:text="${estudio.Catalogo}"></td>
-															<td><form th:action="@{/estatus_estudios}"
+															<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')
+											}"></td>
+													<!--  -->		<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')
+												or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}"><form th:action="@{/estatus_estudios}"
 																	method="post" th:id="${estudio.Id}"
 																	th:name="${estudio.Id}">
 																	<input type="checkbox"
@@ -135,11 +146,14 @@
 																		name="cat" th:value="${estudio.Catalogo}" />
 
 																</form> <span th:if="${estudio.Visible == true}" style="display:none" >1</span>
-																 <span th:unless="${estudio.Visible == true}" style="display:none">0</span></td>
+																 <span th:unless="${estudio.Visible == true}" style="display:none">0</span>
+														<!--  -->		 </td>
 															<td th:text="${estudio.Modificado}"></td>
 															<td th:text="${estudio.Modifico	}"></td>
-
-															<td><a class="btn btn-danger btn-sm" href=""
+                                                            <td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')
+												}"></td>
+															<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')
+												or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}"><a class="btn btn-danger btn-sm" href=""
 																th:href=@{/eliminar_estudio/}+${estudio.Id}
 																onclick="return confirm('¿Estás seguro que de deseas cancelar esta orden?');">
 																	Borrar</a></td>
