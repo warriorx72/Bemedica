@@ -202,10 +202,12 @@
 
 													<td th:if="${r.perfil == ''}" th:utext="${r.EstudioNombre}">
 													</td>
+												<div th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')
+												or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}"><!--Empieza div -->
 													<td><input th:if="${r.ResultadoCuali==null}"
 														name="ResultadoCuanti"
 														th:placeholder="${r.ResultadoCuanti}" required
-														type="number" step="any"> <input
+														type="number"> <input
 														th:if="${r.ResultadoCuanti == null}" name="ResultadoCuali"
 														th:placeholder="${r.ResultadoCuali}" required type="text">
 													</td>
@@ -217,12 +219,24 @@
 													<td><input type="submit" class="btn btn-primary"
 														th:if="${r.Validacion == '1'}" value="Validado" /> <input
 														type="submit" class="btn btn-primary"
-														th:if="${r.Validacion == '0'}" value="No validado" /></td> <input
+														th:if="${r.Validacion == '0'}" value="No validado" /></td> 
+														</div> <!-- ACABA DIV PARA OCULTAR/MOSTRAR TD -->
+														<div th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')}">
+														<td></td>
+														<td></td>
+														<td>
+														<input type="text" disabled
+														th:if="${r.Validacion == '1'}" value="Validado" /> <input
+														type="text" disabled
+														th:if="${r.Validacion == '0'}" value="No validado" />
+														</td>
+														</div>
+														<input
 														type="hidden" name="ResultadoId"
 														th:value="${r.ResultadoId}" /> <input type="hidden"
 														name="OrdenEstudioId" th:value="${r.OrdenEstudioId}" /> <input
 														type="hidden" name="estudio_id" th:value="${r.estudio_id}" />
-
+                                                     
 													<input type="hidden" name="EstudioNombre"
 														th:value="${r.EstudioNombre}" /> <input type="hidden"
 														name="perfil" th:value="${r.perfil}" /> <input
