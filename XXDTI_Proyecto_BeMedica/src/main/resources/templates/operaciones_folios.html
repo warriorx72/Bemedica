@@ -27,6 +27,8 @@
 </head>
 
 <body>
+
+
     <div><img th:src="@{/img/banner.jpg}" style="height:80px; width: 100%;"></div>
     <div class="wrapper">
       <!-- Sidebar  -->
@@ -93,10 +95,12 @@
                                     <td>
                                         <button class="btn btn-outline-primary btn-sm" title="Imprimir Orden" th:onclick="'popup2(' + ${orden.orden_id} + ');'" 
      									><i class="fas fa-print"></i></button>
-
+										 
+   
                                         <a class="btn btn-outline-warning btn-sm" title="Abrir Orden"   th:onclick="'popup(' + ${orden.orden_id} + ');'" ><i
                                                 class="fas fa-folder-open"></i></a>
-                                        <a class="btn btn-outline-danger btn-sm" title="Cancelar Orden" th:onclick="return confirm('¿Desea cancelar la orden?');"
+                                                
+                                         <a class="btn btn-outline-danger btn-sm" title="Cancelar Orden" th:onclick="return confirm('¿Desea cancelar la orden?');"
                                             th:href="@{/cancelar_orden/} + ${orden.orden_id}"   ><i class="fas fa-trash-alt"></i></a>
 
                                         <a  th:onclick="'javascript:openDetallesModal(' + ${orden.orden_id} + ');'" class="btn btn-outline-info btn-sm" 
