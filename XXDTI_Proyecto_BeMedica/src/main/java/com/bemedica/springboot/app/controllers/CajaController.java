@@ -69,15 +69,29 @@ public class CajaController {
 		    Date date = new Date();  
 		    System.out.println(formatter.format(date)); 
 		
-		caja.setFechaInicial(formatter.format(date) +" "+"06:00:00");
+		    
+		    
+		    
+		if(cajaDao.corteTipo()==true) {
+			caja.setFechaInicial(formatter.format(date) +" "+"06:00:00");
+		} 
+		else {
+	    	caja.setFechaInicial(cajaDao.findLastCajaId());
+		}
+		
 		caja.setCorteTipo(false);
 		cajaDao.save(caja);
 		
+		caja.setMontoEfectivo(cajaDao.findTotalEfectivo(caja.getCajaId()));
+		caja.setMontoTarjeta(cajaDao.findTotalTarjeta(caja.getCajaId()));
+		cajaDao.save(caja);
 		//status.setComplete();
 		m.put("caja", caja);
 		return "redirect:/herramientas_corte";
-        }
 		
+		
+		
+		}
 		
 		
 		@RequestMapping(value="/cierre", method=RequestMethod.POST)
@@ -102,15 +116,15 @@ public class CajaController {
 			String auxs =cajaDao.findLastCajaId();
 			System.out.print("hola"+auxs);
 			
-			
-			caja.setFechaInicial(auxs);
-			caja.setCorteTipo(false);
-			cajaDao.save(caja);
-			caja=cajaDao.findOne(caja.getCajaId());
+			cierre.setCajaChica("0");
 			cierre.setFechaInicial(formatter.format(date) +" "+"06:00:00");
-			cierre.setFechaFinal(caja.getFechaFinal());
 			cierre.setCorteTipo(true);
 		    cajaDao.save(cierre);
+			
+			cierre.setMontoEfectivo(cajaDao.cierreCajaEfectivo(cierre.getCajaId()));
+			cierre.setMontoTarjeta(cajaDao.cierreCajaTarjeta(cierre.getCajaId()));
+			cajaDao.save(cierre);
+		    
 		return "redirect:/herramientas_corte";
         }	
 	

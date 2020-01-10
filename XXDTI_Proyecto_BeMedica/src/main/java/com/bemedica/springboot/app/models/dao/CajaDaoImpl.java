@@ -93,8 +93,50 @@ public class CajaDaoImpl implements ICajaDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Object[]> findTotalEfectivo(Long id) {
+	@Transactional
+	public String findTotalEfectivo(Long id) {
 		// TODO Auto-generated method stub
-		return em.createNativeQuery("call TotalEfectivo("+id+")").getResultList();
-	}				
+		return em.createNativeQuery("call TotalEfectivo("+id+")").getSingleResult().toString();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public String findTotalTarjeta(Long id) {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("call TotalTarjeta("+id+")").getSingleResult().toString();
+	}
+	
+	@Override
+	@Transactional
+	public boolean corteTipo() {
+		String tipo =(em.createNativeQuery ("SELECT IFNULL((SELECT IFNULL((SELECT corte_tipo FROM caja WHERE fecha_final = (SELECT MAX(fecha_final) FROM caja) AND corte_tipo = 1 ORDER BY caja_id DESC),(SELECT corte_tipo FROM caja WHERE fecha_final = (SELECT MAX(fecha_final) FROM caja) AND corte_tipo = 0 ORDER BY caja_id DESC))),1)").getSingleResult().toString());
+		boolean x;
+		if(tipo.equals("1")) {
+			x=true;
+			return x;
+		}
+		else {
+			x=false;
+			return x;
+		}
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public String cierreCajaEfectivo(Long id) {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("call TotalEfectivo("+id+")").getSingleResult().toString();
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public String cierreCajaTarjeta(Long id) {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("call TotalTarjeta("+id+")").getSingleResult().toString();
+	}
 }

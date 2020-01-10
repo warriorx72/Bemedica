@@ -17,5 +17,13 @@ public interface ICajaDao {
 	
 	public boolean cajaTipo();
 	
-	public List<Object[]> findTotalEfectivo(Long id);
+	public String findTotalEfectivo(Long id);
+	
+	public String findTotalTarjeta(Long id);
+	
+	public boolean corteTipo();
+	
+	public String cierreCajaEfectivo(Long Id);
+	
+	public String cierreCajaTarjeta(Long Id);
 }
