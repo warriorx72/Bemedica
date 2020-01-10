@@ -16,11 +16,13 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.bemedica.springboot.app.models.dao.IPaquetesCultivosDao;
 import com.bemedica.springboot.app.models.dao.IPaquetesDao;
 import com.bemedica.springboot.app.models.dao.IPaquetesEstudiosDao;
+import com.bemedica.springboot.app.models.dao.IPaquetesGabinetesDao;
 import com.bemedica.springboot.app.models.dao.IPaquetesPerfilesDao;
 import com.bemedica.springboot.app.models.dao.IPerfilesDao;
 import com.bemedica.springboot.app.models.entity.Paquetes;
 import com.bemedica.springboot.app.models.entity.PaquetesCultivos;
 import com.bemedica.springboot.app.models.entity.PaquetesEstudios;
+import com.bemedica.springboot.app.models.entity.PaquetesGabinetes;
 import com.bemedica.springboot.app.models.entity.PaquetesPerfiles;
 
 @Controller
@@ -39,6 +41,9 @@ public class PaquetesController {
 	private IPaquetesCultivosDao paquetesCultivosDao;
 	
 	@Autowired
+	private IPaquetesGabinetesDao paquetesGabinetesDao;
+	
+	@Autowired
 	private IPerfilesDao perfilesDao;
 	
 	
@@ -50,10 +55,12 @@ public class PaquetesController {
 		PaquetesEstudios paquetesEstudios = new PaquetesEstudios();
 		PaquetesPerfiles paquetesPerfiles = new PaquetesPerfiles();
 		PaquetesCultivos paquetesCultivos = new PaquetesCultivos();
+		PaquetesGabinetes paquetesGabinetes = new PaquetesGabinetes();
 		model.put("paquetes",paquetes);
 		model.put("paquetesEstudios", paquetesEstudios);
 		model.put("paquetesPerfiles", paquetesPerfiles);
 		model.put("paquetesCultivos", paquetesCultivos);
+		model.put("paquetesGabinetes", paquetesGabinetes);
 		model.put("titulo","Guardar Paquete");	
 		//m.addAttribute("valoresListar", valorReferenciaDao.findAllById(estudios.getEstudioId()));
 		return "estudios_paquetes";
@@ -189,6 +196,7 @@ public class PaquetesController {
 		PaquetesPerfiles paquetesPerfiles = new PaquetesPerfiles();
 		PaquetesEstudios paquetesEstudios = new PaquetesEstudios();
 		PaquetesCultivos paquetesCultivos = new PaquetesCultivos();
+		PaquetesGabinetes paquetesGabinetes = new PaquetesGabinetes();
 		if(id>0) {
 			System.out.print("i´m here"+id);
 			paquetes=paquetesDao.findOne(id);
@@ -204,6 +212,7 @@ public class PaquetesController {
 		model.put("paquetesCultivos", paquetesCultivos);
 		model.put("paquetesPerfiles",paquetesPerfiles);
 		model.put("paquetesEstudios",paquetesEstudios);
+		model.put("paquetesGabinetes",paquetesGabinetes);
 		model.put("titulo","Guardar Paquete");	
 		m.addAttribute("estudioss", paquetesEstudiosDao.findAllById(id));
 		m.addAttribute("cultivoss", paquetesCultivosDao.findAllById(id));
@@ -214,7 +223,6 @@ public class PaquetesController {
 		m.addAttribute("cultivoss", paquetesCultivosDao.findAllById(id));
 		return "estudios_paquetes";		
 	}
-	
 	@RequestMapping (value="/EliminarEstPaq/{id}/{id_e}/{t}")
 	public String eliminar(@PathVariable (value="id") Long id,@PathVariable (value="id_e") Long id_e,@PathVariable (value="t") int t,Model m,Map<String, Object> model,Paquetes paquetes) {
 		//m.addAttribute("catalogos", catalogoDao.findAll());

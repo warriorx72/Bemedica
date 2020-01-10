@@ -42,12 +42,14 @@ public class CajaController {
 	public String listar(Model model, Map<String, Object> m) {
 		
 		Caja caja = new Caja();
+		Orden orden =new Orden();
 		model.addAttribute("titulo","Condiciones paciente");
 		
 		model.addAttribute("titulo","Corte de Caja");
 		model.addAttribute("vista", cajaDao.findAll());
 		model.addAttribute("vistas", cajaVistaDao.findAll());
 		m.put("caja", caja);
+		m.put("orden", orden);
 		cajaDao.findAll();
 		
 		if (cajaDao.cajaTipo()==false) {
@@ -62,58 +64,15 @@ public class CajaController {
 	   }
 	
 		@RequestMapping(value="/corte", method=RequestMethod.POST)
-		public String guardar(@Valid Caja caja ,BindingResult result, Model model, SessionStatus status,  Map<String, Object> m,
-				@RequestParam(value = "EnCaja", defaultValue="0") String EnCaja) {
-			if (cajaDao.cajaTipo()==false) {
-				model.addAttribute("form_cierre", "false");
-				model.addAttribute("form_corte", "disabled");
-			}
-			else {
-				model.addAttribute("form_cierre", "disabled");
-				model.addAttribute("form_corte", "false");
-			}
-			Orden orden =new Orden ();
-			
+		public String guardar(Caja caja , Model model, SessionStatus status,  Map<String, Object> m) {		
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");   	
 		    Date date = new Date();  
 		    System.out.println(formatter.format(date)); 
-		   
-		if(result.hasErrors()) {
-			model.addAttribute("titulo", "Formulario de cliente");
-			return "herramientas_corte";
-		}
-		
-
-		orden.setOrden_id(null);
-		orden.setOrden_folio("EnCaja");
-		orden.setPaciente_id(null);
-		orden.setSucursal_id(null);
-		orden.setEmpleado_id(null);
-		orden.setPago_inicial("0.00");
-		orden.setOrden_estatus("Corte Caja");
-		orden.setMetodo_pago("efectivo");
-		orden.setOrden_fecha(formatter.format(date)+" "+"06:00:00");
-		orden.setMonto(EnCaja);
-		orden.setPago_final(EnCaja);
-		orden.setFecha_liquidacion(formatter.format(date)+" "+"06:00:00");
-		
-		OrdenDao.save(orden);
 		
 		caja.setFechaInicial(formatter.format(date) +" "+"06:00:00");
 		caja.setCorteTipo(false);
 		cajaDao.save(caja);
-		Caja CajaAux ;
 		
-		CajaAux=cajaDao.findOne(caja.getCajaId());
-		
-		String aux = cajaDao.caja(caja.getCajaId());
-		
-		
-		
-		orden.setOrden_fecha(aux);
-		orden.setFecha_liquidacion(aux);
-		
-		 OrdenDao.save(orden);
 		//status.setComplete();
 		m.put("caja", caja);
 		return "redirect:/herramientas_corte";
@@ -123,18 +82,9 @@ public class CajaController {
 		
 		@RequestMapping(value="/cierre", method=RequestMethod.POST)
 		public String guardar2(@Valid Caja caja ,BindingResult result, Model model, SessionStatus status, Map<String, Object> me) {
-			if (cajaDao.cajaTipo()==false) {
-				model.addAttribute("form_cierre", "false");
-				model.addAttribute("form_corte", "disabled");
-			}
-			else {
-				model.addAttribute("form_cierre", "disabled");
-				model.addAttribute("form_corte", "false");
-			}
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
 			Date date = new Date();  
-			Orden orden =new Orden ();
-			
+			Caja cierre=new Caja();
 			//Establecemos la fecha que deseamos en un Calendario
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(new Date());
@@ -154,17 +104,13 @@ public class CajaController {
 			
 			
 			caja.setFechaInicial(auxs);
-			caja.setCorteTipo(true);
+			caja.setCorteTipo(false);
 			cajaDao.save(caja);
-			
-		
-			
-		    Date date1 = new Date();  
-		    System.out.println(formatter.format(date1)); 
-		    
-		    
-		   
-		
+			caja=cajaDao.findOne(caja.getCajaId());
+			cierre.setFechaInicial(formatter.format(date) +" "+"06:00:00");
+			cierre.setFechaFinal(caja.getFechaFinal());
+			cierre.setCorteTipo(true);
+		    cajaDao.save(cierre);
 		return "redirect:/herramientas_corte";
         }	
 	

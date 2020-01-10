@@ -757,7 +757,7 @@ public class ResultadosController {
 						if (!e[13].equals(" ")) {
 							Valor = Valor + e[13].toString() + "\n";
 						}
-						Estudio = new Paragraph("   " + e[2].toString(), fuen_2);
+						Estudio = new Paragraph("	" + e[2].toString(), fuen_2);
 						Resultado = new Paragraph(e[6].toString(), fuen_2);
 						Espacio = new Paragraph("  ");
 						VR = new Paragraph(Valor, fuen_2);
@@ -810,7 +810,7 @@ public class ResultadosController {
 						for (Object[] e : estudio) {
 							String Valor = "";
 
-							Estudio = new Paragraph("   "+e[0].toString(), fuen_1);
+							Estudio = new Paragraph("	"+e[0].toString(), fuen_1);
 							Resultado = new Paragraph(e[1].toString(), fuen_2);
 							Espacio = new Paragraph("  ");
 							VR = new Paragraph(Valor, fuen_2);
@@ -1286,7 +1286,7 @@ public class ResultadosController {
 									
 									String Valor = "";
 									
-									Estudio = new Paragraph("   "+e[0].toString(), fuen_1);
+									Estudio = new Paragraph("     "+e[0].toString(), fuen_1);
 									Resultado = new Paragraph(e[1].toString(), fuen_2);
 									Espacio = new Paragraph("  ");
 									VR = new Paragraph(Valor, fuen_2);
@@ -1328,7 +1328,7 @@ public class ResultadosController {
 										String NombreAnti = ResultadosAntiDao.NombreAntibiograma ((Long.valueOf(lo[4].toString())), (Long.valueOf(aux2[0].toString())) );
 										List<Object[]> antibiograma = ResultadosAntiDao.ResultadoAntibio((Long.valueOf(lo[4].toString())), (Long.valueOf(aux2[0].toString())) );
 										
-										Estudio = new Paragraph("    Antibiograma:"+NombreAnti, fuen_1);
+										Estudio = new Paragraph("         Antibiograma:"+NombreAnti, fuen_1);
 										Resultado = new Paragraph("", fuen_2);
 										Espacio = new Paragraph("  ");
 										VR = new Paragraph(Valor, fuen_2);
@@ -1365,7 +1365,7 @@ public class ResultadosController {
 										
 										for (Object[] a : antibiograma) {
 								
-											Estudio = new Paragraph("      "+a[0].toString(), fuen_2	);
+											Estudio = new Paragraph("           "+a[0].toString(), fuen_2	);
 											Resultado = new Paragraph(a[1].toString(), fuen_2);
 											Espacio = new Paragraph("  ");
 											VR = new Paragraph("", fuen_2);
@@ -1464,7 +1464,7 @@ public class ResultadosController {
 						for (Object[] e : estudio) {
 							String Valor = "";
 
-							Estudio = new Paragraph(e[0].toString(), fuen_1);
+							Estudio = new Paragraph("    "+e[0].toString(), fuen_1);
 							Resultado = new Paragraph(e[1].toString(), fuen_2);
 							Espacio = new Paragraph("  ");
 							VR = new Paragraph(Valor, fuen_2);
@@ -1512,7 +1512,7 @@ public class ResultadosController {
 								List<Object[]> antibiograma = ResultadosAntiDao.ResultadoAntibio((Long.valueOf(lo[4].toString())), (Long.valueOf(aux[0].toString())));
 								
 								
-								Estudio = new Paragraph("Antibiograma: "+NombreAnti, fuen_1);
+								Estudio = new Paragraph("       Antibiograma: "+NombreAnti, fuen_1);
 								Resultado = new Paragraph("", fuen_2);
 								Espacio = new Paragraph("  ");
 								VR = new Paragraph(Valor, fuen_2);
@@ -1549,7 +1549,7 @@ public class ResultadosController {
 								
 								for (Object[] a : antibiograma) {
 						
-									Estudio = new Paragraph("   "+a[0].toString(), fuen_2	);
+									Estudio = new Paragraph("         "+a[0].toString(), fuen_2	);
 									Resultado = new Paragraph(a[1].toString(), fuen_2);
 									Espacio = new Paragraph("  ");
 									VR = new Paragraph("", fuen_2);
@@ -1761,10 +1761,6 @@ public class ResultadosController {
 					
 					cell.setBorder(PdfPCell.NO_BORDER);
 					cell2.setBorder(PdfPCell.NO_BORDER);
-					tableR.addCell(ce);
-					tableR.addCell(cr);
-					tableR.addCell(esp);
-					tableR.addCell(cvr);
 					tableR.addCell(cell);
 					tableR.addCell(esp);
 					tableR.addCell(esp);
