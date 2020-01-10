@@ -89,5 +89,12 @@ public class CajaDaoImpl implements ICajaDao {
 			return x;
 		}
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object[]> findTotalEfectivo(Long id) {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("call TotalEfectivo("+id+")").getResultList();
 	}				
 }

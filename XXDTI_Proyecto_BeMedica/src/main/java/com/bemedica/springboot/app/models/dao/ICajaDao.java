@@ -16,4 +16,6 @@ public interface ICajaDao {
 	public String caja (Long id);
 	
 	public boolean cajaTipo();
+	
+	public List<Object[]> findTotalEfectivo(Long id);
 }
