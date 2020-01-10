@@ -71,21 +71,19 @@
 
 					<div id="outer">
 						<div class="inner">
-							<form th:action="@{/corte}" th:object="${caja}" method="post">
-								<label for="inputFecha_nac" class="col-form-label-sm mb-0">Costo:</label>
-								
-								<input type="number" name ="EnCaja" required th:disabled="${form_corte}"
-											class="form-control form-control-sm"  /> 
-											
-								<br>
-											
-								<input type="submit" value="Corte" th:disabled="${form_corte}"
+							<form th:action="@{/corte}" th:object="${caja}" method="post">		
+							<br>			
+							<label for="cach">Caja chica</label>
+								<input type="number" th:field="*{CajaChica}" id="cach" required
+												class="form-control form-control-sm"  /> 
+								<br>						
+								<input type="submit" value="Corte"
 								onclick="return confirm('Confirmar corte de caja');" class="form-control btn btn-success" th:field="*{FechaInicial}" />
 							</form>
 						</div>
 						<div class="inner">
 							<form th:action="@{/cierre}" th:object="${caja}" method="post">
-								<input type="submit" value="Cierre" th:disabled="${form_cierre}"
+								<input type="submit" value="Cierre"
 								onclick="return confirm('Confirmar cierre de caja');"	class="form-control btn btn-warning" th:field="*{FechaInicial}" />
 							</form>
 						</div>

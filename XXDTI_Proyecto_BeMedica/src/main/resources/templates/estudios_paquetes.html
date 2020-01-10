@@ -2,35 +2,40 @@
 <html xmlns:th="http://www.thymeLeaf.org">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Bemédica Punto de venta</title>
+<title>Bemédica Punto de venta</title>
 
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+<!-- Bootstrap CSS CDN -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+	crossorigin="anonymous">
+<!-- Our Custom CSS -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
 
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-        crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-        crossorigin="anonymous"></script>
+<!-- Font Awesome JS -->
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+	crossorigin="anonymous"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+	crossorigin="anonymous"></script>
 
 </head>
 
 <body onload="validar();">
-    <div><img th:src="@{/img/banner.jpg}" style="height:80px; width: 100%;"></div>
-    <div class="wrapper">
-        <!-- Sidebar  -->
-      <div th:include="navegacion.html" th:remove="tag">
-      </div>
-         <!-- <script>
+	<div>
+		<img th:src="@{/img/banner.jpg}" style="height: 80px; width: 100%;">
+	</div>
+	<div class="wrapper">
+		<!-- Sidebar  -->
+		<div th:include="navegacion.html" th:remove="tag"></div>
+		<!-- <script>
             function cambia(src) {
                 src = "";
                 src = "https://img.icons8.com/color/48/000000/drag-list-down.png";
@@ -46,290 +51,388 @@
 
         </script>
         -->
-        <!-- Page Content  -->
-        <div id="content">
-            <div class="accordion" id="accordionExample">
-                <div class="card">
-                  <div class="card-header" id="headingOne">
-                      <h2 class="mb-0 form-row" style="font-size: 20px;">
-                          Información Paquete
-                          <div class="ml-auto">
+		<!-- Page Content  -->
+		<div id="content">
+			<div class="accordion" id="accordionExample">
+				<div class="card">
+					<div class="card-header" id="headingOne">
+						<h2 class="mb-0 form-row" style="font-size: 20px;">
+							Información Paquete
+							<div class="ml-auto">
 
-                              <a th:href="@{/estudios_listar}"><button class="btn btn-link" type="button" aria-expanded="true" title="Guardar" >
-                                  <i class="fas fa-save" ></i>
-                              </button></a>
+								<a th:href="@{/estudios_listar}"><button
+										class="btn btn-link" type="button" aria-expanded="true"
+										title="Guardar">
+										<i class="fas fa-save"></i>
+									</button></a>
 
-                          </div>
-                      </h2>
-                  </div>
-</div>
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                        data-parent="#accordionExample">
-                        <div class="card-body">
-                            <!--Inicia código de formulario-->
-                            <form th:action="@{/estudios_paquetes}" th:object="${paquetes}" method="post">
-                                  <div class="form-row mb-0">
-                                      <div class="form-group col-md-3">
-                                          <label class="col-form-label-sm mb-0">*Id Paquete</label>
-                                          <input type="text" class="form-control form-control-sm" th:field="*{PaqueteIdText}"
-                                          readonly=readonly>
-                                      </div>
-                                      <div class="form-group col-md-3">
-                                          <label class="col-form-label-sm mb-0">*Nombre del Paquete</label>
-                                          <input type="text" class="form-control form-control-sm" th:field="*{PaqueteNombre}" minlength="3">
-                                      </div>
-                                      <div class="form-group col-md-3">
-                                          <label class="col-form-label-sm mb-0">PrecioInicial</label>
-                                          <input type="text" class="form-control form-control-sm" th:field="*{PaqueteCosto}">
-                                      </div>
-
-                                  </div>
-
-                                  <div class="input-group">
-                                    <div class="form-group col-md-3">
-                                        <label class="col-form-label-sm mb-0">Descripción</label>
-                                        <input type="text" class="form-control form-control-sm" th:field="*{PaqueteDescripcion}">
-                                    </div>
-                                  <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="inputCel" class="col-form-label-sm mb-0">Indicaciones para el paciente</label>
-                                    <textarea name="comentarios" rows="10" cols="40" th:field="*{PaqueteIndicacionesPa}"></textarea>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="inputCel" class="col-form-label-sm mb-0">Indicaciones para el personal</label>
-                                    <textarea name="comentarios" rows="10" cols="40" th:field="*{PaqueteIndicacionesPe}"></textarea>
-                                </div>
-                                <input type="submit" th:value="${titulo}" class="form-control" />
-                                 <input type="hidden" th:field="*{PaqueteId}" />
-                                </div>
-                                
-                              </form>
-                            <!--Termina código de formulario-->
-
-                        </div>
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                            data-parent="#accordionExample">
-                            <div class="card-body">
-                                <!--Inicia código de formulario-->
-                                <div class="card-header" id="headingOne">
-                                    <h2 class="mb-0 form-row" style="font-size: 20px;">
-                                        Examenes
-
-                                    </h2>
-                                </div>
-
-			<form th:action="@{/estudios_paquetesEstudios}" th:object="${paquetesEstudios}" method="post" >
-
-                <div class="form-row">
-                  <div class="form-group col-md-3">
-                      <label class="col-form-label-sm mb-0">Nombre Examenes</label>
-	                      <select id="Select1" class="form-control form-control-sm" th:field="*{EstudioId}">
-	                      <option value="" selected disabled>Seleccione un estudio</option>
-	                      <option th:each="estudio: ${estudios}" th:if="${estudio.estudio_tipo=='1'}"
-	                      th:value="${estudio.estudio_id}" th:text="${estudio.estudio_nombre}"></option>
-	                      </select>
-	                      <input type="hidden" th:field="*{PaqueteId}" />
-	
-                  </div>
-                  <button class="btn btn-link" type="button" onclick="tenerId()" id="EliminarRecurso" aria-expanded="true" title="">
-                      <i class="fa fa-step-backward"></i>
-                      
-				  </button>
-				  <input  disabled="disabled" type="text" id="bbb" style="display:none"/>
-				  
-				  <input  disabled="disabled" type="text" id="bbbb" th:field="*{PaqueteId}" style="display:none"/>
-
-                  <button class="btn btn-link" type="submit" aria-expanded="true" title="" id="Submit1">
-                          <i class="	fa fa-step-forward"></i> 
-                  </button>
-                  <br>
-                    <div class="form-group" style="width: 59.5%; margin-left: 71px;">
-						<table class="table table-hover table-sm" id="mytable">
-						
-							<thead>
-								<tr>
-									 <th id="col1" scope="col" style="display:none">ID</th>
-									<th id="col2" scope="col">Estudios</th>
-		
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-							
-								<tr th:each="estudio: ${estudioss}">
-								
-									 <td th:text="${estudio.pe_id}" style="display:none"></td>
-									<td th:text="${estudio.estudio_nombre}">	</td>	
-								</tr>
-		
-							</tbody>
-						</table>
-                    </div>
+							</div>
+						</h2>
+					</div>
 				</div>
-
-            </form>
-                                <!--Termina código de formulario-->
-                            </div>
-                        </div>
-						<div id="collapseOne" class="collapse show"
-							aria-labelledby="headingOne" data-parent="#accordionExample">
-							<div class="card-body">
-								<!--Inicia código de formulario-->
-								<div>
-									<h2 class="mb-0 form-row" style="font-size: 20px;">
-										Perfiles</h2>
+				<div id="collapseOne" class="collapse show"
+					aria-labelledby="headingOne" data-parent="#accordionExample">
+					<div class="card-body">
+						<!--Inicia código de formulario-->
+						<form th:action="@{/estudios_paquetes}" th:object="${paquetes}"
+							method="post">
+							<div class="form-row mb-0">
+								<div class="form-group col-md-3">
+									<label class="col-form-label-sm mb-0">*Id Paquete</label> <input
+										type="text" class="form-control form-control-sm"
+										th:field="*{PaqueteIdText}" readonly=readonly>
+								</div>
+								<div class="form-group col-md-3">
+									<label class="col-form-label-sm mb-0">*Nombre del
+										Paquete</label> <input type="text"
+										class="form-control form-control-sm"
+										th:field="*{PaqueteNombre}" minlength="3">
+								</div>
+								<div class="form-group col-md-3">
+									<label class="col-form-label-sm mb-0">PrecioInicial</label> <input
+										type="text" class="form-control form-control-sm"
+										th:field="*{PaqueteCosto}">
 								</div>
 
-								<form th:action="@{/estudios_paquetesPerfiles}"
-									th:object="${paquetesPerfiles}" method="post">
-
-									<div class="form-row">
-										<div class="form-group col-md-3">
-											<label class="col-form-label-sm mb-0">Nombre Perfiles</label>
-
-											<select class="form-control form-control-sm" id="Select2"
-												th:field="*{PerfilId}">
-												<option value="" selected disabled>Seleccione un perfil</option>
-												<option th:each="perfil: ${perfiles}"
-													th:value="${perfil.perfil_id}"
-													th:text="${perfil.perfil_nombre}"></option>
-											</select> <input type="hidden" th:field="*{PaqueteId}" />
-
-										</div>
-										<button class="btn btn-link" type="button"
-											onclick="tenerId2()" id="EliminarRecurso2"
-											aria-expanded="true" title="">
-											<i class="fa fa-step-backward"></i>
-
-										</button>
-										<input disabled="disabled" type="text" id="aaa"
-											style="display: none" /> <input disabled="disabled"
-											type="text" id="aaaa" th:field="*{PaqueteId}"
-											style="display: none" />
-
-										<button class="btn btn-link" type="submit" id="Submit2"
-											aria-expanded="true" title="" >
-											<i class="	fa fa-step-forward"></i>
-										</button>
-										<br>
-										<div class="form-group"
-											style="width: 59.5%; margin-left: 71px;">
-											<table class="table table-hover table-sm" id="mytable2">
-
-												<thead>
-													<tr>
-														<th id="col1" scope="col" style="display: none">ID</th>
-														<th id="col2" scope="col">Perfiles</th>
-
-														<th></th>
-													</tr>
-												</thead>
-												<tbody>
-
-													<tr th:each="perfil2: ${perfiless}">
-
-														<td th:text="${perfil2.pape_id}" style="display: none"></td>
-														<td th:text="${perfil2.perfil_nombre}">
-													</tr>
-
-												</tbody>
-											</table>
-										</div>
-									</div>
-
-								</form>
-								<!--Termina código de formulario-->
 							</div>
+
+							<div class="input-group">
+								<div class="form-group col-md-3">
+									<label class="col-form-label-sm mb-0">Descripción</label> <input
+										type="text" class="form-control form-control-sm"
+										th:field="*{PaqueteDescripcion}">
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<label for="inputCel" class="col-form-label-sm mb-0">Indicaciones
+											para el paciente</label>
+										<textarea name="comentarios" rows="10" cols="40"
+											th:field="*{PaqueteIndicacionesPa}"></textarea>
+									</div>
+									<div class="form-group col-md-4">
+										<label for="inputCel" class="col-form-label-sm mb-0">Indicaciones
+											para el personal</label>
+										<textarea name="comentarios" rows="10" cols="40"
+											th:field="*{PaqueteIndicacionesPe}"></textarea>
+									</div>
+									<input type="submit" th:value="${titulo}" class="form-control" />
+									<input type="hidden" th:field="*{PaqueteId}" />
+								</div>
+						</form>
+						<!--Termina código de formulario-->
+
+					</div>
+					<div id="collapseOne" class="collapse show"
+						aria-labelledby="headingOne" data-parent="#accordionExample">
+						<div class="card-body">
+							<!--Inicia código de formulario-->
+							<div class="card-header" id="headingOne">
+								<h2 class="mb-0 form-row" style="font-size: 20px;">
+									Examenes</h2>
+							</div>
+
+							<form th:action="@{/estudios_paquetesEstudios}"
+								th:object="${paquetesEstudios}" method="post">
+
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<label class="col-form-label-sm mb-0">Nombre Examenes</label>
+										<select id="Select1" class="form-control form-control-sm"
+											th:field="*{EstudioId}">
+											<option value="" selected disabled>Seleccione un
+												estudio</option>
+											<option th:each="estudio: ${estudios}"
+												th:if="${estudio.estudio_tipo=='1'}"
+												th:value="${estudio.estudio_id}"
+												th:text="${estudio.estudio_nombre}"></option>
+										</select> <input type="hidden" th:field="*{PaqueteId}" />
+
+									</div>
+									<button class="btn btn-link" type="button" onclick="tenerId()"
+										id="EliminarRecurso" aria-expanded="true" title="">
+										<i class="fa fa-step-backward"></i>
+
+									</button>
+									<input disabled="disabled" type="text" id="bbb"
+										style="display: none" /> <input disabled="disabled"
+										type="text" id="bbbb" th:field="*{PaqueteId}"
+										style="display: none" />
+
+									<button class="btn btn-link" type="submit" aria-expanded="true"
+										title="" id="Submit1">
+										<i class="	fa fa-step-forward"></i>
+									</button>
+									<br>
+									<div class="form-group"
+										style="width: 59.5%; margin-left: 71px;">
+										<table class="table table-hover table-sm" id="mytable">
+
+											<thead>
+												<tr>
+													<th id="col1" scope="col" style="display: none">ID</th>
+													<th id="col2" scope="col">Estudios</th>
+
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+
+												<tr th:each="estudio: ${estudioss}">
+
+													<td th:text="${estudio.pe_id}" style="display: none"></td>
+													<td th:text="${estudio.estudio_nombre}"></td>
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+							</form>
+							<!--Termina código de formulario-->
 						</div>
-						<div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                            data-parent="#accordionExample">
-                            <div class="card-body">
-                                <!--Inicia código de formulario-->
-                                <div>
-                                    <h2 class="mb-0 form-row" style="font-size: 20px;">
-                                        Cultivos
-                                    </h2>
-                                </div>
+					</div>
+					<div id="collapseOne" class="collapse show"
+						aria-labelledby="headingOne" data-parent="#accordionExample">
+						<div class="card-body">
+							<!--Inicia código de formulario-->
+							<div>
+								<h2 class="mb-0 form-row" style="font-size: 20px;">
+									Perfiles</h2>
+							</div>
 
-			<form th:action="@{/estudios_paquetesCultivos}" th:object="${paquetesCultivos}" method="post">
+							<form th:action="@{/estudios_paquetesPerfiles}"
+								th:object="${paquetesPerfiles}" method="post">
 
-                <div class="form-row">
-                  <div class="form-group col-md-3">
-                      <label class="col-form-label-sm mb-0">Nombre Cultivos</label>
-	                      <select class="form-control form-control-sm" th:field="*{CultivoId}" id="Select3">
-	                      <option value="" selected disabled>Seleccione un cultivo</option>
-	                     <option th:each="estudio: ${estudios}" th:if="${estudio.estudio_tipo=='2'}"
-	                      th:value="${estudio.estudio_id}" th:text="${estudio.estudio_nombre}"></option>
-	                      </select>
-	                      <input type="hidden" th:field="*{PaqueteId}" />
-	
-                  </div>
-                  <button class="btn btn-link" type="button" onclick="tenerId3()" id="EliminarRecurso3" aria-expanded="true" title="">
-                      <i class="fa fa-step-backward"></i>
-                      
-				  </button>
-				  <input  disabled="disabled" type="text" id="ccc" style="display:none"/>
-				  
-				  <input  disabled="disabled" type="text" id="cccc" th:field="*{PaqueteId}" style="display:none"/>
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<label class="col-form-label-sm mb-0">Nombre Perfiles</label>
 
-                  <button class="btn btn-link" type="submit" aria-expanded="true" title="" id="Submit3">
-                          <i class="	fa fa-step-forward"></i> 
-                  </button>
-                  <br>
-                    <div class="form-group" style="width: 59.5%; margin-left: 71px;">
-						<table class="table table-hover table-sm" id="mytable3">
-						
-							<thead>
-								<tr>
-									 <th id="col1" scope="col" style="display:none">ID</th>
-									<th id="col2" scope="col">Cultivos</th>
-		
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-							
-								    <tr th:each="cultivo: ${cultivoss}">
-								
-									 	<td th:text="${cultivo.pacu_id}" style="display:none"></td>
-										<td th:text="${cultivo.estudio_nombre}">
-									</tr>
-		
-							</tbody>
-						</table>
-                    </div>
+										<select class="form-control form-control-sm" id="Select2"
+											th:field="*{PerfilId}">
+											<option value="" selected disabled>Seleccione un
+												perfil</option>
+											<option th:each="perfil: ${perfiles}"
+												th:value="${perfil.perfil_id}"
+												th:text="${perfil.perfil_nombre}"></option>
+										</select> <input type="hidden" th:field="*{PaqueteId}" />
+
+									</div>
+									<button class="btn btn-link" type="button" onclick="tenerId2()"
+										id="EliminarRecurso2" aria-expanded="true" title="">
+										<i class="fa fa-step-backward"></i>
+
+									</button>
+									<input disabled="disabled" type="text" id="aaa"
+										style="display: none" /> <input disabled="disabled"
+										type="text" id="aaaa" th:field="*{PaqueteId}"
+										style="display: none" />
+
+									<button class="btn btn-link" type="submit" id="Submit2"
+										aria-expanded="true" title="">
+										<i class="	fa fa-step-forward"></i>
+									</button>
+									<br>
+									<div class="form-group"
+										style="width: 59.5%; margin-left: 71px;">
+										<table class="table table-hover table-sm" id="mytable2">
+
+											<thead>
+												<tr>
+													<th id="col1" scope="col" style="display: none">ID</th>
+													<th id="col2" scope="col">Perfiles</th>
+
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+
+												<tr th:each="perfil2: ${perfiless}">
+
+													<td th:text="${perfil2.pape_id}" style="display: none"></td>
+													<td th:text="${perfil2.perfil_nombre}">
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+							</form>
+							<!--Termina código de formulario-->
+						</div>
+					</div>
+
+					<div id="collapseOne" class="collapse show"
+						aria-labelledby="headingOne" data-parent="#accordionExample">
+						<div class="card-body">
+							<!--Inicia código de formulario-->
+							<div>
+								<h2 class="mb-0 form-row" style="font-size: 20px;">
+									Cultivos</h2>
+							</div>
+
+							<form th:action="@{/estudios_paquetesCultivos}"
+								th:object="${paquetesCultivos}" method="post">
+
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<label class="col-form-label-sm mb-0">Nombre Cultivos</label>
+										<select class="form-control form-control-sm"
+											th:field="*{CultivoId}" id="Select3">
+											<option value="" selected disabled>Seleccione un
+												cultivo</option>
+											<option th:each="estudio: ${estudios}"
+												th:if="${estudio.estudio_tipo=='2'}"
+												th:value="${estudio.estudio_id}"
+												th:text="${estudio.estudio_nombre}"></option>
+										</select> <input type="hidden" th:field="*{PaqueteId}" />
+
+									</div>
+									<button class="btn btn-link" type="button" onclick="tenerId3()"
+										id="EliminarRecurso3" aria-expanded="true" title="">
+										<i class="fa fa-step-backward"></i>
+
+									</button>
+									<input disabled="disabled" type="text" id="ccc"
+										style="display: none" /> <input disabled="disabled"
+										type="text" id="cccc" th:field="*{PaqueteId}"
+										style="display: none" />
+
+									<button class="btn btn-link" type="submit" aria-expanded="true"
+										title="" id="Submit3">
+										<i class="	fa fa-step-forward"></i>
+									</button>
+									<br>
+									<div class="form-group"
+										style="width: 59.5%; margin-left: 71px;">
+										<table class="table table-hover table-sm" id="mytable3">
+
+											<thead>
+												<tr>
+													<th id="col1" scope="col" style="display: none">ID</th>
+													<th id="col2" scope="col">Cultivos</th>
+
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+
+												<tr th:each="cultivo: ${cultivoss}">
+
+													<td th:text="${cultivo.pacu_id}" style="display: none"></td>
+													<td th:text="${cultivo.estudio_nombre}">
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+							</form>
+							<!--Termina código de formulario-->
+						</div>
+					</div>
+
+					<div id="collapseOne" class="collapse show"
+						aria-labelledby="headingOne" data-parent="#accordionExample">
+						<div class="card-body">
+							<!--Inicia código de formulario-->
+							<div>
+								<h2 class="mb-0 form-row" style="font-size: 20px;">
+									Gabinete</h2>
+							</div>
+
+							<form th:action="@{/estudios_paquetesGabinete}"
+								th:object="${paquetesGabinetes}" method="post">
+
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<label class="col-form-label-sm mb-0">Nombre Gabinete</label>
+										<select class="form-control form-control-sm"
+											th:field="*{GabineteId}" id="Select4">
+											<option value="" selected disabled>Seleccione un
+												gabinete</option>
+											<option th:each="estudio: ${estudios}"
+												th:if="${estudio.estudio_tipo=='3'}"
+												th:value="${estudio.estudio_id}"
+												th:text="${estudio.estudio_nombre}"></option>
+										</select> <input type="hidden" th:field="*{PaqueteId}" />
+
+									</div>
+									<button class="btn btn-link" type="button" onclick="tenerId4()"
+										id="EliminarRecurso4" aria-expanded="true" title="">
+										<i class="fa fa-step-backward"></i>
+
+									</button>
+									<input disabled="disabled" type="text" id="ccc"
+										style="display: none" /> <input disabled="disabled"
+										type="text" id="cccc" th:field="*{PaqueteId}"
+										style="display: none" />
+
+									<button class="btn btn-link" type="submit" aria-expanded="true"
+										title="" id="Submit4">
+										<i class="	fa fa-step-forward"></i>
+									</button>
+									<br>
+									<div class="form-group"
+										style="width: 59.5%; margin-left: 71px;">
+										<table class="table table-hover table-sm" id="mytable4">
+
+											<thead>
+												<tr>
+													<th id="col1" scope="col" style="display: none">ID</th>
+													<th id="col2" scope="col">Cultivos</th>
+
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+
+												<tr th:each="cultivo: ${cultivoss}">
+
+													<td th:text="${cultivo.pacu_id}" style="display: none"></td>
+													<td th:text="${cultivo.estudio_nombre}">
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+							</form>
+							<!--Termina código de formulario-->
+						</div>
+					</div>
+
 				</div>
 
-            </form>
-                                <!--Termina código de formulario-->
-                            </div>
-                        </div>
-    </div>
+				<!-- jQuery CDN - Slim version (=without AJAX) -->
+				<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+					integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+					crossorigin="anonymous"></script>
+				<!-- Popper.JS -->
+				<script
+					src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+					integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+					crossorigin="anonymous"></script>
+				<!-- Bootstrap JS -->
+				<script
+					src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+					integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+					crossorigin="anonymous"></script>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
-
-    <script type="text/javascript">
+				<script type="text/javascript">
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
         });
     </script>
-         	<script src="/js/jquery.min.js"></script>
-		
-    
-    <script type="text/javascript" th:inline="javascript">
+				<script src="/js/jquery.min.js"></script>
+
+
+				<script type="text/javascript" th:inline="javascript">
 var Anterior = "";
 var Anterior2 = "";
 var Anterior3 = "";
@@ -516,7 +619,7 @@ function tenerId3(){
      /*buscador*/
  
 </script>
-<script>
+				<script>
 validar();
 window.onload=function(){
 var pos=window.name || 0;
