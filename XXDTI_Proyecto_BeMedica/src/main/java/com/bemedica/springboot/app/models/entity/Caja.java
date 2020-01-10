@@ -25,11 +25,43 @@ public class Caja implements Serializable{
 
 	@Column(name="fecha_final")
 	private String FechaFinal;
+
+	@Column(name="monto_efectivo")
+	private String MontoEfectivo;
+	
+	@Column(name="monto_tarjeta")
+	private String MontoTarjeta;
+	
+	@Column(name="caja_chica")
+	private String CajaChica;
 	
 	@Column(name="corte_tipo")
 	private boolean CorteTipo;	
-
 	
+	public String getMontoEfectivo() {
+		return MontoEfectivo;
+	}
+
+	public void setMontoEfectivo(String montoEfectivo) {
+		MontoEfectivo = montoEfectivo;
+	}
+
+	public String getMontoTarjeta() {
+		return MontoTarjeta;
+	}
+
+	public void setMontoTarjeta(String montoTarjeta) {
+		MontoTarjeta = montoTarjeta;
+	}
+
+	public String getCajaChica() {
+		return CajaChica;
+	}
+
+	public void setCajaChica(String cajaChica) {
+		CajaChica = cajaChica;
+	}
+
 	public boolean isCorteTipo() {
 		return CorteTipo;
 	}
