@@ -26,4 +26,6 @@ public interface ICajaDao {
 	public String cierreCajaEfectivo(Long Id);
 	
 	public String cierreCajaTarjeta(Long Id);
+	
+	public Integer Autoincrement(Long Id);
 }

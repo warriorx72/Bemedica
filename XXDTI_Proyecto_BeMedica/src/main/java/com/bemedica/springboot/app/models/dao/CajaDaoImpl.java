@@ -92,7 +92,6 @@ public class CajaDaoImpl implements ICajaDao {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public String findTotalEfectivo(Long id) {
@@ -100,7 +99,6 @@ public class CajaDaoImpl implements ICajaDao {
 		return em.createNativeQuery("call TotalEfectivo("+id+")").getSingleResult().toString();
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public String findTotalTarjeta(Long id) {
@@ -120,11 +118,9 @@ public class CajaDaoImpl implements ICajaDao {
 		else {
 			x=false;
 			return x;
-		}
-		
+		}	
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public String cierreCajaEfectivo(Long id) {
@@ -132,12 +128,17 @@ public class CajaDaoImpl implements ICajaDao {
 		return em.createNativeQuery("call TotalEfectivo("+id+")").getSingleResult().toString();
 	}
 
-
-	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public String cierreCajaTarjeta(Long id) {
 		// TODO Auto-generated method stub
 		return em.createNativeQuery("call TotalTarjeta("+id+")").getSingleResult().toString();
+	}
+	
+	@Override
+	@Transactional
+	public Integer Autoincrement(Long id) {
+		// TODO Auto-generated method stub
+		return Integer.parseInt(em.createNativeQuery("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='caja' AND TABLE_SCHEMA=DATABASE();").getSingleResult().toString());
 	}
 }

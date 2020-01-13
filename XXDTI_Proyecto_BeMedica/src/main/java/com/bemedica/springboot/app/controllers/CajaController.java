@@ -68,9 +68,6 @@ public class CajaController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");   	
 		    Date date = new Date();  
 		    System.out.println(formatter.format(date)); 
-		
-		    
-		    
 		    
 		if(cajaDao.corteTipo()==true) {
 			caja.setFechaInicial(formatter.format(date) +" "+"06:00:00");
@@ -81,18 +78,13 @@ public class CajaController {
 		
 		caja.setCorteTipo(false);
 		cajaDao.save(caja);
-		
 		caja.setMontoEfectivo(cajaDao.findTotalEfectivo(caja.getCajaId()));
 		caja.setMontoTarjeta(cajaDao.findTotalTarjeta(caja.getCajaId()));
 		cajaDao.save(caja);
 		//status.setComplete();
 		m.put("caja", caja);
 		return "redirect:/herramientas_corte";
-		
-		
-		
 		}
-		
 		
 		@RequestMapping(value="/cierre", method=RequestMethod.POST)
 		public String guardar2(@Valid Caja caja ,BindingResult result, Model model, SessionStatus status, Map<String, Object> me) {
@@ -116,7 +108,6 @@ public class CajaController {
 			String auxs =cajaDao.findLastCajaId();
 			System.out.print("hola"+auxs);
 			
-			cierre.setCajaChica("0");
 			cierre.setFechaInicial(formatter.format(date) +" "+"06:00:00");
 			cierre.setCorteTipo(true);
 		    cajaDao.save(cierre);

@@ -32,8 +32,11 @@ public class Caja implements Serializable{
 	@Column(name="monto_tarjeta")
 	private String MontoTarjeta;
 	
-	@Column(name="caja_chica")
-	private String CajaChica;
+	@Column(name="monto_contado")
+	private String MontoContado;
+	
+	@Column(name="descripcion_caja")
+	private String DescripcionCaja;
 	
 	@Column(name="corte_tipo")
 	private boolean CorteTipo;	
@@ -54,12 +57,20 @@ public class Caja implements Serializable{
 		MontoTarjeta = montoTarjeta;
 	}
 
-	public String getCajaChica() {
-		return CajaChica;
+	public String getMontoContado() {
+		return MontoContado;
 	}
 
-	public void setCajaChica(String cajaChica) {
-		CajaChica = cajaChica;
+	public void setMontoContado(String montoContado) {
+		MontoContado = montoContado;
+	}
+	
+	public String getDescripcionCaja() {
+		return DescripcionCaja;
+	}
+
+	public void setDescripcionCaja(String descripcionCaja) {
+		DescripcionCaja = descripcionCaja;
 	}
 
 	public boolean isCorteTipo() {
@@ -93,6 +104,4 @@ public class Caja implements Serializable{
 	public void setFechaFinal(String fechaFinal) {
 		FechaFinal = fechaFinal;
 	}
-
-
 }
