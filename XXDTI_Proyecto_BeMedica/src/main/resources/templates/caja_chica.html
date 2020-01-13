@@ -1,28 +1,129 @@
-<!DOCTYPE html>
+<!DOCTYPE html  >
 <html xmlns:th="http://www.thymeLeaf.org">
+
 <head>
 <meta charset="UTF-8">
-<title>Caja Chica</title>
-</head>
-<link rel="stylesheet" th:href="@{/css/style_ticket.css}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
+<title th:text="${titulo}"></title>
+
+<!-- Bootstrap CSS CDN -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+	crossorigin="anonymous">
+<!-- Our Custom CSS -->
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Font Awesome JS -->
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+	crossorigin="anonymous"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+	crossorigin="anonymous"></script>
+
+
+
+</head>
 
 <body>
-	<form>
-		<h3 class="text-center">¿Cuánto va a dejar en caja chica inicial?</h3>
-		<div class="form-control">
-			<label>Dinero contado</label><input type="text" class="form-control">
+
+	<div class="wrapper">
+
+		<!-- Page Content  -->
+		<div id="content">
+
+
+
+
+
+			<div class="card">
+				<div class="card-header" id="headingOne">
+					<h2 class="mb-0 form-row" style="font-size: 20px;">Estudios
+						Solicitados</h2>
+				</div>
+
+				<div class="card-body">
+					<!--Inicia código de tabla-->
+
+					<div class="col-sm-12">
+						<div class="card mb-3">
+
+							<div class="card-header">
+								<div class="table-responsive">
+									<!--Termina código de tabla-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="card">
+				<div class="card-header" id="headingOne">
+					<h2 class="mb-0 form-row" style="font-size: 20px;">Captura de
+						Resultados</h2>
+				</div>
+
+				<div class="card-body">
+					<!--Inicia código de tabla-->
+
+					<div class="col-sm-12">
+						<div class="card mb-3">
+
+							<div class="card-header">
+								<div class="table-responsive">
+									<!--Termina código de tabla-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
 		</div>
-		<input type="submit" class="btn btn-primary btn-lg btn-block" onclick="" value="Enviar Caja Chica">
-	</form>
 
 
-<!-- <script type="text/javascript">
-  window.onload=function(){
-  window.print();}</script> 
-  
-  -->
+
+	</div>
+	</div>
+
+	</div>
+
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<!-- Popper.JS -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+		integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+		integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+		crossorigin="anonymous"></script>
+	<!-- Demo scripts for this page-->
+	<script src="js/demo/datatables-demo.js"></script>
+
+	<!-- Page level plugin JavaScript-->
+	<script src="vendor/datatables/jquery.dataTables.js"></script>
+	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+	<!-- Page level plugins -->
+	<script src="vendor/chart.js/Chart.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="js/demo/chart-area-demo.js"></script>
+	<script src="js/demo/chart-pie-demo.js"></script>
+	<script src="js/demo/chart-bar-demo.js"></script>
+
 </body>
+
+
 </html>

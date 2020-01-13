@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link rel="shortcut icon" href="/img/favicon.ico">
-<title th:text="*{titulo}">Bemédica Punto de venta</title>
+<title th:text="*{titulo}">Bemï¿½dica Punto de venta</title>
 
 <!-- Bootstrap CSS CDN -->
 <link rel="stylesheet"
@@ -26,12 +26,15 @@
 	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
 	crossorigin="anonymous"></script>
 <script>
-   		function popup(id){
-   		window.open("listar_ordenes/"+id, 'window', 'width=2000, height=2000');
-   		}
-   		function popup2(id){
-       		window.open("caja_chica/"+id, 'window', 'left=497,top=426,width=10, height=101');
-       		}
+	function popup(id) {
+		window
+				.open("listar_ordenes/" + id, 'window',
+						'width=2000, height=2000');
+	}
+	function popup2(id) {
+		window.open("caja_chica/", 'window',
+				'left=497,top=426,width=10, height=101');
+	}
 </script>
 <!-- Page level plugin CSS-->
 <!-- Page level plugin JavaScript-->
@@ -52,13 +55,60 @@
 </head>
 
 <body>
+	<div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-sm-1" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>Caja chica</h3>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form th:action="@{/catalogos_condicion}" th:object="${catalogo}" method="post">
+						<table>
+							<tr>
+								<td>Nombre del registro</td>
+								<td><input type="text" class="form-control" /></td>
+							</tr>
+
+							<tr>
+								<td>Nombre del catalogo</td>
+								<td><select class="form-control form-control-sm">
+										<option value="no">Seleccione uno...</option>
+										<option value="areas proceso">Areas Proceso</option>
+										<option value="condiciones paciente">Condiciones
+											Paciente</option>
+										<option value="envases muestras">Envases Muestra</option>
+										<option value="tipos de muestras">Tipos de Muestra</option>
+										<option value="tecnicas estudios">TÃ©cnicas Estudios</option>
+										<option value="unidades resultados">Unidades
+											Resultados</option>
+										<option value="diagnostico">Diagnostico</option>
+								</select></td>
+							</tr>
+							<tr>
+
+								<td><input type="submit" value="Crear registro" /></td>
+
+							</tr>
+
+						</table>
+					</form>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+		</div>
+	</div>
 	<div>
 		<img src="img/banner.jpg" style="height: 80px; width: 100%;">
 	</div>
 	<div class="wrapper">
 		<!-- Sidebar  -->
-      <div th:include="navegacion.html" th:remove="tag">
-      </div>
+		<div th:include="navegacion.html" th:remove="tag"></div>
 
 		<!-- Page Content  -->
 		<div id="content">
@@ -78,10 +128,9 @@
 					<br>
 
 					<div id="outer">
-						<button class="btn btn-primary" title="Caja Chica"
-							th:onclick="'popup2(' + ${orden.orden_id} + ');'">
-							<i class="fas fa-box"></i><label>Caja Chica</label>
-						</button>
+						<a th:href="@{/herramientas_corte}" class="btn btn-primary"
+							data-toggle="modal" data-target="#modalNuevo"><i
+							class="fas fa-box"></i>Agregar nuevo</a>
 						<button class="btn btn-primary" title="Corte"
 							th:onclick="'popup2(' + ${orden.orden_id} + ');'">
 							<i class="fas fa-cut"></i><label>Corte de Caja</label>
@@ -91,12 +140,12 @@
 							<i class="fas fa-door-closed"></i><label>Cierre de Caja</label>
 						</button>
 						<!-- 						<div class="inner"> -->
-<!-- 							<form th:action="@{/caja-reporte}" th:object="${caja}" -->
-<!-- 								method="post"> -->
-<!-- 								<input type="submit" value="Reporte" -->
-<!-- 									class="form-control btn btn-primary" /> -->
-<!-- 							</form> -->
-<!-- 						</div> -->
+						<!-- 							<form th:action="@{/caja-reporte}" th:object="${caja}" -->
+						<!-- 								method="post"> -->
+						<!-- 								<input type="submit" value="Reporte" -->
+						<!-- 									class="form-control btn btn-primary" /> -->
+						<!-- 							</form> -->
+						<!-- 						</div> -->
 					</div>
 					<br>
 					<div class="col-sm-12">
@@ -107,16 +156,6 @@
 										stateSave : true
 									});
 								});
-								window.onload = function() {
-									var pos = window.name || 0;
-									window.scrollTo(0, pos);
-								}
-								window.onunload = function() {
-									window.name = self.pageYOffset
-											|| (document.documentElement.scrollTop + document.body.scrollTop);
-								}
-							</script>
-							<script>
 								window.onload = function() {
 									var pos = window.name || 0;
 									window.scrollTo(0, pos);
@@ -149,15 +188,10 @@
 											<tbody style="text-align: center">
 												<tr th:each="caja_vista: ${vistas}">
 
-													<td><a class="text-primary"
-																th:text="${caja_vista[1]}" 
-<<<<<<< HEAD
-																th:href="@{/herramientas_corte/} + ${caja_vista[0]}"></a> </td>
-=======
-																th:href="@{/herramientas_corte/} + ${caja_vista[2]}"></a> </td>
->>>>>>> branch 'master' of https://github.com/warriorx72/Bemedica
-													<!-- 													<td th:text="${caja_vista.CajaId}"></td> -->
-
+													<td><a class="text-primary" th:text="${caja_vista[1]}"
+														th:href="@{/herramientas_corte/} + ${caja_vista[0]}"></a>
+													</td>
+													<td th:text="${caja_vista.CajaId}"></td>
 													<td th:text="${caja_vista[2]}"></td>
 													<td th:text="${caja_vista[3]}"></td>
 													<td th:text="${caja_vista[4]}"></td>
