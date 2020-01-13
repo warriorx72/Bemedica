@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link rel="shortcut icon" href="/img/favicon.ico">
-<title th:text="*{titulo}">BemÃ©dica Punto de venta</title>
+<title th:text="*{titulo}">Bemédica Punto de venta</title>
 
 <!-- Bootstrap CSS CDN -->
 <link rel="stylesheet"
@@ -25,6 +25,14 @@
 	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
 	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
 	crossorigin="anonymous"></script>
+<script>
+   		function popup(id){
+   		window.open("listar_ordenes/"+id, 'window', 'width=2000, height=2000');
+   		}
+   		function popup2(id){
+       		window.open("caja_chica/"+id, 'window', 'left=497,top=426,width=10, height=101');
+       		}
+</script>
 <!-- Page level plugin CSS-->
 <!-- Page level plugin JavaScript-->
 <script src="vendor/datatables/jquery.dataTables.js"></script>
@@ -63,31 +71,26 @@
 							<!--                                <div class="ml-auto"> -->
 							<!--                                 <button class="btn btn-link" type="button" aria-expanded="true" title=""> -->
 							<!--                                     <i class="fas fa-file"></i> -->
-							<!--                           fv      </button> -->
+							<!--                                 </button> -->
 							<!--                             </div> -->
 						</h2>
 					</div>
 					<br>
 
 					<div id="outer">
-						<div class="inner">
-							<form th:action="@{/corte}" th:object="${caja}" method="post">		
-							<br>			
-							<label for="cach">Caja chica</label>
-								<input type="number" th:field="*{CajaChica}" id="cach" required
-												class="form-control form-control-sm"  /> 
-								<br>						
-								<input type="submit" value="Corte"
-								onclick="return confirm('Confirmar corte de caja');" class="form-control btn btn-success" th:field="*{FechaInicial}" />
-							</form>
-						</div>
-						<div class="inner">
-							<form th:action="@{/cierre}" th:object="${caja}" method="post">
-								<input type="submit" value="Cierre"
-								onclick="return confirm('Confirmar cierre de caja');"	class="form-control btn btn-warning" th:field="*{FechaInicial}" />
-							</form>
-						</div>
-<!-- 						<div class="inner"> -->
+						<button class="btn btn-primary" title="Caja Chica"
+							th:onclick="'popup2(' + ${orden.orden_id} + ');'">
+							<i class="fas fa-box"></i><label>Caja Chica</label>
+						</button>
+						<button class="btn btn-primary" title="Corte"
+							th:onclick="'popup2(' + ${orden.orden_id} + ');'">
+							<i class="fas fa-cut"></i><label>Corte de Caja</label>
+						</button>
+						<button class="btn btn-primary" title="Cierre"
+							th:onclick="'popup2(' + ${orden.orden_id} + ');'">
+							<i class="fas fa-door-closed"></i><label>Cierre de Caja</label>
+						</button>
+						<!-- 						<div class="inner"> -->
 <!-- 							<form th:action="@{/caja-reporte}" th:object="${caja}" -->
 <!-- 								method="post"> -->
 <!-- 								<input type="submit" value="Reporte" -->
@@ -148,14 +151,18 @@
 
 													<td><a class="text-primary"
 																th:text="${caja_vista[1]}" 
+<<<<<<< HEAD
+																th:href="@{/herramientas_corte/} + ${caja_vista[0]}"></a> </td>
+=======
 																th:href="@{/herramientas_corte/} + ${caja_vista[2]}"></a> </td>
+>>>>>>> branch 'master' of https://github.com/warriorx72/Bemedica
 													<!-- 													<td th:text="${caja_vista.CajaId}"></td> -->
 
+													<td th:text="${caja_vista[2]}"></td>
 													<td th:text="${caja_vista[3]}"></td>
 													<td th:text="${caja_vista[4]}"></td>
 													<td th:text="${caja_vista[5]}"></td>
 													<td th:text="${caja_vista[6]}"></td>
-													<td th:text="${caja_vista[7]}"></td>
 												</tr>
 											</tbody>
 
