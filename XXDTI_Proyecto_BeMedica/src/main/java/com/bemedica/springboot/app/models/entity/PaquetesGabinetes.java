@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="paquetes_gabinete")
+@Table(name="paquetes_gabinetes")
 public class PaquetesGabinetes implements Serializable{
 	
 	/**

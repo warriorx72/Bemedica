@@ -63,9 +63,9 @@ public class CajaReportController {
 	@Autowired
 	ICajaVistaDao cajaVistaDao;
 
-	@RequestMapping(value = "/herramientas_corte/{a}/{b}")
+	@RequestMapping(value = "/herramientas_corte/{a}")
 	public void reportListar(Model model, HttpServletRequest request, HttpServletResponse response,
-			@PathVariable(value = "a") int a, @PathVariable(value = "b") int b)
+			@PathVariable(value = "a") int a)
 			/*
 			 * @RequestParam("ff") Date ff,
 			 * 
@@ -79,7 +79,7 @@ public class CajaReportController {
 		 * String fecha1 = formatoEsMX.format(fi); String fecha2 =
 		 * formatoEsMX.format(ff); //this.excel( request, fecha1,fecha2,periodo);
 		 */
-		this.pdf(request, a, b);
+		this.pdf(request, a);
 
 		// String fullPath =
 		// request.getServletContext().getRealPath("/"+"Reporte"+".xls");
@@ -206,7 +206,7 @@ public class CajaReportController {
 		}
 	}
 
-	public void pdf(HttpServletRequest request, int num1, int num2) throws Exception {
+	public void pdf(HttpServletRequest request, int num1) throws Exception {
 
 		String fullPath = request.getServletContext().getRealPath("/" + "CorteCaja" + ".pdf");
 		// Se crea el documento
@@ -228,10 +228,10 @@ public class CajaReportController {
 //        p.add("nombre:");        
 //        p.add("edad:"+edad);
 		
-		List<Object[]> rp = cajaVistaDao.findAll2(num1, num2);
-		List<Object[]> fc = cajaVistaDao.findAll4(num1, num2);
-		float toto = cajaVistaDao.findAll3(num1, num2);
-		List<Object[]> toefta = cajaVistaDao.findAll5(num1, num2);
+		List<Object[]> rp = cajaVistaDao.findAll2(num1);
+		List<Object[]> fc = cajaVistaDao.findAll4(num1);
+		float toto = cajaVistaDao.findAll3(num1);
+		List<Object[]> toefta = cajaVistaDao.findAll5(num1);
 		
 		Paragraph p = new Paragraph("\n\n\n\n\n\n");
 		PdfPCell celda1 = new PdfPCell(p);

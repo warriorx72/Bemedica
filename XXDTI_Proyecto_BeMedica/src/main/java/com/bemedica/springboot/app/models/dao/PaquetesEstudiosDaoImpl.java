@@ -74,30 +74,47 @@ public class PaquetesEstudiosDaoImpl implements IPaquetesEstudiosDao{
 	@Override
 	public List<EstudiosListQ> findEstudios(Long id) {
 		// TODO Auto-generated method stub
-		return em.createNativeQuery("SELECT \r\n" + 
-				"				e.estudio_nombre,\r\n" + 
-				"				e.estudio_id,\r\n" + 
-				"				e.estudio_tipo\r\n" + 
-				"				FROM\r\n" + 
-				"				estudios e \r\n" + 
-				"				WHERE \r\n" + 
-				"				1=1 \r\n" + 
-				"				and e.estudio_id NOT IN (SELECT \r\n" + 
-				"					pe.estudio_id \r\n" + 
-				"				FROM\r\n" + 
-				"					paquetes_estudios pe, \r\n" + 
-				"					estudios \r\n" + 
-				"				WHERE 1=1 \r\n" + 
-				"				 and pe.estudio_id=e.estudio_id \r\n" + 
-				"					and pe.paquete_id="+id+ ")\r\n" + 
-				"				and e.estudio_id not in (SELECT \r\n" + 
-				"					pc.cultivo_id \r\n" + 
-				"				FROM\r\n" + 
-				"					paquetes_cultivos pc, \r\n" + 
-				"					estudios e\r\n" + 
-				"				WHERE 1=1 \r\n" + 
-				"				 and pc.cultivo_id=e.estudio_id \r\n" + 
-				"					and pc.paquete_id="+id+")",EstudiosListQ.class).getResultList();
+		return em.createNativeQuery("SELECT\r\n" + 
+				"	e.estudio_nombre,\r\n" + 
+				"	e.estudio_id,\r\n" + 
+				"	e.estudio_tipo \r\n" + 
+				"FROM\r\n" + 
+				"	estudios e \r\n" + 
+				"WHERE\r\n" + 
+				"	1 = 1 \r\n" + 
+				"	AND e.estudio_id NOT IN (\r\n" + 
+				"	SELECT\r\n" + 
+				"		pe.estudio_id \r\n" + 
+				"	FROM\r\n" + 
+				"		paquetes_estudios pe,\r\n" + 
+				"		estudios \r\n" + 
+				"	WHERE\r\n" + 
+				"		1 = 1 \r\n" + 
+				"		AND pe.estudio_id = e.estudio_id \r\n" + 
+				"		AND pe.paquete_id =" +id+ 
+				"	) \r\n" + 
+				"	AND e.estudio_id NOT IN (\r\n" + 
+				"	SELECT\r\n" + 
+				"		pc.cultivo_id \r\n" + 
+				"	FROM\r\n" + 
+				"		paquetes_cultivos pc,\r\n" + 
+				"		estudios e \r\n" + 
+				"	WHERE\r\n" + 
+				"		1 = 1 \r\n" + 
+				"		AND pc.cultivo_id = e.estudio_id \r\n" + 
+				"		AND pc.paquete_id ="+id+ 
+				"	) \r\n" + 
+				"	AND e.estudio_id NOT IN (\r\n" + 
+				"	SELECT\r\n" + 
+				"		pg.gabinete_id \r\n" + 
+				"	FROM\r\n" + 
+				"		paquetes_gabinetes AS pg,\r\n" + 
+				"		estudios AS e \r\n" + 
+				"	WHERE\r\n" + 
+				"		1 = 1 \r\n" + 
+				"		AND e.estudio_id = pg.gabinete_id \r\n" + 
+				"	AND pg.paquete_id =" +id+ 
+				"	)",EstudiosListQ.class).getResultList();
 	}
 
 }

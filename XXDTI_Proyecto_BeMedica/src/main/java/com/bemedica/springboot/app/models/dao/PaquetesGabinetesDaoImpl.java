@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bemedica.springboot.app.models.dao.IPaquetesGabinetesDao;
+import com.bemedica.springboot.app.models.entity.PaquetesCultivosQ;
 import com.bemedica.springboot.app.models.entity.PaquetesGabinetes;
 @Repository
 public class PaquetesGabinetesDaoImpl implements IPaquetesGabinetesDao {
@@ -49,6 +50,23 @@ public class PaquetesGabinetesDaoImpl implements IPaquetesGabinetesDao {
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
 		em.remove(findOne(id));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<Object[]> findAllById(Long id) {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("SELECT\r\n" + 
+				"pg.paga_id,\r\n" + 
+				"pg.paquete_id,\r\n" + 
+				"e.estudio_nombre\r\n" + 
+				"FROM\r\n" + 
+				"paquetes_gabinetes AS pg ,\r\n" + 
+				"estudios AS e\r\n" + 
+				"WHERE 1=1\r\n" + 
+				"	and e.estudio_id = pg.gabinete_id\r\n" + 
+				"	and pg.paquete_id="+id).getResultList();
 	}
 
 }

@@ -66,6 +66,14 @@ public class PaquetesController {
 		return "estudios_paquetes";
 	
 	}
+	private void Mostrar(Long id,Model m) {
+		m.addAttribute("estudios", paquetesEstudiosDao.findEstudios(id));
+		m.addAttribute("perfiles", paquetesPerfilesDao.findPerfiles(id));
+		m.addAttribute("estudioss", paquetesEstudiosDao.findAllById(id));
+		m.addAttribute("perfiless", paquetesPerfilesDao.findAllById(id));
+		m.addAttribute("cultivoss", paquetesCultivosDao.findAllById(id));
+		m.addAttribute("gabinetess", paquetesGabinetesDao.findAllById(id));
+	}
 	
 	@RequestMapping(value="/estudios_paquetes", method=RequestMethod.POST)
 	public String guardarPaquete (Map<String, Object> m,@Valid Paquetes paquetes,BindingResult result , Model model,SessionStatus status)
@@ -92,17 +100,16 @@ public class PaquetesController {
 		PaquetesEstudios paquetesEstudios = new PaquetesEstudios();
 		PaquetesPerfiles paquetesPerfiles = new PaquetesPerfiles();
 		PaquetesCultivos paquetesCultivos = new PaquetesCultivos();
+		PaquetesGabinetes paquetesGabinetes = new PaquetesGabinetes();
 		paquetesEstudios.setPaqueteId(paquetes.getPaqueteId());
 		paquetesPerfiles.setPaqueteId(paquetes.getPaqueteId());
 		paquetesCultivos.setPaqueteId(paquetes.getPaqueteId());
+		paquetesGabinetes.setPaqueteId(paquetes.getPaqueteId());
 		m.put("paquetesEstudios",paquetesEstudios);
 		m.put("paquetesPerfiles", paquetesPerfiles);
 		m.put("paquetesCultivos", paquetesCultivos);
-		model.addAttribute("estudios", paquetesEstudiosDao.findEstudios(paquetes.getPaqueteId()));
-		model.addAttribute("perfiles", paquetesPerfilesDao.findPerfiles(paquetes.getPaqueteId()));
-		model.addAttribute("estudioss", paquetesEstudiosDao.findAllById(paquetes.getPaqueteId()));
-		model.addAttribute("perfiless", paquetesPerfilesDao.findAllById(paquetes.getPaqueteId()));
-		model.addAttribute("cultivoss", paquetesCultivosDao.findAllById(paquetes.getPaqueteId()));
+		m.put("paquetesGabinetes", paquetesGabinetes);
+		Mostrar(paquetes.getPaqueteId(),model);
 		return "estudios_paquetes";
 	}
 	
@@ -117,20 +124,19 @@ public class PaquetesController {
 		}
 		PaquetesPerfiles paquetesPerfiles = new PaquetesPerfiles();
 		PaquetesCultivos paquetesCultivos = new PaquetesCultivos();
+		PaquetesGabinetes paquetesGabinetes = new PaquetesGabinetes();
 		paquetesCultivos.setPaqueteId(aux.getPaqueteId());
 		paquetesEstudios.setPaqueteId(aux.getPaqueteId());
 		paquetesPerfiles.setPaqueteId(aux.getPaqueteId());
+		paquetesGabinetes.setPaqueteId(aux.getPaqueteId());
 		paquetesEstudiosDao.save(paquetesEstudios);
 		m.put("titulo","Guardar Paquete");	
 		m.put("paquetesEstudios",paquetesEstudios);
 		m.put("paquetesPerfiles", paquetesPerfiles);	
 		m.put("paquetesCultivos", paquetesCultivos);
+		m.put("paquetesGabinetes", paquetesGabinetes);
 		m.put("paquetes",aux);
-		model.addAttribute("estudios", paquetesEstudiosDao.findEstudios(aux.getPaqueteId()));
-		model.addAttribute("perfiles", paquetesPerfilesDao.findPerfiles(aux.getPaqueteId()));
-		model.addAttribute("estudioss", paquetesEstudiosDao.findAllById(aux.getPaqueteId()));
-		model.addAttribute("perfiless", paquetesPerfilesDao.findAllById(aux.getPaqueteId()));
-		model.addAttribute("cultivoss", paquetesCultivosDao.findAllById(aux.getPaqueteId()));
+		Mostrar(aux.getPaqueteId(),model);
 		return "estudios_paquetes";
 	}
 	@RequestMapping(value="/estudios_paquetesPerfiles", method=RequestMethod.POST)
@@ -144,21 +150,19 @@ public class PaquetesController {
 		}
 		PaquetesEstudios paquetesEstudios = new PaquetesEstudios();
 		PaquetesCultivos paquetesCultivos = new PaquetesCultivos();
+		PaquetesGabinetes paquetesGabinetes = new PaquetesGabinetes();
 		paquetesCultivos.setPaqueteId(aux.getPaqueteId());
+		paquetesGabinetes.setPaqueteId(aux.getPaqueteId());
 		paquetesPerfiles.setPaqueteId(aux.getPaqueteId());
 		paquetesEstudios.setPaqueteId(aux.getPaqueteId());
 		paquetesPerfilesDao.save(paquetesPerfiles);
 		m.put("titulo","Guardar Paquete");	
+		m.put("paquetesGabinetes", paquetesGabinetes);
 		m.put("paquetesPerfiles",paquetesPerfiles);
 		m.put("paquetesEstudios",paquetesEstudios);
 		m.put("paquetesCultivos", paquetesCultivos);
 		m.put("paquetes",aux);
-		model.addAttribute("estudios", paquetesEstudiosDao.findEstudios(aux.getPaqueteId()));
-		model.addAttribute("perfiles", paquetesPerfilesDao.findPerfiles(aux.getPaqueteId()));
-		model.addAttribute("estudioss", paquetesEstudiosDao.findAllById(aux.getPaqueteId()));
-		model.addAttribute("perfiless", paquetesPerfilesDao.findAllById(aux.getPaqueteId()));
-		model.addAttribute("cultivoss", paquetesCultivosDao.findAllById(aux.getPaqueteId()));
-
+		Mostrar(aux.getPaqueteId(),model);
 		return "estudios_paquetes";
 	}
 	@RequestMapping(value="/estudios_paquetesCultivos", method=RequestMethod.POST)
@@ -172,21 +176,45 @@ public class PaquetesController {
 		}
 		PaquetesEstudios paquetesEstudios = new PaquetesEstudios();
 		PaquetesPerfiles paquetesPerfiles = new PaquetesPerfiles();
+		PaquetesGabinetes paquetesGabinetes = new PaquetesGabinetes();
 		paquetesCultivos.setPaqueteId(aux.getPaqueteId());
 		paquetesPerfiles.setPaqueteId(aux.getPaqueteId());
 		paquetesEstudios.setPaqueteId(aux.getPaqueteId());
+		paquetesGabinetes.setPaqueteId(aux.getPaqueteId());
 		paquetesCultivosDao.save(paquetesCultivos);
+		m.put("titulo","Guardar Paquete");	
+		m.put("paquetesCultivos", paquetesCultivos);
+		m.put("paquetesGabinetes", paquetesGabinetes);
+		m.put("paquetesPerfiles",paquetesPerfiles);
+		m.put("paquetesEstudios",paquetesEstudios);
+		m.put("paquetes",aux);
+		Mostrar(aux.getPaqueteId(),model);
+		return "estudios_paquetes";
+	}
+	
+	@RequestMapping(value="/estudios_paquetesGabinetes", method=RequestMethod.POST)
+	public String guardarPaquetesGabinetes (Map<String, Object> m,PaquetesGabinetes paquetesGabinetes,BindingResult result , Model model,SessionStatus status)
+	{	
+		//model.addAttribute("catalogos", catalogoDao.findAll());
+		Paquetes aux=null;
+		aux=paquetesDao.findOne(paquetesGabinetes.getPaqueteId());
+		if(result.hasErrors()) {
+			return "estudios_perfiles";
+		}
+		PaquetesEstudios paquetesEstudios = new PaquetesEstudios();
+		PaquetesPerfiles paquetesPerfiles = new PaquetesPerfiles();
+		PaquetesCultivos paquetesCultivos = new PaquetesCultivos();
+		paquetesCultivos.setPaqueteId(aux.getPaqueteId());
+		paquetesPerfiles.setPaqueteId(aux.getPaqueteId());
+		paquetesEstudios.setPaqueteId(aux.getPaqueteId());
+		paquetesGabinetesDao.save(paquetesGabinetes);
 		m.put("titulo","Guardar Paquete");	
 		m.put("paquetesCultivos", paquetesCultivos);
 		m.put("paquetesPerfiles",paquetesPerfiles);
 		m.put("paquetesEstudios",paquetesEstudios);
+		m.put("paquetesGabinetes",paquetesGabinetes);
 		m.put("paquetes",aux);
-		model.addAttribute("estudios", paquetesEstudiosDao.findEstudios(aux.getPaqueteId()));
-		model.addAttribute("perfiles", paquetesPerfilesDao.findPerfiles(aux.getPaqueteId()));
-		model.addAttribute("estudioss", paquetesEstudiosDao.findAllById(aux.getPaqueteId()));
-		model.addAttribute("perfiless", paquetesPerfilesDao.findAllById(aux.getPaqueteId()));
-		model.addAttribute("cultivoss", paquetesCultivosDao.findAllById(aux.getPaqueteId()));
-
+		Mostrar(aux.getPaqueteId(),model);
 		return "estudios_paquetes";
 	}
 	
@@ -209,18 +237,13 @@ public class PaquetesController {
 		paquetesCultivos.setPaqueteId(id);
 		paquetesPerfiles.setPaqueteId(id);
 		paquetesEstudios.setPaqueteId(id);
+		paquetesGabinetes.setPaqueteId(id);
 		model.put("paquetesCultivos", paquetesCultivos);
 		model.put("paquetesPerfiles",paquetesPerfiles);
 		model.put("paquetesEstudios",paquetesEstudios);
 		model.put("paquetesGabinetes",paquetesGabinetes);
 		model.put("titulo","Guardar Paquete");	
-		m.addAttribute("estudioss", paquetesEstudiosDao.findAllById(id));
-		m.addAttribute("cultivoss", paquetesCultivosDao.findAllById(id));
-		m.addAttribute("estudios", paquetesEstudiosDao.findEstudios(id));
-		m.addAttribute("perfiles", paquetesPerfilesDao.findPerfiles(id));
-		m.addAttribute("estudioss", paquetesEstudiosDao.findAllById(id));
-		m.addAttribute("perfiless", paquetesPerfilesDao.findAllById(id));
-		m.addAttribute("cultivoss", paquetesCultivosDao.findAllById(id));
+		Mostrar(id,m);
 		return "estudios_paquetes";		
 	}
 	@RequestMapping (value="/EliminarEstPaq/{id}/{id_e}/{t}")
@@ -232,12 +255,15 @@ public class PaquetesController {
 		PaquetesPerfiles paquetesPerfiles = new PaquetesPerfiles();
 		PaquetesEstudios paquetesEstudios = new PaquetesEstudios();
 		PaquetesCultivos paquetesCultivos = new PaquetesCultivos();
+		PaquetesGabinetes paquetesGabinetes = new PaquetesGabinetes();
 		paquetesCultivos.setPaqueteId(aux.getPaqueteId());
 		paquetesPerfiles.setPaqueteId(aux.getPaqueteId());
 		paquetesEstudios.setPaqueteId(aux.getPaqueteId());
+		paquetesGabinetes.setPaqueteId(aux.getPaqueteId());
 		model.put("paquetesCultivos", paquetesCultivos);
 		model.put("paquetesPerfiles",paquetesPerfiles);
 		model.put("paquetesEstudios",paquetesEstudios);
+		model.put("paquetesGabinetes",paquetesGabinetes);
 		model.put("paquetes",aux);
 		if(t==1 && id > 0) {
 
@@ -254,11 +280,12 @@ public class PaquetesController {
 			paquetesCultivosDao.delete(id);
 			
 		}
-		m.addAttribute("estudios", paquetesEstudiosDao.findEstudios(id_e));
-		m.addAttribute("perfiles", paquetesPerfilesDao.findPerfiles(id_e));
-		m.addAttribute("perfiless", paquetesPerfilesDao.findAllById(id_e));
-		m.addAttribute("estudioss", paquetesEstudiosDao.findAllById(id_e));
-		m.addAttribute("cultivoss", paquetesCultivosDao.findAllById(id_e));
+		else if(t==4 && id > 0) {
+			
+			paquetesGabinetesDao.delete(id);
+			
+		}
+		Mostrar(id_e,m);
 		return "estudios_paquetes";
 	}
 

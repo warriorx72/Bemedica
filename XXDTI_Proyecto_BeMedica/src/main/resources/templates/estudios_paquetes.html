@@ -343,7 +343,7 @@
 									Gabinete</h2>
 							</div>
 
-							<form th:action="@{/estudios_paquetesGabinete}"
+							<form th:action="@{/estudios_paquetesGabinetes}"
 								th:object="${paquetesGabinetes}" method="post">
 
 								<div class="form-row">
@@ -365,9 +365,9 @@
 										<i class="fa fa-step-backward"></i>
 
 									</button>
-									<input disabled="disabled" type="text" id="ccc"
+									<input disabled="disabled" type="text" id="ddd"
 										style="display: none" /> <input disabled="disabled"
-										type="text" id="cccc" th:field="*{PaqueteId}"
+										type="text" id="dddd" th:field="*{PaqueteId}"
 										style="display: none" />
 
 									<button class="btn btn-link" type="submit" aria-expanded="true"
@@ -382,17 +382,17 @@
 											<thead>
 												<tr>
 													<th id="col1" scope="col" style="display: none">ID</th>
-													<th id="col2" scope="col">Cultivos</th>
+													<th id="col2" scope="col">Gabinetes</th>
 
 													<th></th>
 												</tr>
 											</thead>
 											<tbody>
 
-												<tr th:each="cultivo: ${cultivoss}">
+												<tr th:each="gab: ${gabinetess}">
 
-													<td th:text="${cultivo.pacu_id}" style="display: none"></td>
-													<td th:text="${cultivo.estudio_nombre}">
+													<td th:text="${gab[0]}" style="display: none"></td>
+													<td th:text="${gab[2]}">
 												</tr>
 
 											</tbody>
@@ -436,9 +436,11 @@
 var Anterior = "";
 var Anterior2 = "";
 var Anterior3 = "";
+var Anterior4 = "";
 var click = "0";
 var click2 = "0";
 var click3 = "0";
+var click4 = "0";
 var link = /*[[@{/EliminarEstPaq/}]]*/;
 $(document).on("ready", function(){ 
  $("#mytable tbody tr").click(function() {
@@ -465,6 +467,16 @@ $(document).on("ready", function(){
 	     var celda3 =$(this).find("td:eq(0)");
 	     document.getElementById('ccc').value = celda3.html();
 	     validar3();
+	     //alert(celda.html()+Anterior+"hola");
+	     //document.write(tenerId());
+	   });
+	});
+	
+$(document).on("ready", function(){ 
+	 $("#mytable4 tbody tr").click(function() {
+	     var celda4 =$(this).find("td:eq(0)");
+	     document.getElementById('ddd').value = celda4.html();
+	     validar7();
 	     //alert(celda.html()+Anterior+"hola");
 	     //document.write(tenerId());
 	   });
@@ -498,6 +510,17 @@ function tenerId3(){
 	     var mensaje = confirm("¿Est\u00E1s seguro que quieres eliminar?");
 	     if (mensaje) {
 	          window.location.href = link + tipoRecursoId3 + "/"+Id3+"/3";
+	      }else { 
+	      }
+	}
+	
+function tenerId4(){
+	 var tipoRecursoId4 = document.getElementById("ddd").value;
+	 var Id4 = document.getElementById("dddd").value;
+	 
+	     var mensaje = confirm("¿Est\u00E1s seguro que quieres eliminar?");
+	     if (mensaje) {
+	          window.location.href = link + tipoRecursoId4 + "/"+Id4+"/4";
 	      }else { 
 	      }
 	}
@@ -565,6 +588,26 @@ function tenerId3(){
             }
 
      }
+     function validar7(){
+         
+         var tipoRecursoId4=document.getElementById("ddd").value;
+         if(tipoRecursoId4==Anterior4){
+             if(click4=="0"){
+              $("#EliminarRecurso4").attr('disabled','disabled');
+              Anterior4=tipoRecursoId4;
+             }else{
+              $("#EliminarRecurso4").attr('disabled','disabled');
+              Anterior4="";
+             }
+             
+            }
+         else{
+             $("#EliminarRecurso4").removeAttr('disabled');
+             Anterior4=tipoRecursoId4;
+             click4="1";
+            }
+
+     }
      function validar4(){
          
          var tipoRecursoId=document.getElementById("Select1").value;
@@ -599,7 +642,17 @@ function tenerId3(){
          else{
           $("#Submit3").removeAttr('disabled');
          }
-
+     }
+     function validar8(){
+         
+         var tipoRecursoId=document.getElementById("Select4").value;
+         
+         if(tipoRecursoId==""){
+           $("#Submit4").attr('disabled','disabled');       
+         }
+         else{
+          $("#Submit4").removeAttr('disabled');
+         }
      }
      
      function validar(){
@@ -609,6 +662,8 @@ function tenerId3(){
     	 validar4();
     	 validar5();
     	 validar6();
+    	 validar8();
+    	 validar7();
     	 
      }
 
