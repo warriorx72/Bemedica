@@ -15,5 +15,7 @@ public interface ITicketDao {
 	public List<Object[]> findServAll();
 	
 	public List<Object[]> findTotal(Long id);
+	
+	public List<Object[]> findConvenio(Long id);
 
 }

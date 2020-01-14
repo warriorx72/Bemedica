@@ -63,4 +63,5 @@ case "DD-MMM-YYYY DDD":
 // to show it I used innerHTMl in a <p> tag
 document.getElementById("TimeTicket").innerHTML = converted_date;
 document.getElementById("TimeTicket2").innerHTML = converted_date;
+document.getElementById("TimeTicket3").innerHTML = converted_date;
 }

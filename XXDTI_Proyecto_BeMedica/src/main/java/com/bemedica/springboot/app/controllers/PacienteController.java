@@ -317,6 +317,7 @@ System.out.println();
 		model.addAttribute("feinfo", ticketDao.findFecha(id));
 		model.addAttribute("seinfo", ticketDao.findServ(id));
 		model.addAttribute("toinfo", ticketDao.findTotal(id));
+		model.addAttribute("coninfo", ticketDao.findConvenio(id));
 		model.addAttribute("orden_estudios", vistaordenestudioDao.voe(id));
 		model.addAttribute("orden_monto", vistaordenDao.vo(id));
 		model.addAttribute("catalogos", catalogoDao.findAll());
@@ -411,15 +412,29 @@ System.out.println();
 		/// ConvenioEstudioDao.cev(aux.getConvenioId()));
 		model.addAttribute("button_estudio", "false");
 		model.addAttribute("button_terminar", "false");
+		
+		///Primero revisa si es una cotizacion;
 		if(aux.getOrden_estatus().equals("cotizacion")) {
 		model.addAttribute("tipo_ticket", "block3");
 		model.addAttribute("mini_ticket", ""); 
 		model.addAttribute("coti", "disabled");
 		}
 		else {
-			model.addAttribute("tipo_ticket", "block1"); 
-			model.addAttribute("mini_ticket", "block7"); 
-			model.addAttribute("coti", "false");
+			///Despues se revisa si es convenio;
+			if(aux.getConvenio_id() != null)
+			{
+				System.out.print("Es un convenio ");
+				model.addAttribute("tipo_ticket", "block9"); 
+				model.addAttribute("mini_ticket", "block10"); 
+				model.addAttribute("coti", "false");
+			}
+			else
+			{
+				///Si no, debe ser un ticket normal;
+				model.addAttribute("tipo_ticket", "block1"); 
+				model.addAttribute("mini_ticket", "block7"); 
+				model.addAttribute("coti", "false");
+			}
 		}
 
 		
@@ -690,16 +705,29 @@ System.out.println();
 			m.put("ordenestudio", ordenestudio);
 			m.put("orden", aux);
 			Mostrar(id_o,model);
+			///Primero revisa si es una cotizacion;
 			if(aux.getOrden_estatus().equals("cotizacion")) {
-				model.addAttribute("tipo_ticket", "block3");
-				model.addAttribute("mini_ticket", ""); 
-				model.addAttribute("coti", "disabled");
+			model.addAttribute("tipo_ticket", "block3");
+			model.addAttribute("mini_ticket", ""); 
+			model.addAttribute("coti", "disabled");
+			}
+			else {
+				///Despues se revisa si es convenio;
+				if(aux.getConvenio_id() != null)
+				{
+					System.out.print("Es un convenio ");
+					model.addAttribute("tipo_ticket", "block9"); 
+					model.addAttribute("mini_ticket", "block10"); 
+					model.addAttribute("coti", "false");
 				}
-				else {
+				else
+				{
+					///Si no, debe ser un ticket normal;
 					model.addAttribute("tipo_ticket", "block1"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
 				}
+			}
 		}
 		return "operaciones_recepcion";
 	}
@@ -776,7 +804,35 @@ System.out.println();
 			m.put("orden", e);
 			ordenestudio.setOrden_id(id);
 			m.put("ordenestudio", ordenestudio);
-			if(e.getOrden_estatus().equals("cotizacion")) {
+			
+			
+			
+			///Primero revisa si es una cotizacion;
+			if(aux.getOrden_estatus().equals("cotizacion")) {
+			model.addAttribute("tipo_ticket", "block3");
+			model.addAttribute("mini_ticket", ""); 
+			model.addAttribute("coti", "disabled");
+			}
+			else {
+				///Despues se revisa si es convenio;
+				if(aux.getConvenio_id() != null)
+				{
+					System.out.print("Es un convenio ");
+					model.addAttribute("tipo_ticket", "block9"); 
+					model.addAttribute("mini_ticket", "block10"); 
+					model.addAttribute("coti", "false");
+				}
+				else
+				{
+					///Si no, debe ser un ticket normal;
+					model.addAttribute("tipo_ticket", "block1"); 
+					model.addAttribute("mini_ticket", "block7"); 
+					model.addAttribute("coti", "false");
+				}
+			}
+			
+			
+			/*if(e.getOrden_estatus().equals("cotizacion")) {
 				model.addAttribute("tipo_ticket", "block3");
 				model.addAttribute("mini_ticket", ""); 
 				model.addAttribute("coti", "disabled");
@@ -785,8 +841,11 @@ System.out.println();
 					model.addAttribute("tipo_ticket", "block1"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
-				}
+				}*/
+			
+			
 			return "operaciones_recepcion";
+			
 		} else {
 			return "redirect:/operaciones_recepcion";
 		}
@@ -893,16 +952,33 @@ System.out.println();
 			m.put("ordenestudio", ordenestudio);
 			m.put("orden", orden);
 			Mostrar(id,model);
-			if(orden.getOrden_estatus().equals("cotizacion")) {
-				model.addAttribute("tipo_ticket", "block3");
-				model.addAttribute("mini_ticket", ""); 
-				model.addAttribute("coti", "disabled");
+			
+			
+			///Primero revisa si es una cotizacion;
+			if(aux.getOrden_estatus().equals("cotizacion")) {
+			model.addAttribute("tipo_ticket", "block3");
+			model.addAttribute("mini_ticket", ""); 
+			model.addAttribute("coti", "disabled");
+			}
+			else {
+				///Despues se revisa si es convenio;
+				if(aux.getConvenio_id() != null)
+				{
+					System.out.print("Es un convenio ");
+					model.addAttribute("tipo_ticket", "block9"); 
+					model.addAttribute("mini_ticket", "block10"); 
+					model.addAttribute("coti", "false");
 				}
-				else {
+				else
+				{
+					///Si no, debe ser un ticket normal;
 					model.addAttribute("tipo_ticket", "block1"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
 				}
+			}
+			
+			
 			return "operaciones_recepcion";
 		}
 		else {
@@ -926,16 +1002,32 @@ System.out.println();
 			m.put("ordenestudio", ordenestudio);
 			m.put("orden", orden);
 			Mostrar(id,model);
-			if(orden.getOrden_estatus().equals("cotizacion")) {
-				model.addAttribute("tipo_ticket", "block3");
-				model.addAttribute("mini_ticket", ""); 
-				model.addAttribute("coti", "disabled");
+			
+			
+			///Primero revisa si es una cotizacion;
+			if(aux.getOrden_estatus().equals("cotizacion")) {
+			model.addAttribute("tipo_ticket", "block3");
+			model.addAttribute("mini_ticket", ""); 
+			model.addAttribute("coti", "disabled");
+			}
+			else {
+				///Despues se revisa si es convenio;
+				if(aux.getConvenio_id() != null)
+				{
+					System.out.print("Es un convenio ");
+					model.addAttribute("tipo_ticket", "block9"); 
+					model.addAttribute("mini_ticket", "block10"); 
+					model.addAttribute("coti", "false");
 				}
-				else {
+				else
+				{
+					///Si no, debe ser un ticket normal;
 					model.addAttribute("tipo_ticket", "block1"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
 				}
+			}
+			
 			return "operaciones_recepcion";
 		}
 		else {
@@ -965,16 +1057,29 @@ System.out.println();
 		mo.put("ordenestudio", ordenestudio);
 		mo.put("orden", orden);
 		Mostrar(linea,model);
-		if(orden.getOrden_estatus().equals("cotizacion")) {
-			model.addAttribute("tipo_ticket", "block3");
-			model.addAttribute("mini_ticket", ""); 
-			model.addAttribute("coti", "disabled");
+		///Primero revisa si es una cotizacion;
+		if(aux.getOrden_estatus().equals("cotizacion")) {
+		model.addAttribute("tipo_ticket", "block3");
+		model.addAttribute("mini_ticket", ""); 
+		model.addAttribute("coti", "disabled");
+		}
+		else {
+			///Despues se revisa si es convenio;
+			if(aux.getConvenio_id() != null)
+			{
+				System.out.print("Es un convenio ");
+				model.addAttribute("tipo_ticket", "block9"); 
+				model.addAttribute("mini_ticket", "block10"); 
+				model.addAttribute("coti", "false");
 			}
-			else {
+			else
+			{
+				///Si no, debe ser un ticket normal;
 				model.addAttribute("tipo_ticket", "block1"); 
 				model.addAttribute("mini_ticket", "block7"); 
 				model.addAttribute("coti", "false");
 			}
+		}
 		}
 		return "operaciones_recepcion";
 	}
@@ -998,16 +1103,29 @@ System.out.println();
 		mo.put("ordenestudio", ordenestudio);
 		mo.put("orden", orden);
 		Mostrar(linea,model);
-		if(orden.getOrden_estatus().equals("cotizacion")) {
-			model.addAttribute("tipo_ticket", "block3");
-			model.addAttribute("mini_ticket", ""); 
-			model.addAttribute("coti", "disabled");
+		///Primero revisa si es una cotizacion;
+		if(aux.getOrden_estatus().equals("cotizacion")) {
+		model.addAttribute("tipo_ticket", "block3");
+		model.addAttribute("mini_ticket", ""); 
+		model.addAttribute("coti", "disabled");
+		}
+		else {
+			///Despues se revisa si es convenio;
+			if(aux.getConvenio_id() != null)
+			{
+				System.out.print("Es un convenio ");
+				model.addAttribute("tipo_ticket", "block9"); 
+				model.addAttribute("mini_ticket", "block10"); 
+				model.addAttribute("coti", "false");
 			}
-			else {
+			else
+			{
+				///Si no, debe ser un ticket normal;
 				model.addAttribute("tipo_ticket", "block1"); 
 				model.addAttribute("mini_ticket", "block7"); 
 				model.addAttribute("coti", "false");
 			}
+		}
 		}
 		return "operaciones_recepcion";
 	}

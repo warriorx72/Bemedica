@@ -1304,5 +1304,187 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	
+		<!-- COMIENZA TICKET POR CONVENIO -->
+	<div id="block9">
+		<div id="block10">
+			<link rel="stylesheet" th:href="@{/css/style_ticket.css}">
+			<div class="ticket">
+				<img class="example-print" th:src="@{/img/logo_ticket.png}">
+
+
+				<p class="justify">
+					BEMEDICA CIS S.A. DE C.V. <br>R.F.C: SVBHCSJHBSC9 <br>
+					5 SUR NÚMERO 2, SECCIÓN 1RA, SAN MIGUEL TENANCINGO C.P. 90880,
+					TLAXCALA
+
+				</p>
+				<p class="notas">¡NOTAS IMPORTANTES!</p>
+				<p class="notass">
+					1. ESTE ES UN COMPROBANTE DE VENTA POR CONVENIO.
+					 <br>2. ESTE DOCUMENTO NO ES FACTURA Y NO
+					TIENE VALOR FISCAL. <br>3. TIENE 7 DÍAS NATURALES PARA LA
+					ENTREGA O TOMA DE SUS MUESTRAS PENDIENTES. <br>4. CONSULTE
+					NUESTRO AVISO DE PRIVACIDAD
+
+				</p>
+				<p class="notas">
+					COMPROBANTE <br>ORDEN DE SERVICIO
+				</p>
+				<p class="centrado" style="font-size: 14px;">
+					:::::::::::::::ID PACIENTE::::::::::::::: <br> 
+					<b style="font-size: 14px;" th:each="pa: ${painfo}" th:text="${pa[4]}"></b>
+				</p>
+				
+				
+				<p class="notas">CONVENIO CON LA EMPRESA: </p>				
+				<!-- INICIA INFO DE EMPRESA DEL CONVENIO -->
+				
+				<table align="center">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody class="info_empresa">
+						<tr th:each="con: ${coninfo}">
+							<td th:text="${con[0]} + ', ' + ${con[1]}"></td>	
+						</tr>
+						<tr th:each="con: ${coninfo}">
+							<td th:text="'RFC: ' + ${con[2]}"></td>
+						</tr>
+						<tr th:each="con: ${coninfo}">
+							<td th:text="'Calle: ' + ${con[3]} + ', NUM: ' + ${con[4]} + ', INT: ' + ${con[5]}"></td>
+						</tr>
+						<tr th:each="con: ${coninfo}">
+							<td th:text="'Colonia: ' + ${con[6]} + ', ' + ${con[7]}"></td>
+						</tr>		
+						<tr th:each="con: ${coninfo}">
+							<td th:text="'CP: ' + ${con[8]} + '. ' + ${con[9]}"></td>
+						</tr>				
+					</tbody>
+				</table>
+					
+				<!-- TERMINA INFO DE EMPRESA DEL CONVENIO -->
+				<hr style="border-bottom: 1px solid black">
+					
+				
+				<table class="centrado">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="fecha" style="width: 10mm"></td>
+							<td class="fecha_right">Fecha de impresion:</td>
+							<td class="fecha_left" id="TimeTicket3"></td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha"></td>
+							<td class="fecha_right">Fecha de trabajo:</td>
+							<td class="fecha_left" th:text="${fe[0]}">00-00-0000</td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha"></td>
+							<td class="fecha_right">Folio:</td>
+							<td class="fecha_left" th:text="${fe[1]}"></td>
+						</tr>
+						<tr th:each="fe: ${feinfo}">
+							<td class="fecha"></td>
+							<td class="fecha_right">Fecha de Entrega:</td>
+							<td class="fecha_left" th:text="${fe[2]}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="justify">
+					<b>LUGAR DE EXPEDICIÓN: TLAXCALA</b>
+				</p>
+				<p class="justify">5 SUR NÚMERO 2, SECCIÓN 1RA, SAN MIGUEL
+					TENANCINGO C.P. 90880, TLAXCALA</p>
+
+				<hr style="border-bottom: 1px solid black">
+
+				<table style="border: hidden">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="em: ${eminfo}">
+							<td class="fecha_left"><b>CAJERO:</b></td>
+							<td class="fecha" style="width: 10mm"></td>
+							<td class="fecha_center" th:text="${em[1]}"></td>
+						<tr>
+						<tr th:each="em: ${eminfo}">
+							<td class="fecha_left"><b></b></td>
+							<td class="fecha" style="width: 10mm"></td>
+							<td class="fecha_center" th:text="${em[0]}"></td>
+						<tr>
+					</tbody>
+				</table>
+				<hr style="border-top: 1px solid black">
+				<table class="datos">
+					<thead>
+					</thead>
+					<tbody>
+						<tr>
+							<td><b>DATOS DEL PACIENTE:</b></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td th:text="${pa[0]}"></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td><label>EDAD:&nbsp</label><label th:text="${pa[1]}"></label><label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSEXO:&nbsp</label><label
+								th:text="${pa[2]}"></label></td>
+						</tr>
+						<tr th:each="pa: ${painfo}">
+							<td th:text="${pa[3]}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<br>
+				<hr style="border-top: 1px solid black">
+				<b>DATOS DEL MEDICO:</b><br> <label th:each="em: ${eminfo}" th:text="${em[2]}"></label><br> <br> 
+					<b>SERVICIO(S) SOLICITADO(S):</b><br>
+					
+					<label class="info_empresa" th:each="conv: ${coninfo}" th:text="${conv[10]}"></label>
+					
+				<table
+					style="border-top: 1px solid black; border-collapse: collapse;">
+					<thead>
+						<tr>
+							<th class="servicio_convenio">SERVICIO</th>
+							<th class="cantidad_convenio">CANT.</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="se: ${seinfo}">
+							<td class="servicio_convenio" th:text="${se[0]}"></td>
+							<td class="cantidad_convenio" th:text="${se[1]}"></td>
+						</tr>
+						<tr style="border-top: 1px solid black; border-collapse: collapse;">
+							<td class="precio_convenio">COSTO:</td>
+							<td class="precio_convenio" th:each="conve: ${coninfo}" th:text="${conve[11]}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="centrado">
+					¡GRACIAS POR SU COMPRA! <br>BeMedica.com
+				</p>
+			</div>
+		</div>
+	</div>
+	<!--  TERMINA TICKET POR CONVENIO -->
 </body>
 </html>

@@ -78,6 +78,14 @@ public class TicketDaoImpl implements ITicketDao{
 		// TODO Auto-generated method stub
 		return em.createNativeQuery("call total_ticket("+id+")").getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Override
+	public List<Object[]> findConvenio(Long id) {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("call ticket_convenio_empresa(" + id +")").getResultList();
+	}
 
 
 }
