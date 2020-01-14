@@ -807,15 +807,13 @@ System.out.println();
 			
 			
 			
-			///Primero revisa si es una cotizacion;
-			if(aux.getOrden_estatus().equals("cotizacion")) {
+			if(e.getOrden_estatus().equals("cotizacion")) {
 			model.addAttribute("tipo_ticket", "block3");
 			model.addAttribute("mini_ticket", ""); 
 			model.addAttribute("coti", "disabled");
 			}
 			else {
-				///Despues se revisa si es convenio;
-				if(aux.getConvenio_id() != null)
+				if(e.getConvenio_id() != null)
 				{
 					System.out.print("Es un convenio ");
 					model.addAttribute("tipo_ticket", "block9"); 
@@ -824,7 +822,6 @@ System.out.println();
 				}
 				else
 				{
-					///Si no, debe ser un ticket normal;
 					model.addAttribute("tipo_ticket", "block1"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
@@ -930,7 +927,7 @@ System.out.println();
 		try {
 			Thread.sleep(segundos * 1000);
 		} catch (Exception e) {
-			// Mensaje en caso de que falle
+			//
 		}
 	}
 
@@ -953,16 +950,14 @@ System.out.println();
 			m.put("orden", orden);
 			Mostrar(id,model);
 			
-			
-			///Primero revisa si es una cotizacion;
-			if(aux.getOrden_estatus().equals("cotizacion")) {
+		
+			if(orden.getOrden_estatus().equals("cotizacion")) {
 			model.addAttribute("tipo_ticket", "block3");
 			model.addAttribute("mini_ticket", ""); 
 			model.addAttribute("coti", "disabled");
 			}
 			else {
-				///Despues se revisa si es convenio;
-				if(aux.getConvenio_id() != null)
+				if(orden.getConvenio_id() != null)
 				{
 					System.out.print("Es un convenio ");
 					model.addAttribute("tipo_ticket", "block9"); 
@@ -971,7 +966,6 @@ System.out.println();
 				}
 				else
 				{
-					///Si no, debe ser un ticket normal;
 					model.addAttribute("tipo_ticket", "block1"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
@@ -1004,15 +998,13 @@ System.out.println();
 			Mostrar(id,model);
 			
 			
-			///Primero revisa si es una cotizacion;
-			if(aux.getOrden_estatus().equals("cotizacion")) {
+			if(orden.getOrden_estatus().equals("cotizacion")) {
 			model.addAttribute("tipo_ticket", "block3");
 			model.addAttribute("mini_ticket", ""); 
 			model.addAttribute("coti", "disabled");
 			}
 			else {
-				///Despues se revisa si es convenio;
-				if(aux.getConvenio_id() != null)
+				if(orden.getConvenio_id() != null)
 				{
 					System.out.print("Es un convenio ");
 					model.addAttribute("tipo_ticket", "block9"); 
@@ -1021,7 +1013,6 @@ System.out.println();
 				}
 				else
 				{
-					///Si no, debe ser un ticket normal;
 					model.addAttribute("tipo_ticket", "block1"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
@@ -1057,15 +1048,13 @@ System.out.println();
 		mo.put("ordenestudio", ordenestudio);
 		mo.put("orden", orden);
 		Mostrar(linea,model);
-		///Primero revisa si es una cotizacion;
-		if(aux.getOrden_estatus().equals("cotizacion")) {
+		if(orden.getOrden_estatus().equals("cotizacion")) {
 		model.addAttribute("tipo_ticket", "block3");
 		model.addAttribute("mini_ticket", ""); 
 		model.addAttribute("coti", "disabled");
 		}
 		else {
-			///Despues se revisa si es convenio;
-			if(aux.getConvenio_id() != null)
+			if(orden.getConvenio_id() != null)
 			{
 				System.out.print("Es un convenio ");
 				model.addAttribute("tipo_ticket", "block9"); 
@@ -1074,7 +1063,6 @@ System.out.println();
 			}
 			else
 			{
-				///Si no, debe ser un ticket normal;
 				model.addAttribute("tipo_ticket", "block1"); 
 				model.addAttribute("mini_ticket", "block7"); 
 				model.addAttribute("coti", "false");
@@ -1103,15 +1091,13 @@ System.out.println();
 		mo.put("ordenestudio", ordenestudio);
 		mo.put("orden", orden);
 		Mostrar(linea,model);
-		///Primero revisa si es una cotizacion;
-		if(aux.getOrden_estatus().equals("cotizacion")) {
+		if(orden.getOrden_estatus().equals("cotizacion")) {
 		model.addAttribute("tipo_ticket", "block3");
 		model.addAttribute("mini_ticket", ""); 
 		model.addAttribute("coti", "disabled");
 		}
 		else {
-			///Despues se revisa si es convenio;
-			if(aux.getConvenio_id() != null)
+			if(orden.getConvenio_id() != null)
 			{
 				System.out.print("Es un convenio ");
 				model.addAttribute("tipo_ticket", "block9"); 
@@ -1120,7 +1106,6 @@ System.out.println();
 			}
 			else
 			{
-				///Si no, debe ser un ticket normal;
 				model.addAttribute("tipo_ticket", "block1"); 
 				model.addAttribute("mini_ticket", "block7"); 
 				model.addAttribute("coti", "false");
