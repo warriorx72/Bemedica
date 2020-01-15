@@ -68,27 +68,56 @@
 				</div>
 				<div class="modal-body">
 
-					<form th:action="@{/catalogos_condicion}" th:object="${catalogo}" method="post">
+					<form th:action="@{/caja_chica}" th:object="${cach}" method="post">
 						<table>
 							<tr>
-								<td>Nombre del registro</td>
-								<td><input type="text" class="form-control" /></td>
+								<td>Monto caja chica</td>
+								<td><input type="number" min="1"
+									th:field="*{CajaChicaMonto}" required class="form-control" /></td>
+							</tr>
+							<tr>
+
+								<td><input type="submit" value="Crear registro" /></td>
+
 							</tr>
 
+						</table>
+					</form>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+		</div>
+	</div>
+	<!--Segundo Modal -->
+	<div class="modal fade" id="modalNuevo2" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-sm-1" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>Corte de caja</h3>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form th:action="@{/corte}" method="post">
+						<table>
 							<tr>
-								<td>Nombre del catalogo</td>
-								<td><select class="form-control form-control-sm">
-										<option value="no">Seleccione uno...</option>
-										<option value="areas proceso">Areas Proceso</option>
-										<option value="condiciones paciente">Condiciones
-											Paciente</option>
-										<option value="envases muestras">Envases Muestra</option>
-										<option value="tipos de muestras">Tipos de Muestra</option>
-										<option value="tecnicas estudios">Técnicas Estudios</option>
-										<option value="unidades resultados">Unidades
-											Resultados</option>
-										<option value="diagnostico">Diagnostico</option>
-								</select></td>
+								<td>Efectivo en caja</td>
+								<td><input type="number" min="1"
+									th:field="*{caja.MontoContado}" required class="form-control" /></td>
+							</tr>
+							<tr>
+								<td>Descripcion</td>
+								<td><input type="text" th:field="*{caja.DescripcionCaja}"
+									class="form-control" /></td>
+							</tr>
+							<tr>
+								<td>Caja chica para el siguiente corte</td>
+								<td><input type="number" min="1"
+									th:field="*{cach.CajaChicaMonto}" required class="form-control" /></td>
 							</tr>
 							<tr>
 
@@ -130,11 +159,10 @@
 					<div id="outer">
 						<a th:href="@{/herramientas_corte}" class="btn btn-primary"
 							data-toggle="modal" data-target="#modalNuevo"><i
-							class="fas fa-box"></i>Agregar nuevo</a>
-						<button class="btn btn-primary" title="Corte"
-							th:onclick="'popup2(' + ${orden.orden_id} + ');'">
-							<i class="fas fa-cut"></i><label>Corte de Caja</label>
-						</button>
+							class="fas fa-box"></i>Agregar nuevo</a> <a
+							th:href="@{/herramientas_corte}" class="btn btn-primary"
+							data-toggle="modal" data-target="#modalNuevo2"><i
+							class="fas fa-cut"></i>Agregar nuevo</a>
 						<button class="btn btn-primary" title="Cierre"
 							th:onclick="'popup2(' + ${orden.orden_id} + ');'">
 							<i class="fas fa-door-closed"></i><label>Cierre de Caja</label>
@@ -180,7 +208,7 @@
 													<!-- 													<th>Caja ID</th> -->
 													<th>Fecha Inicial</th>
 													<th>Fecha Final</th>
-													<th>Monto</th>
+													<th>Venta Total</th>
 													<th>Realizo</th>
 													<th>Tipo</th>
 												</tr>
@@ -191,11 +219,16 @@
 													<td><a class="text-primary" th:text="${caja_vista[1]}"
 														th:href="@{/herramientas_corte/} + ${caja_vista[0]}"></a>
 													</td>
-													<td th:text="${caja_vista.CajaId}"></td>
 													<td th:text="${caja_vista[2]}"></td>
 													<td th:text="${caja_vista[3]}"></td>
-													<td th:text="${caja_vista[4]}"></td>
-													<td th:text="${caja_vista[5]}"></td>
+													<td><a class="text-primary" href="#"
+														th:text="${caja_vista[4]}" data-toggle="popover"
+														title="Total"
+														th:data-content="${'Total efectivo: '+caja_vista[8]+'<br/>'+'Total tarjeta: '+caja_vista[9]+'<br/>'+'Caja chica: '+ caja_vista[10]+'<br/>'+'Efectivo: '+caja_vista[7]}"></a></td>
+													<td ><a class="text-primary" href="#" th:text="${caja_vista[5]}"
+														data-toggle="popover"
+														title="Descripcion"
+														th:data-content="${caja_vista[11]}"></a></td>
 													<td th:text="${caja_vista[6]}"></td>
 												</tr>
 											</tbody>
@@ -210,10 +243,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
 	<!-- jQuery CDN - Slim version (=without AJAX) -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -234,7 +263,15 @@
 	<!-- Page level plugin JavaScript-->
 	<script src="vendor/datatables/jquery.dataTables.js"></script>
 	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-
+	<script type="text/javascript" th:inline="javascript">
+		$(document).ready(function() {
+			$('[data-toggle="popover"]').popover({
+				placement : "right",
+				trigger : "hover",
+				html : true
+			});
+		});
+	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#sidebarCollapse').on('click', function() {
