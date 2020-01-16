@@ -1,10 +1,10 @@
 #block1,#block3,#block5,#block7,#block9,#block10{
-    display: none;
+   
 }
 #block2,#block4,#block6,#block8,#block10{
     font-size: 10px;
     font-family: 'Times New Roman'; 
-    display: block;
+
 }
 
 table.datos{

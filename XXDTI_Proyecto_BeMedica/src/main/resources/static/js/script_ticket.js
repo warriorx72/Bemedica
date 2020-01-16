@@ -9,11 +9,16 @@ function printPage(id,id2)
    var printWin = window.open('','','left=10000,top=10000,width=1,height=1,toolbar=0,scrollbars=0,status=0');
    printWin.document.write(html);
    printWin.document.close();
-   setTimeout(function(){ printWin.print(); printWin.close(); }, 300);
+   setTimeout(function(){ printWin.print(); printWin.close(); }, 1000);
      
    setTimeout(function(){printPage2(id2);},1000)
      
     
+}
+
+function printPage3(id)
+{
+	alert(id);
 }
 
 function printPage2(id)
@@ -27,7 +32,7 @@ function printPage2(id)
 	   var printWin = window.open('','','left=10000,top=10000,width=1,height=1,toolbar=0,scrollbars=0,status=0');
 	   printWin.document.write(html);
 	   printWin.document.close();
-	   setTimeout(function(){ printWin.print(); printWin.close(); }, 300);
+	   setTimeout(function(){ printWin.print(); printWin.close(); }, 1000);
 }
 
 

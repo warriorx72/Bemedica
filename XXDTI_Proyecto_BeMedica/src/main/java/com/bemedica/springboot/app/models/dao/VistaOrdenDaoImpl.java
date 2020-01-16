@@ -36,7 +36,6 @@ public  class VistaOrdenDaoImpl implements IVistaOrdenDao {
 	public List<VistaOrden> findAll(Long orden_id) {
 		// TODO Auto-generated method stub
 		return em.createQuery("from VistaOrden where orden_id="+orden_id).setMaxResults(1).getResultList();
-
 	}
 
 	@SuppressWarnings("unchecked")

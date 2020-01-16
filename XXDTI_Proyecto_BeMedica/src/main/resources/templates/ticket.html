@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 <body>
-<input type="button" class="btn btn-primary btn-block" onclick="printPage2('block5')" value="Imprimir ticket" /><br>
+<input type="button" class="btn btn-primary btn-block" th:onclick="printPage2([[${bloque}]]);" value="Imprimir ticket" /><br>
 <input type="button" class="btn btn-primary btn-block" onclick="printPage2('block7')" value="Imprimir miniticket" />
 <div id="block5">
 		<div id="block6">

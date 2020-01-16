@@ -425,7 +425,7 @@ System.out.println();
 			{
 				System.out.print("Es un convenio ");
 				model.addAttribute("tipo_ticket", "block9"); 
-				model.addAttribute("mini_ticket", "block10"); 
+				model.addAttribute("mini_ticket", "block7"); 
 				model.addAttribute("coti", "false");
 			}
 			else
@@ -717,7 +717,7 @@ System.out.println();
 				{
 					System.out.print("Es un convenio ");
 					model.addAttribute("tipo_ticket", "block9"); 
-					model.addAttribute("mini_ticket", "block10"); 
+					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
 				}
 				else
@@ -817,7 +817,7 @@ System.out.println();
 				{
 					System.out.print("Es un convenio ");
 					model.addAttribute("tipo_ticket", "block9"); 
-					model.addAttribute("mini_ticket", "block10"); 
+					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
 				}
 				else
@@ -961,7 +961,7 @@ System.out.println();
 				{
 					System.out.print("Es un convenio ");
 					model.addAttribute("tipo_ticket", "block9"); 
-					model.addAttribute("mini_ticket", "block10"); 
+					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
 				}
 				else
@@ -1008,7 +1008,7 @@ System.out.println();
 				{
 					System.out.print("Es un convenio ");
 					model.addAttribute("tipo_ticket", "block9"); 
-					model.addAttribute("mini_ticket", "block10"); 
+					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
 				}
 				else
@@ -1058,7 +1058,7 @@ System.out.println();
 			{
 				System.out.print("Es un convenio ");
 				model.addAttribute("tipo_ticket", "block9"); 
-				model.addAttribute("mini_ticket", "block10"); 
+				model.addAttribute("mini_ticket", "block7"); 
 				model.addAttribute("coti", "false");
 			}
 			else
@@ -1101,7 +1101,7 @@ System.out.println();
 			{
 				System.out.print("Es un convenio ");
 				model.addAttribute("tipo_ticket", "block9"); 
-				model.addAttribute("mini_ticket", "block10"); 
+				model.addAttribute("mini_ticket", "block7"); 
 				model.addAttribute("coti", "false");
 			}
 			else

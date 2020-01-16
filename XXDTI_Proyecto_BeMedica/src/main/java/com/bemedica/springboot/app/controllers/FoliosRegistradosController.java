@@ -56,14 +56,39 @@ public class FoliosRegistradosController {
 		m.addAttribute("lineas", ResultadosDao.LineasOrden(id));
 		return "detalles_orden";
 	}
+	
+	@SuppressWarnings("null")
 	@RequestMapping (value="/ticket/{id}")
-	public String ImpTicket (@PathVariable (value="id") Long id, Model model) {
+	public String ImpTicket (@PathVariable (value="id") Long id, Model model) 
+	{
+		
+		Orden orden ;
+		orden=OrdenDao.findOne(id);
+		
+		if(orden.getConvenio_id() != null)
+		{
 			model.addAttribute("eminfo", ticketDao.findEmpleado(id));
 			model.addAttribute("painfo", ticketDao.findPaciente(id));
 			model.addAttribute("feinfo", ticketDao.findFecha(id));
 			model.addAttribute("seinfo", ticketDao.findServ(id));
 			model.addAttribute("toinfo", ticketDao.findTotal(id));
+			model.addAttribute("coninfo", ticketDao.findConvenio(id));
+			model.addAttribute("coninfo", ticketDao.findConvenio(id));
+			model.addAttribute("bloque", "block9");
 			model.addAttribute("vista_ordenes", vistaordenDao.findAll(id));
+		}
+		else
+		{
+			model.addAttribute("eminfo", ticketDao.findEmpleado(id));
+			model.addAttribute("painfo", ticketDao.findPaciente(id));
+			model.addAttribute("feinfo", ticketDao.findFecha(id));
+			model.addAttribute("seinfo", ticketDao.findServ(id));
+			model.addAttribute("toinfo", ticketDao.findTotal(id));
+			model.addAttribute("bloque", "block5");
+			model.addAttribute("vista_ordenes", vistaordenDao.findAll(id));
+		}
+		
+		
 		return "ticket";
 	}
 	
