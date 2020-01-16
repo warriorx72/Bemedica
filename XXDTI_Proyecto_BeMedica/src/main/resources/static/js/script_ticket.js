@@ -16,11 +16,6 @@ function printPage(id,id2)
     
 }
 
-function printPage3(id)
-{
-	alert(id);
-}
-
 function printPage2(id)
 
 {

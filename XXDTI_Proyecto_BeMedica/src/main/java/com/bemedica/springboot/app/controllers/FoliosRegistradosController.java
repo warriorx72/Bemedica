@@ -76,7 +76,7 @@ public class FoliosRegistradosController {
 			model.addAttribute("coninfo", ticketDao.findConvenio(id));
 			model.addAttribute("bloque", "block9");
 			model.addAttribute("vista_ordenes", vistaordenDao.findAll(id));
-		}
+		} 
 		else
 		{
 			model.addAttribute("eminfo", ticketDao.findEmpleado(id));

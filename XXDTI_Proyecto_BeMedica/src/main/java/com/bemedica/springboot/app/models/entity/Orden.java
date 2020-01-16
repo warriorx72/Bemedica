@@ -139,7 +139,7 @@ public class Orden implements Serializable {
 		this.adeudo = adeudo;
 	}
 	public Integer getPromocion_id() {
-		return promocion_id;
+		return promocion_id; 
 	}
 	public void setPromocion_id(Integer promocion_id) {
 		this.promocion_id = promocion_id;
