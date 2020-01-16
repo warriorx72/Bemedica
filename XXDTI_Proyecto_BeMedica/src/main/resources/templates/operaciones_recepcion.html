@@ -1455,30 +1455,15 @@
 				</table>
 				<br>
 				<hr style="border-top: 1px solid black">
-				<b>DATOS DEL MEDICO:</b><br> <label th:each="em: ${eminfo}" th:text="${em[2]}"></label><br> <br> 
-					<b>SERVICIO(S) SOLICITADO(S):</b><br>
+				<b>DATOS DEL MEDICO:</b><br> <label th:each="em: ${eminfo}" th:text="${em[2]}"></label><br><br>
+				 
+				 <hr style="border-top: 1px solid black">
+				 <b>NOMBRE DEL CONVENIO:</b><br><br>
 					
-					<label class="info_empresa" th:each="conv: ${coninfo}" th:text="${conv[10]}"></label>
-					
-				<table
-					style="border-top: 1px solid black; border-collapse: collapse;">
-					<thead>
-						<tr>
-							<th class="servicio_convenio">SERVICIO</th>
-							<th class="cantidad_convenio">CANT.</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="se: ${seinfo}">
-							<td class="servicio_convenio" th:text="${se[0]}"></td>
-							<td class="cantidad_convenio" th:text="${se[1]}"></td>
-						</tr>
-						<tr style="border-top: 1px solid black; border-collapse: collapse;">
-							<td class="precio_convenio">COSTO:</td>
-							<td class="precio_convenio" th:each="conve: ${coninfo}" th:text="${conve[11]}"></td>
-						</tr>
-					</tbody>
-				</table>
+					<center>
+						<label class="info_empresa_nombre_con" th:each="conv: ${coninfo}" th:text="${conv[10]}"></label>
+					</center>
+
 				<p class="centrado">
 					¡GRACIAS POR SU COMPRA! <br>BeMedica.com
 				</p>

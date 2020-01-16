@@ -19,7 +19,14 @@ table.datos{
 	font-size: 10px;
 	text-transform: uppercase;
 }
-
+.info_empresa_nombre_con
+{
+	align-content: center;
+	text-align: center;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: bold;
+}
 table.tabla_empresa
 {
 	align-content: center;
