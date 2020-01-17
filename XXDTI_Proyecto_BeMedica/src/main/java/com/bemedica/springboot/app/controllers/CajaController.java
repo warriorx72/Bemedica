@@ -108,7 +108,7 @@ public class CajaController {
 
 		String auxs = cajaDao.findLastCajaId();
 		System.out.print("hola" + auxs);
-
+		cierre.setMontoContado("0");
 		cierre.setFechaInicial(formatter.format(date) + " " + "06:00:00");
 		cierre.setCorteTipo(true);
 		cajaDao.save(cierre);

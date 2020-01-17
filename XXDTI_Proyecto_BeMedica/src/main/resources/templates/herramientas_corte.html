@@ -72,7 +72,7 @@
 						<table>
 							<tr>
 								<td>Monto caja chica</td>
-								<td><input type="number" min="1"
+								<td><input type="number" min="0"
 									th:field="*{CajaChicaMonto}" required class="form-control" /></td>
 							</tr>
 							<tr>
@@ -116,7 +116,7 @@
 							</tr>
 							<tr>
 								<td>Caja chica para el siguiente corte</td>
-								<td><input type="number" min="1"
+								<td><input type="number" min="0"
 									th:field="*{cach.CajaChicaMonto}" required class="form-control" /></td>
 							</tr>
 							<tr>
@@ -132,6 +132,8 @@
 			</div>
 		</div>
 	</div>
+	
+	
 	<div>
 		<img src="img/banner.jpg" style="height: 80px; width: 100%;">
 	</div>
@@ -155,18 +157,28 @@
 						</h2>
 					</div>
 					<br>
-
+		    
 					<div id="outer">
+					<table>
+					  <tbody>
+					  	<td>
+					  	<tr>
 						<a th:href="@{/herramientas_corte}" class="btn btn-primary"
-							data-toggle="modal" data-target="#modalNuevo"><i
-							class="fas fa-box"></i>Agregar nuevo</a> <a
-							th:href="@{/herramientas_corte}" class="btn btn-primary"
-							data-toggle="modal" data-target="#modalNuevo2"><i
-							class="fas fa-cut"></i>Agregar nuevo</a>
-						<button class="btn btn-primary" title="Cierre"
-							th:onclick="'popup2(' + ${orden.orden_id} + ');'">
-							<i class="fas fa-door-closed"></i><label>Cierre de Caja</label>
-						</button>
+							data-toggle="modal" data-target="#modalNuevo" style="margin-left:5px; margin-right:5px;">
+							<i class="fas fa-box"></i> Agregar nuevo</a></tr>
+						<tr>	
+						<a th:href="@{/herramientas_corte}" class="btn btn-primary"
+							data-toggle="modal" data-target="#modalNuevo2" style="margin-left:5px; margin-right:5px;">
+							<i class="fas fa-cut"></i> Corte de Caja</a></tr>
+						<tr>
+					   <form th:action="@{/cierre}"  method="post"> 
+							<button type="submit" class="btn btn-primary" value=" Cierre" style="margin-left:5px; margin-right:5px;">
+							<i class="fas fa-money-bille"></i> Cierre</button>
+					   </form></tr>
+					   </td>
+					  </tbody>
+					</table>
+						  
 						<!-- 						<div class="inner"> -->
 						<!-- 							<form th:action="@{/caja-reporte}" th:object="${caja}" -->
 						<!-- 								method="post"> -->
@@ -219,7 +231,6 @@
 													<td><a class="text-primary" th:text="${caja_vista[1]}"
 														th:href="@{/herramientas_corte/} + ${caja_vista[0]}"></a>
 													</td>
-													<td th:text="${caja_vista[2]}"></td>
 													<td th:text="${caja_vista[3]}"></td>
 													<td><a class="text-primary" href="#"
 														th:text="${caja_vista[4]}" data-toggle="popover"

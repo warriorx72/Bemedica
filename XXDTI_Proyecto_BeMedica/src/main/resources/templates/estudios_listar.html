@@ -102,24 +102,29 @@
 															
 														</td><!--  -->
 															<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')
-												or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}"><a class="text-primary"
+												or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}">
+																<a class="text-primary"
 																th:text="${estudio.IdText}"
 																th:if="${estudio.Catalogo=='Examenes'}"
 																th:href="@{/estudios_examenes/} +${estudio.Id}"></a>
 																<a class="text-primary"
 																th:text="${estudio.IdText}"
 																th:if="${estudio.Catalogo=='Gabinete'}"
-																th:href="@{/gabinete/} +${estudio.Id}"></a> <a
-																class="text-primary" th:text="${estudio.IdText}"
+																th:href="@{/gabinete/} +${estudio.Id}"></a>
+															    <a class="text-primary" 
+																th:text="${estudio.IdText}"
 																th:if="${estudio.Catalogo=='Cultivos'}"
-																th:href="@{/estudios_cultivos/} +${estudio.Id}"></a> <a
-																class="text-primary" th:text="${estudio.IdText}"
+																th:href="@{/estudios_cultivos/} +${estudio.Id}"></a> 
+																<a class="text-primary" 
+																th:text="${estudio.IdText}"
 																th:if="${estudio.Catalogo=='Paquetes'}"
-																th:href="@{/estudios_paquetes/} +${estudio.Id}"></a> <a
-																class="text-primary" th:text="${estudio.IdText}"
+																th:href="@{/estudios_paquetes/} +${estudio.Id}"></a>
+																<a class="text-primary" 
+																th:text="${estudio.IdText}"
 																th:if="${estudio.Catalogo=='Antibiogramas'}"
 																th:href="@{/estudios_antibiogramas/} +${estudio.Id}"></a>
-																<a class="text-primary" th:text="${estudio.IdText}"
+																<a class="text-primary" 
+																th:text="${estudio.IdText}"
 																th:if="${estudio.Catalogo=='Perfiles'}"
 																th:href="@{/estudios_perfiles/} +${estudio.Id}"></a></td>
 															<td th:text="${estudio.Nombre}"></td>

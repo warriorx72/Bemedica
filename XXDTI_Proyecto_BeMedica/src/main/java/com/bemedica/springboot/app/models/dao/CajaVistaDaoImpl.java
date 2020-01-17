@@ -30,12 +30,12 @@ public class CajaVistaDaoImpl implements ICajaVistaDao {
 	}
 
 	@Transactional(readOnly =true)
-	//@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@Override
-	public float findAll3(int num1) {
-		String auxs = em.createNativeQuery("call TotalTotal("+num1+")").getSingleResult().toString();
-		float aux = Float.parseFloat(auxs);
-		return aux;
+	public List<Object[]> findAll3(int num1) {
+		
+		return em.createNativeQuery("call ultimo_corte("+num1+")").getResultList();
+		
 	}
 
 	@Transactional(readOnly =true)

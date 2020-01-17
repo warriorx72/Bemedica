@@ -230,8 +230,8 @@ public class CajaReportController {
 		
 		List<Object[]> rp = cajaVistaDao.findAll2(num1);
 		List<Object[]> fc = cajaVistaDao.findAll4(num1);
-		float toto = cajaVistaDao.findAll3(num1);
-		List<Object[]> toefta = cajaVistaDao.findAll5(num1);
+		List<Object[]> uc = cajaVistaDao.findAll3(num1);
+		//List<Object[]> toefta = cajaVistaDao.findAll5(num1);
 		
 		Paragraph p = new Paragraph("\n\n\n\n\n\n");
 		PdfPCell celda1 = new PdfPCell(p);
@@ -241,6 +241,8 @@ public class CajaReportController {
 
 		PdfPTable table5 = new PdfPTable(1);
 		table5.addCell(celda1);
+		
+		
 
 		/*********************************************************************************/
 
@@ -254,17 +256,18 @@ public class CajaReportController {
 
 		PdfPCell celda2 = new PdfPCell(table3);
 		celda2.setHorizontalAlignment(Element.ALIGN_LEFT);
-
+		celda2.setBorder(Rectangle.NO_BORDER);
 		/**************************************************************************/
 
-		PdfPTable table = new PdfPTable(6);
+		PdfPTable table = new PdfPTable(7);
 		table.getDefaultCell().setBorder(0);
 		table.setWidthPercentage(90.0f);
-		table.setWidths(new float[] { 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f });
+		table.setWidths(new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f });
 		table.setSpacingBefore(2);
 		table.addCell("\n\n\nFolio");
 		table.addCell("\n\n\nUsuario");
 		table.addCell("\n\n\nMonto");
+		table.addCell("\n\n\nTotal");
 		table.addCell("\n\n\nFecha");
 		table.addCell("\n\n\nConcepto");
 		table.addCell("\n\n\nForma de pago\n\n");
@@ -277,6 +280,7 @@ public class CajaReportController {
 			table.addCell(a[3].toString());
 			table.addCell(a[4].toString());
 			table.addCell(a[5].toString());
+			table.addCell(a[6].toString());
 		}
 
 		/**************************************************************************/
@@ -296,17 +300,15 @@ public class CajaReportController {
 //		table1.addCell("\n\n\n\n\n\n\n-Tarjeta de\nCrédito: ");
 		
 		
-		for (Object[] b : toefta) {
+		for (Object[] b : uc) {
 			
-			table1.addCell("\n\n\n\n\n\nEfectivo:      $"+b[0].toString()+"\n"
-					+"\nTarjeta de\nCrédito:       $"+b[1].toString());
-		}
+			table1.addCell("\n\n\n\n\nTotal de\nEfectivo:      $"+b[0].toString()+"\n"
+					+"\nTotal \nTarjeta:  $" +b[1].toString()+"\n"
+					+"\nCaja \nChica:       $"+b[2].toString()+"\n"
+					+"\nMonto \nEfectivo:  $"+b[3].toString());
+			table1.addCell("\nTotal:      $" + b[4].toString());
 		
-		/**************************************************************************/
-
-		PdfPTable table2 = new PdfPTable(1);
-		table2.getDefaultCell().setBorder(0);
-		table2.addCell("\nTotal:          	$" + toto);
+		}
 
 		/**************************************************************************/
 
@@ -314,7 +316,8 @@ public class CajaReportController {
 		documento.add(table4);
 		documento.add(table);
 		documento.add(table1);
-		documento.add(table2);
+		//documento.add(table3);
+		
 
 		documento.close();
 
