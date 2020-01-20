@@ -234,10 +234,14 @@
 													<td th:text="${caja_vista[3]}"></td>
 													<td><a class="text-primary" href="#"
 														th:text="${caja_vista[4]}" data-toggle="popover"
-														title="Total"
-														th:data-content="${'Total efectivo: '+caja_vista[8]+'<br/>'+'Total tarjeta: '+caja_vista[9]+'<br/>'+'Caja chica: '+ caja_vista[10]+'<br/>'+'Efectivo: '+caja_vista[7]}"></a></td>
+														title="Total" th:if="${caja_vista[6] == 'Corte'}"
+														th:data-content="${'Total efectivo: '+caja_vista[8]+'<br/>'+'Total tarjeta: '+caja_vista[9]+'<br/>'+'Caja chica: '+ caja_vista[10]+'<br/>'+'Efectivo: '+caja_vista[7]}"></a><a
+														class="text-primary" href="#" th:text="${caja_vista[4]}"
+														data-toggle="popover" title="Total" th:if="${caja_vista[6] == 'Cierre'}"
+														th:data-content="${'Total efectivo: '+caja_vista[8]+'<br/>'+'Total tarjeta: '+caja_vista[9]}"></a></td>
 													<td ><a class="text-primary" href="#" th:text="${caja_vista[5]}"
 														data-toggle="popover"
+														
 														title="Descripcion"
 														th:data-content="${caja_vista[11]}"></a></td>
 													<td th:text="${caja_vista[6]}"></td>
