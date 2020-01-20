@@ -18,7 +18,6 @@ public class Acumulado implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
 	@Id
 	@Column(name="id_medico")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
