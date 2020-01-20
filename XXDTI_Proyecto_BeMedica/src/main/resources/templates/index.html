@@ -25,7 +25,14 @@
 </head>
 
 <body>
-    <div><img src="img/banner.jpg" style="height:80px; width: 100%;"></div>
+	
+		<!--  Header -->
+		<div th:include="header-index.html" th:remove="tag">
+		</div>
+		<!--  End Header -->
+    
+    
+    
     <div class="wrapper">
         <!-- Sidebar  -->
        <div th:include="navegacion.html" th:remove="tag">
@@ -64,7 +71,7 @@
                     </div>
 
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                        data-parent="#accordionExample">
+                        data-parent="#accordionExample" >
                         <div class="card-body">
                             <!--Inicia código de formulario-->
                             <form>
@@ -149,6 +156,9 @@
                         </div>
                     </div>
                 </div>
+                <br>
+                
+                
                 <div class="card">
                     <div class="card-header" id="headingTwo">
                         <h2 class="mb-0" style="font-size: 20px;">
@@ -244,6 +254,7 @@
                         </div>
                     </div>
                 </div>
+                <br>
 
                 <div class="card">
                     <div class="card-header" id="headingThree">
@@ -326,6 +337,10 @@
                         </div>
                     </div>
                 </div>
+                <br>
+                
+                
+                
             </div>
         </div>
     </div>

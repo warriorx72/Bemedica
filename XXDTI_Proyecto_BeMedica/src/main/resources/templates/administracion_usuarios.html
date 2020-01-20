@@ -39,9 +39,13 @@
 </head>
 
 <body>
-	<div>
-		<img th:src="@{/img/banner.jpg}" style="height: 80px; width: 100%;">
-	</div>
+
+		<!--  Header -->
+		<div th:include="header-index.html" th:remove="tag">
+		</div>
+		<!--  End Header -->
+
+
 	<!-- th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USER'')')})" -->
 	<div class="wrapper">
 		<!-- Sidebar  -->

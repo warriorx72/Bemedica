@@ -28,8 +28,14 @@
 
 <body>
 
+		<!--  Header -->
+		<div th:include="header-index.html" th:remove="tag">
+		</div>
+		<!--  End Header -->
 
-    <div><img th:src="@{/img/banner.jpg}" style="height:80px; width: 100%;"></div>
+
+
+
     <div class="wrapper">
       <!-- Sidebar  -->
       <div th:include="navegacion.html" th:remove="tag">

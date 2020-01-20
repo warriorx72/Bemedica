@@ -39,9 +39,16 @@
 	rel="stylesheet">
 </head>
 <body>
-	<div>
-		<img th:src="@{/img/banner.jpg}" style="height: 80px; width: 100%;">
-	</div>
+
+
+		<!--  Header -->
+		<div th:include="header-index.html" th:remove="tag">
+		</div>
+		<!--  End Header -->
+	
+	
+	
+	
 	<div class="wrapper">
 		<!-- Sidebar  -->
       <div th:include="navegacion.html" th:remove="tag">
@@ -53,23 +60,13 @@
 				<div class="card">
 					<div class="card-header" id="headingThree" for="collapseThree">
 						<h2 class="mb-0 form-row" style="font-size: 20px;">
-							Información de Orden
+							Informaci&oacute;n de Orden
 							<div class="ml-auto">
 								<button class="btn btn-link collapsed" type="button"
 									data-toggle="collapse" data-target="#collapseThree"
-									aria-expanded="false" aria-controls="collapseThree">
+									aria-expanded="false" aria-controls="collapseThree" title="Desplegar">
 									<i class="fas fa-angle-double-down"></i> <i
 										class="fas fa-angle-double-up"></i>
-								</button>
-								<button class="btn btn-link" type="button" aria-expanded="true"
-									data-toggle="modal" data-target="#modalNuevo">
-									<i class="fas fa-plus-square"></i>
-								</button>
-								<button class="btn btn-link" type="button" aria-expanded="true">
-									<i class="fas fa-search"></i>
-								</button>
-								<button class="btn btn-link" type="button" aria-expanded="true">
-									<i class="fas fa-sync"></i>
 								</button>
 							</div>
 						</h2>
@@ -313,7 +310,17 @@
 								</div>
 							</div>
 
-							<h5>Ordenes</h5>
+							
+							
+							<div>
+								<h5 style="float: left">Ordenes</h5>
+								<button class="btn btn-primary" type="button" aria-expanded="true" data-toggle="modal" data-target="#modalNuevo" style="float: right">
+									Nueva orden
+								</button>
+							</div>
+							<br>
+							<br>
+
 							<!--Inicia código de formulario-->
 							<form th:action="@{/guardarorden}" th:object="${orden}"
 								method="post">
@@ -450,7 +457,7 @@
 																
 															<form th:action="@{/linea_porcentaje}"   method="post">
 
-															<input type="number" name="porcentaje" required  step="0.01" min="1" pattern="^[0-9]+"
+															<input type="number" name="porcentaje" required  step="0.01" min="0" pattern="^[0-9]+"
 															
 															class="form-control form-control-sm" style="width:100px;height:30px" />
 															
@@ -465,7 +472,7 @@
 																
 															<form th:action="@{/linea_descuento}"   method="post">
 															
-															<input type="number" name="descuento" required  step="0.01" min="1" pattern="^[0-9]+"
+															<input type="number" name="descuento" required  step="0.01" min="0" pattern="^[0-9]+"
 															
 															class="form-control form-control-sm" style="width:100px;height:30px" />
 															
@@ -551,8 +558,7 @@
 												<input type="hidden" name="id" th:value="${orde.orden_id}" />
 												<input type="number" th:disabled="${coti}" name="primer_pago" required step="0.01" style="width:100px;height:35px"
 													min="1" th:max="${orde.adeudo}" pattern="^[0-9]+"
-													th:value="${orde.pago_inicial}"
-													class="form-control form-control-sm" />
+													class="form-control form-control-sm" th:placeholder="${orde.pago_inicial}"/>
 											</form>
 										</td>
 										<td>
@@ -581,6 +587,9 @@
 						</div>
 					</div>
 				</div>
+				<br>
+				
+				
 				<div class="card">
 					<div class="card-header" id="headingOne">
 						<h2 class="mb-0 form-row" style="font-size: 20px;">
@@ -596,14 +605,6 @@
 								<button class="btn btn-link" type="button" aria-expanded="true"
 									title="Guardar">
 									<i class="fas fa-save"></i>
-								</button>
-								<button class="btn btn-link" type="button" aria-expanded="true"
-									title="Buscar">
-									<i class="fas fa-search"></i>
-								</button>
-								<button class="btn btn-link" type="button" aria-expanded="true"
-									title="Actualizar">
-									<i class="fas fa-sync"></i>
 								</button>
 							</div>
 						</h2>
@@ -658,10 +659,6 @@
 																			aria-controls="dataTable" rowspan="1" colspan="1"
 																			style="width: 20px;"
 																			aria-label="R3: activate to sort column ascending">Numero</th>
-																		<th class="sorting" tabindex="0"
-																			aria-controls="dataTable" rowspan="1" colspan="1"
-																			style="width: 20px;"
-																			aria-label="R3: activate to sort column ascending">Eliminar</th>
 																	</tr>
 																</thead>
 																<tbody>
@@ -674,10 +671,6 @@
 																		<td th:text="${paciente.direccion_calle}"></td>
 																		<td th:text="${paciente.direccion_numero_ext}"></td>
 																		<td th:text="${paciente.direccion_colonia}"></td>
-																		<td><a class="btn btn-danger btn-xs"
-																			th:href="@{/eliminar_pa/} + ${paciente.paciente_id}"
-																			th:text="'eliminar'"
-																			onclick="return confirm('Estás seguro que quieres eliminar?');"></a></td>
 																	</tr>
 																</tbody>
 															</table>
@@ -694,6 +687,10 @@
 						</div>
 					</div>
 				</div>
+				<br>
+				
+				
+				
 				<div class="card">
 					<div class="card-header" id="headingTwo">
 						<h2 class="mb-0 form-row" style="font-size: 20px;">
@@ -702,17 +699,11 @@
 								<button class="btn btn-link collapsed" type="button"
 									data-toggle="collapse" data-target="#collapseTwo"
 									aria-expanded="false" aria-controls="collapseTwo">
-									<i class="fas fa-angle-double-down"></i> <i
+									<i class="fas fa-angle-double-down" title="Desplegar"></i> <i
 										class="fas fa-angle-double-up"></i>
 								</button>
-								<button class="btn btn-link" type="button" aria-expanded="true">
+								<button class="btn btn-link" type="button" aria-expanded="true" title="Guardar">
 									<i class="fas fa-save"></i>
-								</button>
-								<button class="btn btn-link" type="button" aria-expanded="true">
-									<i class="fas fa-search"></i>
-								</button>
-								<button class="btn btn-link" type="button" aria-expanded="true">
-									<i class="fas fa-sync"></i>
 								</button>
 							</div>
 						</h2>
@@ -736,7 +727,7 @@
 													class="dataTables_wrapper dt-bootstrap4 no-footer">
 													<div class="row">
 														<div class="col-sm-12">
-															<table class="display" id="" role="grid"
+															<table class="display table table-bordered dataTable no-footer" id="" role="grid"
 																aria-describedby="dataTable_info" style="width: 100%;"
 																width="100%" cellspacing="0">
 																<thead>
@@ -770,10 +761,6 @@
 																			aria-controls="dataTable" rowspan="1" colspan="1"
 																			style="width: 20px;"
 																			aria-label="R3: activate to sort column ascending">Colonia</th>
-																		<th class="sorting" tabindex="0"
-																			aria-controls="dataTable" rowspan="1" colspan="1"
-																			style="width: 20px;"
-																			aria-label="R3: activate to sort column ascending">Eliminar</th>
 																	</tr>
 																</thead>
 																<tbody>
@@ -787,10 +774,6 @@
 																		<td th:text="${medico.direccion_calle}"></td>
 																		<td th:text="${medico.direccion_numero_ext}"></td>
 																		<td th:text="${medico.direccion_colonia}"></td>
-																		<td><a class="btn btn-danger btn-xs"
-																			th:href="@{/eliminar_med/} + ${medico.medico_id}"
-																			th:text="'eliminar'"
-																			onclick="return confirm('Estás seguro que quieres eliminar?');"></a></td>
 																	</tr>
 																</tbody>
 															</table>

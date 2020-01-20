@@ -1,36 +1,52 @@
-<nav id="sidebar">
+<nav id="sidebar" >
 	<ul class="list-unstyled components">
-		<li class="nav-item"><a class="nav-link" href="#"
-			style="color: #000080; font-weight: bold; font-size: 15px"
-			th:href="@{/logout}"><span
-				style="color: #000080; font-weight: bold"
-				th:text="${#authentication.getPrincipal().getUsername()}"></span> <font
-				style="color: #000080; font-weight: bold">-</font><span><font
-					style="color: #000080; font-weight: bold">Cerrar
-						Sesi&oacute;n</font></span><span class="float-right"><i
-					class="fas fa-sign-out-alt"></i></span></a></li>
-		<li><a th:href="@{/index}"><i class="fas fa-home text-center"></i><span>Inicio</span></a></li>
-		<br>
+
 		
-		
-		
-		
+		<!--  Bienvenida -->
 		<li>
-			<a href="#homeSubmenu" data-toggle="collapse"
-			aria-expanded="false" class="dropdown-toggle"> <i
-				class="fas fa-address-card"></i> Operaciones
+			<font class="bienvenida">
+				<p>Bienvenido</p>
+			</font>
+			
+			<hr style="width: 90%; background: white;">
+		</li>
+		<!--  Cierra Bienvenida -->
+		
+		
+		<!-- Icono de Inicio -->
+		<li>
+			<a th:href="@{/index}">
+				<i class="fas fa-home text-center"></i>
+				<span>Inicio</span>
+			</a>
+		</li>
+		<!-- Icono de Inicio -->
+		
+		
+		
+		
+		
+		<!-- Icono de Operaciones -->
+		<li>
+			<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> 
+				<i class="fas fa-address-card"></i> 
+				Operaciones
 			</a>
 			<ul class="collapse list-unstyled" id="homeSubmenu">
-				<li
-					th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')})"><a
-					th:href="@{/operaciones_recepcion}">Recepcion del paciente</a></li>
-				<li
-					th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')}) or (${#authorization.expression('hasRole(''ROLE_VALIDACION'')')})"><a
-					th:href="@{/operaciones_folios}">Folios registrados</a></li>
-				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')})"><a
-					th:href="@{/operaciones_facturacion}">Facturaci&oacute;n</a></li>
+				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')})">
+					<a th:href="@{/operaciones_recepcion}">Recepcion del paciente</a>
+				</li>
+				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')}) or (${#authorization.expression('hasRole(''ROLE_VALIDACION'')')})">
+					<a th:href="@{/operaciones_folios}">Folios registrados</a>
+				</li>
+				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')})">
+					<a th:href="@{/operaciones_facturacion}">Facturaci&oacute;n</a>
+				</li>
 			</ul>
 		</li>
+		<!-- Icono de Operaciones -->
+		
+		
 		
 		
 		
