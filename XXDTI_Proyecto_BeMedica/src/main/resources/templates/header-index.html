@@ -1,0 +1,25 @@
+    <div id="cabezero" style="height: 80px; width: 100%; background-color: #004379;">
+    	<!-- Inicia Logo BeMedica -->
+	    	<div id="contenedor_imagen">
+	    		<img src="img/logo2.png" id="imagen_logo_blanco">
+    		</div>
+    	<!-- Cierra Logo BeMedica -->
+    	
+		<!-- Inicia Seccion de Sesion -->
+		    <div id="contenedor_sesion">
+    			<div id="contenedor_foto_perfil">
+    				<img src="img/user.png" id="imagen_perfil">
+    			</div>
+    			
+    			<div id="contenedor_nombre_perfil">
+    				<span id="nombre_perfil" th:text="${#authentication.getPrincipal().getUsername()}"></span>
+    			</div>
+    			
+ 
+    			
+    			<div id="contenedor_cerrar_sesion">
+    				<a id="cerrar_sesion" th:href="@{/logout}"> &nbsp;  Cerrar Sesi&oacute;n</a>
+    			</div>
+    		</div>
+    	<!-- Cierra Seccion de Sesion -->
+    </div>
