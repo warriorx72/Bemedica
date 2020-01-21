@@ -24,8 +24,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bemedica.springboot.app.models.dao.ICajaVistaDao;
+import com.bemedica.springboot.app.models.entity.Promociones;
 import com.lowagie.text.Anchor;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Chapter;
@@ -206,6 +208,7 @@ public class CajaReportController {
 		}
 	}
 
+	@SuppressWarnings("null")
 	public void pdf(HttpServletRequest request, int num1) throws Exception {
 
 		String fullPath = request.getServletContext().getRealPath("/" + "CorteCaja" + ".pdf");
@@ -231,7 +234,7 @@ public class CajaReportController {
 		List<Object[]> rp = cajaVistaDao.findAll2(num1);
 		List<Object[]> fc = cajaVistaDao.findAll4(num1);
 		List<Object[]> uc = cajaVistaDao.findAll3(num1);
-		//List<Object[]> toefta = cajaVistaDao.findAll5(num1);
+		List<Object[]> re = cajaVistaDao.findAll(); //para hacer el reporte
 		
 		Paragraph p = new Paragraph("\n\n\n\n\n\n");
 		PdfPCell celda1 = new PdfPCell(p);
@@ -300,28 +303,47 @@ public class CajaReportController {
 //		table1.addCell("\n\n\n\n\n\n\n-Tarjeta de\nCrédito: ");
 		
 		
-		for (Object[] b : uc) {
+		//for (Object[] b : uc)
+		//{
+	//		
+		// table1.addCell("\n\n\n\n\nTotal de\nEfectivo:      $"+b[0].toString()+"\n"
+			//		+"\nTotal \nTarjeta:  $" +b[1].toString()+"\n"
+				//	+"\nCaja \nChica:       $"+b[2].toString()+"\n"
+					//+"\nMonto \nEfectivo:  $"+b[3].toString());
+			//table1.addCell("\nTotal:      $" + b[4].toString());
+	//	}
+		for(Object[] r : re) 
+		{
+			//System.out.println("szfxdgchj"+r[6]+" "+r[0]+" "+Integer.toString(num1));
+		if (r[0].equals(num1)&&r[6].equals("Corte"))
+		{
+			//System.out.println("entra1");
+				table1.addCell("\n\n\n\n\nTotal de\nEfectivo:      $" +r[8].toString()+"\n"
+						+"\nTotal \nTarjeta:  $" +r[9].toString()+"\n"
+							+"\nCaja \nChica:       $"+r[10].toString()+"\n"
+						+"\nMonto \nEfectivo:  $"+r[7].toString());
+				table1.addCell("\nTotal:      $" + r[4].toString());
 			
-			table1.addCell("\n\n\n\n\nTotal de\nEfectivo:      $"+b[0].toString()+"\n"
-					+"\nTotal \nTarjeta:  $" +b[1].toString()+"\n"
-					+"\nCaja \nChica:       $"+b[2].toString()+"\n"
-					+"\nMonto \nEfectivo:  $"+b[3].toString());
-			table1.addCell("\nTotal:      $" + b[4].toString());
-		
+		} else if(r[0].equals(num1)&&r[6].equals("Cierre"))
+		{
+			//System.out.println("entra2");
+					table1.addCell("\n\n\n\n\nTotal de\nEfectivo:      $" +r[8].toString()+"\n"
+							+"\nTotal \nTarjeta:  $" +r[9].toString());
+					table1.addCell("\nTotal:      $" + r[4].toString());
 		}
-
+		}
 		/**************************************************************************/
 
 		documento.add(table5);
 		documento.add(table4);
 		documento.add(table);
 		documento.add(table1);
-		//documento.add(table3);
 		
 
 		documento.close();
 
 		System.out.println(fullPath);
-	}
-
-}
+	
+		}
+		}
+	
