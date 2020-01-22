@@ -134,15 +134,16 @@
 	</div>
 	
 	
-	<div>
-		<img src="img/banner.jpg" style="height: 80px; width: 100%;">
-	</div>
+	<!--  Header -->
+	<div th:include="header-index.html" th:remove="tag"></div>
+	<!--  End Header -->
+	
 	<div class="wrapper">
 		<!-- Sidebar  -->
 		<div th:include="navegacion.html" th:remove="tag"></div>
 
 		<!-- Page Content  -->
-		<div id="content">
+		<div id="content" style="min-width: 10px !important;">
 			<div class="accordion" id="accordionExample"
 				style="user-select: none;">
 				<div class="card">
