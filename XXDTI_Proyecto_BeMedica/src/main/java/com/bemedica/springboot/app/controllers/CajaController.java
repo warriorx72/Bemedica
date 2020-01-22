@@ -57,6 +57,7 @@ public class CajaController {
 		m.put("caja", caja);
 		m.put("orden", orden);
 		m.put("cach", cach);
+		bloquear(model);
 		cajaDao.findAll();
 		return "herramientas_corte";
 	}
@@ -126,6 +127,17 @@ public class CajaController {
 		cajaChicaDao.save(cach);
 		m.put("cach", cach);
 		return "redirect:/herramientas_corte";
+	}
+	
+
+	private void bloquear(Model model) {
+		if(cajaDao.bloqueoCorte()) {
+			model.addAttribute("bloqueo","disabled");
+		}
+		else {
+			model.addAttribute("bloqueo","false");
+			
+		}
 	}
 
 }
