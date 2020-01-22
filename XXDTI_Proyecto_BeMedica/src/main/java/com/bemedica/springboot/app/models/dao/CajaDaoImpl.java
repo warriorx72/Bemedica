@@ -62,9 +62,6 @@ public class CajaDaoImpl implements ICajaDao {
 
 		return auxs1 ;
 	}		
-		
-	
-	
 	@Transactional(readOnly=true)
 	@Override	
 	public String caja(Long id) {
@@ -141,4 +138,22 @@ public class CajaDaoImpl implements ICajaDao {
 		// TODO Auto-generated method stub
 		return Integer.parseInt(em.createNativeQuery("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='caja' AND TABLE_SCHEMA=DATABASE();").getSingleResult().toString());
 	}
+	
+	@Override
+	@Transactional(readOnly =true)
+	public Boolean  bloqueaCorte() {
+		// TODO Auto-generated method stub
+		 boolean cierre=(Integer.parseInt(em.createNativeQuery(" call bloqueo_Corte()").getSingleResult().toString())==1);	
+		return  cierre;	
+	}
+
+	@Override
+	@Transactional(readOnly =true)
+	public boolean  bloqueoCorte() {
+		// TODO Auto-generated method stub
+		 boolean cierre=(Integer.parseInt(em.createNativeQuery(" call bloqueo_Corte()").getSingleResult().toString())==1);	
+		return  cierre;	
+	}		
+	
+	
 }
