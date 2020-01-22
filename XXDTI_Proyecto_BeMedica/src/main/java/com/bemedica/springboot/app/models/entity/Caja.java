@@ -104,4 +104,8 @@ public class Caja implements Serializable{
 	public void setFechaFinal(String fechaFinal) {
 		FechaFinal = fechaFinal;
 	}
+	public void setbloqueoCorte() {
+		
+	}
+
 }
