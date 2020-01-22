@@ -118,6 +118,11 @@ span {
 	margin-bottom: 15%;
 	
 }
+
+#contenedor_btn_responsivo
+{
+	display: none;
+}
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -129,15 +134,15 @@ span {
 
 #sidebar {
 
-    width: 250px;
+    width: 300px !important;
     background: #00acb0;
     color: #fff;
     transition: all 0.3s;
 }
 
 #sidebar.active {
-    min-width: 80px;
-    max-width: 80px;
+    min-width: 100px;
+    max-width: 100px;
     text-align: center;
 }
 
@@ -259,11 +264,21 @@ ul ul a {
 
 @media (max-width: 768px) {
     #sidebar {
-        min-width: 80px;
-        max-width: 80px;
-        text-align: center;
-        margin-left: -80px !important;
+        min-width: 80px !important;
+        max-width: 200px !important;
+        text-align: left !important;
+        margin-left: -200px !important;
     }
+    .bienvenida
+    {
+    	display: none;
+    }
+    
+    #Barra
+    {
+    	display: none;
+    }
+    
     .dropdown-toggle::after {
         top: auto;
         bottom: 10px;
@@ -271,6 +286,7 @@ ul ul a {
         -webkit-transform: translateX(50%);
         -ms-transform: translateX(50%);
         transform: translateX(50%);
+        visibility: none;
     }
     #sidebar.active {
         margin-left: 0 !important;
@@ -283,27 +299,41 @@ ul ul a {
         display: block;
     }
     #sidebar ul li a {
-        padding: 20px 10px;
+        /*padding: 20px 10px;*/
+        text-align: left !important;
     }
     #sidebar ul li a span {
-        font-size: 0.85em;
+        font-size: 1em;
+        text-align: left !important;
     }
     #sidebar ul li a i {
-        margin-right: 0;
-        display: block;
+        /*margin-right: 0;
+        display: block;*/
+        border: 1px solid white;
+        text-align: left !important;
+    }
+    
+    #icono
+    {
+    	width: 100%;
     }
     #sidebar ul ul a {
         padding: 10px !important;
     }
     #sidebar ul li a i {
-        font-size: 1.3em;
+        font-size: 10em;
     }
     #sidebar {
-        margin-left: 0;
+        margin-left: 10%;
         
     }
     #sidebarCollapse span {
         display: none;
+    }
+    
+    #sidebarCollapse
+    {
+    	margin: 0.7em;
     }
     
     #contenedor_imagen
@@ -311,16 +341,14 @@ ul ul a {
 		width: 30%;
 		height: 17%;
 		position: absolute;
+		margin-left: 35%;
 	}
 	
 	#imagen_logo_blanco
 	{
-		height: 90%; 
-		width: 115%;
-		padding-top: 6%;
-		padding-bottom: 6%;
-  		padding-right: 5%;
-  		padding-left: 3%;
+		height: 4em;
+		width: 11em;
+		margin: 4%;
 	}
 	
 	#contenedor_foto_perfil
@@ -328,6 +356,7 @@ ul ul a {
 		width: 8%;
 		height: 14%;
 		position: absolute;
+		margin-left: 13%;
 	}
 	
 	#contenedor_sesion
@@ -342,18 +371,13 @@ ul ul a {
 	
 	#imagen_perfil
 	{
-		width: 110%;
-		height: 90%;
+		width: 4.3em;
+		height: 4.3em;
 	}
 	
-	#nombre_perfil
+	#contenedor_nombre_perfil
 	{
-		width: 9.5%;
-		height: 8%;
-		margin-left: 10%;
-		margin-top: 15%;
-		font-size: 100%;
-		position: absolute;
+		display: none;
 	}
 	
 	#cerrar_sesion
@@ -364,7 +388,6 @@ ul ul a {
 		margin-right: 0%;
   		margin-left: 15%;
   		margin-top: 0.5%;
-  		border-left: 1px solid white;
 	}
 	
 
@@ -376,6 +399,19 @@ ul ul a {
 		margin-top: 2.7%;
 		font-size: 90%;
 		border-style: none !important;
+	}
+	
+	#contenedor_btn_responsivo
+	{
+		display: initial;
+		position: absolute;
+		width: 5em;
+		height: 5em;
+	}
+	
+	#btn_responsivo
+	{
+		margin: 0.7em;
 	}
 }
 

@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeLeaf.org">
-
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
 <title>Bemédica Punto de venta</title>
-
 <!-- Bootstrap CSS CDN -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
 	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
 	crossorigin="anonymous">
 <!-- Our Custom CSS -->
-<link rel="stylesheet" th:href="@{/css/style.css}">
-
+<link rel="stylesheet" href="css/style.css">
 <!-- Font Awesome JS -->
 <script defer
 	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
@@ -25,65 +21,50 @@
 	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
 	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
 	crossorigin="anonymous"></script>
-
 <!-- Page level plugin CSS-->
 <link href="vendor/datatables/dataTables.bootstrap4.css"
 	rel="stylesheet">
-
 </head>
 
 <body>
-
-
-		<!--  Header -->
-		<div th:include="header-index.html" th:remove="tag">
-		</div>
-		<!--  End Header -->
+	<!--  Header -->
+	<div th:include="header-index.html" th:remove="tag"></div>
+	<!--  End Header -->
 
 
 
 	<div class="wrapper">
 		<!-- Sidebar  -->
-		      <div th:include="navegacion.html" th:remove="tag">
-      </div>
-
+		<div th:include="navegacion.html" th:remove="tag"></div>
 		<!-- Page Content  -->
-		<div id="content">
+		<div id="content" style="min-width: 10px !important;">
 			<div class="accordion" id="accordionExample">
 				<div class="card">
 					<div class="card-header" id="headingOne">
-						<h2 class="mb-0 form-row" style="font-size: 20px;" th:text="${titulo}">
-
-
-
-
-						</h2>
+						<h2 class="mb-0 form-row" style="font-size: 20px;"
+							th:text="${titulo}"></h2>
 					</div>
 					<div id="collapseOne" class="collapse show"
 						aria-labelledby="headingOne" data-parent="#accordionExample">
 						<div class="card-body">
 							<!--Inicia código de formulario-->
-
 							<div
 								th:classappend="'alert-' + (${clase != null} ? ${clase} : info)"
-								th:if="${mensaje != null}" th:text="${mensaje}" class="alert">
-							</div>
-
-
+								th:if="${mensaje != null}" th:text="${mensaje}" class="alert"></div>
 							<div>
-								<form th:action="@{/administracion_empleados_filtro}"  id="filtrarx" name="filtrarx" method="post"  >
-								<input type="radio" name="filtro" value="10"  onClick="post_form('filtrarx');" >Todos &nbsp;&nbsp;&nbsp;&nbsp;
-
-								<input type="radio" name="filtro" value="1"  onClick="post_form('filtrarx');">Activos &nbsp;&nbsp;&nbsp;&nbsp;
-
-								<input type="radio" name="filtro" value="0" onClick="post_form('filtrarx');" >Inactivos
-
+								<form th:action="@{/administracion_empleados_filtro}"
+									id="filtrarx" name="filtrarx" method="post">
+									<input type="radio" name="filtro" value="10"
+										onClick="post_form('filtrarx');">Todos
+									&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="filtro"
+										value="1" onClick="post_form('filtrarx');">Activos
+									&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="filtro"
+										value="0" onClick="post_form('filtrarx');">Inactivos
 								</form>
 							</div>
 							<br>
 							<div class="col-sm-12">
 								<div class="card mb-3">
-
 									<div class="card-header">
 										<div class="card-body">
 											<div class="table-responsive">
@@ -97,58 +78,37 @@
 															<th>Movil</th>
 															<th>Sucursal</th>
 															<th>Estatus</th>
-
 														</tr>
 													</thead>
 													<tbody>
 														<tr th:each="empleados: ${vista}">
-															<td>
-
-															<a class="text-primary"
+															<td><a class="text-primary"
 																th:href="@{/form_empleado_editar/} + ${empleados.EmpleadoId}"
-																th:text="${empleados.EmpleadoIdText}"> </a>
-
-
-																</td>
-
+																th:text="${empleados.EmpleadoIdText}"> </a></td>
 															<td
 																th:text="${empleados.PersonaNombre+' '+empleados.PersonaAp}"></td>
 															<td th:text="${empleados.PersonaEmail}"></td>
-
 															<td th:text="${empleados.PersonaTelCel}"></td>
 															<td th:text="${empleados.SucursalNombre}"></td>
-
-
 															<td>
-
-																<form
-																	th:action="@{/estatus_empleado}"
-																	method="post"  th:id="${empleados.EmpleadoId}" th:name="${empleados.EmpleadoId}">
-
-
-																<input type="checkbox"
-																	th:if="${empleados.EmpleadoEstatus == '1'}"
-																	checked   value="0" th:onclick="'post_form(' + ${empleados.EmpleadoId} + ');'">
-
+																<form th:action="@{/estatus_empleado}" method="post"
+																	th:id="${empleados.EmpleadoId}"
+																	th:name="${empleados.EmpleadoId}">
 																	<input type="checkbox"
-																	th:if="${empleados.EmpleadoEstatus == '0'}"
-																	   value="1" th:onclick="'post_form(' + ${empleados.EmpleadoId} + ');'">
-
-
-																	<input type="hidden" name ="id" th:value="${empleados.EmpleadoId}"/>
-
-																	<input type="hidden" name ="aux" th:value="${empleados.EmpleadoEstatus}"/>
-
-
-
+																		th:if="${empleados.EmpleadoEstatus == '1'}" checked
+																		value="0"
+																		th:onclick="'post_form(' + ${empleados.EmpleadoId} + ');'">
+																	<input type="checkbox"
+																		th:if="${empleados.EmpleadoEstatus == '0'}" value="1"
+																		th:onclick="'post_form(' + ${empleados.EmpleadoId} + ');'">
+																	<input type="hidden" name="id"
+																		th:value="${empleados.EmpleadoId}" /> <input
+																		type="hidden" name="aux"
+																		th:value="${empleados.EmpleadoEstatus}" />
 																</form>
 															</td>
-
-
-
 														</tr>
 													</tbody>
-
 												</table>
 
 											</div>
@@ -200,52 +160,48 @@
 		<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
 
 		<script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-        });
-    </script>
+			$(document).ready(function() {
+				$('#sidebarCollapse').on('click', function() {
+					$('#sidebar').toggleClass('active');
+				});
+			});
+		</script>
 
 
-    <script type="text/javascript">
-  		function post_form( id_form ){
-    	document.getElementById(id_form).submit();
-  	}
-	</script>
+		<script type="text/javascript">
+			function post_form(id_form) {
+				document.getElementById(id_form).submit();
+			}
+		</script>
 
 
-	<script>
-$(document).ready(function() {
-    $('#example').DataTable( {
-        stateSave: true
-    } );
-} );
-window.onload=function(){
-	var pos=window.name || 0;
-	window.scrollTo(0,pos);
-	}
-	window.onunload=function(){
-	window.name=self.pageYOffset || (document.documentElement.scrollTop+document.body.scrollTop);
-	}
-</script>
+		<script>
+			$(document).ready(function() {
+				$('#example').DataTable({
+					stateSave : true
+				});
+			});
+			window.onload = function() {
+				var pos = window.name || 0;
+				window.scrollTo(0, pos);
+			}
+			window.onunload = function() {
+				window.name = self.pageYOffset
+						|| (document.documentElement.scrollTop + document.body.scrollTop);
+			}
+		</script>
 
 
-<script>
-		window.onload = function() {
-			var pos = window.name || 0;
-			window.scrollTo(0, pos);
-		}
-		window.onunload = function() {
-			window.name = self.pageYOffset
-					|| (document.documentElement.scrollTop + document.body.scrollTop);
-		}
-	</script>
-
-
-
-
-
+		<script>
+			window.onload = function() {
+				var pos = window.name || 0;
+				window.scrollTo(0, pos);
+			}
+			window.onunload = function() {
+				window.name = self.pageYOffset
+						|| (document.documentElement.scrollTop + document.body.scrollTop);
+			}
+		</script>
 </body>
 
 </html>

@@ -1,3 +1,4 @@
+
 <nav id="sidebar" >
 	<ul class="list-unstyled components">
 
@@ -8,14 +9,14 @@
 				<p>Bienvenido</p>
 			</font>
 			
-			<hr style="width: 90%; background: white;">
+			<hr id="Barra" style="width: 90%; background: white;">
 		</li>
 		<!--  Cierra Bienvenida -->
 		
 		
 		<!-- Icono de Inicio -->
 		<li>
-			<a th:href="@{/index}">
+			<a th:href="@{/index}" title="Regresar al Inicio">
 				<i class="fas fa-home text-center"></i>
 				<span>Inicio</span>
 			</a>
@@ -28,9 +29,9 @@
 		
 		<!-- Icono de Operaciones -->
 		<li>
-			<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> 
+			<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" title="Abrir Operaciones"> 
 				<i class="fas fa-address-card"></i> 
-				Operaciones
+				<span>Operaciones</span>
 			</a>
 			<ul class="collapse list-unstyled" id="homeSubmenu">
 				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')})">
@@ -52,9 +53,8 @@
 		
 		
 		<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-			<a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false"
-			class="dropdown-toggle"> <i class="fas fa-users-cog"></i>
-				Administraci&oacute;n
+			<a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" title="Abrir Administraci&oacute;n"> <i class="fas fa-users-cog"></i>
+				<span>Administraci&oacute;n</span>
 			</a>
 			<ul class="collapse list-unstyled" id="homeSubmenu2">
 				<li><a th:href="@{/administracion_empleados}">Empleados</a></li>
@@ -70,9 +70,8 @@
 		
 		<li
 			th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')}) or (${#authorization.expression('hasRole(''ROLE_VALIDACION'')')})">
-			<a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false"
-			class="dropdown-toggle"> <i class="fas fa-file-medical"></i>
-				Estudios
+			<a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" title="Abrir Estudios"> <i class="fas fa-file-medical"></i>
+				<span>Estudios</span>
 			</a>
 			<ul class="collapse list-unstyled" id="homeSubmenu3">
 				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')}) or (${#authorization.expression('hasRole(''ROLE_VALIDACION'')')})"><a th:href="@{/estudios_listar}">Listar estudios</a></li>
@@ -91,9 +90,8 @@
 		
 		<li
 			th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-			<a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false"
-			class="dropdown-toggle"> <i class="fas fa-dollar-sign"></i>
-				Precios
+			<a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" title="Abrir Precios"> <i class="fas fa-dollar-sign"></i>
+				<span>Precios</span>
 			</a>
 			<ul class="collapse list-unstyled" id="homeSubmenu4">
 				<li><a th:href="@{/precios_listas}">Listas de precios</a></li>
@@ -108,9 +106,8 @@
 		
 		<li
 			th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-			<a href="#homeSubmenu5" data-toggle="collapse" aria-expanded="false"
-			class="dropdown-toggle"> <i class="fas fa-diagnoses"></i>
-				Productos y servicios
+			<a href="#homeSubmenu5" data-toggle="collapse" aria-expanded="false" title="Abrir Productos y Servicios"> <i class="fas fa-diagnoses"></i>
+				<span>Productos y servicios</span>
 			</a>
 			<ul class="collapse list-unstyled" id="homeSubmenu5">
 				<li><a th:href="@{/proserv_productos}">Productos</a></li>
@@ -122,9 +119,8 @@
 		
 		
 		<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_VALIDACION'')')})">
-			<a href="#homeSubmenu6" data-toggle="collapse" aria-expanded="false"
-			class="dropdown-toggle"> <i class="fas fa-users-cog"></i>
-				Cat&aacute;logos
+			<a href="#homeSubmenu6" data-toggle="collapse" aria-expanded="false" title="Abrir Cat&aacute;logos"> <i class="fas fa-users-cog"></i>
+				<span>Cat&aacute;logos</span>
 			</a>
 			<ul class="collapse list-unstyled" id="homeSubmenu6">
 				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_VALIDACION'')')})"><a th:href="@{/catalogos_alertas}">Alertas</a></li>
@@ -137,9 +133,8 @@
 		
 		
 		<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')})">
-			<a href="#homeSubmenu7" data-toggle="collapse" aria-expanded="false"
-			class="dropdown-toggle"> <i class="fas fa-wrench"></i>
-				Herramientas
+			<a href="#homeSubmenu7" data-toggle="collapse" aria-expanded="false" title="Abrir Herramientas"> <i class="fas fa-wrench"></i>
+				<span>Herramientas</span>
 			</a>
 			<ul class="collapse list-unstyled" id="homeSubmenu7">
 				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')})"><a th:href="@{/herramientas_participaciones}">Participaciones
@@ -156,9 +151,8 @@
 		
 		
 		<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')}) or (${#authorization.expression('hasRole(''ROLE_VALIDACION'')')})">
-			<a href="#homeSubmenu8" data-toggle="collapse" aria-expanded="false"
-			class="dropdown-toggle"> <i class="fas fa-question-circle"></i>
-				Ayuda
+			<a href="#homeSubmenu8" data-toggle="collapse" aria-expanded="false" title="Abrir Ayuda"> <i class="fas fa-question-circle"></i>
+				<span>Ayuda</span>
 		</a>
 			<ul class="collapse list-unstyled" id="homeSubmenu8">
 				<li><a th:href="@{/herramientas_notificaciones}">Acerca de</a></li>

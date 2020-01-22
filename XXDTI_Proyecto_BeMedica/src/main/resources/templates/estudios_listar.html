@@ -2,34 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-<title>Bemédica Punto de venta</title>
-<!-- Bootstrap CSS CDN -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-	crossorigin="anonymous">
-<!-- Our Custom CSS -->
-<link rel="stylesheet" th:href="@{/css/style.css}">
-
-<!-- Font Awesome JS -->
-<script defer
-	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-	crossorigin="anonymous"></script>
-<script defer
-	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-	crossorigin="anonymous"></script>
-<!-- Page level plugin CSS-->
-<link href="vendor/datatables/dataTables.bootstrap4.css"
-	rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Bemédica Punto de venta</title>
+	<!-- Bootstrap CSS CDN -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<!-- Our Custom CSS -->
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<!-- Font Awesome JS -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+	<!-- Page level plugin CSS-->
+	<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 </head>
 
-<body>
+
+<body style="min-widht: 10px !important;">
 
 		<!--  Header -->
 		<div th:include="header-index.html" th:remove="tag">
@@ -38,167 +27,96 @@
 
 
 
-	<div class="wrapper">
-		<!-- Sidebar  -->
-      <div th:include="navegacion.html" th:remove="tag">
-      </div>
-		<!-- <script>
-            function cambia(src) {
-                src = "";
-                src = "https://img.icons8.com/color/48/000000/drag-list-down.png";
-                return src;
-            }
-
-        </script>
-            function cambia(src) {
-                src = "";
-                src = "https://img.icons8.com/color/48/000000/drag-list-down.png";
-                return src;
-            }
-        </script>
-        -->
-		<!-- Page Content  -->
-
-		<!--Inicia código de formulario-->
-		<div id="content">
-			<div class="accordion" id="accordionExample">
-				<div class="card">
-					<div class="card-header" id="headingOne">
-						<h2 class="mb-0 form-row" style="font-size: 20px;">
-							Listar Estudios, Productos y Servicios
-							<div class="ml-auto">
-								</button>
+		<div class="wrapper" style="min-widht: 10px !important;">
+			<!-- Sidebar  -->
+      		<div th:include="navegacion.html" th:remove="tag"></div>
+				<!-- Page Content  -->
+				<!--Inicia código de formulario-->
+				<div id="content" style="min-widht: 10px !important;">
+					<div class="accordion" id="accordionExample">
+						<div class="card">
+							<div class="card-header" id="headingOne">
+								<h2 class="mb-0 form-row" style="font-size: 20px;">
+									Listar Estudios, Productos y Servicios
+								</h2>
 							</div>
-						</h2>
-					</div>
-					<div id="collapseOne" class="collapse show"
-						aria-labelledby="headingOne" data-parent="#accordionExample">
-						<div class="card-body">
+						</div>
+						<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+							<div class="card-body">
 							<!--Inicia código de formulario-->
-
-							<div class="col-sm-12">
-								<div class="card mb-3">
-
-									<div class="card-header">
-										<div class="card-body">
-											<div class="table-responsive">
-												<table class="table table-bordered" id="example"
-													width="100%" cellspacing="0">
-													<thead>
-														<tr class="table-primary">
-															<th>Id</th>
-															<th>Nombre</th>
-															<th>Descripcion</th>
-															<th>Catalogo</th>
-															<th>Visible</th>
-															<th>Modificado</th>
-															<th>Modifico</th>
-															<th width="25%">&nbsp;</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr th:each="estudio: ${estudios}">
-														<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')}">
-														<a 
-																th:text="${estudio.IdText}"
-																
-																></a>
-															
-														</td><!--  -->
-															<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')
-												or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}">
-																<a class="text-primary"
-																th:text="${estudio.IdText}"
-																th:if="${estudio.Catalogo=='Examenes'}"
-																th:href="@{/estudios_examenes/} +${estudio.Id}"></a>
-																<a class="text-primary"
-																th:text="${estudio.IdText}"
-																th:if="${estudio.Catalogo=='Gabinete'}"
-																th:href="@{/gabinete/} +${estudio.Id}"></a>
-															    <a class="text-primary" 
-																th:text="${estudio.IdText}"
-																th:if="${estudio.Catalogo=='Cultivos'}"
-																th:href="@{/estudios_cultivos/} +${estudio.Id}"></a> 
-																<a class="text-primary" 
-																th:text="${estudio.IdText}"
-																th:if="${estudio.Catalogo=='Paquetes'}"
-																th:href="@{/estudios_paquetes/} +${estudio.Id}"></a>
-																<a class="text-primary" 
-																th:text="${estudio.IdText}"
-																th:if="${estudio.Catalogo=='Antibiogramas'}"
-																th:href="@{/estudios_antibiogramas/} +${estudio.Id}"></a>
-																<a class="text-primary" 
-																th:text="${estudio.IdText}"
-																th:if="${estudio.Catalogo=='Perfiles'}"
-																th:href="@{/estudios_perfiles/} +${estudio.Id}"></a></td>
-															<td th:text="${estudio.Nombre}"></td>
-															<td th:text="${estudio.Descripcion}"></td>
-															<td th:text="${estudio.Catalogo}"></td>
-															<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')
-											}"></td>
-													<!--  -->		<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')
-												or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}"><form th:action="@{/estatus_estudios}"
-																	method="post" th:id="${estudio.Id}"
-																	th:name="${estudio.Id}">
-																	<input type="checkbox"
-																		th:if="${estudio.Visible == true}" checked value="0"
-																		th:onclick="'post_form(' + ${estudio.Id} + ');'">
-
-																	<input type="checkbox"
-																		th:if="${estudio.Visible == false}" value="1"
-																		th:onclick="'post_form(' + ${estudio.Id} + ');'">
-
-																	<input type="hidden" name="id" th:value="${estudio.Id}" />
-
-																	<input type="hidden" name="aux"
-																		th:value="${estudio.Visible}" /> <input type="hidden"
-																		name="cat" th:value="${estudio.Catalogo}" />
-
-																</form> <span th:if="${estudio.Visible == true}" style="display:none" >1</span>
-																 <span th:unless="${estudio.Visible == true}" style="display:none">0</span>
-														<!--  -->		 </td>
-															<td th:text="${estudio.Modificado}"></td>
-															<td th:text="${estudio.Modifico	}"></td>
-                                                            <td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')
-												}"></td>
-															<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')
-												or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}"><a class="btn btn-danger btn-sm" href=""
-																th:href=@{/eliminar_estudio/}+${estudio.Id}
-																onclick="return confirm('¿Estás seguro que de deseas cancelar esta orden?');">
-																	Borrar</a></td>
-														</tr>
-													</tbody>
-
-												</table>
-												<div class="modal-footer">
-													<a th:href="estudios_examenes" class="btn btn-primary"><i
-														class=" m-right-xs"></i>Agregar</a> <br />
-
+								<div class="col-xs-12">
+									<div class="card mb-3">
+										<div class="card-header">
+											<div class="card-body">
+												<div class="table-responsive">
+													<table class="table table-bordered" id="example">
+														<thead>
+															<tr class="table-primary">
+																<th>Id</th>
+																<th>Nombre</th>
+																<th>Descripcion</th>
+																<th>Catalogo</th>
+																<th>Visible</th>
+																<th>Modificado</th>
+																<th>Modifico</th>
+																<th width="25%">&nbsp;</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr th:each="estudio: ${estudios}">
+																<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')}">
+																	<a th:text="${estudio.IdText}"></a>															
+																</td>	
+																<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN') or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}">
+																	<a class="text-primary" th:text="${estudio.IdText}" th:if="${estudio.Catalogo=='Examenes'}" th:href="@{/estudios_examenes/} +${estudio.Id}"></a>
+																	<a class="text-primary" th:text="${estudio.IdText}" th:if="${estudio.Catalogo=='Gabinete'}" th:href="@{/gabinete/} +${estudio.Id}"></a>
+															    	<a class="text-primary" th:text="${estudio.IdText}" th:if="${estudio.Catalogo=='Cultivos'}" th:href="@{/estudios_cultivos/} +${estudio.Id}"></a> 
+																	<a class="text-primary" th:text="${estudio.IdText}" th:if="${estudio.Catalogo=='Paquetes'}" th:href="@{/estudios_paquetes/} +${estudio.Id}"></a>
+																	<a class="text-primary" th:text="${estudio.IdText}" th:if="${estudio.Catalogo=='Antibiogramas'}" th:href="@{/estudios_antibiogramas/} +${estudio.Id}"></a>
+																	<a class="text-primary" th:text="${estudio.IdText}" th:if="${estudio.Catalogo=='Perfiles'}" th:href="@{/estudios_perfiles/} +${estudio.Id}"></a></td>
+																<td th:text="${estudio.Nombre}"></td>
+																<td th:text="${estudio.Descripcion}"></td>
+																<td th:text="${estudio.Catalogo}"></td>
+																<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')}"></td>
+																<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN') or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}">
+																	<form th:action="@{/estatus_estudios}" method="post" th:id="${estudio.Id}" th:name="${estudio.Id}">
+																		<input type="checkbox" th:if="${estudio.Visible == true}" checked value="0" th:onclick="'post_form(' + ${estudio.Id} + ');'">
+																		<input type="checkbox" th:if="${estudio.Visible == false}" value="1" th:onclick="'post_form(' + ${estudio.Id} + ');'">
+																		<input type="hidden" name="id" th:value="${estudio.Id}" />
+																		<input type="hidden" name="aux" th:value="${estudio.Visible}" /> <input type="hidden" name="cat" th:value="${estudio.Catalogo}" />
+																	</form> 
+																	<span th:if="${estudio.Visible == true}" style="display:none" >1</span>
+																 	<span th:unless="${estudio.Visible == true}" style="display:none">0</span>
+																</td>
+																<td th:text="${estudio.Modificado}"></td>
+																<td th:text="${estudio.Modifico	}"></td>
+                                                            	<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')}"></td>
+																<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN') or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}">
+																	<a class="btn btn-danger btn-sm" th:href=@{/eliminar_estudio/}+${estudio.Id} onclick="return confirm('¿Estás seguro que de deseas cancelar esta orden?');">
+																		Borrar
+																	</a>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												
+												
+													<div class="modal-footer">
+														<a th:href="estudios_examenes" class="btn btn-primary"><i class=" m-right-xs"></i>Agregar</a> <br />
+													</div>
 												</div>
-
 											</div>
 										</div>
-
 									</div>
-
-
-
 								</div>
-
-								<!--Termina código de formulario-->
-
+							<!--Termina código de formulario-->
 							</div>
-
 						</div>
 					</div>
 				</div>
-			</div>
 		</div>
 		<!--Termina código de formulario-->
-	</div>
-	</div>
-	</div>
-	</div>
+
 
 	<!-- jQuery CDN - Slim version (=without AJAX) -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -225,6 +143,16 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#sidebarCollapse').on('click', function() {
+				
+				
+				if($("#collapseOne").is(":hidden"))
+				{
+					$("#collapseOne").show();
+				} else
+					{
+						$("#collapseOne").hide();
+					}
+				
 				$('#sidebar').toggleClass('active');
 			});
 		});

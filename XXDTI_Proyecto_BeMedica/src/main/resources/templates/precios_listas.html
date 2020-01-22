@@ -1,31 +1,16 @@
 <!DOCTYPE html >
 <html xmlns:th="http://www.thymeLeaf.org">
-
 <head>
-<meta charset="UTF-8">
-
-<title th:text="${titulo}" ></title>
-
-<!-- Bootstrap CSS CDN -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-	crossorigin="anonymous">
-<!-- Our Custom CSS -->
-<link rel="stylesheet" th:href="@{/css/style.css}">
-
-<!-- Font Awesome JS -->
-<script defer
-	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-	crossorigin="anonymous"></script>
-<script defer
-	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-	crossorigin="anonymous"></script>
-
+	<meta charset="UTF-8">
+	<title th:text="${titulo}" ></title>
+	<!-- Bootstrap CSS CDN -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<!-- Our Custom CSS -->
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<!-- Font Awesome JS -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 </head>
-
 <body>
 
 		<!--  Header -->
@@ -36,112 +21,70 @@
 
 	<div class="wrapper">
 		<!-- Sidebar  -->
-      <div th:include="navegacion.html" th:remove="tag">
-      </div>
-		
-		<!-- <script>
-            function cambia(src) {
-                src = "";
-                src = "https://img.icons8.com/color/48/000000/drag-list-down.png";
-                return src;
-            }
-
-    
-		<!-- Page Content  -->
-		<div id="content">
-			<div class="accordion" id="accordionExample">
-				<div class="card">
-					<div class="card-header" id="headingOne">
-						<h2 class="mb-0 form-row" style="font-size: 20px;">
+      	<div th:include="navegacion.html" th:remove="tag"></div>
+		    
+			<!-- Page Content  -->
+			<div id="content" style="min-width: 10px !important;">
+				<div class="accordion" id="accordionExample">
+					<div class="card">
+						<div class="card-header" id="headingOne">
+							<h2 class="mb-0 form-row" style="font-size: 20px;">
 								Estudios
-						</h2>
-					</div>
-					<div id="collapseOne" class="collapse show"
-						aria-labelledby="headingOne" data-parent="#accordionExample">
-						<div class="card-body">
-							<!--Inicia código de formulario-->
+							</h2>
+						</div>
+						<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+							<div class="card-body">
+								<!--Inicia código de formulario-->
+								<div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}" th:text="${mensaje}" class="alert"></div>
+									<div class="col-sm-12">
+										<div class="card mb-3">
+											<div class="card-header">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+															<thead>
+																<tr class="table-primary">
+																	<th>No. Control</th>
+																	<th>Nombre</th>
+																	<th>Tipo</th>
+																	<th>Precio</th>
+																	<th>Nuevo precio</th>
+																	<th>%%</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr th:each="estudios: ${vista}">
+																	<td th:text="${estudios.EstudioIdText}"></td>
+																	<td th:text="${estudios.EstudioNombre}"></td>
+																	<td th:text="${estudios.EstudioDescripcion}"></td>
+																	<td th:text="${estudios.EstudioPrecio}"></td>
+																	<td >
+																		<form th:action="@{/form_estudio_precio/}+${estudios.EstudioId}" method="post">
+																			<input type="number" required  step="0.01" min="1" pattern="^[0-9]+" th:field="${estudio.EstudioPrecio}" class="form-control form-control-sm" />
+																		</form>
+																	</td>
+																	<td>
+																		<form th:action="@{/form_estudio_precio_porcentaje/}+${estudios.EstudioId}"   method="post">
+																			<input type="number"  required step="0.01" th:field="${estudio.EstudioPrecio}" class="form-control form-control-sm" />
+																		</form>
+																	</td>					
+																</tr>
+															</tbody>
+														</table>
 
-							<div
-								th:classappend="'alert-' + (${clase != null} ? ${clase} : info)"
-								th:if="${mensaje != null}" th:text="${mensaje}" class="alert">
-							</div>
-							
-							<div class="col-sm-12">
-								<div class="card mb-3">
-
-									<div class="card-header">
-										<div class="card-body">
-											<div class="table-responsive">
-												<table class="table table-bordered" id="dataTable"
-													width="100%" cellspacing="0">
-													<thead>
-														<tr class="table-primary">
-															<th>No. Control</th>
-															<th>Nombre</th>
-															<th>Tipo</th>
-															<th>Precio</th>
-															<th>Nuevo precio</th>
-															<th>%%</th>
-															
-															
-														</tr>
-													</thead>
-													<tbody>
-														<tr th:each="estudios: ${vista}">
-															<td th:text="${estudios.EstudioIdText}"></td>
-															<td th:text="${estudios.EstudioNombre}"></td>
-															<td th:text="${estudios.EstudioDescripcion}"></td>
-															<td th:text="${estudios.EstudioPrecio}"></td>
-															<td >
-																
-															<form th:action="@{/form_estudio_precio/}+${estudios.EstudioId}"   method="post">
-
-																				<input type="number" required  step="0.01" min="1" pattern="^[0-9]+"
-															th:field="${estudio.EstudioPrecio}"
-															class="form-control form-control-sm" />
-																
-																</form>
-															</td>
-															
-															
-															<td >
-																
-															<form th:action="@{/form_estudio_precio_porcentaje/}+${estudios.EstudioId}"   method="post">
-
-																				<input type="number"  required step="0.01"
-															th:field="${estudio.EstudioPrecio}"
-															class="form-control form-control-sm" />
-																
-																</form>
-															</td>
-														
-															
-														</tr>
-													</tbody>
-
-												</table>
-
+													</div>
+												</div>
 											</div>
 										</div>
-
 									</div>
-
-
-
-								</div>
-
-								
-
-								<!--Termina código de formulario-->
-
+									<!--Termina código de formulario-->
 							</div>
 						</div>
 					</div>
 				</div>
-				
 			</div>
 			
-		</div>
+	</div>
 		
 		
 		

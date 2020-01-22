@@ -2,29 +2,18 @@
 <html>
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link rel="shortcut icon" href="/img/favicon.ico">
-<title>Bemédica Punto de venta</title>
-
-<!-- Bootstrap CSS CDN -->
-	<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-	crossorigin="anonymous">
-<!-- Our Custom CSS -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="/img/favicon.ico">
+	<title>Bemédica Punto de venta</title>
+	<!-- Bootstrap CSS CDN -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<!-- Our Custom CSS -->
 	<link rel="stylesheet" th:href="@{/css/style.css}">
-
-<!-- Font Awesome JS -->
-	<script defer
-	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-	crossorigin="anonymous"></script>
-	<script defer
-	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-	crossorigin="anonymous"></script>
+	<!-- Font Awesome JS -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 	<link th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
 </head>
 
@@ -36,87 +25,64 @@
 		<!--  End Header -->
 		
 		
-	<div class="wrapper">
-		<!-- Sidebar  -->
-      <div th:include="navegacion.html" th:remove="tag">
-      </div>
-		<!-- Page Content  -->
-		<div id="content">
-			<div class="accordion" id="accordionExample"
-				style="user-select: none;">
-				<div class="card">
-					<div class="card-header" id="headingOne">
-						<h2 class="mb-0 form-row" style="font-size: 20px;">Buscar
-							Promoción</h2>
-					</div>
-					<div id="collapseOne" class="collapse show"
-						aria-labelledby="headingOne" data-parent="#accordionExample">
-						<div class="card-body">
-							<!--Inicia código de formulario-->
-
-							<div class="col-sm-12">
-								<div class="card mb-3">
-
-									<div class="card-header">
-										<div class="card-body">
-											<div class="table-responsive">
-												<table class="table table-bordered" id="example"
-													width="100%" cellspacing="0">
-
-													<br>
-
-													<thead>
-														<tr class="table-primary">
-															<th width="10%">&nbsp; ID</th>
-															<th>Nombre</th>
-															<th width="25%">Descripción</th>
-															<th width="25%">Descuento</th>
-															<th width="15%">Cancelar</th>
-
-														</tr>
-													</thead>
-													<tbody>
-														<tr th:each="pro: ${promociones}">
-															<td th:text="${pro.PromocionIdText}"></td>
-															<td th:text="${pro.PromocionNombre}"></td>
-															<td th:text="${pro.PromocionDescuento}+'%'"></td>
-															<td th:text="${pro.PromocionDescripcion}"></td>
-															<td><a class="btn btn-danger btn-xs"
-																th:href="@{/eliminar_pro/} + ${pro.PromocionId}"
-																th:text="'Cancelar'"
-																onclick="return confirm('Esta seguro de que quieres eliminar');"></a></td>
-
-														</tr>
-													</tbody>
-
-
-												</table>
-
+		<div class="wrapper">
+			<!-- Sidebar  -->
+      		<div th:include="navegacion.html" th:remove="tag"></div>
+				<!-- Page Content  -->
+				<div id="content" style="min-width: 10px !important;">
+					<div class="accordion" id="accordionExample" style="user-select: none;">
+						<div class="card">
+							<div class="card-header" id="headingOne">
+								<h2 class="mb-0 form-row" style="font-size: 20px;">Buscar
+									Promoción
+								</h2>
+							</div>
+							<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+								<div class="card-body">
+									<!--Inicia código de formulario-->
+									<div class="col-sm-12">
+										<div class="card mb-3">
+											<div class="card-header">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-bordered" id="example">
+														<thead>
+															<tr class="table-primary">
+																<th width="10%">&nbsp; ID</th>
+																<th>Nombre</th>
+																<th width="25%">Descripción</th>
+																<th width="25%">Descuento</th>
+																<th width="15%">Cancelar</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr th:each="pro: ${promociones}">
+																<td th:text="${pro.PromocionIdText}"></td>
+																<td th:text="${pro.PromocionNombre}"></td>
+																<td th:text="${pro.PromocionDescuento}+'%'"></td>
+																<td th:text="${pro.PromocionDescripcion}"></td>
+																<td><a class="btn btn-danger btn-xs" th:href="@{/eliminar_pro/} + ${pro.PromocionId}" th:text="'Cancelar'" onclick="return confirm('Esta seguro de que quieres eliminar');"></a></td>
+															</tr>
+														</tbody>
+														</table>
+													</div>
+												</div>
 											</div>
 										</div>
-
-
+										<div align="right">
+											<p>
+												<a class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalNuevo">Agregar nuevo</a>
+											</p>
+										</div>
 									</div>
-
-
+									<!--Cierra código de formulario-->
 								</div>
-								<div align="right">
-									<p>
-										<a class="btn btn-success btn-xs" data-toggle="modal"
-											data-target="#modalNuevo">Agregar nuevo</a>
-									</p>
-
-									<!--<button class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo">
-                              Agregar nuevo
-                              <span class="glyphicon glyphicon-plus"></span>
-                            </button>-->
-
-								</div>
-
 							</div>
 						</div>
 					</div>
-
+				</div>
+			</div>
+			
 					<div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog"
 						aria-labelledby="myModalLabel">
 						<div class="modal-dialog modal-sm-1" role="document">
