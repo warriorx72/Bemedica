@@ -28,4 +28,8 @@ public interface ICajaDao {
 	public String cierreCajaTarjeta(Long Id);
 	
 	public Integer Autoincrement(Long Id);
+	
+	public boolean bloqueoCorte();
+
+	Boolean bloqueaCorte();
 }
