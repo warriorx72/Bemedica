@@ -163,16 +163,16 @@
 					  <tbody>
 					  	<td>
 					  	<tr>
-						<a th:href="@{/herramientas_corte}" class="btn btn-primary"
-							data-toggle="modal" data-target="#modalNuevo" style="margin-left:5px; margin-right:5px;">
+						<a th:href="@{/herramientas_corte}" class="btn btn-primary" 
+							data-toggle="modal" data-target="#modalNuevo" value="Agregar" th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
 							<i class="fas fa-box"></i> Agregar nuevo</a></tr>
 						<tr>	
 						<a th:href="@{/herramientas_corte}" class="btn btn-primary"
-							data-toggle="modal" data-target="#modalNuevo2" style="margin-left:5px; margin-right:5px;">
-							<i class="fas fa-cut"></i> Corte de Caja</a></tr>
+							data-toggle="modal" data-target="#modalNuevo2" value=" Corte" th:disabled="${bloqueo}"  style="margin-left:5px; margin-right:5px;">
+							<i class="fas fa-cut" ></i> Corte de Caja</a></tr>
 						<tr>
 					   <form th:action="@{/cierre}"  method="post"> 
-							<button type="submit" class="btn btn-primary" value=" Cierre" style="margin-left:5px; margin-right:5px;">
+							<button type="submit" class="btn btn-primary" value=" Cierre" th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
 							<i class="fas fa-money-bille"></i> Cierre</button>
 					   </form></tr>
 					   </td>
@@ -231,6 +231,7 @@
 													<td><a class="text-primary" th:text="${caja_vista[1]}"
 														th:href="@{/herramientas_corte/} + ${caja_vista[0]}"></a>
 													</td>
+													<td th:text="${caja_vista[2]}"></td>
 													<td th:text="${caja_vista[3]}"></td>
 													<td><a class="text-primary" href="#"
 														th:text="${caja_vista[4]}" data-toggle="popover"
@@ -245,12 +246,14 @@
 														title="Descripcion"
 														th:data-content="${caja_vista[11]}"></a></td>
 													<td th:text="${caja_vista[6]}"></td>
+													
 												</tr>
 											</tbody>
 
 										</table>
 									</div>
 								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -295,5 +298,4 @@
 		});
 	</script>
 </body>
-
 </html>
