@@ -22,10 +22,10 @@ public  class VistaOrdenDaoImpl implements IVistaOrdenDao {
 	@Override
 	@Transactional
 	@OrderBy("orden_folio DESC")
-	public List<VistaOrden> findAll2() {
+	public List<VistaOrden> findAll2(String id_sucursal) {
 		// TODO Auto-generated method stub
 		return em.createQuery("from VistaOrden where orden_estatus!='Cancelada' \r\n" + 
-				"and  orden_estatus!='Cotizacion' and orden_estatus<>'Corte Caja'").getResultList();
+				"and  orden_estatus!='Cotizacion' and orden_estatus<>'Corte Caja' and sucursal_id="+id_sucursal).getResultList();
 
 	}
 	
