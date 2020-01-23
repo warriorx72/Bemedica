@@ -47,7 +47,8 @@ public class VistaOrden implements Serializable {
 	private String fecha_liquidacion;
 	
 	private String promocion_id;
-	
+	private Long empleado_id;
+	private Long sucursal_id;
 	
 	public String getMetodo_pago() {
 		return metodo_pago;
@@ -132,6 +133,18 @@ public class VistaOrden implements Serializable {
 	}
 	public void setPromocion_id(String promocion_id) {
 		this.promocion_id = promocion_id;
+	}
+	public Long getEmpleado_id() {
+		return empleado_id;
+	}
+	public void setEmpleado_id(Long empleado_id) {
+		this.empleado_id = empleado_id;
+	}
+	public Long getSucursal_id() {
+		return sucursal_id;
+	}
+	public void setSucursal_id(Long sucursal_id) {
+		this.sucursal_id = sucursal_id;
 	}
 	
 	
