@@ -1,6 +1,11 @@
 package com.bemedica.springboot.app.service;
 
+import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +20,9 @@ import com.bemedica.springboot.app.repository.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 
+	@PersistenceContext
+	private EntityManager em;
+	
 	@Autowired
 	UserRepository repository;
 	
@@ -125,6 +133,26 @@ public class UserServiceImpl implements UserService {
 			.findFirst().orElse(null);
 		}
 		return loggedUser != null ?true :false;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<Object> emp_suc(String rol,String username){
+	return em.createNativeQuery("select empleado_vista.empleado_id,sucursal.sucursal_id \r\n" + 
+			"from user,user_roles,role,empleado_vista,empleados_sucursal,sucursal \r\n" + 
+			"where user.id=user_roles.user_id\r\n" + 
+			"and user_roles.role_id=role.id and \r\n" + 
+			"user.empleado_id=empleado_vista.empleado_id\r\n" + 
+			"and user.empleado_id=empleados_sucursal.empleado_id\r\n" + 
+			"and empleado_vista.empleado_id=empleados_sucursal.empleado_id\r\n" + 
+			"and empleados_sucursal.sucursal_id=sucursal.sucursal_id\r\n" + 
+			"and\r\n" + 
+			"user.username=\r\n"+
+			""+"'"+username+"'"+
+			"and role.description=\r\n"+
+			""+"'"+rol+"'").getResultList();
+	
 	}
 	
 }
