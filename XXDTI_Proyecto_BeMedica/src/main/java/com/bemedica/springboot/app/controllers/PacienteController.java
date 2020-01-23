@@ -405,8 +405,6 @@ String id_sucursal=us.UserSucId(request, userService)[1];
 			orden.setConvenio_id(id[0]);
 			orden.setMonto("100");
 			ordenDao.save(orden);
-			System.out.println("i´m here bitch"+orden.getMonto());
-			System.out.println("i´m here bitch"+orden.getOrden_id());
 		}
 
 		
@@ -419,8 +417,9 @@ String id_sucursal=us.UserSucId(request, userService)[1];
 		/// model.addAttribute("vista_convenio_estudio",
 		/// ConvenioEstudioDao.cev(aux.getConvenioId()));
 		model.addAttribute("button_estudio", "false");
-		model.addAttribute("button_terminar", "false");
-		
+		if(orden.getConvenio_id()==null) {
+			model.addAttribute("button_terminar", "disabled");
+		}
 		///Primero revisa si es una cotizacion;
 		if(aux.getOrden_estatus().equals("cotizacion")) {
 		model.addAttribute("tipo_ticket", "block3");
@@ -781,6 +780,7 @@ String id_sucursal=us.UserSucId(request, userService)[1];
 			e.setMetodo_pago(metodo_pago);
 			// ordenDao.save(e);
 			ordenDao.save(e);
+			model.addAttribute("button_terminar", "disabled");
 			Mostrar(id,model);
 			m.put("orden", e);
 			ordenestudio.setOrden_id(id);
@@ -808,6 +808,7 @@ String id_sucursal=us.UserSucId(request, userService)[1];
 			e.setPromocion_id(descuento);
 			// ordenDao.save(e);
 			ordenDao.save(e);
+			model.addAttribute("button_terminar", "disabled");
 			Mostrar(id,model);
 			m.put("orden", e);
 			ordenestudio.setOrden_id(id);
@@ -1056,6 +1057,7 @@ String id_sucursal=us.UserSucId(request, userService)[1];
 		mo.put("ordenestudio", ordenestudio);
 		mo.put("orden", orden);
 		Mostrar(linea,model);
+		model.addAttribute("button_terminar", "disabled");
 		if(orden.getOrden_estatus().equals("cotizacion")) {
 		model.addAttribute("tipo_ticket", "block3");
 		model.addAttribute("mini_ticket", ""); 
@@ -1098,6 +1100,7 @@ String id_sucursal=us.UserSucId(request, userService)[1];
 		ordenestudio.setOrden_id(linea);
 		mo.put("ordenestudio", ordenestudio);
 		mo.put("orden", orden);
+		model.addAttribute("button_terminar", "disabled");
 		Mostrar(linea,model);
 		if(orden.getOrden_estatus().equals("cotizacion")) {
 		model.addAttribute("tipo_ticket", "block3");
