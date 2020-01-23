@@ -1,6 +1,8 @@
 package com.bemedica.springboot.app.service;
 
 
+import java.util.List;
+
 import com.bemedica.springboot.app.dto.ChangePasswordForm;
 import com.bemedica.springboot.app.models.entity.User;
 
@@ -17,5 +19,7 @@ public interface UserService {
 	public void deleteUser(Long id) throws Exception;
 	
 	public User changePassword(ChangePasswordForm form) throws Exception;
+
+	public List<Object> emp_suc(String rol, String username);
 	
 }
