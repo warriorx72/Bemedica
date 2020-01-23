@@ -61,12 +61,14 @@ import com.bemedica.springboot.app.models.entity.Persona;
 import com.bemedica.springboot.app.models.entity.Medico;
 import com.bemedica.springboot.app.models.entity.Orden;
 import com.bemedica.springboot.app.models.entity.VistaOrdenEstudio;
+import com.bemedica.springboot.app.service.UserService;
 import com.bemedica.springboot.app.models.entity.OrdenEstudio;
 import com.bemedica.springboot.app.models.entity.OrdenEstudioE;
 import com.bemedica.springboot.app.models.entity.Estudio;
 import com.bemedica.springboot.app.models.entity.EstudioE;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 
 import com.bemedica.springboot.app.models.entity.Direccion;
 import com.bemedica.springboot.app.models.entity.Paciente; //Modelo de entidad para crear objecto de tipo Cliente
@@ -121,6 +123,8 @@ public class PacienteController {
 	private IPromocionesDao PromocionDao;
 	@Autowired
 	private IConvenioEstudio coEsDao;
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "/operaciones_recepcion", method = RequestMethod.GET) // vista operaciones_recepcion
 	public String operaciones_recepcion(Model model, Map<String, Object> m) {
@@ -210,7 +214,7 @@ public class PacienteController {
 	 */
 
 		@RequestMapping(value = "/guardarorden", method = RequestMethod.POST)
-	public String guardarorden(@RequestParam("rol") String rol,@RequestParam("user") String user ,@Valid Orden orden, BindingResult result, Model model, Map<String, Object> m) {
+	public String guardarorden(HttpServletRequest request,@Valid Orden orden, BindingResult result, Model model, Map<String, Object> m) {
 		///System.out.println(rol.replace("[","").replace("]", ""));
 		
 		    
@@ -236,22 +240,26 @@ public class PacienteController {
 		model.addAttribute("button_terminar", "disabled");
 		orden.setMetodo_pago("efectivo");
 		orden.setPromocion_id(0);
-	try {
-		String rol2=rol.replace("[", "").replace("]","");
+try {
+		///String rol2=rol.replace("[", "").replace("]","");
 	///System.out.println(rol2);
 	///System.out.println(user);
 	
 	////String suc=vistaordenestudioDao.emp_suc(rol2, user).get(0).getSucursal_id();
 	///System.out.println(( vistaordenestudioDao.emp_suc(rol2, user).toArray()));
-Object[] hola=vistaordenestudioDao.emp_suc(rol2, user).toArray();
+UserController us =new UserController();
+us.UserSucId(request,userService);
+		///Object[] hola=vistaordenestudioDao.emp_suc(rol2, user).toArray();
 ///System.out.println(hola[0]);
-System.out.println();
+String id_empleado=us.UserSucId(request, userService)[0];
+String id_sucursal=us.UserSucId(request, userService)[1];
+///System.out.println("holamundo"+us.UserSucId(request,userService)[0]);
 	
 	
-		Object[] hola3=(Object[]) hola[0];
-		orden.setEmpleado_id(hola3[0].toString());
-		orden.setSucursal_id(hola3[1].toString());	
-	}
+		//Object[] hola3=(Object[]) hola[0];
+		orden.setEmpleado_id(id_empleado);
+		orden.setSucursal_id(id_sucursal);	
+}
 	catch(Exception e) {
 		orden.setEmpleado_id(null);
 		orden.setSucursal_id(null);
