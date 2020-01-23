@@ -1,8 +1,11 @@
 package com.bemedica.springboot.app.controllers;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bemedica.springboot.app.dto.ChangePasswordForm;
 import com.bemedica.springboot.app.models.dao.IUserDao;
+import com.bemedica.springboot.app.models.dao.IVistaOrdenEstudioDao;
 import com.bemedica.springboot.app.models.entity.EmpleadoVista;
 import com.bemedica.springboot.app.models.entity.User;
 import com.bemedica.springboot.app.repository.RoleRepository;
@@ -39,6 +43,9 @@ public class UserController {
 	@Autowired
 	IUserDao userDao;
 	
+	@Autowired
+	private IVistaOrdenEstudioDao vistaordenestudioDao;
+	
 	
 	@GetMapping({"/","/login"})
 	public String login(Model model) {
@@ -47,10 +54,50 @@ public class UserController {
 	}
 	
 	@GetMapping("/index")
-	public String index(Model model) {
+	public String index(Model model,HttpServletRequest request) {
 		model.addAttribute("titulo","Inicio");
+		////System.out.println(request.getUserPrincipal().getName());
+		///System.out.println(request.getUserPrincipal());
+	///	String role=request.getUserPrincipal().toString();
+		///String role2=role.replace("ROLE", "ROLE__");
+	System.out.println(UserSucId(request,userService)); 
+///		System.out.println("hola"+role);
+////tem		 List<String> words = Arrays.asList(request.getUserPrincipal().toString().split(" "));
+///System.out.println(words);
+////temSystem.out.println(words.get(30));
+
+//////temp Object[] hola=vistaordenestudioDao.emp_suc(words.get(30), request.getUserPrincipal().getName()).toArray();
+///System.out.println(hola[0]);
+/////System.out.println();
+	
+	
+		////temo Object[] hola3=(Object[]) hola[0];
+////temp	System.out.println("empleado"+hola3[0].toString());	
+/////temp	System.out.println("sucursal"+hola3[1].toString());	
 		return "index";
 	}
+	
+	public String[] UserSucId(HttpServletRequest request,UserService userService) {
+		 List<String> words = Arrays.asList(request.getUserPrincipal().toString().split(" "));
+		///System.out.println(words);
+		System.out.println(words.get(30));
+
+		Object[] hola=userService.emp_suc(words.get(30), request.getUserPrincipal().getName()).toArray();
+		///System.out.println(hola[0]);
+		System.out.println();
+			
+			
+				Object[] hola3=(Object[]) hola[0];
+				String idempleado=hola3[0].toString();
+				String idsucursal=hola3[1].toString();
+			System.out.println(idempleado);	
+			System.out.println(idsucursal);	
+			String[] datos= {idempleado,idsucursal};
+		return datos;
+	}
+	
+	
+	
 
 	@GetMapping("/administracion_usuarios")
 	public String userForm(Model model, Map<String, Object> m) {
