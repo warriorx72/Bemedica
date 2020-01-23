@@ -3,6 +3,8 @@ package com.bemedica.springboot.app.controllers;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import com.bemedica.springboot.app.models.dao.IResultados;
 import com.bemedica.springboot.app.models.dao.ITicketDao;
 import com.bemedica.springboot.app.models.dao.IVistaOrdenDao;
 import com.bemedica.springboot.app.models.entity.Resultados;
+import com.bemedica.springboot.app.service.UserService;
 import com.bemedica.springboot.app.models.entity.Orden;
 @Controller
 public class FoliosRegistradosController {
@@ -40,10 +43,20 @@ public class FoliosRegistradosController {
 	@Autowired
 	private ITicketDao ticketDao;
 	
+	@Autowired
+	private UserService userService;
+	
 	@RequestMapping (value="/operaciones_folios", method=RequestMethod.GET)
-	public String listar (Model model,Map<String, Object> m) {
+	public String listar (HttpServletRequest request,Model model,Map<String, Object> m) {
+	////	-----------------------------------------------------
+		UserController us =new UserController();
+		us.UserSucId(request,userService);
+		String id_empleado=us.UserSucId(request, userService)[0];
+		String id_sucursal=us.UserSucId(request, userService)[1];
+		System.out.println("de folios"+id_sucursal);
 		model.addAttribute("titulo","Folios registrados");
-		model.addAttribute("vista", OrdenVista.findAll2());
+		model.addAttribute("vista", OrdenVista.findAll2(id_sucursal));
+	////	------------------------------------------
 		model.addAttribute("servicios", vistaOrden.findById());
 		model.addAttribute("message",ticketDao.findServAll());
 		return "operaciones_folios";
@@ -94,7 +107,7 @@ public class FoliosRegistradosController {
 	
 	
 	@RequestMapping (value="/liquidar_orden/{id}",method = RequestMethod.GET)
-	public String liquidarOrden (Model model, @PathVariable (value="id") Long id) {
+	public String liquidarOrden (Model model, @PathVariable (value="id") Long id,HttpServletRequest request) {
 		   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 		   LocalDateTime now = LocalDateTime.now();  
 		Orden orden ;
@@ -112,12 +125,16 @@ public class FoliosRegistradosController {
 		
 		OrdenDao.save(orden);
 		model.addAttribute("titulo","Folios registrados");
-		model.addAttribute("vista", OrdenVista.findAll2());
+		UserController us =new UserController();
+		us.UserSucId(request,userService);
+		String id_empleado=us.UserSucId(request, userService)[0];
+		String id_sucursal=us.UserSucId(request, userService)[1];
+		model.addAttribute("vista", OrdenVista.findAll2(id_sucursal));
 		return "redirect:/operaciones_folios";
 	}
 	
 	@RequestMapping (value="/cancelar_orden/{id}",method = RequestMethod.GET)
-	public String cancelarOrden (Model model, @PathVariable (value="id") Long id) {
+	public String cancelarOrden (Model model, @PathVariable (value="id") Long id,HttpServletRequest request) {
 		   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 		   LocalDateTime now = LocalDateTime.now();  
 		   
@@ -127,12 +144,16 @@ public class FoliosRegistradosController {
 		orden.setFecha_cancelacion(dtf.format(now));
 		OrdenDao.save(orden);
 		model.addAttribute("titulo","Folios registrados");
-		model.addAttribute("vista", OrdenVista.findAll2());
+		UserController us =new UserController();
+		us.UserSucId(request,userService);
+		String id_empleado=us.UserSucId(request, userService)[0];
+		String id_sucursal=us.UserSucId(request, userService)[1];
+		model.addAttribute("vista", OrdenVista.findAll2(id_sucursal));
 		return "redirect:/operaciones_folios";
 	}
 	
 	@RequestMapping (value="/finalizar_orden/{id}",method = RequestMethod.GET)
-	public String finalizarOrden (Model model, @PathVariable (value="id") Long id) {
+	public String finalizarOrden (Model model, @PathVariable (value="id") Long id,HttpServletRequest request) {
 		Orden orden ;
 		orden=OrdenDao.findOne(id);
 		
@@ -143,7 +164,11 @@ public class FoliosRegistradosController {
 		
 		OrdenDao.save(orden);
 		model.addAttribute("titulo","Folios registrados");
-		model.addAttribute("vista", OrdenVista.findAll2());
+		UserController us =new UserController();
+		us.UserSucId(request,userService);
+		String id_empleado=us.UserSucId(request, userService)[0];
+		String id_sucursal=us.UserSucId(request, userService)[1];
+		model.addAttribute("vista", OrdenVista.findAll2(id_sucursal));
 		return "redirect:/operaciones_folios";
 	}
 	
