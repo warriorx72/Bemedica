@@ -55,33 +55,114 @@
 </head>
 
 <body>
+
 	<div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
-		<div class="modal-dialog modal-sm-1" role="document">
+		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h3>Caja chica</h3>
+
+
+    <meta charset="utf-8">
+    <script language="javascript">
+        function doSearch()
+        {
+            const tableReg = document.getElementById('datos');
+            const searchText = document.getElementById('searchTerm').value.toLowerCase();
+            let total = 0;
+ 
+            // Recorremos todas las filas con contenido de la tabla
+            for (let i = 1; i < tableReg.rows.length; i++) {
+                // Si el td tiene la clase "noSearch" no se busca en su cntenido
+                if (tableReg.rows[i].classList.contains("noSearch")) {
+                    continue;
+                }
+ 
+                let found = false;
+                const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+                // Recorremos todas las celdas
+                for (let j = 0; j < cellsOfRow.length && !found; j++) {
+                    const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+                    // Buscamos el texto en el contenido de la celda
+                    if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
+                        found = true;
+                        total++;
+                    }
+                }
+                if (found) {
+                    tableReg.rows[i].style.display = '';
+                } else {
+                    // si no ha encontrado ninguna coincidencia, esconde la
+                    // fila de la tabla
+                    tableReg.rows[i].style.display = 'none';
+                }
+            }
+ 
+          
+        }
+    </script>
+ 
+    <style>
+        #datos {border:1px solid #ccc;padding:10px;font-size:1em;}
+        #datos tr:nth-child(even) {background:#ccc;}
+        #datos td {padding:5px;}
+        #datos tr.noSearch {background:White;font-size:0.8em;}
+        #datos tr.noSearch td {padding-top:10px;text-align:right;}
+        .hide {display:none;}
+        .red {color:Red;}
+    </style>
+</head>
+ 
+<body>
+ 
+    <form>
+       Buscar<input id="searchTerm" type="text" onkeyup="doSearch()" />
+    </form>
+    <p>
+    
+            <tr class='noSearch hide'>
+                <td colspan="5"></td>
+            </tr>
+        </table>
+    </p>
+</body>
+</html>
+				
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-
 					<form th:action="@{/caja_chica}" th:object="${cach}" method="post">
-						<table>
-							<tr>
+					<table class="table table-bordered" id="dataTable1"
+											style="text-align: center" width="100%" cellspacing="0">
+											<thead>
+												<tr class="table-primary">
+							
 								<td>Monto caja chica</td>
 								<td><input type="number" min="0"
 									th:field="*{CajaChicaMonto}" required class="form-control" /></td>
-							</tr>
-							<tr>
-
+							
+							
 								<td><input type="submit" value="Crear registro" /></td>
-
-							</tr>
-
+								<th></th>
+									<h3>Caja chica</h3>
+								
+								<tr>
+											        <th>Monto</th>
+													<th>Fecha Inicial</th>
+													<th>Fecha Final</th>
+												    <th>Eliminar</th>
+												</tr>
+											</thead>
+											<tbody style="text-align: center">
+												<tr th:each="montos_corte: ${vistas}">
+												<td th:text="${caja_vista[2]}"></td>
+													<td th:text="${caja_vista[3]}"></td>
+													<td th:text="${caja_vista[2]}"></td>
 						</table>
+					</form>
 					</form>
 				</div>
 				<div class="modal-footer"></div>
@@ -89,21 +170,28 @@
 		</div>
 	</div>
 	<!--Segundo Modal -->
+	
+	
 	<div class="modal fade" id="modalNuevo2" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
 		<div class="modal-dialog modal-sm-1" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h3>Corte de caja</h3>
+					
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-
 					<form th:action="@{/corte}" method="post">
 						<table>
+</tr>
+<tr>
+    <td width="50%">
+    <tr>
+    <td colspan="4" align="center" bgcolor="A2C9E5"><font color="#000000"><strong>Corte de caja</strong></font></td>
+</tr>
 							<tr>
 								<td>Efectivo en caja</td>
 								<td><input type="number" min="1"
@@ -120,11 +208,8 @@
 									th:field="*{cach.CajaChicaMonto}" required class="form-control" /></td>
 							</tr>
 							<tr>
-
-								<td><input type="submit" value="Crear registro" /></td>
-
+								<td><input type="submit" align="center" value="Crear registro" /></td>
 							</tr>
-
 						</table>
 					</form>
 				</div>
@@ -132,18 +217,15 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	<!--  Header -->
-	<div th:include="header-index.html" th:remove="tag"></div>
-	<!--  End Header -->
-	
+	<div>
+		<img src="img/banner.jpg" style="height: 80px; width: 100%;">
+	</div>
 	<div class="wrapper">
 		<!-- Sidebar  -->
 		<div th:include="navegacion.html" th:remove="tag"></div>
 
 		<!-- Page Content  -->
-		<div id="content" style="min-width: 10px !important;">
+		<div id="content">
 			<div class="accordion" id="accordionExample"
 				style="user-select: none;">
 				<div class="card">
@@ -164,13 +246,13 @@
 					  <tbody>
 					  	<td>
 					  	<tr>
-						<a th:href="@{/herramientas_corte}" class="btn btn-primary" 
+						<button th:href="@{/herramientas_corte}" class="btn btn-primary" 
 							data-toggle="modal" data-target="#modalNuevo" value="Agregar" th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
-							<i class="fas fa-box"></i> Agregar nuevo</a></tr>
+							<i class="fas fa-box"></i> Agregar nuevo</button></tr>
 						<tr>	
-						<a th:href="@{/herramientas_corte}" class="btn btn-primary"
+						<button th:href="@{/herramientas_corte}" class="btn btn-primary"
 							data-toggle="modal" data-target="#modalNuevo2" value=" Corte" th:disabled="${bloqueo}"  style="margin-left:5px; margin-right:5px;">
-							<i class="fas fa-cut" ></i> Corte de Caja</a></tr>
+							<i class="fas fa-cut" ></i> Corte de Caja</button></tr>
 						<tr>
 					   <form th:action="@{/cierre}"  method="post"> 
 							<button type="submit" class="btn btn-primary" value=" Cierre" th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
