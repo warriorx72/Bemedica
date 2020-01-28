@@ -88,17 +88,31 @@
                                     				<td>
                                         				<button class="btn btn-outline-primary btn-sm" title="Imprimir Orden" th:onclick="'popup2(' + ${orden.orden_id} + ');'"><i class="fas fa-print"></i></button>
                                         				<a class="btn btn-outline-warning btn-sm" title="Abrir Orden"   th:onclick="'popup(' + ${orden.orden_id} + ');'" ><i class="fas fa-folder-open"></i></a>
-                                        				<a class="btn btn-outline-danger btn-sm" title="Cancelar Orden" th:onclick="return confirm('¿Desea cancelar la orden?');" th:href="@{/cancelar_orden/} + ${orden.orden_id}"><i class="fas fa-trash-alt"></i></a>
+                                        				<a th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')
+												or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')}" class="btn btn-outline-danger btn-sm" title="Cancelar Orden" th:onclick="return confirm('¿Desea cancelar la orden?');" th:href="@{/cancelar_orden/} + ${orden.orden_id}"><i class="fas fa-trash-alt"></i></a>
                                         				<a th:onclick="'javascript:openDetallesModal(' + ${orden.orden_id} + ');'" class="btn btn-outline-info btn-sm"  data-toggle="popover" th:each="mes: ${message}" title="Servicios solicitados" th:if="${mes[1]==orden.orden_id}" th:data-content="${mes[0]}"><i class="fas fa-question"></i></a>                                        
-                                        				<a class="btn btn-outline-secondary btn-sm" title="Facturación"><i class="fas fa-file-alt"></i></a>
+                                        				<a th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')
+												or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')}" class="btn btn-outline-secondary btn-sm" title="Facturación"><i class="fas fa-file-alt"></i></a>
                                     				</td>
-                                    				<td>
+                                    				<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')
+												or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')}">
 														<a class="text-primary" th:href="@{/finalizar_orden/} + ${orden.orden_id}" th:text="${orden.orden_folio}" th:onclick="return confirm('¿Desea finalizar la orden?');"> </a>
+													</td>
+													<td th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}">
+									           <p class="text" th:text="${orden.orden_folio}" > </p>
+													
 													</td>
                                     				<td th:text="${orden.nombre+' '+orden.persona_ap+' '+orden.persona_am}"></td>
                                     				<td th:text="${orden.orden_fecha}"></td>
                                     				<td th:text="${orden.orden_estatus}"></td>
+                                    				<div th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')
+												or #strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_RECEPCIONISTA')}">
                                     				<td th:if=" ${orden.adeudo != '0.00' }"><a class="text-primary" th:href="@{/liquidar_orden/} + ${orden.orden_id}" th:text="${orden.adeudo}" th:onclick="return confirm('¿Desea liquidar la orden?');"></a></td>
+												</div>
+													<div th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_VALIDACION')}">
+													<td th:if=" ${orden.adeudo != '0.00' }"><a class="text"  th:text="${orden.adeudo}"></a></td>
+													
+													</div>
 													<td th:if=" ${orden.adeudo == '0.00' }" th:text="${orden.adeudo}"></td>
                                    				</tr>  
                                  			</tbody>

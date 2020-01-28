@@ -250,7 +250,7 @@
 					  <tbody>
 					  	<td>
 					  	<tr>
-						<button th:href="@{/herramientas_corte}" class="btn btn-primary"
+						<button th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')}" th:href="@{/herramientas_corte}" class="btn btn-primary"
 							data-toggle="modal" data-target="#modalNuevo"  th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
 							<i class="fas fa-box"></i> Agregar nuevo</button></tr>
 						<tr>	
