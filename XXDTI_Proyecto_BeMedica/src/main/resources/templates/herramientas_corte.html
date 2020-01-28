@@ -53,34 +53,125 @@
 }
 </style>
 </head>
-
+<script>
+    		function popup(id)
+    		{
+       			window.open("listar_cortes/"+id, 'window', 'width=2000, height=2000');
+    		}
+    		
+    	
+    		
+		</script>
 <body>
 	<div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
-		<div class="modal-dialog modal-sm-1" role="document">
+		<div  class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h3>Caja chica</h3>
+				
+				<meta charset="utf-8">
+				<script language="javascript">
+        function doSearch()
+        {
+            const tableReg = document.getElementById('datos');
+            const searchText = document.getElementById('searchTerm').value.toLowerCase();
+            let total = 0;
+ 
+            // Recorremos todas las filas con contenido de la tabla
+            for (let i = 1; i < tableReg.rows.length; i++) {
+                // Si el td tiene la clase "noSearch" no se busca en su cntenido
+                if (tableReg.rows[i].classList.contains("noSearch")) {
+                    continue;
+                }
+ 
+                let found = false;
+                const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+                // Recorremos todas las celdas
+                for (let j = 0; j < cellsOfRow.length && !found; j++) {
+                    const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+                    // Buscamos el texto en el contenido de la celda
+                    if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
+                        found = true;
+                        total++;
+                    }
+                }
+                if (found) {
+                    tableReg.rows[i].style.display = '';
+                } else {
+                    // si no ha encontrado ninguna coincidencia, esconde la
+                    // fila de la tabla
+                    tableReg.rows[i].style.display = 'none';
+                }
+            }
+ 
+            // mostramos las coincidencias
+            const lastTR=tableReg.rows[tableReg.rows.length-1];
+            const td=lastTR.querySelector("td");
+            lastTR.classList.remove("hide", "red");
+            if (searchText == "") {
+                lastTR.classList.add("hide");
+            } else if (total) {
+                td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
+            } else {
+                lastTR.classList.add("red");
+                td.innerHTML="No se han encontrado coincidencias";
+            }
+        }
+    </script>
+    
+        <script class="javascript">
+    function cancelarCorte(id, url){
+       var nombre = $id;
+       var url = url;
+       $.ajax({
+           type:'POST',
+           url: 'url',
+           data:(nombre),
+       });
+    }
+</script>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-
 					<form th:action="@{/caja_chica}" th:object="${cach}" method="post">
 						<table>
+						   
 							<tr>
 								<td>Monto caja chica</td>
-								<td><input type="number" min="0"
-									th:field="*{CajaChicaMonto}" required class="form-control" /></td>
+								<td><input type="number" min="0" th:field="*{CajaChicaMonto}" required class="form-control" /></td>
+								<td></td>
+								<td><input type="submit" class="btn btn-w-m btn-primary" value="Crear registro" /></td>
+								
+								
 							</tr>
-							<tr>
-
-								<td><input type="submit" value="Crear registro" /></td>
-
-							</tr>
-
+								 <form> Buscar<input id="searchTerm"  type="text" onkeyup="doSearch()" />
+							</table>
+							<br></br>
+							
+							<table  class="table table-bordered" id="datos"  >
+							<td colspan="4" align="center" bgcolor="A2C9E5"><font color="#000000"><strong>Monto de caja</strong></font></td>
+								<tr>
+											        <th>Monto</th>
+													<th>Fecha Inicial</th>
+													<th>Fecha Final</th>
+												    <th>Eliminar</th>
+												    <th>Eliminar</th>
+												</tr>
+											</thead>
+											<tbody style="text-align: center">
+												<tr th:each="Monto: ${vistas}">
+													<td th:text="${Monto[4]}"></td>
+													<td th:text="${Monto[3]}"></td>
+												    <td th:text="${Monto[2]}"></td>
+												   
+												    <td class="btn btn-outline-danger btn-sm" title="Eliminar Corte" th:onclick="return confirm('¿Desea elimar el corte?');" th:href="@{/cancelar_corte/} + ${caja_chica_caja_chica_id}"><i class="fas fa-trash-alt"></i></td>
+													<td><button type="button" class="btn btn-danger btn-xs" data-toggle="modal" onclick="EliminarDatos('<?php echo $dato['RUN'];?>','')">Eliminar</button></td> 
+                                                  <div class="modal-footer">
+                                                </div>
+                               </td> </div>
 						</table>
 					</form>
 				</div>
@@ -104,6 +195,7 @@
 
 					<form th:action="@{/corte}" method="post">
 						<table>
+						    <td colspan="4" align="center" bgcolor="A2C9E5"><font color="#000000"><strong>Corte de caja</strong></font></td>
 							<tr>
 								<td>Efectivo en caja</td>
 								<td><input type="number" min="1"
@@ -120,11 +212,8 @@
 									th:field="*{cach.CajaChicaMonto}" required class="form-control" /></td>
 							</tr>
 							<tr>
-
-								<td><input type="submit" value="Crear registro" /></td>
-
+								<td><input type="submit" class="btn btn-w-m btn-primary" align="center" value="Crear registro" /></td>
 							</tr>
-
 						</table>
 					</form>
 				</div>
@@ -132,18 +221,15 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	<!--  Header -->
-	<div th:include="header-index.html" th:remove="tag"></div>
-	<!--  End Header -->
-	
+	<div>
+		<img src="img/banner.jpg" style="height: 80px; width: 100%;">
+	</div>
 	<div class="wrapper">
 		<!-- Sidebar  -->
 		<div th:include="navegacion.html" th:remove="tag"></div>
 
 		<!-- Page Content  -->
-		<div id="content" style="min-width: 10px !important;">
+		<div id="content">
 			<div class="accordion" id="accordionExample"
 				style="user-select: none;">
 				<div class="card">
@@ -164,13 +250,13 @@
 					  <tbody>
 					  	<td>
 					  	<tr>
-						<a th:href="@{/herramientas_corte}" class="btn btn-primary" 
-							data-toggle="modal" data-target="#modalNuevo" value="Agregar" th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
-							<i class="fas fa-box"></i> Agregar nuevo</a></tr>
+						<button th:href="@{/herramientas_corte}" class="btn btn-primary"
+							data-toggle="modal" data-target="#modalNuevo"  th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
+							<i class="fas fa-box"></i> Agregar nuevo</button></tr>
 						<tr>	
-						<a th:href="@{/herramientas_corte}" class="btn btn-primary"
-							data-toggle="modal" data-target="#modalNuevo2" value=" Corte" th:disabled="${bloqueo}"  style="margin-left:5px; margin-right:5px;">
-							<i class="fas fa-cut" ></i> Corte de Caja</a></tr>
+						<button th:href="@{/herramientas_corte}" class="btn btn-primary"
+							data-toggle="modal" data-target="#modalNuevo2"  th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
+							<i class="fas fa-cut"></i> Corte de Caja</button></tr>
 						<tr>
 					   <form th:action="@{/cierre}"  method="post"> 
 							<button type="submit" class="btn btn-primary" value=" Cierre" th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
@@ -197,6 +283,7 @@
 										stateSave : true
 									});
 								});
+								
 								window.onload = function() {
 									var pos = window.name || 0;
 									window.scrollTo(0, pos);
@@ -228,7 +315,6 @@
 											</thead>
 											<tbody style="text-align: center">
 												<tr th:each="caja_vista: ${vistas}">
-
 													<td><a class="text-primary" th:text="${caja_vista[1]}"
 														th:href="@{/herramientas_corte/} + ${caja_vista[0]}"></a>
 													</td>
@@ -243,18 +329,15 @@
 														th:data-content="${'Total efectivo: '+caja_vista[8]+'<br/>'+'Total tarjeta: '+caja_vista[9]}"></a></td>
 													<td ><a class="text-primary" href="#" th:text="${caja_vista[5]}"
 														data-toggle="popover"
-														
 														title="Descripcion"
 														th:data-content="${caja_vista[11]}"></a></td>
 													<td th:text="${caja_vista[6]}"></td>
-													
 												</tr>
 											</tbody>
 
 										</table>
 									</div>
 								</div>
-								
 							</div>
 						</div>
 					</div>
@@ -291,12 +374,7 @@
 			});
 		});
 	</script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#sidebarCollapse').on('click', function() {
-				$('#sidebar').toggleClass('active');
-			});
-		});
-	</script>
+
 </body>
+
 </html>
