@@ -17,8 +17,8 @@ public class Caja implements Serializable{
 	@Id
 	@Column(name="caja_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long CajaId;
-	
+	public Long CajaId;
+
 	
 	@Column(name="fecha_inicial")	
 	private String FechaInicial;
@@ -37,7 +37,7 @@ public class Caja implements Serializable{
 	
 	@Column(name="descripcion_caja")
 	private String DescripcionCaja;
-	
+
 	@Column(name="corte_tipo")
 	private boolean CorteTipo;	
 	
@@ -88,7 +88,7 @@ public class Caja implements Serializable{
 	public void setCajaId(Long cajaId) {
 		CajaId = cajaId;
 	}
-
+	
 	public String getFechaInicial() {
 		return FechaInicial;
 	}
@@ -104,6 +104,7 @@ public class Caja implements Serializable{
 	public void setFechaFinal(String fechaFinal) {
 		FechaFinal = fechaFinal;
 	}
+	
 	public void setbloqueoCorte() {
 		
 	}
