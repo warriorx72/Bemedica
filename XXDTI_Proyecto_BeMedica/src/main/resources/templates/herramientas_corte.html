@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link rel="shortcut icon" href="/img/favicon.ico">
 <title th:text="*{titulo}">Bem�dica Punto de venta</title>
-
 <!-- Bootstrap CSS CDN -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -15,7 +13,6 @@
 	crossorigin="anonymous">
 <!-- Our Custom CSS -->
 <link rel="stylesheet" href="css/style.css">
-
 <!-- Font Awesome JS -->
 <script defer
 	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
@@ -25,16 +22,7 @@
 	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
 	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
 	crossorigin="anonymous"></script>
-<script>
-	function popup(id) {
-		window
-				.open("listar_ordenes/" + id, 'window',
-						'width=2000, height=2000');
-	}
-	function popup2(id) {
-		window.open("caja_chica/", 'window',
-				'left=497,top=426,width=10, height=101');
-	}
+	
 </script>
 <!-- Page level plugin CSS-->
 <!-- Page level plugin JavaScript-->
@@ -47,89 +35,25 @@
 	width: 100%;
 	text-align: center;
 }
-
 .inner {
 	display: inline-block;
 }
 </style>
 </head>
-<script>
-    		function popup(id)
+	<script>
+    		function popup()
     		{
-       			window.open("listar_cortes/"+id, 'window', 'width=2000, height=2000');
+       			window.open("listar_cortes", 'window', 'width=800, height=600');
     		}
-    		
-    	
-    		
 		</script>
 <body>
 	<div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
-		<div  class="modal-dialog modal-lg" role="document">
+		<div  class="modal-dialog modal-sm-1" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-				
+				<h3>Monto de caja</h3>
 				<meta charset="utf-8">
-				<script language="javascript">
-        function doSearch()
-        {
-            const tableReg = document.getElementById('datos');
-            const searchText = document.getElementById('searchTerm').value.toLowerCase();
-            let total = 0;
- 
-            // Recorremos todas las filas con contenido de la tabla
-            for (let i = 1; i < tableReg.rows.length; i++) {
-                // Si el td tiene la clase "noSearch" no se busca en su cntenido
-                if (tableReg.rows[i].classList.contains("noSearch")) {
-                    continue;
-                }
- 
-                let found = false;
-                const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
-                // Recorremos todas las celdas
-                for (let j = 0; j < cellsOfRow.length && !found; j++) {
-                    const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
-                    // Buscamos el texto en el contenido de la celda
-                    if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
-                        found = true;
-                        total++;
-                    }
-                }
-                if (found) {
-                    tableReg.rows[i].style.display = '';
-                } else {
-                    // si no ha encontrado ninguna coincidencia, esconde la
-                    // fila de la tabla
-                    tableReg.rows[i].style.display = 'none';
-                }
-            }
- 
-            // mostramos las coincidencias
-            const lastTR=tableReg.rows[tableReg.rows.length-1];
-            const td=lastTR.querySelector("td");
-            lastTR.classList.remove("hide", "red");
-            if (searchText == "") {
-                lastTR.classList.add("hide");
-            } else if (total) {
-                td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
-            } else {
-                lastTR.classList.add("red");
-                td.innerHTML="No se han encontrado coincidencias";
-            }
-        }
-    </script>
-    
-        <script class="javascript">
-    function cancelarCorte(id, url){
-       var nombre = $id;
-       var url = url;
-       $.ajax({
-           type:'POST',
-           url: 'url',
-           data:(nombre),
-       });
-    }
-</script>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -138,41 +62,15 @@
 				<div class="modal-body">
 					<form th:action="@{/caja_chica}" th:object="${cach}" method="post">
 						<table>
-						   
+						<td colspan="4" align="center" bgcolor="A2C9E5"><font color="#000000"><strong>Monto de caja chica</strong></font></td>
 							<tr>
 								<td>Monto caja chica</td>
 								<td><input type="number" min="0" th:field="*{CajaChicaMonto}" required class="form-control" /></td>
-								<td></td>
-								<td><input type="submit" class="btn btn-w-m btn-primary" value="Crear registro" /></td>
-								
-								
-							</tr>
-								 <form> Buscar<input id="searchTerm"  type="text" onkeyup="doSearch()" />
-							</table>
-							<br></br>
-							
-							<table  class="table table-bordered" id="datos"  >
-							<td colspan="4" align="center" bgcolor="A2C9E5"><font color="#000000"><strong>Monto de caja</strong></font></td>
 								<tr>
-											        <th>Monto</th>
-													<th>Fecha Inicial</th>
-													<th>Fecha Final</th>
-												    <th>Eliminar</th>
-												    <th>Eliminar</th>
-												</tr>
-											</thead>
-											<tbody style="text-align: center">
-												<tr th:each="Monto: ${vistas}">
-													<td th:text="${Monto[4]}"></td>
-													<td th:text="${Monto[3]}"></td>
-												    <td th:text="${Monto[2]}"></td>
-												   
-												    <td class="btn btn-outline-danger btn-sm" title="Eliminar Corte" th:onclick="return confirm('¿Desea elimar el corte?');" th:href="@{/cancelar_corte/} + ${caja_chica_caja_chica_id}"><i class="fas fa-trash-alt"></i></td>
-													<td><button type="button" class="btn btn-danger btn-xs" data-toggle="modal" onclick="EliminarDatos('<?php echo $dato['RUN'];?>','')">Eliminar</button></td> 
-                                                  <div class="modal-footer">
-                                                </div>
-                               </td> </div>
-						</table>
+								<br>
+								<td><input type="submit" class="btn btn-w-m btn-primary" value="Crear registro" /></td>
+							</tr>
+							</table>
 					</form>
 				</div>
 				<div class="modal-footer"></div>
@@ -192,7 +90,6 @@
 					</button>
 				</div>
 				<div class="modal-body">
-
 					<form th:action="@{/corte}" method="post">
 						<table>
 						    <td colspan="4" align="center" bgcolor="A2C9E5"><font color="#000000"><strong>Corte de caja</strong></font></td>
@@ -244,28 +141,22 @@
 						</h2>
 					</div>
 					<br>
-		    
 					<div id="outer">
 					<table>
 					  <tbody>
-					  	<td>
-					  	<tr>
-						<button th:if="${#strings.contains(#httpServletRequest.UserPrincipal.Authorities, 'ROLE_ADMIN')}" th:href="@{/herramientas_corte}" class="btn btn-primary"
-							data-toggle="modal" data-target="#modalNuevo"  th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
-							<i class="fas fa-box"></i> Agregar nuevo</button></tr>
-						<tr>	
-						<button th:href="@{/herramientas_corte}" class="btn btn-primary"
-							data-toggle="modal" data-target="#modalNuevo2"  th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
+					  	<tr th:each="caja: ${vista}">
+					  	
+					  	<tr> <button th:href="@{/listar_cortes}" class="btn btn-primary" th:onclick="'popup();'" th:disabled="${bloqueo}"  style="margin-left:5px; margin-right:5px;">
+							<i class="fas fa-box"></i> Montos de caja </button></tr>
+						<tr></tr>
+						<button th:href="@{/herramientas_corte}" class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo2"  th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
 							<i class="fas fa-cut"></i> Corte de Caja</button></tr>
 						<tr>
-					   <form th:action="@{/cierre}"  method="post"> 
-							<button type="submit" class="btn btn-primary" value=" Cierre" th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
+					   <form th:action="@{/cierre}"  method="post"> <button type="submit" class="btn btn-primary" value=" Cierre" th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
 							<i class="fas fa-money-bille"></i> Cierre</button>
 					   </form></tr>
-					   </td>
 					  </tbody>
 					</table>
-						  
 						<!-- 						<div class="inner"> -->
 						<!-- 							<form th:action="@{/caja-reporte}" th:object="${caja}" -->
 						<!-- 								method="post"> -->
@@ -296,15 +187,11 @@
 							<div class="card-header">
 								<div class="card-body">
 									<div class="table-responsive">
-
-										<h2 align="center" style="font-size: 20px;">Registros de
-											Corte de Caja</h2>
 										<table class="table table-bordered" id="dataTable"
 											style="text-align: center" width="100%" cellspacing="0">
 											<thead>
 												<tr class="table-primary">
-
-													<th>Sucursal</th>
+          											<th>Sucursal</th>
 													<!-- 													<th>Caja ID</th> -->
 													<th>Fecha Inicial</th>
 													<th>Fecha Final</th>
@@ -365,8 +252,39 @@
 	<!-- Page level plugin JavaScript-->
 	<script src="vendor/datatables/jquery.dataTables.js"></script>
 	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+	<script  type="text/javascript" th:inline="javascript">
+	$(document).ready(function(){
+	  $('[data-toggle="popover"]').popover({placement: "right",trigger: "hover",html : true});});
+
+		$(document).ready(function() {
+			$('#sidebarCollapse').on('click', function() {
+				$('#sidebar').toggleClass('active');
+			});
+		});
+
+		function post_form(id_form) {
+			document.getElementById(id_form).submit();
+		}
+
+		$(document).ready(function() {
+			$('#example').DataTable({
+				stateSave : true
+			});
+		});
+		window.onload = function() {
+			var pos = window.name || 0;
+			window.scrollTo(0, pos);
+		}
+		window.onunload = function() {
+			window.name = self.pageYOffset
+					|| (document.documentElement.scrollTop + document.body.scrollTop);
+		}
+	</script>
+	<script th:src="@{/js/script_ticket.js}"></script>
+	
 	<script type="text/javascript" th:inline="javascript">
 		$(document).ready(function() {
+			
 			$('[data-toggle="popover"]').popover({
 				placement : "right",
 				trigger : "hover",
@@ -376,5 +294,6 @@
 	</script>
 
 </body>
+
 
 </html>
