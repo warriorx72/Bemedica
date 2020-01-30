@@ -1,0 +1,195 @@
+<!DOCTYPE html  >
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title th:text="${titulo}"></title>
+<!-- Bootstrap CSS CDN -->
+<link rel="stylesheet"
+	th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css}"
+	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+	crossorigin="anonymous">
+<!-- Our Custom CSS -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<!-- Font Awesome JS -->
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+	crossorigin="anonymous"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="modal fade" id="modalMonto" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div  class="modal-dialog modal-sm-1" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h3>Monto de caja</h3>
+				 
+				<meta charset="utf-8">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+				<form th:action="@{/caja_chica}" th:object="${cach}" method="post">
+						<table>
+						<td colspan="4" align="center" bgcolor="A2C9E5"><font color="#000000"><strong>Caja chica</strong></font></td>
+							<tr>
+								<td>Monto caja chica</td>
+								<td><input type="number" min="0"
+									th:field="*{CajaChicaMonto}" required class="form-control" /></td>
+							</tr>
+							<tr>
+							<br></br>
+								<td><input  th:href="@{listar_cortes/}" align="center" type="submit" class="btn btn-w-m btn-primary" value="Crear registro" /></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+		</div>
+	</div>
+			<div class="card">
+				<div class="card-header" id="headingOne">
+					<h2 class="mb-0 form-row" style="font-size: 20px;">Montos de corte de caja</h2>
+				</div>
+				<div class="card-body">
+				
+				<tr><button th:href="@{listar_cortes/}" class="btn btn-primary" data-toggle="modal" data-target="#modalMonto" value="Agregar" th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
+							<i class="fas fa-box"></i> Agregar Monto</button></tr>
+							<br></br>
+					<!--Inicia código de tabla-->
+					<div class="col-sm-12">
+						<div class="card mb-3">
+            				<div class="card-header">
+								<div class="table-responsive">
+										<table class="table table-bordered" id="dataTable"
+											style="text-align: center" width="100%" cellspacing="0">
+											<thead>
+												<tr class="table-primary">
+													<th>Monto</th>
+													<th>Fecha Inicial</th>
+													<th>Fecha Final</th>
+													<th>Eliminar</th>
+												</tr>
+												<tr th:each="caja_vista: ${vistas}">
+													<td th:text="${caja_vista[7]}"></td>
+													<td th:text="${caja_vista[3]}"></td>
+													<td th:text="${caja_vista[2]}"></td>
+													<td class="btn btn-outline-danger btn-sm" title="Cancelar Monto" th:onclick="return confirm('¿Desea eliminar Monto?');" th:href="@{/cancelar_monto/} + ${caja_caja_id}"><i class="fas fa-trash-alt"></i></td>
+													</tr>
+											</tbody>
+										</table>
+									<!--Termina código de tabla-->
+								</div>
+							</div>
+						</div>
+					</div>
+	</div>
+						</div>
+					</div>
+
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<!-- Popper.JS -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+		integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+		integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+		crossorigin="anonymous"></script>
+	<!-- Demo scripts for this page-->
+	<script src="js/demo/datatables-demo.js"></script>
+
+	<!-- Page level plugin JavaScript-->
+	<script src="vendor/datatables/jquery.dataTables.js"></script>
+	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+	<!-- Page level plugins -->
+	<script src="vendor/chart.js/Chart.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="js/demo/chart-area-demo.js"></script>
+	<script src="js/demo/chart-pie-demo.js"></script>
+	<script src="js/demo/chart-bar-demo.js"></script>
+
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#sidebarCollapse').on('click', function() {
+				$('#sidebar').toggleClass('active');
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
+		function post_form(id_form) {
+			document.getElementById(id_form).submit();
+		}
+	</script>
+	<script type="text/javascript">
+		function post_form2(id_form2) {
+			document.getElementById(id_form2).submit();
+		}
+	</script>
+	<script>
+		window.onload = function() {
+			var pos = window.name || 0;
+			window.scrollTo(0, pos);
+		}
+		window.onunload = function() {
+			window.name = self.pageYOffset
+					|| (document.documentElement.scrollTop + document.body.scrollTop);
+		}
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$('#example').DataTable({
+				stateSave : true
+			});
+		});
+		window.onload = function() {
+			var pos = window.name || 0;
+			window.scrollTo(0, pos);
+		}
+		window.onunload = function() {
+			window.name = self.pageYOffset
+					|| (document.documentElement.scrollTop + document.body.scrollTop);
+		}
+	</script>
+	<script>
+		window.onload = function() {
+			var pos = window.name || 0;
+			window.scrollTo(0, pos);
+		}
+		window.onunload = function() {
+			window.name = self.pageYOffset
+					|| (document.documentElement.scrollTop + document.body.scrollTop);
+		}
+	</script>
+	
+	<script>
+		function deshabilitar(id)
+		{
+			
+				document.getElementById( id ).disabled=true;
+				
+				document.getElementById("bac"+id ).disabled=true;
+			
+		}
+		
+	</script>
+</body>
+</html>
