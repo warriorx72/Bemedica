@@ -1,4 +1,4 @@
-//Isaac Rafael
+
 package com.bemedica.springboot.app.models.dao;
 
 import java.sql.Timestamp;
@@ -16,10 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bemedica.springboot.app.models.entity.Caja;
 
-
 @Repository
-public class CajaDaoImpl implements ICajaDao {
 
+public class CajaDaoImpl implements ICajaDao {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -30,7 +29,7 @@ public class CajaDaoImpl implements ICajaDao {
 	public List<Caja> findAll() {
 	return em.createQuery("From Caja").getResultList();
 	}
-	
+	   
 	@Override
 	@Transactional
 	public void save(Caja caja) {
@@ -49,8 +48,6 @@ public class CajaDaoImpl implements ICajaDao {
 		return em.find(Caja.class, CajaId);
 	}
     //-----------------------------
-
-	
 	@Override
 	@Transactional
 	public String findLastCajaId() {
@@ -59,7 +56,6 @@ public class CajaDaoImpl implements ICajaDao {
 		String auxs = em.createQuery ("SELECT MAX(CajaId) FROM Caja").getSingleResult().toString();
 		
 		String auxs1 = em.createQuery ("SELECT FechaFinal FROM Caja where CajaId="+auxs+"").getSingleResult().toString();
-
 		return auxs1 ;
 	}		
 	@Transactional(readOnly=true)
@@ -103,6 +99,7 @@ public class CajaDaoImpl implements ICajaDao {
 		return em.createNativeQuery("call TotalTarjeta("+id+")").getSingleResult().toString();
 	}
 	
+
 	@Override
 	@Transactional
 	public boolean corteTipo() {
@@ -124,7 +121,7 @@ public class CajaDaoImpl implements ICajaDao {
 		// TODO Auto-generated method stub
 		return em.createNativeQuery("call TotalEfectivo("+id+")").getSingleResult().toString();
 	}
-
+	
 	@Override
 	@Transactional
 	public String cierreCajaTarjeta(Long id) {
@@ -141,19 +138,19 @@ public class CajaDaoImpl implements ICajaDao {
 	
 	@Override
 	@Transactional(readOnly =true)
-	public Boolean  bloqueaCorte() {
-		// TODO Auto-generated method stub
-		 boolean cierre=(Integer.parseInt(em.createNativeQuery(" call bloqueo_Corte()").getSingleResult().toString())==1);	
-		return  cierre;	
-	}
-
-	@Override
-	@Transactional(readOnly =true)
 	public boolean  bloqueoCorte() {
 		// TODO Auto-generated method stub
 		 boolean cierre=(Integer.parseInt(em.createNativeQuery(" call bloqueo_Corte()").getSingleResult().toString())==1);	
 		return  cierre;	
-	}		
+	}
 	
+	public String montos(Long id) {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("call montos_corte("+id+")").getSingleResult().toString();
+	}
+	
+	public void delete(Long id) {
+		em.remove(findOne(id));
+	}
 	
 }
