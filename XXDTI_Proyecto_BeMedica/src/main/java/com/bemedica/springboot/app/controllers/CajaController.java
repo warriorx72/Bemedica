@@ -2,10 +2,13 @@ package com.bemedica.springboot.app.controllers;
 
 //import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,18 +27,20 @@ import com.bemedica.springboot.app.models.dao.ICajaVistaDao;
 import com.bemedica.springboot.app.models.dao.IOrdenDao;
 import com.bemedica.springboot.app.models.entity.Caja;
 import com.bemedica.springboot.app.models.entity.CajaChica;
+import com.bemedica.springboot.app.models.entity.Direccion;
 import com.bemedica.springboot.app.models.entity.Orden;
+import com.bemedica.springboot.app.models.entity.Paciente;
+import com.bemedica.springboot.app.models.entity.Persona;
 
 @Controller
 @SessionAttributes("caja")
 public class CajaController {
-
 	@Autowired
 	private ICajaDao cajaDao;
 
 	@Autowired
 	private ICajaVistaDao cajaVistaDao;
-
+	
 	@Autowired
 	private IOrdenDao OrdenDao;
 
@@ -50,7 +55,6 @@ public class CajaController {
 		Orden orden = new Orden();
 		CajaChica cach = new CajaChica();
 		model.addAttribute("titulo", "Condiciones paciente");
-
 		model.addAttribute("titulo", "Corte de Caja");
 		model.addAttribute("vista", cajaDao.findAll());
 		model.addAttribute("vistas", cajaVistaDao.findAll());
@@ -61,7 +65,35 @@ public class CajaController {
 		cajaDao.findAll();
 		return "herramientas_corte";
 	}
+	
+	@RequestMapping(value = "/listar_cortes", method = RequestMethod.GET)
+	public String listar2(Model model, Map<String, Object> m) {
+		CajaChica cach= new CajaChica();
+		Caja caja = new Caja();
+		m.put("caja", caja);
+		m.put("cach",cach);
+	
+		model.addAttribute("vistas", cajaVistaDao.findAll());
+		return "listar_cortes";
+	}
+	
+	public String lista(Model model, Map<String, Object> m) {
 
+		Caja caja = new Caja();
+		Orden orden = new Orden();
+		CajaChica cach = new CajaChica();
+		model.addAttribute("titulo", "Condiciones paciente");
+		model.addAttribute("titulo", "Corte de Caja");
+		model.addAttribute("vista", cajaDao.findAll());
+		model.addAttribute("vistas", cajaVistaDao.findAll());
+		m.put("caja", caja);
+		m.put("orden", orden);
+		m.put("cach", cach);
+		bloquear(model);
+		cajaDao.findAll();
+		return "herramientas_corte";
+	}
+	
 	@RequestMapping(value = "/corte", method = RequestMethod.POST)
 	public String guardar(@Valid Caja caja, @Valid CajaChica cach, Model model, SessionStatus status,
 			Map<String, Object> m) {
@@ -87,7 +119,6 @@ public class CajaController {
 		m.put("caja", caja);
 		return "redirect:/herramientas_corte";
 	}
-
 	@RequestMapping(value = "/cierre", method = RequestMethod.POST)
 	public String guardar2(@Valid Caja caja, BindingResult result, Model model, SessionStatus status,
 			Map<String, Object> me) {
@@ -113,14 +144,13 @@ public class CajaController {
 		cierre.setFechaInicial(formatter.format(date) + " " + "06:00:00");
 		cierre.setCorteTipo(true);
 		cajaDao.save(cierre);
-
 		cierre.setMontoEfectivo(cajaDao.cierreCajaEfectivo(cierre.getCajaId()));
 		cierre.setMontoTarjeta(cajaDao.cierreCajaTarjeta(cierre.getCajaId()));
 		cajaDao.save(cierre);
 
 		return "redirect:/herramientas_corte";
 	}
-
+	
 	@RequestMapping(value = "/caja_chica", method = RequestMethod.POST)
 	public String cajaChica(@Valid CajaChica cach, Model model, Map<String, Object> m) {
 		cach.setCajaId(cajaChicaDao.findAiCaja());
@@ -129,7 +159,15 @@ public class CajaController {
 		return "redirect:/herramientas_corte";
 	}
 	
-
+	
+	@RequestMapping (value="/cancelar_monto/{id}")
+	public String eliminar(@PathVariable (value="id") Long id) {
+		if(id > 0) {
+			cajaDao.delete(id);
+		}
+		return "redirect:/listar_cortes";
+	}
+	
 	private void bloquear(Model model) {
 		if(cajaDao.bloqueoCorte()) {
 			model.addAttribute("bloqueo","disabled");
@@ -139,5 +177,4 @@ public class CajaController {
 			
 		}
 	}
-
 }
