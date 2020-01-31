@@ -134,22 +134,13 @@ public class CajaDaoImpl implements ICajaDao {
 		// TODO Auto-generated method stub
 		return Integer.parseInt(em.createNativeQuery("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='caja' AND TABLE_SCHEMA=DATABASE();").getSingleResult().toString());
 	}
-	ss
+	
 	@Override
 	@Transactional(readOnly =true)
 	public boolean  bloqueoCorte() {
 		// TODO Auto-generated method stub
 		 boolean cierre=(Integer.parseInt(em.createNativeQuery(" call bloqueo_Corte()").getSingleResult().toString())==1);	
 		return  cierre;	
-	}
-	
-	public String montosCorte(Long id) {
-		// TODO Auto-generated method stub
-		return em.createNativeQuery("call montos_corte("+id+")").getSingleResult().toString();
-	}
-	
-	public void delete(Long id) {
-		em.remove(findOne(id));
 	}
 	
 	
