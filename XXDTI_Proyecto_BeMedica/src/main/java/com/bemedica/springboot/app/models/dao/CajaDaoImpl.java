@@ -19,7 +19,6 @@ import com.bemedica.springboot.app.models.entity.Caja;
 @Repository
 
 public class CajaDaoImpl implements ICajaDao {
-
 	@PersistenceContext
 	private EntityManager em;
 	@Transactional(readOnly =true)
@@ -135,7 +134,7 @@ public class CajaDaoImpl implements ICajaDao {
 		// TODO Auto-generated method stub
 		return Integer.parseInt(em.createNativeQuery("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='caja' AND TABLE_SCHEMA=DATABASE();").getSingleResult().toString());
 	}
-	
+	ss
 	@Override
 	@Transactional(readOnly =true)
 	public boolean  bloqueoCorte() {
@@ -144,7 +143,7 @@ public class CajaDaoImpl implements ICajaDao {
 		return  cierre;	
 	}
 	
-	public String montos(Long id) {
+	public String montosCorte(Long id) {
 		// TODO Auto-generated method stub
 		return em.createNativeQuery("call montos_corte("+id+")").getSingleResult().toString();
 	}
@@ -152,5 +151,6 @@ public class CajaDaoImpl implements ICajaDao {
 	public void delete(Long id) {
 		em.remove(findOne(id));
 	}
+	
 	
 }
