@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeLeaf.org">
 <head>
 <meta charset="UTF-8">
-
 <title th:text="${titulo}"></title>
 <!-- Bootstrap CSS CDN -->
 <link rel="stylesheet"
@@ -76,15 +75,14 @@
 													<th>Monto</th>
 													<th>Fecha Inicial</th>
 													<th>Fecha Final</th>
-													<th>Eliminar</th>
 												</tr>
-												<tr th:each="caja_vista: ${vistas}">
-													<td th:text="${caja_vista[7]}"></td>
-													<td th:text="${caja_vista[3]}"></td>
+												    <tr th:each="caja_vista: ${vistas}">
+													<td th:text="${caja_vista[0]}"></td>
+													<td th:text="${caja_vista[1]}"></td>
 													<td th:text="${caja_vista[2]}"></td>
-													<td class="btn btn-outline-danger btn-sm" title="Cancelar Monto" th:onclick="return confirm('¿Desea eliminar Monto?');" th:href="@{/cancelar_monto/} + ${caja_caja_id}"><i class="fas fa-trash-alt"></i></td>
 													</tr>
 											</tbody>
+											<thead>
 										</table>
 									<!--Termina código de tabla-->
 								</div>
