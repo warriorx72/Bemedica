@@ -108,5 +108,8 @@ public class Caja implements Serializable{
 	public void setbloqueoCorte() {
 		
 	}
+    public void setcancelar_monto(Long cajaId) {
+		
+	}
 
 }
