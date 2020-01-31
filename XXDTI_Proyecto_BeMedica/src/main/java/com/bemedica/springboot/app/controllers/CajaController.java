@@ -72,8 +72,9 @@ public class CajaController {
 		Caja caja = new Caja();
 		m.put("caja", caja);
 		m.put("cach",cach);
+		model.addAttribute("vistas", cajaVistaDao.findAll7());
+		cach.setCajaId(cajaChicaDao.findAiCaja());
 	
-		model.addAttribute("vistas", cajaVistaDao.findAll());
 		return "listar_cortes";
 	}
 	
@@ -147,7 +148,6 @@ public class CajaController {
 		cierre.setMontoEfectivo(cajaDao.cierreCajaEfectivo(cierre.getCajaId()));
 		cierre.setMontoTarjeta(cajaDao.cierreCajaTarjeta(cierre.getCajaId()));
 		cajaDao.save(cierre);
-
 		return "redirect:/herramientas_corte";
 	}
 	
@@ -158,7 +158,6 @@ public class CajaController {
 		m.put("cach", cach);
 		return "redirect:/herramientas_corte";
 	}
-	
 	
 	@RequestMapping (value="/cancelar_monto/{id}")
 	public String eliminar(@PathVariable (value="id") Long id) {
