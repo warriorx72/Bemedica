@@ -20,9 +20,12 @@ public class CajaVistaController {
      public String listar(Model model) {
 		model.addAttribute("titulo1","Formulario catalogo");
 		model.addAttribute("vistas", cajaVistaDao.findAll());
-		
-		
 		return "herramientas_corte";
 	   }
+
+public String listar2(Model model) {
+	model.addAttribute("vistas", cajaVistaDao.findAll7());
+	return "listar_cortes";
+   }
 
 }
