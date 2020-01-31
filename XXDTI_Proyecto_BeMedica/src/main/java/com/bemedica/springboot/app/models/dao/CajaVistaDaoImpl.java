@@ -52,5 +52,12 @@ public class CajaVistaDaoImpl implements ICajaVistaDao {
 	
 		return em.createNativeQuery("call TotalEfecTarje("+num1+")").getResultList();	
 	}
+	
+	@Transactional(readOnly =true)
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object[]> findAll7() {
+		return em.createNativeQuery("call montos_corte").getResultList();	
+	}
 
 }
