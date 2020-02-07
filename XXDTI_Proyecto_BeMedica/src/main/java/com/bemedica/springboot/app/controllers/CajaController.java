@@ -40,14 +40,14 @@ public class CajaController {
 
 	@Autowired
 	private ICajaVistaDao cajaVistaDao;
-	
-	@Autowired
-	private IOrdenDao OrdenDao;
 
 	@Autowired
 	private ICajaChicaDao cajaChicaDao;
-
+	
 	@RequestMapping(value = "/herramientas_corte", method = RequestMethod.GET)
+	
+	
+	
 
 	public String listar(Model model, Map<String, Object> m) {
 
@@ -79,7 +79,6 @@ public class CajaController {
 	}
 	
 	public String lista(Model model, Map<String, Object> m) {
-
 		Caja caja = new Caja();
 		Orden orden = new Orden();
 		CajaChica cach = new CajaChica();
@@ -158,14 +157,14 @@ public class CajaController {
 		m.put("cach", cach);
 		return "redirect:/herramientas_corte";
 	}
-	
-	@RequestMapping (value="/cancelar_monto/{id}")
-	public String eliminar(@PathVariable (value="id") Long id) {
-		if(id > 0) {
-			cajaDao.delete(id);
-		}
+	@RequestMapping(value = "/caja_chica2", method = RequestMethod.POST)
+	public String cajaChica2(@Valid CajaChica cach, Model model, Map<String, Object> m) {
+		cach.setCajaId(cajaChicaDao.findAiCaja());
+		cajaChicaDao.save(cach);
+		m.put("cach", cach);
 		return "redirect:/listar_cortes";
 	}
+	
 	
 	private void bloquear(Model model) {
 		if(cajaDao.bloqueoCorte()) {
