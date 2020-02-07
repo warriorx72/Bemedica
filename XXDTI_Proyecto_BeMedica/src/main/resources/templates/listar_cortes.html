@@ -21,31 +21,30 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
+
+	
 <div class="modal fade" id="modalMonto" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
 		<div  class="modal-dialog modal-sm-1" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 				<h3>Monto de caja</h3>
-				 
-				<meta charset="utf-8">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-				<form th:action="@{/caja_chica}" th:object="${cach}" method="post">
+				<form th:action="@{/caja_chica2}" th:object="${cach}" method="post">
 						<table>
-						<td colspan="4" align="center" bgcolor="A2C9E5"><font color="#000000"><strong>Caja chica</strong></font></td>
+						<td colspan="4" align="center" bgcolor="A2C9E5"><font color="#000000"><strong>Nuevo monto</strong></font></td>
 							<tr>
 								<td>Monto caja chica</td>
 								<td><input type="number" min="0"
 									th:field="*{CajaChicaMonto}" required class="form-control" /></td>
 							</tr>
-							<tr>
-							<br></br>
-								<td><input  th:href="@{listar_cortes/}" align="center" type="submit" class="btn btn-w-m btn-primary" value="Crear registro" /></td>
+							<tr>			
+								<td><input align="center" type="submit" class="btn btn-w-m btn-primary" value="Crear registro"/> </td>
 							</tr>
 						</table>
 					</form>
@@ -54,47 +53,64 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	$(document).ready(function(){
+    
+    $("#modalMonto").modal("show");
+    $("#Agregar").click(function(){
+        $("#modalMonto").modal("hide");
+    });
+    $("#modalMonto").on('hidden.bs.modal', function () {
+            alert("X")
+    });
+
+});
+	$('#modalMonto').modal('hide')
+	</script>
 			<div class="card">
 				<div class="card-header" id="headingOne">
 					<h2 class="mb-0 form-row" style="font-size: 20px;">Montos de corte de caja</h2>
 				</div>
 				<div class="card-body">
-				
-				<tr><button th:href="@{listar_cortes/}" class="btn btn-primary" data-toggle="modal" data-target="#modalMonto" value="Agregar" th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
+				<tr>
+				<button class="btn btn-primary" data-toggle="modal" data-target="#modalMonto" value="Agregar" th:disabled="${bloqueo}" style="margin-left:5px; margin-right:5px;">
 							<i class="fas fa-box"></i> Agregar Monto</button></tr>
 							<br></br>
 					<!--Inicia código de tabla-->
 					<div class="col-sm-12">
 						<div class="card mb-3">
-            				<div class="card-header">
-								<div class="table-responsive">
-										<table class="table table-bordered" id="dataTable"
-											style="text-align: center" width="100%" cellspacing="0">
+						<script>
+						submitHandler: function(form) {
+                        $('#successForm').modal('show');
+                        return false;
+                        }
+						});
+						</script>          
+							<div class="card-header">
+									<div class="table-responsive">
+										<table class="table table-bordered" id="dataTable" style="text-align: center" width="100%" cellspacing="0">
 											<thead>
 												<tr class="table-primary">
-													<th>Monto</th>
 													<th>Fecha Inicial</th>
 													<th>Fecha Final</th>
+													<th>Monto</th>
 												</tr>
+												   <tbody style="text-align: center">
 												    <tr th:each="caja_vista: ${vistas}">
 													<td th:text="${caja_vista[0]}"></td>
 													<td th:text="${caja_vista[1]}"></td>
 													<td th:text="${caja_vista[2]}"></td>
 													</tr>
 											</tbody>
-											<thead>
 										</table>
 									<!--Termina código de tabla-->
 								</div>
 							</div>
 						</div>
 					</div>
-	</div>
-						</div>
-					</div>
-
-	<!-- jQuery CDN - Slim version (=without AJAX) -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+			   </div>
+	       </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
 	<!-- Popper.JS -->
@@ -113,81 +129,25 @@
 	<!-- Page level plugin JavaScript-->
 	<script src="vendor/datatables/jquery.dataTables.js"></script>
 	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+	<script  type="text/javascript" th:inline="javascript">
+	$(document).ready(function(){
+	  $('[data-toggle="popover"]').popover({placement: "right",trigger: "hover",html : true});});
 
-	<!-- Page level plugins -->
-	<script src="vendor/chart.js/Chart.min.js"></script>
-
-	<!-- Page level custom scripts -->
-	<script src="js/demo/chart-area-demo.js"></script>
-	<script src="js/demo/chart-pie-demo.js"></script>
-	<script src="js/demo/chart-bar-demo.js"></script>
-
-
-	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#sidebarCollapse').on('click', function() {
 				$('#sidebar').toggleClass('active');
 			});
 		});
-	</script>
 
-	<script type="text/javascript">
-		function post_form(id_form) {
-			document.getElementById(id_form).submit();
-		}
-	</script>
-	<script type="text/javascript">
-		function post_form2(id_form2) {
-			document.getElementById(id_form2).submit();
-		}
-	</script>
-	<script>
-		window.onload = function() {
-			var pos = window.name || 0;
-			window.scrollTo(0, pos);
-		}
-		window.onunload = function() {
-			window.name = self.pageYOffset
-					|| (document.documentElement.scrollTop + document.body.scrollTop);
-		}
-	</script>
-
-	<script>
+	<script type="text/javascript" th:inline="javascript">
 		$(document).ready(function() {
-			$('#example').DataTable({
-				stateSave : true
+			$('[data-toggle="popover"]').popover({
+				placement : "right",
+				trigger : "hover",
+				html : true
 			});
 		});
-		window.onload = function() {
-			var pos = window.name || 0;
-			window.scrollTo(0, pos);
-		}
-		window.onunload = function() {
-			window.name = self.pageYOffset
-					|| (document.documentElement.scrollTop + document.body.scrollTop);
-		}
 	</script>
-	<script>
-		window.onload = function() {
-			var pos = window.name || 0;
-			window.scrollTo(0, pos);
-		}
-		window.onunload = function() {
-			window.name = self.pageYOffset
-					|| (document.documentElement.scrollTop + document.body.scrollTop);
-		}
-	</script>
-	
-	<script>
-		function deshabilitar(id)
-		{
-			
-				document.getElementById( id ).disabled=true;
-				
-				document.getElementById("bac"+id ).disabled=true;
-			
-		}
-		
-	</script>
+
 </body>
 </html>
