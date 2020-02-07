@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bemedica.springboot.app.models.entity.Caja;
 
 @Repository
-
 public class CajaDaoImpl implements ICajaDao {
+	
 	@PersistenceContext
 	private EntityManager em;
 	@Transactional(readOnly =true)
@@ -113,7 +113,6 @@ public class CajaDaoImpl implements ICajaDao {
 			return x;
 		}	
 	}
-	
 	@Override
 	@Transactional
 	public String cierreCajaEfectivo(Long id) {
