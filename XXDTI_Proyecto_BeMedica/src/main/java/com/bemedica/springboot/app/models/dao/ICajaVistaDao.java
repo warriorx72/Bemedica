@@ -13,5 +13,7 @@ public interface ICajaVistaDao {
 	public List<Object []> findAll5(int num1);
 	
 	public List<Object []> findAll4(int num1);
-
+	
+	public List<Object []> findAll7();
+	
 }
