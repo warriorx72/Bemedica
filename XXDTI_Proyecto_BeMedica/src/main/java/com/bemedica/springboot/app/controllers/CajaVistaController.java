@@ -14,9 +14,8 @@ public class CajaVistaController {
 	
 	@Autowired
 	private ICajaVistaDao cajaVistaDao;
-
-@RequestMapping(value="/herramientas_corte", method=RequestMethod.GET)
 	
+@RequestMapping(value="/herramientas_corte", method=RequestMethod.GET)
      public String listar(Model model) {
 		model.addAttribute("titulo1","Formulario catalogo");
 		model.addAttribute("vistas", cajaVistaDao.findAll());
@@ -26,6 +25,7 @@ public class CajaVistaController {
 public String listar2(Model model) {
 	model.addAttribute("vistas", cajaVistaDao.findAll7());
 	return "listar_cortes";
+	
    }
 
 }
