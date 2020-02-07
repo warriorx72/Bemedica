@@ -24,18 +24,17 @@ public class CajaVistaDaoImpl implements ICajaVistaDao {
 	
 	@Transactional(readOnly =true)
 	@SuppressWarnings("unchecked")
+	
 	@Override
 	public List<Object[]> findAll2(int num1) {
 		return em.createNativeQuery("call ReporteCorteCierre("+num1+")").getResultList();
 	}
-
+	
 	@Transactional(readOnly =true)
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object[]> findAll3(int num1) {
-		
 		return em.createNativeQuery("call ultimo_corte("+num1+")").getResultList();
-		
 	}
 
 	@Transactional(readOnly =true)
