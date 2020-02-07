@@ -133,7 +133,6 @@ public class CajaDaoImpl implements ICajaDao {
 		// TODO Auto-generated method stub
 		return Integer.parseInt(em.createNativeQuery("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='caja' AND TABLE_SCHEMA=DATABASE();").getSingleResult().toString());
 	}
-	
 	@Override
 	@Transactional(readOnly =true)
 	public boolean  bloqueoCorte() {
