@@ -207,7 +207,7 @@
 													<td><input th:if="${r.ResultadoCuali==null}"
 														name="ResultadoCuanti"
 														th:placeholder="${r.ResultadoCuanti}" required
-														type="number"> <input
+														type="number"  step="any"> <input
 														th:if="${r.ResultadoCuanti == null}" name="ResultadoCuali"
 														th:placeholder="${r.ResultadoCuali}" required type="text">
 													</td>
@@ -322,14 +322,14 @@
 															<td th:if="${r.ResultadoCuanti == '0.0000'}">
 																
 																<label class="col-form-label-sm mb-0">Negativo</label>
-																<input type="radio"
+																<input type="radio" 
 																required name="ResultadoCuanti" checked
 																th:value="0.0000"
 																th:onclick="'deshabilitar(' + ${r.ResultadoId} + ');'">
 																<br> 
 																<label class="col-form-label-sm mb-0">Positivo &nbsp; </label>
 																<input type="radio" required name="ResultadoCuanti"
-																th:value="1.0000"
+																th:value="0.0000"
 																th:onclick="'habilitar(' + ${r.ResultadoId} + ');'">
 																
 																
@@ -348,7 +348,7 @@
 																<br> 
 																<label class="col-form-label-sm mb-0">Positivo &nbsp; </label>
 																<input type="radio" required name="ResultadoCuanti" checked 
-																th:value="1.0000"
+																th:value="0.0000"
 																th:onclick="'habilitar(' + ${r.ResultadoId} + ');'">
 															</td>
 															
