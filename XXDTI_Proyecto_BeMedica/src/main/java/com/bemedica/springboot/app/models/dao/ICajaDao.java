@@ -21,8 +21,6 @@ public interface ICajaDao {
 	
 	public String findTotalTarjeta(Long id);
 	
-	public String Monto(Long id);
-	
 	public boolean corteTipo();
 	
 	public String cierreCajaEfectivo(Long Id);
@@ -33,7 +31,5 @@ public interface ICajaDao {
 
 	public boolean bloqueoCorte();
 	
-	public void delete(Long id);
 
-	Boolean bloqueaCorte();
 }
