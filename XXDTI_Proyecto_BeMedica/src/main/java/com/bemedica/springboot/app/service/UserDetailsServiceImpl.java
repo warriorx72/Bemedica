@@ -47,7 +47,6 @@ System.out.println(appUser.getUserStatus());
 		}
 		
 		UserDetails user = (UserDetails) new User(username, appUser.getPassword(),grantList);
-		
 		return user;
 	}
 

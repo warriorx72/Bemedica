@@ -47,8 +47,7 @@ public class CajaController {
 	
 	@Autowired
 	private UserService userService;
-		
-	
+
 	@RequestMapping(value = "/herramientas_corte", method = RequestMethod.GET)
 	public String listar(HttpServletRequest request,Model model, Map<String, Object> m) {
 		UserController user = new UserController();
@@ -60,6 +59,7 @@ public class CajaController {
 		model.addAttribute("titulo", "Corte de Caja");
 		model.addAttribute("vista", cajaDao.findAll());
 		model.addAttribute("vistas", cajaVistaDao.findAll(Integer.parseInt(user.UserSucId(request, userService)[1])));
+		
 		m.put("caja", caja);
 		m.put("orden", orden);
 		m.put("cach", cach);
@@ -104,7 +104,6 @@ public class CajaController {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		System.out.println(formatter.format(date));
-		model.addAttribute("vistas", cajaVistaDao.findAll(Integer.parseInt(user.UserSucId(request, userService)[1])));
 		if (cajaDao.corteTipo() == true) {
 			caja.setFechaInicial(formatter.format(date) + " " + "06:00:00");
 		} else {
@@ -114,6 +113,8 @@ public class CajaController {
 		cajaChicaDao.save(cach);
 		m.put("cach", cach);
 		caja.setCorteTipo(false);
+		caja.setIdEmpleado(user.UserSucId(request, userService)[2]);
+		caja.setIdSucursal(user.UserSucId(request, userService)[1]);
 		cajaDao.save(caja);
 		caja.setMontoEfectivo(cajaDao.findTotalEfectivo(caja.getCajaId()));
 		caja.setMontoTarjeta(cajaDao.findTotalTarjeta(caja.getCajaId()));

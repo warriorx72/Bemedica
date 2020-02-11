@@ -134,12 +134,12 @@ public class UserServiceImpl implements UserService {
 		}
 		return loggedUser != null ?true :false;
 	}
-
+                                                        
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public List<Object> emp_suc(String rol,String username){
-	return em.createNativeQuery("select empleado_vista.empleado_id,sucursal.sucursal_id \r\n" + 
+	return em.createNativeQuery("select empleado_vista.empleado_id,sucursal.sucursal_id, user.id \r\n" + 
 			"from user,user_roles,role,empleado_vista,empleados_sucursal,sucursal \r\n" + 
 			"where user.id=user_roles.user_id\r\n" + 
 			"and user_roles.role_id=role.id and \r\n" + 

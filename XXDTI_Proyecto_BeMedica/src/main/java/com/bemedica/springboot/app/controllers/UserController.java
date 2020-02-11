@@ -90,9 +90,10 @@ public class UserController {
 				Object[] hola3=(Object[]) hola[0];
 				String idempleado=hola3[0].toString();
 				String idsucursal=hola3[1].toString();
+				String idusuario=hola3[2].toString();
 			System.out.println(idempleado);	
 			System.out.println(idsucursal);	
-			String[] datos= {idempleado,idsucursal};
+			String[] datos= {idempleado,idsucursal,idusuario};
 		return datos;
 	}
 	

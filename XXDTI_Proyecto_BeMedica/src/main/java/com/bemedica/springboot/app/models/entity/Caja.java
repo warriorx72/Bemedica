@@ -43,6 +43,9 @@ public class Caja implements Serializable{
 	@Column(name="sucursal_id")
 	private String IdSucursal;
 	
+	@Column(name="id")
+	private String IdEmpleado;
+	
 	public String getMontoEfectivo() {
 		return MontoEfectivo;
 	}
@@ -55,8 +58,18 @@ public class Caja implements Serializable{
 	}
 
 	public void setIdSucursal(String idSucursal) {
-		MontoTarjeta =idSucursal;
+		IdSucursal =idSucursal;
 	}
+	
+	public String getIdEmpleado() {
+		return IdEmpleado;
+	}
+
+	public void setIdEmpleado(String idEmpleado) {
+		IdEmpleado =idEmpleado;
+	}
+	
+	
 	public String getMontoTarjeta() {
 		return MontoTarjeta;
 	}
