@@ -50,7 +50,6 @@ public class CajaController {
 		
 	
 	@RequestMapping(value = "/herramientas_corte", method = RequestMethod.GET)
-
 	public String listar(HttpServletRequest request,Model model, Map<String, Object> m) {
 		UserController user = new UserController();
 		Caja caja = new Caja();

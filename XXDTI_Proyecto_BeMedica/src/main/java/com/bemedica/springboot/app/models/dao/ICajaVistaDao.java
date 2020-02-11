@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ICajaVistaDao {
 
-	public List<Object []> findAll();
+	public List<Object []> findAll(int num1);
 	
 	public List<Object []> findAll2(int num1 );
 	
