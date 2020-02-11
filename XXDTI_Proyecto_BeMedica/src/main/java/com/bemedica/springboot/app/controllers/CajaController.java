@@ -31,6 +31,7 @@ import com.bemedica.springboot.app.models.entity.Direccion;
 import com.bemedica.springboot.app.models.entity.Orden;
 import com.bemedica.springboot.app.models.entity.Paciente;
 import com.bemedica.springboot.app.models.entity.Persona;
+import com.bemedica.springboot.app.service.UserService;
 
 @Controller
 @SessionAttributes("caja")
@@ -44,20 +45,22 @@ public class CajaController {
 	@Autowired
 	private ICajaChicaDao cajaChicaDao;
 	
+	@Autowired
+	private UserService userService;
+		
+	
 	@RequestMapping(value = "/herramientas_corte", method = RequestMethod.GET)
-	
-	
-	
 
-	public String listar(Model model, Map<String, Object> m) {
-
+	public String listar(HttpServletRequest request,Model model, Map<String, Object> m) {
+		UserController user = new UserController();
 		Caja caja = new Caja();
 		Orden orden = new Orden();
 		CajaChica cach = new CajaChica();
 		model.addAttribute("titulo", "Condiciones paciente");
+		System.out.println("aaaaaaaaaa "+user.UserSucId(request, userService)[1]);
 		model.addAttribute("titulo", "Corte de Caja");
 		model.addAttribute("vista", cajaDao.findAll());
-		model.addAttribute("vistas", cajaVistaDao.findAll());
+		model.addAttribute("vistas", cajaVistaDao.findAll(Integer.parseInt(user.UserSucId(request, userService)[1])));
 		m.put("caja", caja);
 		m.put("orden", orden);
 		m.put("cach", cach);
@@ -78,14 +81,15 @@ public class CajaController {
 		return "listar_cortes";
 	}
 	
-	public String lista(Model model, Map<String, Object> m) {
+	public String lista(HttpServletRequest request, Model model, Map<String, Object> m) {
+		UserController user = new UserController();
 		Caja caja = new Caja();
 		Orden orden = new Orden();
 		CajaChica cach = new CajaChica();
 		model.addAttribute("titulo", "Condiciones paciente");
 		model.addAttribute("titulo", "Corte de Caja");
 		model.addAttribute("vista", cajaDao.findAll());
-		model.addAttribute("vistas", cajaVistaDao.findAll());
+		model.addAttribute("vistas", cajaVistaDao.findAll(Integer.parseInt(user.UserSucId(request, userService)[1])));
 		m.put("caja", caja);
 		m.put("orden", orden);
 		m.put("cach", cach);
@@ -95,11 +99,13 @@ public class CajaController {
 	}
 	
 	@RequestMapping(value = "/corte", method = RequestMethod.POST)
-	public String guardar(@Valid Caja caja, @Valid CajaChica cach, Model model, SessionStatus status,
+	public String guardar(HttpServletRequest request, @Valid Caja caja, @Valid CajaChica cach, Model model, SessionStatus status,
 			Map<String, Object> m) {
+		UserController user = new UserController();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		System.out.println(formatter.format(date));
+		model.addAttribute("vistas", cajaVistaDao.findAll(Integer.parseInt(user.UserSucId(request, userService)[1])));
 		if (cajaDao.corteTipo() == true) {
 			caja.setFechaInicial(formatter.format(date) + " " + "06:00:00");
 		} else {

@@ -253,6 +253,7 @@ us.UserSucId(request,userService);
 ///System.out.println(hola[0]);
 String id_empleado=us.UserSucId(request, userService)[0];
 String id_sucursal=us.UserSucId(request, userService)[1];
+System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 ///System.out.println("holamundo"+us.UserSucId(request,userService)[0]);
 	
 	

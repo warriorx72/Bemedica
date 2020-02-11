@@ -18,8 +18,8 @@ public class CajaVistaDaoImpl implements ICajaVistaDao {
 	@Transactional(readOnly =true)
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Object []> findAll() {
-	return em.createNativeQuery("call CorteCierre").getResultList();
+	public List<Object []> findAll(int num1) {
+		return em.createNativeQuery("call CorteCierre("+num1+")").getResultList();
 	}
 	
 	@Transactional(readOnly =true)
@@ -50,7 +50,7 @@ public class CajaVistaDaoImpl implements ICajaVistaDao {
 	public List<Object[]> findAll5(int num1) {
 	
 		return em.createNativeQuery("call TotalEfecTarje("+num1+")").getResultList();	
-	}
+	}	
 	
 	@Transactional(readOnly =true)
 	@SuppressWarnings("unchecked")

@@ -18,7 +18,6 @@ public class Caja implements Serializable{
 	@Column(name="caja_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long CajaId;
-
 	
 	@Column(name="fecha_inicial")	
 	private String FechaInicial;
@@ -41,14 +40,23 @@ public class Caja implements Serializable{
 	@Column(name="corte_tipo")
 	private boolean CorteTipo;	
 	
+	@Column(name="sucursal_id")
+	private String IdSucursal;
+	
 	public String getMontoEfectivo() {
 		return MontoEfectivo;
 	}
-
+	
 	public void setMontoEfectivo(String montoEfectivo) {
 		MontoEfectivo = montoEfectivo;
 	}
+	public String getIdSucursal() {
+		return IdSucursal;
+	}
 
+	public void setIdSucursal(String idSucursal) {
+		MontoTarjeta =idSucursal;
+	}
 	public String getMontoTarjeta() {
 		return MontoTarjeta;
 	}
@@ -68,10 +76,11 @@ public class Caja implements Serializable{
 	public String getDescripcionCaja() {
 		return DescripcionCaja;
 	}
-
+	
 	public void setDescripcionCaja(String descripcionCaja) {
 		DescripcionCaja = descripcionCaja;
 	}
+
 
 	public boolean isCorteTipo() {
 		return CorteTipo;
@@ -100,7 +109,7 @@ public class Caja implements Serializable{
 	public String getFechaFinal() {
 		return FechaFinal;
 	}
-
+	
 	public void setFechaFinal(String fechaFinal) {
 		FechaFinal = fechaFinal;
 	}
@@ -111,5 +120,9 @@ public class Caja implements Serializable{
     public void setcancelar_monto(Long cajaId) {
 		
 	}
+    
+    public void setlistar() {
+    	
+    }
 
 }
