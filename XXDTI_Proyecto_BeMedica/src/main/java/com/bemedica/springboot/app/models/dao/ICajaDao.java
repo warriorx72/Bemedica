@@ -5,13 +5,13 @@ import com.bemedica.springboot.app.models.entity.Caja;
 
 public interface ICajaDao {
 
-	List<Caja> findAll();
+	List<Caja> findAll(int num1);
 	
 	public void save(Caja caja); 
 	
 	public Caja findOne(Long CajaId);
 	
-	public String findLastCajaId();
+	public String findLastCajaId(Long id);
 	
 	public String caja (Long id);
 	
@@ -21,7 +21,7 @@ public interface ICajaDao {
 	
 	public String findTotalTarjeta(Long id);
 	
-	public boolean corteTipo();
+	public boolean corteTipo(Long id);
 	
 	public String cierreCajaEfectivo(Long Id);
 	
@@ -29,7 +29,7 @@ public interface ICajaDao {
 	
 	public Integer Autoincrement(Long Id);
 
-	public boolean bloqueoCorte();
+	public boolean bloqueoCorte(Long id);
 	
 
 }

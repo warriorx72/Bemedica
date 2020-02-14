@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.bemedica.springboot.app.models.dao.CajaDaoImpl;
 import com.bemedica.springboot.app.models.dao.ICajaChicaDao;
 import com.bemedica.springboot.app.models.dao.ICajaDao;
 import com.bemedica.springboot.app.models.dao.ICajaVistaDao;
@@ -57,14 +58,14 @@ public class CajaController {
 		model.addAttribute("titulo", "Condiciones paciente");
 		System.out.println("aaaaaaaaaa "+user.UserSucId(request, userService)[1]);
 		model.addAttribute("titulo", "Corte de Caja");
-		model.addAttribute("vista", cajaDao.findAll());
 		model.addAttribute("vistas", cajaVistaDao.findAll(Integer.parseInt(user.UserSucId(request, userService)[1])));
-		
+		model.addAttribute("vista", cajaVistaDao.findAll(Integer.parseInt(user.UserSucId(request, userService)[2])));
+
+		cajaVistaDao.findAll(Integer.parseInt(user.UserSucId(request, userService)[2]));
 		m.put("caja", caja);
 		m.put("orden", orden);
 		m.put("cach", cach);
-		bloquear(model);
-		cajaDao.findAll();
+		bloquear(request, model);
 		return "herramientas_corte";
 	}
 	
@@ -76,6 +77,7 @@ public class CajaController {
 		m.put("cach",cach);
 		model.addAttribute("vistas", cajaVistaDao.findAll7());
 		cach.setCajaId(cajaChicaDao.findAiCaja());
+		
 	
 		return "listar_cortes";
 	}
@@ -87,13 +89,14 @@ public class CajaController {
 		CajaChica cach = new CajaChica();
 		model.addAttribute("titulo", "Condiciones paciente");
 		model.addAttribute("titulo", "Corte de Caja");
-		model.addAttribute("vista", cajaDao.findAll());
 		model.addAttribute("vistas", cajaVistaDao.findAll(Integer.parseInt(user.UserSucId(request, userService)[1])));
+		model.addAttribute("vista", cajaVistaDao.findAll(Integer.parseInt(user.UserSucId(request, userService)[2])));
+
+		cajaVistaDao.findAll(Integer.parseInt(user.UserSucId(request, userService)[2]));
 		m.put("caja", caja);
 		m.put("orden", orden);
 		m.put("cach", cach);
-		bloquear(model);
-		cajaDao.findAll();
+		bloquear(request, model);
 		return "herramientas_corte";
 	}
 	
@@ -104,10 +107,10 @@ public class CajaController {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		System.out.println(formatter.format(date));
-		if (cajaDao.corteTipo() == true) {
+		if (cajaDao.corteTipo(Long.parseLong(user.UserSucId(request, userService)[1])) == true) {
 			caja.setFechaInicial(formatter.format(date) + " " + "06:00:00");
 		} else {
-			caja.setFechaInicial(cajaDao.findLastCajaId());
+			caja.setFechaInicial(cajaDao.findLastCajaId(Long.parseLong(user.UserSucId(request, userService)[1])));
 		}
 		cach.setCajaId(cajaChicaDao.findAiCaja());
 		cajaChicaDao.save(cach);
@@ -126,8 +129,10 @@ public class CajaController {
 		return "redirect:/herramientas_corte";
 	}
 	@RequestMapping(value = "/cierre", method = RequestMethod.POST)
-	public String guardar2(@Valid Caja caja, BindingResult result, Model model, SessionStatus status,
+	public String guardar2(HttpServletRequest request, @Valid Caja caja, BindingResult result, Model model, SessionStatus status,
 			Map<String, Object> me) {
+		
+		UserController user = new UserController();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		Caja cierre = new Caja();
@@ -144,12 +149,15 @@ public class CajaController {
 		tempDate = cal.getTime();
 		System.out.println("Hora modificada:" + tempDate);
 
-		String auxs = cajaDao.findLastCajaId();
+		String auxs = cajaDao.findLastCajaId(Long.parseLong(user.UserSucId(request, userService)[1]));
 		System.out.print("hola" + auxs);
 		cierre.setMontoContado("0");
 		cierre.setFechaInicial(formatter.format(date) + " " + "06:00:00");
 		cierre.setCorteTipo(true);
+		cierre.setIdEmpleado(user.UserSucId(request, userService)[0]);
+		cierre.setIdSucursal(user.UserSucId(request, userService)[1]);
 		cajaDao.save(cierre);
+		
 		cierre.setMontoEfectivo(cajaDao.cierreCajaEfectivo(cierre.getCajaId()));
 		cierre.setMontoTarjeta(cajaDao.cierreCajaTarjeta(cierre.getCajaId()));
 		cajaDao.save(cierre);
@@ -172,8 +180,9 @@ public class CajaController {
 	}
 	
 	
-	private void bloquear(Model model) {
-		if(cajaDao.bloqueoCorte()) {
+	private void bloquear(HttpServletRequest request, Model model) {
+		UserController user = new UserController();
+		if(cajaDao.bloqueoCorte(Long.parseLong(user.UserSucId(request, userService)[1]))) {
 			model.addAttribute("bloqueo","disabled");
 		}
 		else {

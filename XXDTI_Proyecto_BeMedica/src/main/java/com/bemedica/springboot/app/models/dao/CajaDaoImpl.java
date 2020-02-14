@@ -25,7 +25,7 @@ public class CajaDaoImpl implements ICajaDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	
-	public List<Caja> findAll() {
+	public List<Caja> findAll(int num1) {
 	return em.createQuery("From Caja").getResultList();
 	}
 	   
@@ -49,13 +49,14 @@ public class CajaDaoImpl implements ICajaDao {
     //-----------------------------
 	@Override
 	@Transactional
-	public String findLastCajaId() {
+	public String findLastCajaId(Long id) {
 		 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		// TODO Auto-generated method stub
-		String auxs = em.createQuery ("SELECT MAX(CajaId) FROM Caja").getSingleResult().toString();
+		String auxs = em.createNativeQuery("SELECT fecha_final FROM caja \r\n" + 
+				"WHERE caja_id = (SELECT MAX(caja_id) FROM caja \r\n" + 
+				"	WHERE sucursal_id ="+id+")").getSingleResult().toString();
 		
-		String auxs1 = em.createQuery ("SELECT FechaFinal FROM Caja where CajaId="+auxs+"").getSingleResult().toString();
-		return auxs1 ;
+		return auxs ;
 	}		
 	@Transactional(readOnly=true)
 	@Override	
@@ -101,8 +102,24 @@ public class CajaDaoImpl implements ICajaDao {
 
 	@Override
 	@Transactional
-	public boolean corteTipo() {
-		String tipo =(em.createNativeQuery ("SELECT IFNULL((SELECT IFNULL((SELECT corte_tipo FROM caja WHERE fecha_final = (SELECT MAX(fecha_final) FROM caja) AND corte_tipo = 1 ORDER BY caja_id DESC),(SELECT corte_tipo FROM caja WHERE fecha_final = (SELECT MAX(fecha_final) FROM caja) AND corte_tipo = 0 ORDER BY caja_id DESC))),1)").getSingleResult().toString());
+	public boolean corteTipo(Long id) {
+		String tipo =(em.createNativeQuery ("SELECT IFNULL(\r\n" + 
+				"	(SELECT IFNULL(\r\n" + 
+				"		(SELECT corte_tipo FROM caja \r\n" + 
+				"				WHERE fecha_final = ( SELECT fecha_final FROM caja \r\n" + 
+				"				WHERE caja_id = (SELECT MAX(caja_id) FROM caja \r\n" + 
+				"				WHERE sucursal_id ="+id+")) \r\n" + 
+				"					AND corte_tipo = 1\r\n" + 
+				"				ORDER BY\r\n" + 
+				"					caja_id DESC),\r\n" + 
+				"				(SELECT corte_tipo \r\n" + 
+				"				FROM caja \r\n" + 
+				"				WHERE fecha_final = (SELECT fecha_final FROM caja \r\n" + 
+				"				WHERE caja_id = (SELECT MAX(caja_id) FROM caja \r\n" + 
+				"				WHERE sucursal_id = "+id+")) \r\n" + 
+				"					AND corte_tipo = 0 \r\n" + 
+				"				ORDER BY\r\n" + 
+				"					caja_id DESC ))), 1)").getSingleResult().toString());
 		boolean x;
 		if(tipo.equals("1")) {
 			x=true;
@@ -135,9 +152,9 @@ public class CajaDaoImpl implements ICajaDao {
 	}
 	@Override
 	@Transactional(readOnly =true)
-	public boolean  bloqueoCorte() {
+	public boolean  bloqueoCorte(Long id) {
 		// TODO Auto-generated method stub
-		 boolean cierre=(Integer.parseInt(em.createNativeQuery(" call bloqueo_Corte()").getSingleResult().toString())==1);	
+		 boolean cierre=(Integer.parseInt(em.createNativeQuery(" call bloqueo_Corte("+id+")").getSingleResult().toString())==1);	
 		return  cierre;	
 	}
 	

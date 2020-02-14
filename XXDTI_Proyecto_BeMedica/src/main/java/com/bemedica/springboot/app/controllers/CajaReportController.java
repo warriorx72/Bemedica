@@ -221,7 +221,7 @@ public class CajaReportController {
 		List<Object[]> rp = cajaVistaDao.findAll2(num1);
 		List<Object[]> fc = cajaVistaDao.findAll4(num1);
 		List<Object[]> uc = cajaVistaDao.findAll3(num1);
-		List<Object[]> re = cajaVistaDao.findAll(); //para hacer el reporte
+		List<Object[]> re = cajaVistaDao.findAll(num1); //para hacer el reporte
 		
 		Paragraph p = new Paragraph("\n\n");
 		PdfPCell celda1 = new PdfPCell(p);
