@@ -76,9 +76,6 @@ public class CajaController {
 		m.put("caja", caja);
 		m.put("cach",cach);
 		model.addAttribute("vistas", cajaVistaDao.findAll7());
-		cach.setCajaId(cajaChicaDao.findAiCaja());
-		
-	
 		return "listar_cortes";
 	}
 	
@@ -110,9 +107,9 @@ public class CajaController {
 		if (cajaDao.corteTipo(Long.parseLong(user.UserSucId(request, userService)[1])) == true) {
 			caja.setFechaInicial(formatter.format(date) + " " + "06:00:00");
 		} else {
-			caja.setFechaInicial(cajaDao.findLastCajaId(Long.parseLong(user.UserSucId(request, userService)[1])));
+			caja.setFechaInicial(cajaDao.findLastCajaId(Long.parseLong(user.UserSucId(request, userService)[1]))); 
+			
 		}
-		cach.setCajaId(cajaChicaDao.findAiCaja());
 		cajaChicaDao.save(cach);
 		m.put("cach", cach);
 		caja.setCorteTipo(false);
@@ -122,12 +119,12 @@ public class CajaController {
 		caja.setMontoEfectivo(cajaDao.findTotalEfectivo(caja.getCajaId()));
 		caja.setMontoTarjeta(cajaDao.findTotalTarjeta(caja.getCajaId()));
 		cajaDao.save(caja);
-		cach.setCajaId(cajaChicaDao.findAiCaja());
 		cajaChicaDao.save(cach);
 		m.put("cach", cach);	
 		m.put("caja", caja);
 		return "redirect:/herramientas_corte";
 	}
+	
 	@RequestMapping(value = "/cierre", method = RequestMethod.POST)
 	public String guardar2(HttpServletRequest request, @Valid Caja caja, BindingResult result, Model model, SessionStatus status,
 			Map<String, Object> me) {
@@ -164,21 +161,22 @@ public class CajaController {
 		return "redirect:/herramientas_corte";
 	}
 	
-	@RequestMapping(value = "/caja_chica", method = RequestMethod.POST)
-	public String cajaChica(@Valid CajaChica cach, Model model, Map<String, Object> m) {
-		cach.setCajaId(cajaChicaDao.findAiCaja());
+	@RequestMapping( value = "/caja_chica", method = RequestMethod.POST)
+	public String cajaChica(HttpServletRequest request, @Valid CajaChica cach, Model model, Map<String, Object> m) {
+		UserController user = new UserController();
+		cach.setIdSucursal(user.UserSucId(request, userService)[0]);
 		cajaChicaDao.save(cach);
 		m.put("cach", cach);
 		return "redirect:/herramientas_corte";
 	}
 	@RequestMapping(value = "/caja_chica2", method = RequestMethod.POST)
-	public String cajaChica2(@Valid CajaChica cach, Model model, Map<String, Object> m) {
-		cach.setCajaId(cajaChicaDao.findAiCaja());
+	public String cajaChica2(HttpServletRequest request, @Valid CajaChica cach, Model model, Map<String, Object> m) {
+		UserController user = new UserController();
+		cach.setIdSucursal(user.UserSucId(request, userService)[0]);
 		cajaChicaDao.save(cach);
 		m.put("cach", cach);
 		return "redirect:/listar_cortes";
 	}
-	
 	
 	private void bloquear(HttpServletRequest request, Model model) {
 		UserController user = new UserController();

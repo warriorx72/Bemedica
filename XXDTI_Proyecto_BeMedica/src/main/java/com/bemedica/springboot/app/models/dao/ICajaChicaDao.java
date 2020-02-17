@@ -8,8 +8,6 @@ public interface ICajaChicaDao {
 	
 	public List<CajaChica> findAll();	
 	
-	public String findAiCaja();
-	
 	public void save (CajaChica cajaChica);
 	
 	public CajaChica findOne (Long id );

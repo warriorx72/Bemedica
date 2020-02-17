@@ -84,9 +84,7 @@ public class UserController {
 
 		Object[] hola=userService.emp_suc(words.get(30), request.getUserPrincipal().getName()).toArray();
 		///System.out.println(hola[0]);
-		System.out.println();
-			
-			
+		System.out.println();			
 				Object[] hola3=(Object[]) hola[0];
 				String idempleado=hola3[0].toString();
 				String idsucursal=hola3[1].toString();

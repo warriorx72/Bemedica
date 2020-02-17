@@ -296,7 +296,6 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 			model.addAttribute("coti", "disabled");
 		}
 		else model.addAttribute("coti", "false");
-		
 		return "operaciones_recepcion";
 
 	}
@@ -306,8 +305,7 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 		return "PacienteController [vistaordenestudioDao=" + vistaordenestudioDao + "]";
 	}
 	
-	public void Mostrar(Long id,Model model) {
-		
+	public void Mostrar(Long id,Model model) {	
 		model.addAttribute("pacientes", vistapacienteDao.findAll());
 		model.addAttribute("medicos", vistamedicoDao.findAll());
 		model.addAttribute("estudios", estudioDao.findBy());

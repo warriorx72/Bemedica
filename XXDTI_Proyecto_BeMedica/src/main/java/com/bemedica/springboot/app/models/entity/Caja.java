@@ -43,7 +43,7 @@ public class Caja implements Serializable{
 	@Column(name="sucursal_id")
 	private String IdSucursal;
 	
-	@Column(name="empleado_id")
+	@Column(name="id")
 	private String IdEmpleado;
 	
 	public String getMontoEfectivo() {

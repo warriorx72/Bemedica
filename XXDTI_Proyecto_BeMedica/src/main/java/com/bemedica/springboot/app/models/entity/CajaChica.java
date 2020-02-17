@@ -20,9 +20,12 @@ public class CajaChica implements Serializable{
 	
 	@Column(name="caja_chica_monto")	
 	private String CajaChicaMonto;
-
-	@Column(name="caja_id")
-	private String CajaId;
+	
+	@Column(name="caja_chica_fecha")	
+	private String CajaChicaFecha;
+	
+	@Column(name="sucursal_id")	
+	private String IdSucursal;
 
 	public Long getCajaChicaId() {
 		return CajaChicaId;
@@ -39,14 +42,24 @@ public class CajaChica implements Serializable{
 	public void setCajaChicaMonto(String cajaChicaMonto) {
 		CajaChicaMonto = cajaChicaMonto;
 	}
+	
 
-	public String getCajaId() {
-		return CajaId;
+	public String getCajaChicaFecha() {
+		return CajaChicaFecha;
 	}
 
-	public void setCajaId(String cajaId) {
-		CajaId = cajaId;
+	public void setCajaChicaFecha(String cajaChicaFecha) {
+		CajaChicaFecha = cajaChicaFecha;
 	}
 	
 	
+	public String getIdSucursal() {
+		return IdSucursal;
+	}
+
+	public void setIdSucursal(String idSucursal) {
+		IdSucursal =idSucursal;
+	}
+
+
 }
