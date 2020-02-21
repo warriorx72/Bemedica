@@ -112,6 +112,7 @@ public class ReportesController {
 		
 		//Bloquea la primera columna del excel
 		sheet.createFreezePane(1, 0);
+		
 
 	//-----------------------------------///Dar color y formato a tabla de excel///---------------------------------
 		 
@@ -120,6 +121,7 @@ public class ReportesController {
 		int i = 1;
 //Crear los días en texto
 		Row fila = sheet.createRow(0);
+		sheet.createFreezePane(0, 1);
 		fila.setHeight((short)400);
 		Cell celda = fila.createCell(0);
 		celda.setCellValue("Ingresos Acumulados");
@@ -145,6 +147,7 @@ public class ReportesController {
 //Crear los titulos (Fechas)
 		List<Object[]> rp = ReporteDao.estudios_ventas(fi, ff, 2l);	
 		fila = sheet.createRow(1);
+		sheet.createFreezePane(1, 2);
 		i=1;
 		celda = fila.createCell(0);
 		celda.setCellValue("nombre_sucursal");
@@ -156,6 +159,7 @@ public class ReportesController {
 			celda.setCellStyle(styleFecha);
 			sheet.setColumnWidth(i, 4500);
 			i++;
+			
 		}
 		
 //Crear el número de filas
