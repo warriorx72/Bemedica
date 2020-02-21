@@ -54,6 +54,21 @@ public class Resultados implements Serializable{
 	@Column(name="antibiograma_id")
 	private Long AntiIdR; 
 		
+	
+	@Column(name="user_id")
+	private Long user_id; 
+		
+	
+	
+	
+	public Long getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
+	}
+
 	public Boolean getImpresion() {
 		return Impresion;
 	}

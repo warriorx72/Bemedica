@@ -42,4 +42,6 @@ public interface IResultados {
 	
 	public List<Resultados> findAllCultivo( Long id );
 
+	public String NombreVal(Long id);
+
 }

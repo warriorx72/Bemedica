@@ -27,6 +27,7 @@ import com.bemedica.springboot.app.models.dao.IResultados;
 import com.bemedica.springboot.app.models.dao.IResultadosAntiDao;
 import com.bemedica.springboot.app.models.entity.Resultados;
 import com.bemedica.springboot.app.models.entity.ResultadosAnti;
+import com.bemedica.springboot.app.service.UserService;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -56,6 +57,13 @@ public class ResultadosController {
 	
 	@Autowired
 	private ServletContext context;
+	
+	
+	
+	@Autowired
+    UserService userService;
+	
+	
 
 	String nombrepdf;
 
@@ -88,7 +96,7 @@ public class ResultadosController {
 	}
 
 	@RequestMapping(value = "/guardar_resultado_linea/{id}/{lo}", method = RequestMethod.POST)
-	public String guardar(@PathVariable(value = "id") Long id, @PathVariable(value = "lo") Long lo,
+	public String guardar(@PathVariable(value = "id") Long id, @PathVariable(value = "lo") Long lo,  HttpServletRequest request,
 			@Valid Resultados resultado, Map<String, Object> model, Model m) {
 		m.addAttribute("id", id);
 		// count = (request.getParameter("counter") == null) ? 0 :
@@ -97,6 +105,16 @@ public class ResultadosController {
 		Long auxLineas = resultado.getOrdenEstudioId();
 		int i = 0;
 		resultado.setImpresion(true);
+		
+		
+		
+		
+		UserController user = new UserController();
+	
+
+		resultado.setUser_id(Long.parseLong(user.UserSucId(request, userService)[2]));
+		
+		
 		ResultadosDao.save(resultado);
 
 		List<String> aux = ResultadosDao.ValidarLinea(auxLineas);
@@ -124,7 +142,7 @@ public class ResultadosController {
 	
 	
 	@RequestMapping(value = "/guardar_resultado_linea_cultivo/{id}/{lo}", method = RequestMethod.POST)
-	public String guardarCultivos(
+	public String guardarCultivos(HttpServletRequest request,
 			@PathVariable(value = "id") Long id, @PathVariable(value = "lo") Long lo,@Valid Resultados resultado, Map<String, Object> model, Model m, @RequestParam(value = "antibiograma", defaultValue="0") Long anti){
 		
 		if (resultado.getResultadoCuanti().equals("0.0000")) {
@@ -135,6 +153,16 @@ public class ResultadosController {
 			resultado.setImpresion(true);
 			resultado.setResultadoCuali("Negativo");
 			resultado.setAntiIdR(null);
+			
+
+			UserController user = new UserController();
+		
+
+			
+			resultado.setUser_id(Long.parseLong(user.UserSucId(request, userService)[2]));
+			
+			
+			
 			ResultadosDao.save(resultado);
 
 			List<String> aux = ResultadosDao.ValidarLinea(auxLineas);
@@ -152,7 +180,9 @@ public class ResultadosController {
 	
 		}
 		if (resultado.getResultadoCuanti().equals("1.0000")) {
+			UserController user5 = new UserController();
 			
+			resultado.setUser_id(Long.parseLong(user5.UserSucId(request, userService)[2]));
 			
 			m.addAttribute("id", id);
 			resultado.setValidacion("1");
@@ -160,6 +190,10 @@ public class ResultadosController {
 			int i = 0;
 			resultado.setImpresion(true);
 			resultado.setAntiIdR(anti);
+			
+			
+			
+			
 			ResultadosDao.save(resultado);
 
 			List<String> aux = ResultadosDao.ValidarLinea(auxLineas);
@@ -225,6 +259,7 @@ public class ResultadosController {
 	
 	@RequestMapping(value = "/guardar_resultado_linea_cultivo_anti/{id}/{lo}", method = RequestMethod.POST)
 	public String guardarCultivos_Anti(
+		
 			@PathVariable(value = "id") Long id, 
 			@PathVariable(value = "lo") Long lo,
 			@Valid ResultadosAnti resultado, 
@@ -232,6 +267,9 @@ public class ResultadosController {
 			Model m){
 		
 			m.addAttribute("id", id);
+			
+			
+		
 			
 
 			ResultadosAntiDao.save(resultado);
@@ -478,10 +516,8 @@ public class ResultadosController {
 
 	public void pdf(HttpServletRequest request, Long id, String fullPath)
 			throws FileNotFoundException, DocumentException {
-
 		// String fullPath = request.getServletContext().getRealPath("/" + "Resultado" +
 		// ".pdf");
-
 		Font fuen_1 = new Font(FontFamily.HELVETICA, 9.0f, Font.BOLD, BaseColor.BLACK);
 
 		Font fuen_2 = new Font(FontFamily.HELVETICA, 9.0f, Font.NORMAL, BaseColor.BLACK);
@@ -501,6 +537,7 @@ public class ResultadosController {
 		String folio = null;
 		String edad = null;
 		String sexo = null;
+		String x=null;
 		List<Object[]> paciente = ResultadosDao.PacienteOrden(id);
 
 		for (Object[] p : paciente) {
@@ -575,14 +612,10 @@ public class ResultadosController {
 		//esp.disableBorderSide(Rectangle.BOX);
 		esp.setBorder(Rectangle.BOTTOM);
 		esp.setExtraParagraphSpace(5f);
-
 		tableR.addCell(ce);
 		tableR.addCell(cr);
 		tableR.addCell(esp);
 		tableR.addCell(cvr);
-
-	
-		
 
 		List<Object[]> LineasOrdenes = ResultadosDao.LineasOrden(id);
 		for (Object[] lo : LineasOrdenes) {
@@ -600,9 +633,11 @@ public class ResultadosController {
 
 			if (lo[8].toString().equals("estudio")) {
 				List<Object[]> estudio = ResultadosDao.Resultados((Long.valueOf(lo[4].toString())), (Long.valueOf(lo[7].toString())));
+				
 				for (Object[] e : estudio) {
 					String Valor = "";
-
+					System.out.println("Entra a la nueva prueba");
+					x="hola";
 					if (!e[7].equals(" ")) {
 						Valor = Valor + e[7].toString() + "\n";
 					}
@@ -657,9 +692,15 @@ public class ResultadosController {
 					cvr.setHorizontalAlignment(Element.ALIGN_LEFT);
 					cvr.disableBorderSide(Rectangle.BOX);
 					cvr.setExtraParagraphSpace(1.5f);
+					
+					
+					
 
-					Paragraph Validacion = new Paragraph("Estudio(s) validado por: Q.F.B: El doctor Chapatín",
-							fuen_validacion);
+					Paragraph Validacion = new Paragraph("Estudio(s) validado por:"
+							
+							
+							+ResultadosDao.NombreVal(Long.parseLong(e[14].toString()))
+							,fuen_validacion);
 
 					PdfPCell cell = new PdfPCell(Comentario);
 
@@ -689,7 +730,9 @@ public class ResultadosController {
 				List<Object[]> perfil = ResultadosDao.Perfil((Long.valueOf(lo[7].toString())));
 				String auxComentario = "";
 				int contador=0;	
+			
 				for (Object[] aux : perfil) {
+					
 					
 				
 					if ( aux[3].toString().equals("estudio")){
@@ -700,7 +743,10 @@ public class ResultadosController {
 					
 					for (Object[] e : estudio) {
 						contador++;
+					
+						x=ResultadosDao.NombreVal(Long.parseLong(e[14].toString()));
 						
+						System.out.println("xcxcxcxcxcx"+x);
 						perfilTitulo = new Paragraph(lo[3].toString(), fuen_1);
 						perfilTituloR = new Paragraph("");
 						perfilTituloE = new Paragraph("  ");
@@ -919,10 +965,6 @@ public class ResultadosController {
 									cvr.setHorizontalAlignment(Element.ALIGN_LEFT);
 									cvr.disableBorderSide(Rectangle.BOX);
 									cvr.setExtraParagraphSpace(1.5f);
-
-									
-									
-
 									tableR.addCell(ce);
 									tableR.addCell(cr);
 									tableR.addCell(esp);
@@ -930,19 +972,37 @@ public class ResultadosController {
 									
 								}
 							}
-
 							
-							
+						
 						}
-					}//ee
-				}
+							
+						
+						}
+					
+					
+					
+			
+					
+					}
+				
+				
+				
+				
 				
 				esp = new PdfPCell(Espacio);
 				esp.setHorizontalAlignment(Element.ALIGN_RIGHT);
 				esp.disableBorderSide(Rectangle.BOX);
 				esp.setExtraParagraphSpace(1.5f);
+			
 				
-				Paragraph Validacion = new Paragraph("   Estudio(s) validado por: Q.F.B: El doctor Chapatín",fuen_validacion);
+				
+				
+				Paragraph Validacion = new Paragraph("Estudio(s) validado por:"+x
+						,fuen_validacion);
+				
+			
+				
+				
 				PdfPCell cell_validacion = new  PdfPCell(Validacion);
 				
 				Paragraph Comentario;
@@ -970,8 +1030,13 @@ public class ResultadosController {
 				tableR.addCell(esp);
 				tableR.addCell(esp);
 				tableR.addCell(esp);
+				}
+			
+			
 				
-			}
+				
+				
+				
 			if (lo[8].toString().equals("paquete")) {
 		
 				int contadorTitulo=0;
@@ -1070,8 +1135,11 @@ public class ResultadosController {
 							cvr.disableBorderSide(Rectangle.BOX);
 							cvr.setExtraParagraphSpace(1.5f);
 
-							Paragraph Validacion = new Paragraph(
-									"   Estudio(s) validado por: Q.F.B: El doctor Chapatín", fuen_validacion);
+							Paragraph Validacion = new Paragraph("Estudio(s) validado por:"
+									
+									
+							+ResultadosDao.NombreVal(Long.parseLong(e[14].toString()))
+							,fuen_validacion);
 							PdfPCell cell = new PdfPCell(Comentario);
 							PdfPCell cell2 = new PdfPCell(Validacion);
 
@@ -1290,10 +1358,6 @@ public class ResultadosController {
 									Resultado = new Paragraph(e[1].toString(), fuen_2);
 									Espacio = new Paragraph("  ");
 									VR = new Paragraph(Valor, fuen_2);
-									
-
-								
-
 									ce = new PdfPCell(Estudio);
 									cr = new PdfPCell(Resultado);
 									esp = new PdfPCell(Espacio);
@@ -1332,10 +1396,6 @@ public class ResultadosController {
 										Resultado = new Paragraph("", fuen_2);
 										Espacio = new Paragraph("  ");
 										VR = new Paragraph(Valor, fuen_2);
-										
-
-									
-
 										ce = new PdfPCell(Estudio);
 										cr = new PdfPCell(Resultado);
 										esp = new PdfPCell(Espacio);
@@ -1369,10 +1429,6 @@ public class ResultadosController {
 											Resultado = new Paragraph(a[1].toString(), fuen_2);
 											Espacio = new Paragraph("  ");
 											VR = new Paragraph("", fuen_2);
-										
-
-										
-
 											ce = new PdfPCell(Estudio);
 											cr = new PdfPCell(Resultado);
 											esp = new PdfPCell(Espacio);
@@ -1404,17 +1460,30 @@ public class ResultadosController {
 											
 										}
 									}
+									
+									
+								
 
 									
 									
 								}
 							}
+							
+							
 						}
+						
+						
+						
 						Paragraph Comentario;
 						
 						if (contadoraux >= 1) {
-						Paragraph Validacion = new Paragraph("     Estudio(s) validado por: Q.F.B: El doctor Chapatín",
-								fuen_validacion);
+							
+						
+
+                       Paragraph Validacion = new Paragraph("Estudio(s) validado por:"
+                     +x ,fuen_validacion);
+						
+						
 						if( auxComentario2 == null || auxComentario2 =="") {
 							Comentario= new Paragraph("");
 							}
@@ -1454,6 +1523,7 @@ public class ResultadosController {
 						
 						
 						}
+					
 
 					} // llave del else de if para verificar que no perfil
 					
@@ -1493,8 +1563,11 @@ public class ResultadosController {
 							cvr.disableBorderSide(Rectangle.BOX);
 							cvr.setExtraParagraphSpace(1.5f);
 
-							Paragraph Validacion = new Paragraph("Estudio(s) validado por: Q.F.B: El doctor Chapatín",
-									fuen_validacion);
+							Paragraph Validacion = new Paragraph("Estudio(s) validado por:"
+									
+									
+							+ResultadosDao.NombreVal(Long.parseLong(e[14].toString()))
+							,fuen_validacion);
 
 							PdfPCell cell = new PdfPCell(Comentario);
 
@@ -1623,9 +1696,7 @@ public class ResultadosController {
 
 				} // llave de la consulta de pauete
 
-			} // llave de la condición de la paquete
-			
-			
+			} // llave de la condición de la paquete			
 			// cultivo individual no esta ni en paquete ni perfil 
 			if (lo[8].toString().equals("cultivo")) {//jhh
 				List<Object[]> estudio = ResultadosAntiDao.ResultadoCultivo((Long.valueOf(lo[4].toString())), (Long.valueOf(lo[7].toString())));
@@ -1637,14 +1708,10 @@ public class ResultadosController {
 					Espacio = new Paragraph("  ");
 					VR = new Paragraph(Valor, fuen_2);
 					Paragraph Comentario = null;
-
-				
-
 					ce = new PdfPCell(Estudio);
 					cr = new PdfPCell(Resultado);
 					esp = new PdfPCell(Espacio);
 					cvr = new PdfPCell(VR);
-
 					ce.setHorizontalAlignment(Element.ALIGN_LEFT);
 					ce.disableBorderSide(Rectangle.BOX);
 					ce.setExtraParagraphSpace(1.5f);
@@ -1660,21 +1727,22 @@ public class ResultadosController {
 					cvr.setHorizontalAlignment(Element.ALIGN_LEFT);
 					cvr.disableBorderSide(Rectangle.BOX);
 					cvr.setExtraParagraphSpace(1.5f);
-
-					Paragraph Validacion = new Paragraph("Estudio(s) validado por: Q.F.B: El doctor Chapatín",
-							fuen_validacion);
-
-					PdfPCell cell = new PdfPCell(Comentario);
-
-					PdfPCell cell2 = new PdfPCell(Validacion);
 					
+					
+					
+					
+					
+					Paragraph Validacion = new Paragraph("Estudio(s) validado por:"
+							+ResultadosDao.NombreVal(Long.parseLong(e[2].toString()))
+							,fuen_validacion);
+					
+					
+					PdfPCell cell = new PdfPCell(Comentario);
+					PdfPCell cell2 = new PdfPCell(Validacion);
 					tableR.addCell(ce);
 					tableR.addCell(cr);
 					tableR.addCell(esp);
 					tableR.addCell(cvr);
-					
-					
-					
 					if (!e[1].toString().equals("Negativo")) {
 						
 						String NombreAnti = ResultadosAntiDao.NombreAntibiograma ((Long.valueOf(lo[4].toString())), (Long.valueOf(lo[7].toString())) );
@@ -1685,9 +1753,6 @@ public class ResultadosController {
 						Resultado = new Paragraph("", fuen_2);
 						Espacio = new Paragraph("  ");
 						VR = new Paragraph(Valor, fuen_2);
-						
-
-					
 
 						ce = new PdfPCell(Estudio);
 						cr = new PdfPCell(Resultado);
@@ -1797,10 +1862,8 @@ public class ResultadosController {
 				}
 
 				file.delete();
-
 				inputStream.close();
 				outputStream.close();
-
 			} catch (Exception e) {
 
 			}
@@ -1827,9 +1890,7 @@ public class ResultadosController {
 		m.addAttribute("id", id);
 		m.addAttribute("lo", lo);
 		return "listar_ordenes";
-
 	}
-
 	@RequestMapping(value = "/select_all/{id}/{i}/{t}/{lo}", method = RequestMethod.GET)
 	public String SelectAll(@PathVariable(value = "id") Long id, @PathVariable(value = "i") Long i,
 			@PathVariable(value = "t") String tipo, @PathVariable(value = "lo") Long lo, Map<String, Object> model,

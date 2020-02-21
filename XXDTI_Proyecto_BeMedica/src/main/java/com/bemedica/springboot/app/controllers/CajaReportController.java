@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bemedica.springboot.app.models.dao.ICajaVistaDao;
+import com.bemedica.springboot.app.service.UserService;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
@@ -36,8 +37,6 @@ import com.lowagie.text.pdf.PdfWriter;
 @Controller
 
 public class CajaReportController {
-	private static final Color RED = null;
-
 	@Autowired
 	private ServletContext context;
 
@@ -46,6 +45,11 @@ public class CajaReportController {
 
 	@Autowired
 	ICajaVistaDao cajaVistaDao;
+	
+	
+	@Autowired
+  UserService userService;
+
 
 	@RequestMapping(value = "/herramientas_corte/{a}")
 	public void reportListar(Model model, HttpServletRequest request, HttpServletResponse response,
@@ -54,6 +58,7 @@ public class CajaReportController {
 			 * @RequestParam("ff") Date ff,
 			 * 
 			 * @RequestParam("fi") Date fi,
+			 * 
 			 * 
 			 * @RequestParam("periodo") String periodo)
 			 */ throws Exception {
@@ -193,7 +198,6 @@ public class CajaReportController {
 	}
 
 	
-	@SuppressWarnings("null")
 	public void pdf(HttpServletRequest request, int num1) throws Exception {
 
 		String fullPath = request.getServletContext().getRealPath("/" + "CorteCaja" + ".pdf");
@@ -218,10 +222,12 @@ public class CajaReportController {
 //        p.add("nombre:");        
 //        p.add("edad:"+edad);
 		
+		UserController user = new UserController();
+		
 		List<Object[]> rp = cajaVistaDao.findAll2(num1);
 		List<Object[]> fc = cajaVistaDao.findAll4(num1);
 		List<Object[]> uc = cajaVistaDao.findAll3(num1);
-		List<Object[]> re = cajaVistaDao.findAll(num1); //para hacer el reporte
+		List<Object[]> re = cajaVistaDao.findAll( Integer.parseInt(user.UserSucId(request, userService)[1]) ); //para hacer el reporte
 		
 		Paragraph p = new Paragraph("\n\n");
 		PdfPCell celda1 = new PdfPCell(p);
@@ -414,13 +420,22 @@ public class CajaReportController {
 		Chunk pi = new Chunk("", new Font(
 				Font.HELVETICA, 12, Font.NORMAL, Color.BLACK));
 		
+		System.out.println("i`m here bitch");
+		
+	
+		
+		
+		
+		
+		
 		
 		for(Object[] r : re) 
 			
 		{
 			
-			
+			System.out.println("i`m here bitch2222222");
 			//System.out.println("szfxdgchj"+r[6]+" "+r[0]+" "+Integer.toString(num1));
+		
 		if (r[0].equals(num1)&&r[6].equals("Corte"))
 		{
 
@@ -448,7 +463,7 @@ public class CajaReportController {
 				Font.HELVETICA, 12, Font.NORMAL, Color.red));
 			}
 			
-			//System.out.println("entra1");
+			
 			tu.append("\nTotal\tEfectivo:  $" +r[8].toString());
 			pa.append("\nTotal\tTarjeta:  $" +r[9].toString());
 			ma.append("\nCaja\tChica:  $"+r[10].toString());
@@ -492,13 +507,4 @@ public class CajaReportController {
 	
 		}
 
-	private void setForeground() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void initComponents() {
-		// TODO Auto-generated method stub
-		
-	}
 		}

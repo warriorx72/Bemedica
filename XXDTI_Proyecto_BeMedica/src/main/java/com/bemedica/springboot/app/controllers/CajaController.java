@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -48,6 +50,9 @@ public class CajaController {
 	
 	@Autowired
 	private UserService userService;
+	
+	
+	
 
 	@RequestMapping(value = "/herramientas_corte", method = RequestMethod.GET)
 	public String listar(HttpServletRequest request,Model model, Map<String, Object> m) {
@@ -100,6 +105,12 @@ public class CajaController {
 	@RequestMapping(value = "/corte", method = RequestMethod.POST)
 	public String guardar(HttpServletRequest request, @Valid Caja caja, @Valid CajaChica cach, Model model, SessionStatus status,
 			Map<String, Object> m) {
+		
+		
+		Timer timer = new Timer();
+		
+		
+		
 		UserController user = new UserController();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
@@ -110,17 +121,37 @@ public class CajaController {
 			caja.setFechaInicial(cajaDao.findLastCajaId(Long.parseLong(user.UserSucId(request, userService)[1]))); 
 			
 		}
-		cajaChicaDao.save(cach);
+		
+		cach.setIdSucursal(user.UserSucId(request, userService)[1]);
+	
 		m.put("cach", cach);
 		caja.setCorteTipo(false);
-		caja.setIdEmpleado(user.UserSucId(request, userService)[2]);
+		caja.setUser_Id(user.UserSucId(request, userService)[2]);
 		caja.setIdSucursal(user.UserSucId(request, userService)[1]);
 		cajaDao.save(caja);
 		caja.setMontoEfectivo(cajaDao.findTotalEfectivo(caja.getCajaId()));
 		caja.setMontoTarjeta(cajaDao.findTotalTarjeta(caja.getCajaId()));
 		cajaDao.save(caja);
-		cajaChicaDao.save(cach);
+		
+		
+		TimerTask tarea = new TimerTask() {
+
+			@Override
+			public void run() {
+				cajaChicaDao.save(cach);
+			}
+			
+			
+		};
+		
+		
+		timer.schedule(tarea, 1000);		
+	
+		
 		m.put("cach", cach);	
+		
+		
+		
 		m.put("caja", caja);
 		return "redirect:/herramientas_corte";
 	}
@@ -151,7 +182,7 @@ public class CajaController {
 		cierre.setMontoContado("0");
 		cierre.setFechaInicial(formatter.format(date) + " " + "06:00:00");
 		cierre.setCorteTipo(true);
-		cierre.setIdEmpleado(user.UserSucId(request, userService)[0]);
+		cierre.setUser_Id(user.UserSucId(request, userService)[0]);
 		cierre.setIdSucursal(user.UserSucId(request, userService)[1]);
 		cajaDao.save(cierre);
 		
@@ -164,7 +195,7 @@ public class CajaController {
 	@RequestMapping( value = "/caja_chica", method = RequestMethod.POST)
 	public String cajaChica(HttpServletRequest request, @Valid CajaChica cach, Model model, Map<String, Object> m) {
 		UserController user = new UserController();
-		cach.setIdSucursal(user.UserSucId(request, userService)[0]);
+		cach.setIdSucursal(user.UserSucId(request, userService)[1]);
 		cajaChicaDao.save(cach);
 		m.put("cach", cach);
 		return "redirect:/herramientas_corte";
@@ -172,7 +203,7 @@ public class CajaController {
 	@RequestMapping(value = "/caja_chica2", method = RequestMethod.POST)
 	public String cajaChica2(HttpServletRequest request, @Valid CajaChica cach, Model model, Map<String, Object> m) {
 		UserController user = new UserController();
-		cach.setIdSucursal(user.UserSucId(request, userService)[0]);
+		cach.setIdSucursal(user.UserSucId(request, userService)[1]);
 		cajaChicaDao.save(cach);
 		m.put("cach", cach);
 		return "redirect:/listar_cortes";

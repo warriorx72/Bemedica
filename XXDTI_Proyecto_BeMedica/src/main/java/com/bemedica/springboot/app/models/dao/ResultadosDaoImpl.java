@@ -238,6 +238,29 @@ public class ResultadosDaoImpl implements IResultados {
 		String nombre =(String) em.createNativeQuery("select perfiles.perfil_nombre from perfiles where perfiles.perfil_id="+id).getSingleResult();
 		return nombre;
 	}
+	
+	
+	@Transactional(readOnly=true)
+	@Override	
+	public String NombreVal(Long id) {
+		
+		String nombreVal =(String) em.createNativeQuery("SELECT  concat(\r\n" + 
+				"persona_nombre,' ',\r\n" + 
+				"persona_ap,' ',\r\n" + 
+				"persona_am)\r\n" + 
+				"FROM resultados re INNER JOIN user u ON  re.user_id=u.id\r\n" + 
+				"\r\n" + 
+				" INNER JOIN\r\n" + 
+				"empleados_sucursal em ON u.empleado_id=em.empleado_id\r\n" + 
+				"INNER JOIN \r\n" + 
+				"persona p on p.persona_id=em.persona_id\r\n" + 
+				"				  \r\n" + 
+				" WHERE re.resultado_id="+id).getSingleResult();
+		return nombreVal;
+	}
+	
+	
+	
 
 	@Transactional
 	@Override
