@@ -15,25 +15,15 @@ public class ReportesDaoImpl  implements IReportes{
 	@PersistenceContext
 	private EntityManager em;
 
-	
 
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
 	@Override
-	public List<Object[]> estudios_ventas(String f1 , String f2, String p) {
+	public List<Object[]> estudios_ventas(String fi , String ff, Long cond) {
 		
-		List<Object[]> re= em.createNativeQuery("select date(orden.orden_fecha),persona.persona_nombre, sucursal.sucursal_nombre ,estudios.estudio_nombre ,sum(orden_estudio.cantidad_estudio) as 'Num.', sum(orden_estudio.cantidad_estudio*estudios.estudio_precio) as 'Total'" + 
-				" FROM orden_estudio , orden, estudios , persona, empleados_sucursal , sucursal" + 
-				" where 1=1" + 
-				" and persona.persona_id=empleados_sucursal.persona_id" + 
-				" and empleados_sucursal.empleado_id=orden.empleado_id" + 
-				" and orden.sucursal_id=sucursal.sucursal_id" + 
-				" and orden_estudio.estudio_id=estudios.estudio_id" + 
-				" and orden.orden_id=orden_estudio.orden_id" + 
-				" and orden.orden_estatus ='finalizada'" + 
-				" and date (orden.orden_fecha)  BETWEEN '"+f1+"' and '"+f2+"'" + 
-				" GROUP BY estudios.estudio_nombre  , orden.empleado_id ,"+p+"(orden.orden_fecha)").getResultList();
-				
+		List<Object[]> re= em.createNativeQuery("{call Reporte ('"+fi+"','"+ff+"',"+cond+")}").getResultList();
+
+															
 		 return  re;		 		       	
 	}
 
