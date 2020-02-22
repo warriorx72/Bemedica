@@ -1,7 +1,8 @@
 package com.bemedica.springboot.app.controllers;
-import com.itextpdf.text.*;
-import com.itextpdf.text.Font.FontFamily;
-import com.itextpdf.text.pdf.*;
+import java.awt.Color;
+
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.*;
 
 public class HeaderFooterPageEvent extends PdfPageEventHelper {
     private PdfTemplate t;
@@ -36,8 +37,8 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     private void addHeader(PdfWriter writer){
         PdfPTable header = new PdfPTable(4);
         PdfPTable headerNumP = new PdfPTable(1);
-        Font fuen_1 = new Font(FontFamily.HELVETICA, 9.0f,Font.BOLD,BaseColor.BLACK);
-        Font fuen_2 = new Font(FontFamily.HELVETICA, 10.0f,Font.NORMAL,BaseColor.BLACK);
+        Font fuen_1 = new Font(Font.HELVETICA, 9.0f,Font.BOLD,Color.BLACK);
+        Font fuen_2 = new Font(Font.HELVETICA, 10.0f,Font.NORMAL,Color.BLACK);
         try {
         	header.setWidths(new int[]{19,101,13,26});
             header.setTotalWidth(527);
@@ -45,7 +46,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
             headerNumP.setTotalWidth(527);
             headerNumP.setLockedWidth(true);
             
-            Paragraph  pag = new Paragraph(String.format("Pág. %d ", writer.getPageNumber()), new Font(Font.FontFamily.HELVETICA, 8));
+            Paragraph  pag = new Paragraph(String.format("Pág. %d ", writer.getPageNumber()), new Font(Font.HELVETICA, 8));
             
             PdfPCell cell_pag = new PdfPCell(pag);
        		
@@ -197,11 +198,11 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
             footer.setLockedWidth(true);
             footer.getDefaultCell().setFixedHeight(40);
             footer.getDefaultCell().setBorder(Rectangle.TOP);
-            footer.getDefaultCell().setBorderColor(BaseColor.LIGHT_GRAY);
+            footer.getDefaultCell().setBorderColor(Color.LIGHT_GRAY);
      
-    		Paragraph uno = new Paragraph("RESPONSABLE DEL LABORATORIO:" ,new Font(FontFamily.HELVETICA,10.0f,Font.NORMAL,BaseColor.BLACK));
-    		Paragraph  dos = new Paragraph("Q.F.B SELENE lEDEZMA RUIZ\nCED. PFOF. 2661181" ,new Font(FontFamily.HELVETICA,10.0f,Font.NORMAL,BaseColor.BLACK));
-    		Paragraph  pag = new Paragraph("", new Font(Font.FontFamily.HELVETICA, 8));
+    		Paragraph uno = new Paragraph("RESPONSABLE DEL LABORATORIO:" ,new Font(Font.HELVETICA,10.0f,Font.NORMAL,Color.BLACK));
+    		Paragraph  dos = new Paragraph("Q.F.B SELENE lEDEZMA RUIZ\nCED. PFOF. 2661181" ,new Font(Font.HELVETICA,10.0f,Font.NORMAL,Color.BLACK));
+    		Paragraph  pag = new Paragraph("", new Font(Font.HELVETICA, 8));
     		
     		PdfPCell ce = new PdfPCell(uno);
     		PdfPCell cr = new PdfPCell(dos);
@@ -210,17 +211,17 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     	
     		ce.setHorizontalAlignment(Element.ALIGN_RIGHT);
     		ce.disableBorderSide(Rectangle.BOX);
-    		ce.setBorderColor(BaseColor.LIGHT_GRAY);
+    		ce.setBorderColor(Color.LIGHT_GRAY);
     		ce.setExtraParagraphSpace(1.5f);
     		
     		cr.setHorizontalAlignment(Element.ALIGN_LEFT);
     		cr.disableBorderSide(Rectangle.BOX);
-    		cr.setBorderColor(BaseColor.LIGHT_GRAY);
+    		cr.setBorderColor(Color.LIGHT_GRAY);
     		cr.setExtraParagraphSpace(1.5f);
     		
     		p.setHorizontalAlignment(Element.ALIGN_LEFT);
     		p.disableBorderSide(Rectangle.BOX);
-    		p.setBorderColor(BaseColor.LIGHT_GRAY);
+    		p.setBorderColor(Color.LIGHT_GRAY);
     		p.setExtraParagraphSpace(1.5f);
 
             // add copyright
@@ -232,7 +233,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
            // add placeholder for total page count
             PdfPCell totalPageCount = new PdfPCell();
             totalPageCount.setBorder(Rectangle.TOP);
-            totalPageCount.setBorderColor(BaseColor.LIGHT_GRAY);
+            totalPageCount.setBorderColor(Color.LIGHT_GRAY);
             
             System.out.println("El total de la paginas es %d " +totalPageCount);
             footer.addCell(totalPageCount);
@@ -240,9 +241,9 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
 
             // write page
             PdfContentByte canvas = writer.getDirectContent();
-            canvas.beginMarkedContentSequence(PdfName.ARTIFACT);
+            
             footer.writeSelectedRows(0, -1, 34, 115, canvas);
-            canvas.endMarkedContentSequence();
+            
         } catch(DocumentException de) {
             throw new ExceptionConverter(de);
         }
@@ -252,7 +253,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         int totalLength = String.valueOf(writer.getPageNumber()).length();
         int totalWidth = totalLength * 5;
         ColumnText.showTextAligned(t, Element.ALIGN_RIGHT,
-                new Phrase(String.valueOf(writer.getPageNumber()), new Font(Font.FontFamily.HELVETICA, 8)),
+                new Phrase(String.valueOf(writer.getPageNumber()), new Font(Font.HELVETICA, 8)),
                 totalWidth, 6, 0);
     }
 }

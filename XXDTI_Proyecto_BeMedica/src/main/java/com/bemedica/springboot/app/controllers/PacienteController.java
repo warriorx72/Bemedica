@@ -452,24 +452,16 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 	// 77
 	// 77
 	//////////////////////////////////////////////////////////// 7
-	@RequestMapping(value = "/form2")
-	public String creardoctor(Map<String, Object> model) {
-
-		Direccion direccion = new Direccion();
-		// 7direccion.getDireccion_id();
-		Persona persona = new Persona();
-		/// direccion.getDireccion_id();
-		// Paciente paciente = new Paciente();
-		Medico medico = new Medico();
-		model.put("direccion", direccion);/// Modelo entity Cliente para crear un objeto de tipo cliente la palabra
-											/// cliente es como llamaremos al objecto desde el ocntrolador
-		model.put("persona", persona);
-		// model.put("paciente", paciente);
-		model.put("medico", medico);
-
-		model.put("titulo", "Formulario de Cliente");
-		return "formC";
-	}
+//	@RequestMapping(value = "/form2")
+//	public String creardoctor(Map<String, Object> model,Direccion direccion,Persona persona,Medico medico) {
+//		
+//		model.put("direccion", direccion);/// Modelo entity Cliente para crear un objeto de tipo cliente la palabra					
+//		model.put("persona", persona);
+//		model.put("medico", medico);
+//		model.put("titulo", "Formulario de Cliente");
+//		
+//		return "operaciones_recepcion";
+//	}
 
 	@RequestMapping(value = "/formC/{id}")
 	public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model) {
@@ -655,7 +647,7 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 	}
 
 	@RequestMapping(value = "/form2", method = RequestMethod.POST)
-	public String guardardoctor(@Valid Direccion direccion, Persona persona, Medico medico, BindingResult result,
+	public String guardardoctor(Direccion direccion, Persona persona, Medico medico, BindingResult result,
 			Model model, SessionStatus status) {
 
 		if (result.hasErrors()) {
@@ -667,10 +659,6 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 		direccionDao.save(direccion);
 		persona.setIdDireccion(direccion.getDireccion_id().intValue());
 		personaDao.save(persona);
-		medico.setPersona_id((long) persona.getPersona_id().intValue());
-		medico.setMedico_id_text("MED" + persona.getPersona_ap().charAt(0) + persona.getPersona_am().charAt(0)
-				+ persona.getPersona_nombre().charAt(0) + "" + (persona.getPersona_id() + 100000));
-
 		medicoDao.save(medico);
 		status.setComplete();
 		return "redirect:operaciones_recepcion";

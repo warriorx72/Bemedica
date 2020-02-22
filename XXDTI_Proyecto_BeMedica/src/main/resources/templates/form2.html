@@ -79,79 +79,26 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
-                                           <label for="inputSexo" class="col-form-label-sm mb-0">Sexo</label>
-                                        <select id="inputSexo" class="form-control form-control-sm" name="persona_genero" th:field="${persona.persona_genero}" >
-                                            <option value="Masculino">Masculino</option>
-                                            <option value="Femenino">Femenino</option>
-                                        </select>
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="input1" class="col-form-label-sm mb-0">Fecha nacimiento</label>
-                                            <input type="date" class="form-control form-control-sm" id="input1" name="persona_fecha_na" th:field="${persona.persona_fecha_na}">
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="input2" class="col-form-label-sm mb-0">RFC</label>
-                                            <input type="text" class="form-control form-control-sm" id="inpu2" name="persona_rfc" th:field="${persona.persona_rfc}" >
-                                        </div>
-                                        <div class="form-group col-md-3">
                                             <label for="input3" class="col-form-label-sm mb-0">Email</label>
                                             <input type="text" class="form-control form-control-sm" id="inpu3" name="persona_email" th:field="${persona.persona_email}" >
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
-                                            <label for="inputNor" class="col-form-label-sm mb-0">Telefono Casa</label>
-                                            <input type="text" class="form-control form-control-sm" id="inputNor" name="persona_tel_casa" th:field="${persona.persona_tel_casa}">
-                                        </div>
-                                        <div class="form-group col-md-3">
                                             <label for="input1" class="col-form-label-sm mb-0">Celular</label>
                                             <input type="text" class="form-control form-control-sm" id="input1" name="persona_tel_cel" th:field="${persona.persona_tel_cel}">
                                         </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="input2" class="col-form-label-sm mb-0">Telefono oficina</label>
-                                            <input type="text" class="form-control form-control-sm" id="inpu2" name="persona_tel_oficina" th:field="${persona.persona_tel_oficina}">
+                                            <div class="form-group col-md-3">
+                                            <label for="input1" class="col-form-label-sm mb-0">Cedula</label>
+                                            <input type="text" class="form-control form-control-sm" id="inputcedula" name="persona_ced" th:field="${medico.medico_cedula}">
                                         </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="input3" class="col-form-label-sm mb-0">Extension</label>
-                                            <input type="text" class="form-control form-control-sm" id="inpu3" name="persona_tel_exten" th:field="${persona.persona_tel_exten}">
                                         </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-3">
-                                            <label for="inputNor" class="col-form-label-sm mb-0">Calle</label>
-                                            <input type="text" class="form-control form-control-sm" id="inputNor" name="direccion_calle" th:field="${direccion.direccion_calle}">
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="input1" class="col-form-label-sm mb-0">Numero exterior</label>
-                                            <input type="text" class="form-control form-control-sm" id="input1" name="direccion_numero_ext" th:field="${direccion.direccion_numero_ext}">
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="input2" class="col-form-label-sm mb-0">Numero interior</label>
-                                            <input type="text" class="form-control form-control-sm" id="inpu2" name="direccion_num_inter" th:field="${direccion.direccion_num_inter}">
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="input3" class="col-form-label-sm mb-0">Colonia</label>
-                                            <input type="text" class="form-control form-control-sm" id="inpu3" name="direccion_colonia" th:field="${direccion.direccion_colonia}">
+                                            <div class="form-group col-md-3">
+                                            <label for="input1" class="col-form-label-sm mb-0">Especialidad</label>
+                                            <input type="text" class="form-control form-control-sm" id="inputesp" name="persona_esp" th:field="${medico.medico_especialidad}">
                                         </div>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-3">
-                                            <label for="inputNor" class="col-form-label-sm mb-0">Codigo postal</label>
-                                            <input type="text" class="form-control form-control-sm" id="inputNor" name="direccion_postal" th:field="${direccion.direccion_postal}">
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="inputNor" class="col-form-label-sm mb-0">Municipio</label>
-                                            <input type="text" class="form-control form-control-sm" id="inputNor" name="direccion_municipio" th:field="${direccion.direccion_municipio}">
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="inputNor" class="col-form-label-sm mb-0">Estado</label>
-                                            <input type="text" class="form-control form-control-sm" id="inputNor" name="direccion_estado" th:field="${direccion.direccion_estado}">
-                                        </div>
-                                       <!--   <div class="form-group col-md-3">
-                                            <label for="inputNor" class="col-form-label-sm mb-0">Observacion</label>
-                                            <input type="text" class="form-control form-control-sm" id="inputNor" name="observacion" th:field="${paciente.observacion}">
-                                        </div> -->
-                                    </div>
+                                   
 
 
                                     <input class="btn btn-primary" type="submit" value="Guardar" id="submit">
