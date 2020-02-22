@@ -28,18 +28,18 @@ import com.bemedica.springboot.app.models.dao.IResultadosAntiDao;
 import com.bemedica.springboot.app.models.entity.Resultados;
 import com.bemedica.springboot.app.models.entity.ResultadosAnti;
 import com.bemedica.springboot.app.service.UserService;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.Font.FontFamily;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Color;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Rectangle;
+import java.awt.font.*;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 
 @Controller
 public class ResultadosController {
@@ -518,12 +518,12 @@ public class ResultadosController {
 			throws FileNotFoundException, DocumentException {
 		// String fullPath = request.getServletContext().getRealPath("/" + "Resultado" +
 		// ".pdf");
-		Font fuen_1 = new Font(FontFamily.HELVETICA, 9.0f, Font.BOLD, BaseColor.BLACK);
+		Font fuen_1 = new Font(Font.HELVETICA, 9.0f, Font.BOLD, Color.black);
 
-		Font fuen_2 = new Font(FontFamily.HELVETICA, 9.0f, Font.NORMAL, BaseColor.BLACK);
+		Font fuen_2 = new Font(Font.HELVETICA, 9.0f, Font.NORMAL, Color.BLACK);
 
-		Font fuen_comentario = new Font(FontFamily.HELVETICA, 7.0f, Font.NORMAL, BaseColor.BLACK);
-		Font fuen_validacion = new Font(FontFamily.HELVETICA, 7.0f, Font.NORMAL, BaseColor.BLACK);
+		Font fuen_comentario = new Font(Font.HELVETICA, 7.0f, Font.NORMAL, Color.BLACK);
+		Font fuen_validacion = new Font(Font.HELVETICA, 7.0f, Font.NORMAL, Color.BLACK);
 
 		// Document documento = new Document();
 		Document documento = new Document(PageSize.A4, 36, 36, 182, 120);
@@ -538,6 +538,9 @@ public class ResultadosController {
 		String edad = null;
 		String sexo = null;
 		String x=null;
+		
+		
+		
 		List<Object[]> paciente = ResultadosDao.PacienteOrden(id);
 
 		for (Object[] p : paciente) {
@@ -636,8 +639,7 @@ public class ResultadosController {
 				
 				for (Object[] e : estudio) {
 					String Valor = "";
-					System.out.println("Entra a la nueva prueba");
-					x="hola";
+					
 					if (!e[7].equals(" ")) {
 						Valor = Valor + e[7].toString() + "\n";
 					}
@@ -746,7 +748,10 @@ public class ResultadosController {
 					
 						x=ResultadosDao.NombreVal(Long.parseLong(e[14].toString()));
 						
-						System.out.println("xcxcxcxcxcx"+x);
+						
+						
+						
+						
 						perfilTitulo = new Paragraph(lo[3].toString(), fuen_1);
 						perfilTituloR = new Paragraph("");
 						perfilTituloE = new Paragraph("  ");
@@ -1059,6 +1064,8 @@ public class ResultadosController {
 						for (Object[] e : estudio) {
 							String Valor = "";
 							
+							x=ResultadosDao.NombreVal(Long.parseLong(e[14].toString()));
+							
 							contadorTitulo++;
 							
 							paqueteTitulo = new Paragraph(lo[3].toString(), fuen_1);
@@ -1213,12 +1220,16 @@ public class ResultadosController {
 						
 					
 						for (Object[] aux2 : perfil) {
+						
 							
 							if ( aux2[3].toString().equals("estudio")){
 							List<Object[]> estudio = ResultadosDao.Resultados((Long.valueOf(lo[4].toString())),
 									(Long.valueOf(aux2[0].toString())));
 							for (Object[] e : estudio) {
 								String Valor = "";
+								
+								
+								x=ResultadosDao.NombreVal(Long.parseLong(e[14].toString()));
 								
 								contadoraux++;
 								perfilTitulo = new Paragraph("    "+aux[4].toString(), fuen_1);
@@ -1315,7 +1326,7 @@ public class ResultadosController {
 								
 								for (Object[] e : estudio) {
 									if (contadorTitulo == 0) {
-										
+									
 										contadorTitulo++;
 										paqueteTitulo = new Paragraph(lo[3].toString(), fuen_1);
 										paqueteTituloR = new Paragraph("");
@@ -1566,8 +1577,7 @@ public class ResultadosController {
 							Paragraph Validacion = new Paragraph("Estudio(s) validado por:"
 									
 									
-							+ResultadosDao.NombreVal(Long.parseLong(e[14].toString()))
-							,fuen_validacion);
+							+x,fuen_validacion);
 
 							PdfPCell cell = new PdfPCell(Comentario);
 
@@ -1732,7 +1742,7 @@ public class ResultadosController {
 					
 					
 					
-					Paragraph Validacion = new Paragraph("Estudio(s) validado por:"
+					Paragraph Validacion = new Paragraph("Estudio(s) validado por: "
 							+ResultadosDao.NombreVal(Long.parseLong(e[2].toString()))
 							,fuen_validacion);
 					
