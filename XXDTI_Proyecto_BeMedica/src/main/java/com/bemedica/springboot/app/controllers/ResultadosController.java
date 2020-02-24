@@ -539,6 +539,8 @@ public class ResultadosController {
 		String sexo = null;
 		String x=null;
 		
+		String x2=null;
+		
 		
 		
 		List<Object[]> paciente = ResultadosDao.PacienteOrden(id);
@@ -859,6 +861,14 @@ public class ResultadosController {
 						List<Object[]> estudio = ResultadosAntiDao.ResultadoCultivo((Long.valueOf(lo[4].toString())), (Long.valueOf(aux[0].toString())) );
 						
 						for (Object[] e : estudio) {
+							
+							x2=ResultadosDao.NombreVal(Long.parseLong(e[2].toString()));
+							
+						
+							
+							// x2= " el valor de x2 es igual Leon";
+							
+						
 							String Valor = "";
 
 							Estudio = new Paragraph("	"+e[0].toString(), fuen_1);
@@ -1002,7 +1012,7 @@ public class ResultadosController {
 				
 				
 				
-				Paragraph Validacion = new Paragraph("Estudio(s) validado por:"+x
+				Paragraph Validacion = new Paragraph("Estudio(s) validado por: "+x2
 						,fuen_validacion);
 				
 			
@@ -1742,7 +1752,7 @@ public class ResultadosController {
 					
 					
 					
-					Paragraph Validacion = new Paragraph("Estudio(s) validado por: "
+					Paragraph Validacion = new Paragraph("Estudio(s) validado por:"
 							+ResultadosDao.NombreVal(Long.parseLong(e[2].toString()))
 							,fuen_validacion);
 					
