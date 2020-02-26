@@ -16,9 +16,11 @@ import java.sql.Date;
 import java.util.List;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.poi.util.SystemOutLogger;
 import org.hibernate.Session;
 import org.hibernate.service.Service;
@@ -42,7 +44,10 @@ import com.bemedica.springboot.app.models.dao.ITicketDao;
 import com.bemedica.springboot.app.models.dao.IVistaEmpleadoDao;
 import com.bemedica.springboot.app.models.dao.IMedicoDao;
 import com.bemedica.springboot.app.models.dao.IVistaPacienteDao;
+import com.bemedica.springboot.app.models.dao.IWebRoleDao;
+import com.bemedica.springboot.app.models.dao.IWebUserDao;
 import com.bemedica.springboot.app.models.dao.PruebaDaoImpl;
+import com.bemedica.springboot.app.models.dao.WebUserDaoImpl;
 import com.bemedica.springboot.app.models.dao.IVistaMedicoDao;
 import com.bemedica.springboot.app.models.dao.IVistaOrdenDao;
 import com.bemedica.springboot.app.models.dao.IVistaOrdenEstudioDao;
@@ -61,6 +66,8 @@ import com.bemedica.springboot.app.models.entity.Persona;
 import com.bemedica.springboot.app.models.entity.Medico;
 import com.bemedica.springboot.app.models.entity.Orden;
 import com.bemedica.springboot.app.models.entity.VistaOrdenEstudio;
+import com.bemedica.springboot.app.models.entity.WebRole;
+import com.bemedica.springboot.app.models.entity.WebUser;
 import com.bemedica.springboot.app.service.UserService;
 import com.bemedica.springboot.app.models.entity.OrdenEstudio;
 import com.bemedica.springboot.app.models.entity.OrdenEstudioE;
@@ -125,6 +132,21 @@ public class PacienteController {
 	private IConvenioEstudio coEsDao;
 	@Autowired
 	private UserService userService;
+	
+	
+	@Autowired
+	private IWebUserDao webUser;
+	
+	@Autowired
+	private IWebRoleDao webRole;
+	
+	@Autowired
+	EntityManager em;
+	
+	
+	
+	String password;
+	
 
 	@RequestMapping(value = "/operaciones_recepcion", method = RequestMethod.GET) // vista operaciones_recepcion
 	public String operaciones_recepcion(Model model, Map<String, Object> m) {
@@ -938,6 +960,81 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 	public String FormPago(Orden orden, BindingResult result, Model model, Map<String, Object> m,
 			@RequestParam("id") Long id,@RequestParam("primer_pago") String primer_pago,OrdenEstudio ordenestudio) {
 		if(id>0) {
+			
+			
+
+			orden = ordenDao.findOne(id);
+			
+			String flag= webUser.Exist(Long.valueOf(orden.getPaciente_id()));
+			 
+			 
+			 
+		
+			 
+			 
+			 
+			
+	    if (orden.getConvenio_id() == null && flag.equals("0")) {
+	    	
+	    	
+	       
+	    	
+	   	 System.out.println("aqui imprime que pedooooo"+flag);
+
+		
+	    	
+	    	
+	    	WebUser wu= new WebUser();
+	    	
+	    	
+			Paciente pac= new Paciente ();
+			WebRole roli= new WebRole();
+			
+			
+            
+	
+	    
+	   
+			
+		    roli = webRole.findOne(1L);
+			
+			
+			pac = pacienteDao.findOne(Long.valueOf(orden.getPaciente_id()));
+			//Random aleatorio= new Random();
+			//int alet =100000000+ aleatorio.nextInt(800000000);
+			//System.out.println("password:"+alet);
+			
+			
+			String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			String pwd = RandomStringUtils.random( 15, characters );
+			password=pwd;
+			
+			
+			System.out.println("Password:" +password);
+			wu.setUserPassword(String.valueOf(pwd));
+			wu.setPaciente_id(orden.getPaciente_id());
+			wu.setUser_name(pac.paciente_id_tex);
+			wu.setUser_status("1");
+			wu.setTipo("paciente");
+						
+			
+			
+			roli.getUser().add(wu);
+			  
+		    wu.getWebroles().add(roli);
+		    
+		    webUser.save(wu);
+		    
+		    
+	    			} 
+	    
+	    
+	    
+	  	
+	   	 System.out.println("aqui imprime que pedooooo con flag positivo"+flag);
+	    
+			
+			
 			orden = ordenDao.findOne(id);
 			orden.setPago_inicial(primer_pago);
 			ordenDao.save(orden);
@@ -951,6 +1048,7 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 			model.addAttribute("tipo_ticket", "block3");
 			model.addAttribute("mini_ticket", ""); 
 			model.addAttribute("coti", "disabled");
+			model.addAttribute("password", password);
 			}
 			else {
 				if(orden.getConvenio_id() != null)
@@ -959,12 +1057,14 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 					model.addAttribute("tipo_ticket", "block9"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
+					model.addAttribute("password", password);
 				}
 				else
 				{
 					model.addAttribute("tipo_ticket", "block1"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
+					model.addAttribute("password", password);
 				}
 			}
 			
@@ -981,7 +1081,97 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 			@RequestParam("id") Long id,OrdenEstudio ordenestudio) {
 		   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 		   LocalDateTime now = LocalDateTime.now();
-		if(id>0) {
+		   
+		   
+			
+		
+			
+			if(id>0) {
+				
+				
+				
+			
+				orden = ordenDao.findOne(id);
+				
+				String flag= webUser.Exist(Long.valueOf(orden.getPaciente_id()));
+				 
+				 
+				 
+			
+				 
+				 
+				 
+				
+		    if (orden.getConvenio_id() == null && flag.equals("0")) {
+		    	
+		    	
+		       
+		    	
+		   	 System.out.println("aqui imprime que pedooooo"+flag);
+
+			
+		    	
+		    	
+		    	WebUser wu= new WebUser();
+		    	
+		    	
+				Paciente pac= new Paciente ();
+				WebRole roli= new WebRole();
+				
+				
+	            
+		
+		    
+		   
+				
+			    roli = webRole.findOne(1L);
+				
+				
+				pac = pacienteDao.findOne(Long.valueOf(orden.getPaciente_id()));
+				//Random aleatorio= new Random();
+				//int alet =100000000+ aleatorio.nextInt(800000000);
+				//System.out.println("password:"+alet);
+				
+				
+				
+
+				String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+				String pwd = RandomStringUtils.random( 15, characters );
+				
+				
+				password=pwd;
+				
+				
+				System.out.println("Password:" +password);
+				wu.setUserPassword(String.valueOf(pwd));
+				wu.setPaciente_id(orden.getPaciente_id());
+				wu.setUser_name(pac.paciente_id_tex);
+				wu.setUser_status("1");
+				wu.setTipo("paciente");
+							
+				
+				
+				roli.getUser().add(wu);
+				  
+			    wu.getWebroles().add(roli);
+			    
+			    webUser.save(wu);
+			    
+			    
+		    			} 
+		    
+		    
+		    
+		  	
+		   	 System.out.println("aqui imprime que pedooooo con flag positivo"+flag);
+		    
+		    
+		    
+		    
+			
+		   
+			
+			
 			orden = ordenDao.findOne(id);
             orden.setPago_final(orden.getMonto());
             orden.setPago_inicial("0");
@@ -998,6 +1188,7 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 			model.addAttribute("tipo_ticket", "block3");
 			model.addAttribute("mini_ticket", ""); 
 			model.addAttribute("coti", "disabled");
+			model.addAttribute("password", password);
 			}
 			else {
 				if(orden.getConvenio_id() != null)
@@ -1006,12 +1197,14 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 					model.addAttribute("tipo_ticket", "block9"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
+					model.addAttribute("password", password);
 				}
 				else
 				{
 					model.addAttribute("tipo_ticket", "block1"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
+					model.addAttribute("password", password);
 				}
 			}
 			

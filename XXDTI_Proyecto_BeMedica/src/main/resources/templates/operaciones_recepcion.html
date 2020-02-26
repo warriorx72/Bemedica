@@ -934,8 +934,14 @@
 					COMPROBANTE <br>ORDEN DE SERVICIO
 				</p>
 				<p class="centrado" style="font-size: 14px;">
-					:::::::::::::::ID PACIENTE::::::::::::::: <br> <b
-						style="font-size: 14px;" th:each="pa: ${painfo}" th:text="${pa[4]}"></b>
+					:::::::::::::::	TU USUARIO ES:::::::::::::::: <br> <b
+				style="font-size: 14px;" th:each="pa: ${painfo}" th:text="${pa[4]}"></b>
+				
+				<p class="centrado" style="font-size: 14px;">
+					::::::::::::::TU CONTRASEÑA ES::::::::::::::: 
+					<br> 
+				<b style="font-size: 12px; "th:text="${password}"></b></p>
+				
 				</p>
 				<table class="centrado" style="border: hidden">
 					<thead>
