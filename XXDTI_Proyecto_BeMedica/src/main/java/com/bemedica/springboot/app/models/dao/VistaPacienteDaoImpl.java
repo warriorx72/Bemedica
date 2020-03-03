@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.bemedica.springboot.app.models.entity.VistaPaciente;
 
 @Repository
-public  class VistaPacienteDaoImpl implements IVistaPacienteDao {
+public class VistaPacienteDaoImpl implements IVistaPacienteDao {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -23,8 +23,5 @@ public  class VistaPacienteDaoImpl implements IVistaPacienteDao {
 		// TODO Auto-generated method stub
 		return em.createQuery("from VistaPaciente").getResultList();
 	}
-	
-
-	
 
 }

@@ -43,5 +43,11 @@ public class PacienteDaoImpl implements IPacienteDao {
 	public void delete(Long id) {
 		em.remove(findOne(id));
 	}
+	 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object findByPersona(Long PersonaId) {
+		return em.createNativeQuery("select paciente_id from paciente where persona_id="+PersonaId+" group by persona_id").getSingleResult();
+	}
 
 }

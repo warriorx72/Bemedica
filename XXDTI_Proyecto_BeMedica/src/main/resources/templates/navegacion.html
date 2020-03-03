@@ -37,6 +37,9 @@
 				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')})">
 					<a th:href="@{/operaciones_recepcion}">Recepcion del paciente</a>
 				</li>
+				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')})">
+					<a th:href="@{/solicitud_estudios}">Solicitud estudios</a>
+				</li>
 				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_RECEPCIONISTA'')')}) or (${#authorization.expression('hasRole(''ROLE_VALIDACION'')')})">
 					<a th:href="@{/operaciones_folios}">Folios registrados</a>
 				</li>

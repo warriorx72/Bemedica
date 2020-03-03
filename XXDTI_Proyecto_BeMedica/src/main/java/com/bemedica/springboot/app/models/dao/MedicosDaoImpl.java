@@ -57,4 +57,11 @@ public class MedicosDaoImpl implements IMedicosDao {
 		// TODO Auto-generated method stub
 		return em.createQuery("from MedicosVista").getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object findByPersona(Long PersonaId) {
+		// TODO Auto-generated method stub
+		return em.createNativeQuery("select medico_id from medicos where persona_id = "+PersonaId+" group by persona_id").getSingleResult(); 
+	}
 }

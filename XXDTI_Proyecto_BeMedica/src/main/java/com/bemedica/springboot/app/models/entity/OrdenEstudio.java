@@ -38,6 +38,7 @@ public class OrdenEstudio implements Serializable {
 	public void setOrden_estudio_id(Long orden_estudio_id) {
 		this.orden_estudio_id = orden_estudio_id;
 	}
+	@Column
 	public Long orden_id;
 	public String estudio_id;
 	////public int cantidad_estudio;

@@ -17,5 +17,7 @@ public interface IMedicosDao {
 	
 	public List<MedicosVista> mv();
 	
+	public Object findByPersona (Long id);
+	
 }
  

@@ -13,5 +13,7 @@ public interface IPacienteDao {
 	public Paciente findOne(Long id);
 	
 	public void delete(Long id);
+	
+	public Object findByPersona (Long id);
 
 }

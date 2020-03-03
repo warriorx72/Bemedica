@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.bemedica.springboot.app.models.entity.OrdenEstudio;
 
 @Repository
-public class OrdenEstudioDaoImpl implements IOrdenEstudioDao{
+public class OrdenEstudioDaoImpl implements IOrdenEstudioDao {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -23,25 +23,26 @@ public class OrdenEstudioDaoImpl implements IOrdenEstudioDao{
 		// TODO Auto-generated method stub
 		return em.createQuery("from OrdenEstudio").getResultList();
 	}
-	 @Transactional
+
+	@Transactional
 	@Override
 	public OrdenEstudio findOne(Long id) {
 		return em.find(OrdenEstudio.class, id);
 	}
-	 @Transactional
+
+	@Transactional
 	@Override
 	public void save(OrdenEstudio ordenestudio) {
-		if(ordenestudio.getOrden_id() != null && ordenestudio.getOrden_id() >0) {
+		if (ordenestudio.getOrden_id() != null && ordenestudio.getOrden_id() > 0) {
 			em.merge(ordenestudio);
 		} else {
 			em.persist(ordenestudio);
 		}
 	}
 
-	 @Transactional
+	@Transactional
 	@Override
 	public void delete(Long id) {
 		em.remove(findOne(id));
 	}
-
 }

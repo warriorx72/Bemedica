@@ -8,6 +8,5 @@ public interface IVistaPacienteDao {
 
 	public List<VistaPaciente> findAll();
 
-	
 
 }
