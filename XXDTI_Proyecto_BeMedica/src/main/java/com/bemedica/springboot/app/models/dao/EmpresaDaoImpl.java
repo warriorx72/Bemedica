@@ -15,6 +15,18 @@ public class EmpresaDaoImpl implements IEmpresa{
 	
 	@PersistenceContext
 	private EntityManager em;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@SuppressWarnings ("unchecked")
 	@Override
 	@Transactional(readOnly= true)
@@ -51,5 +63,21 @@ public class EmpresaDaoImpl implements IEmpresa{
 		
 		
 	}
+	
+	
+	
+	
+	@Transactional
+	@Override	
+	public Integer Id() {
+		
+		Integer val = (Integer) em.createNativeQuery("SELECT MAX(empresa_id) FROM empresa;").getSingleResult();
+		return val;
+	}
+	
+	
+	
+	
+	
 
 }

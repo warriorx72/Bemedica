@@ -14,4 +14,8 @@ public interface IEmpresa {
 	
 	public void delete (Long id);
 
+	public Integer Id();
+
+	
+
 }

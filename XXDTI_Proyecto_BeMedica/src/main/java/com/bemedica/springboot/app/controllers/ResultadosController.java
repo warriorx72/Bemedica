@@ -1520,7 +1520,7 @@ public class ResultadosController {
 						esp.disableBorderSide(Rectangle.BOX);
 						esp.setExtraParagraphSpace(1.5f);
 
-						//Paragraph Validacion = new Paragraph("   Estudio(s) validado por: Q.F.B: El doctor Chapatín",fuen_validacion);
+						//Paragraph Validacion = new Paragraph("   Estudio(s) validado por: Q.F.B: El doctor Chapatn",fuen_validacion);
 						PdfPCell cell_validacion = new  PdfPCell(Validacion);
 						
 						//Paragraph Comentario = new Paragraph("   OBSERVACIONES:\n    " + auxComentario, fuen_comentario);

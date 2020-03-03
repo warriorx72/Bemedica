@@ -1,4 +1,4 @@
-	package com.bemedica.springboot.app.controllers;
+package com.bemedica.springboot.app.controllers;
 
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +69,7 @@ import com.bemedica.springboot.app.models.entity.VistaOrdenEstudio;
 import com.bemedica.springboot.app.models.entity.WebRole;
 import com.bemedica.springboot.app.models.entity.WebUser;
 import com.bemedica.springboot.app.service.UserService;
+import com.bemedica.springboot.app.service.WebUserService;
 import com.bemedica.springboot.app.models.entity.OrdenEstudio;
 import com.bemedica.springboot.app.models.entity.OrdenEstudioE;
 import com.bemedica.springboot.app.models.entity.Estudio;
@@ -132,21 +133,27 @@ public class PacienteController {
 	private IConvenioEstudio coEsDao;
 	@Autowired
 	private UserService userService;
-	
-	
+
+
 	@Autowired
 	private IWebUserDao webUser;
-	
+
 	@Autowired
 	private IWebRoleDao webRole;
-	
+
+
+
+	@Autowired
+	private WebUserService webUserService;
+
+
 	@Autowired
 	EntityManager em;
-	
-	
-	
+
+
+
 	String password;
-	
+
 
 	@RequestMapping(value = "/operaciones_recepcion", method = RequestMethod.GET) // vista operaciones_recepcion
 	public String operaciones_recepcion(Model model, Map<String, Object> m) {
@@ -168,7 +175,7 @@ public class PacienteController {
 
 		// 7direccion.getDireccion_id();
 		m.put("orden", orden);/// Modelo entity Cliente para crear un objeto de tipo cliente la palabra
-								/// cliente es como llamaremos al objecto desde el ocntrolador
+		/// cliente es como llamaremos al objecto desde el ocntrolador
 		m.put("ordenestudio", ordenestudio);
 		m.put("titulo", "Formulario de Cliente");
 		////////////////////////////////////////////////////////////// 7 IMPORTANTE
@@ -177,14 +184,14 @@ public class PacienteController {
 		Persona personamedico = new Persona();
 		m.put("personamedico", personamedico);
 		/// model.put("titulo", "Formulario de Cliente");
-//				status.setComplete();
+		//				status.setComplete();
 		model.addAttribute("pacientes", vistapacienteDao.findAll());
 		model.addAttribute("medicos", vistamedicoDao.findAll());
 		/// model.addAttribute("estudios", estudioDao.findAll());
-//		model.addAttribute("estudios", estudioDao.findBy());
-//		////
-//		model.addAttribute("paquetes", paquetesDao.findBy()); ///
-//		model.addAttribute("perfiles", perfilesDao.findBy()); ///
+		//		model.addAttribute("estudios", estudioDao.findBy());
+		//		////
+		//		model.addAttribute("paquetes", paquetesDao.findBy()); ///
+		//		model.addAttribute("perfiles", perfilesDao.findBy()); ///
 		//// ///
 		model.addAttribute("empleados", vistaempleadoDao.findAll()); // 7
 		model.addAttribute("sucursales", sucursalDao.findAll());
@@ -235,16 +242,16 @@ public class PacienteController {
 	 * }
 	 */
 
-		@RequestMapping(value = "/guardarorden", method = RequestMethod.POST)
+	@RequestMapping(value = "/guardarorden", method = RequestMethod.POST)
 	public String guardarorden(HttpServletRequest request,@Valid Orden orden, BindingResult result, Model model, Map<String, Object> m) {
 		///System.out.println(rol.replace("[","").replace("]", ""));
-		
-		    
-		   
 
-///System.out.println(hola3[0]);
-///System.out.println(hola3[1]);
-////System.out.println(hola3[0].toString());
+
+
+
+		///System.out.println(hola3[0]);
+		///System.out.println(hola3[1]);
+		////System.out.println(hola3[0].toString());
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de Cliente");
 			return "redirect:operaciones_recepcion";
@@ -262,34 +269,34 @@ public class PacienteController {
 		model.addAttribute("button_terminar", "disabled");
 		orden.setMetodo_pago("efectivo");
 		orden.setPromocion_id(0);
-try {
-		///String rol2=rol.replace("[", "").replace("]","");
-	///System.out.println(rol2);
-	///System.out.println(user);
-	
-	////String suc=vistaordenestudioDao.emp_suc(rol2, user).get(0).getSucursal_id();
-	///System.out.println(( vistaordenestudioDao.emp_suc(rol2, user).toArray()));
-UserController us =new UserController();
-us.UserSucId(request,userService);
-		///Object[] hola=vistaordenestudioDao.emp_suc(rol2, user).toArray();
-///System.out.println(hola[0]);
-String id_empleado=us.UserSucId(request, userService)[0];
-String id_sucursal=us.UserSucId(request, userService)[1];
-System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
-///System.out.println("holamundo"+us.UserSucId(request,userService)[0]);
-	
-	
-		//Object[] hola3=(Object[]) hola[0];
-		orden.setEmpleado_id(id_empleado);
-		orden.setSucursal_id(id_sucursal);	
-}
-	catch(Exception e) {
-		orden.setEmpleado_id(null);
-		orden.setSucursal_id(null);
-	}
-			
-		
-		
+		try {
+			///String rol2=rol.replace("[", "").replace("]","");
+			///System.out.println(rol2);
+			///System.out.println(user);
+
+			////String suc=vistaordenestudioDao.emp_suc(rol2, user).get(0).getSucursal_id();
+			///System.out.println(( vistaordenestudioDao.emp_suc(rol2, user).toArray()));
+			UserController us =new UserController();
+			us.UserSucId(request,userService);
+			///Object[] hola=vistaordenestudioDao.emp_suc(rol2, user).toArray();
+			///System.out.println(hola[0]);
+			String id_empleado=us.UserSucId(request, userService)[0];
+			String id_sucursal=us.UserSucId(request, userService)[1];
+			System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
+			///System.out.println("holamundo"+us.UserSucId(request,userService)[0]);
+
+
+			//Object[] hola3=(Object[]) hola[0];
+			orden.setEmpleado_id(id_empleado);
+			orden.setSucursal_id(id_sucursal);	
+		}
+		catch(Exception e) {
+			orden.setEmpleado_id(null);
+			orden.setSucursal_id(null);
+		}
+
+
+
 		ordenDao.save(orden);
 		orden.setOrden_folio("ORD" + (orden.getOrden_id() + 1000000));
 		ordenDao.save(orden);
@@ -297,12 +304,12 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 		ordenestudio.setOrden_id(orden.getOrden_id());
 		m.put("ordenestudio", ordenestudio);
 		/// model.put("titulo", "Formulario de Cliente");
-//		status.setComplete();
+		//		status.setComplete();
 		Mostrar(orden.getOrden_id(),model);
 		model.addAttribute("pacientes", vistapacienteDao.findAll());
 		String idtext=vistapacienteDao.findAll().get(0).getPaciente_id_tex();
 		System.out.println(idtext);
-		
+
 		model.addAttribute("medicos", vistamedicoDao.findAll());
 		/// model.addAttribute("estudios", estudioDao.findAll());
 		model.addAttribute("estudios", estudioDao.findBy());
@@ -321,12 +328,12 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 		return "operaciones_recepcion";
 
 	}
-	
+
 	@Override
 	public String toString() {
 		return "PacienteController [vistaordenestudioDao=" + vistaordenestudioDao + "]";
 	}
-	
+
 	public void Mostrar(Long id,Model model) {	
 		model.addAttribute("pacientes", vistapacienteDao.findAll());
 		model.addAttribute("medicos", vistamedicoDao.findAll());
@@ -428,9 +435,9 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 			ordenDao.save(orden);
 		}
 
-		
 
-		
+
+
 		Mostrar(orden.getOrden_id(),model);
 		((Map<String, Object>) model).put("ordenestudio", ordenestudio);
 		//// ((Map<String, Object>) model).put("estudio", estudio);
@@ -443,9 +450,9 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 		}
 		///Primero revisa si es una cotizacion;
 		if(aux.getOrden_estatus().equals("cotizacion")) {
-		model.addAttribute("tipo_ticket", "block3");
-		model.addAttribute("mini_ticket", ""); 
-		model.addAttribute("coti", "disabled");
+			model.addAttribute("tipo_ticket", "block3");
+			model.addAttribute("mini_ticket", ""); 
+			model.addAttribute("coti", "disabled");
 		}
 		else {
 			///Despues se revisa si es convenio;
@@ -465,7 +472,7 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 			}
 		}
 
-		
+
 		/// return"form_convenio";
 		return "operaciones_recepcion";
 	}
@@ -474,16 +481,16 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 	// 77
 	// 77
 	//////////////////////////////////////////////////////////// 7
-//	@RequestMapping(value = "/form2")
-//	public String creardoctor(Map<String, Object> model,Direccion direccion,Persona persona,Medico medico) {
-//		
-//		model.put("direccion", direccion);/// Modelo entity Cliente para crear un objeto de tipo cliente la palabra					
-//		model.put("persona", persona);
-//		model.put("medico", medico);
-//		model.put("titulo", "Formulario de Cliente");
-//		
-//		return "operaciones_recepcion";
-//	}
+	//	@RequestMapping(value = "/form2")
+	//	public String creardoctor(Map<String, Object> model,Direccion direccion,Persona persona,Medico medico) {
+	//		
+	//		model.put("direccion", direccion);/// Modelo entity Cliente para crear un objeto de tipo cliente la palabra					
+	//		model.put("persona", persona);
+	//		model.put("medico", medico);
+	//		model.put("titulo", "Formulario de Cliente");
+	//		
+	//		return "operaciones_recepcion";
+	//	}
 
 	@RequestMapping(value = "/formC/{id}")
 	public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model) {
@@ -567,24 +574,24 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 
 
 		if(!nombre_medico.equals("")) {
-		Persona personamedico = new Persona();
-		m.put("personamedico", personamedico);
+			Persona personamedico = new Persona();
+			m.put("personamedico", personamedico);
 
-		personamedico.setIdDireccion(direccion.getDireccion_id().intValue());
-		personamedico.setPersona_nombre(nombre_medico);
-		personamedico.setPersona_email(email_med);
-		personamedico.setPersona_tel_cel(cel_med);
-		personamedico.setPersona_am(am_medico);
-		personamedico.setPersona_ap(ap_medico);
-		personaDao.save(personamedico);
-		medico.setPersona_id((long) personamedico.getPersona_id().intValue());
-		medico.setMedico_especialidad(esp_med);
-		medico.setMedico_id_text(
-				"MED" + personamedico.getPersona_ap().charAt(0) + personamedico.getPersona_am().charAt(0)
-						+ personamedico.getPersona_nombre().charAt(0) + "" + (personamedico.getPersona_id() + 100000));
+			personamedico.setIdDireccion(direccion.getDireccion_id().intValue());
+			personamedico.setPersona_nombre(nombre_medico);
+			personamedico.setPersona_email(email_med);
+			personamedico.setPersona_tel_cel(cel_med);
+			personamedico.setPersona_am(am_medico);
+			personamedico.setPersona_ap(ap_medico);
+			personaDao.save(personamedico);
+			medico.setPersona_id((long) personamedico.getPersona_id().intValue());
+			medico.setMedico_especialidad(esp_med);
+			medico.setMedico_id_text(
+					"MED" + personamedico.getPersona_ap().charAt(0) + personamedico.getPersona_am().charAt(0)
+					+ personamedico.getPersona_nombre().charAt(0) + "" + (personamedico.getPersona_id() + 100000));
 
-		medicoDao.save(medico);
-		orden.setMedico_id(medico.getMedico_id().intValue());
+			medicoDao.save(medico);
+			orden.setMedico_id(medico.getMedico_id().intValue());
 		}
 		/////////////////////////////////////// 77
 		orden.setPaciente_id(paciente.getPaciente_id().intValue());//////////////////////////////// 7
@@ -598,7 +605,7 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 		ordenestudio.setOrden_id(orden.getOrden_id());
 		m.put("ordenestudio", ordenestudio);
 		/// model.put("titulo", "Formulario de Cliente");
-//		status.setComplete();
+		//		status.setComplete();
 		model.addAttribute("pacientes", vistapacienteDao.findAll());
 		model.addAttribute("medicos", vistamedicoDao.findAll());
 		/// model.addAttribute("estudios", estudioDao.findAll());
@@ -654,7 +661,7 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 		ordenestudio.setOrden_id(orden.getOrden_id());
 		m.put("ordenestudio", ordenestudio);
 		/// model.put("titulo", "Formulario de Cliente");
-//		status.setComplete();
+		//		status.setComplete();
 		model.addAttribute("pacientes", vistapacienteDao.findAll());
 		model.addAttribute("medicos", vistamedicoDao.findAll());
 		/// model.addAttribute("estudios", estudioDao.findAll());
@@ -723,9 +730,9 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 			Mostrar(id_o,model);
 			///Primero revisa si es una cotizacion;
 			if(aux.getOrden_estatus().equals("cotizacion")) {
-			model.addAttribute("tipo_ticket", "block3");
-			model.addAttribute("mini_ticket", ""); 
-			model.addAttribute("coti", "disabled");
+				model.addAttribute("tipo_ticket", "block3");
+				model.addAttribute("mini_ticket", ""); 
+				model.addAttribute("coti", "disabled");
 			}
 			else {
 				///Despues se revisa si es convenio;
@@ -749,7 +756,7 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 	}
 	//////////////////////////////////////////////////////////// 7777
 
-////////////////////////////////////////////////////////////////////77
+	////////////////////////////////////////////////////////////////////77
 	/*
 	 * 
 	 * 
@@ -800,8 +807,8 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 		}
 
 	}
-	
-	
+
+
 	@RequestMapping(value = "/form_descuento_orden", method = RequestMethod.POST)
 	public String descuentoOrden(@RequestParam("id") Long id,@RequestParam() int descuento,Model model,
 			RedirectAttributes redirectAttrs, Map<String, Object> m, Orden orden, OrdenEstudio ordenestudio) {
@@ -822,13 +829,13 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 			m.put("orden", e);
 			ordenestudio.setOrden_id(id);
 			m.put("ordenestudio", ordenestudio);
-			
-			
-			
+
+
+
 			if(e.getOrden_estatus().equals("cotizacion")) {
-			model.addAttribute("tipo_ticket", "block3");
-			model.addAttribute("mini_ticket", ""); 
-			model.addAttribute("coti", "disabled");
+				model.addAttribute("tipo_ticket", "block3");
+				model.addAttribute("mini_ticket", ""); 
+				model.addAttribute("coti", "disabled");
 			}
 			else {
 				if(e.getConvenio_id() != null)
@@ -845,8 +852,8 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 					model.addAttribute("coti", "false");
 				}
 			}
-			
-			
+
+
 			/*if(e.getOrden_estatus().equals("cotizacion")) {
 				model.addAttribute("tipo_ticket", "block3");
 				model.addAttribute("mini_ticket", ""); 
@@ -857,17 +864,17 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
 				}*/
-			
-			
+
+
 			return "operaciones_recepcion";
-			
+
 		} else {
 			return "redirect:/operaciones_recepcion";
 		}
 
 	}
 
-	
+
 	@RequestMapping(value = "/estatus_empleadoPC", method = RequestMethod.POST)
 	public String estatusPC(@RequestParam("id") Long id,@RequestParam() String status_id,
 			@RequestParam() String pago_inicial, @RequestParam() String pago_final, Model model,
@@ -955,86 +962,88 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 		return "redirect:operaciones_recepcion";
 
 	}
-	
+
 	@RequestMapping(value = "/form_pago", method = RequestMethod.POST)
 	public String FormPago(Orden orden, BindingResult result, Model model, Map<String, Object> m,
 			@RequestParam("id") Long id,@RequestParam("primer_pago") String primer_pago,OrdenEstudio ordenestudio) {
 		if(id>0) {
-			
-			
+
+
 
 			orden = ordenDao.findOne(id);
-			
-			String flag= webUser.Exist(Long.valueOf(orden.getPaciente_id()));
-			 
-			 
-			 
-		
-			 
-			 
-			 
-			
-	    if (orden.getConvenio_id() == null && flag.equals("0")) {
-	    	
-	    	
-	       
-	    	
-	   	 System.out.println("aqui imprime que pedooooo"+flag);
 
-		
-	    	
-	    	
-	    	WebUser wu= new WebUser();
-	    	
-	    	
-			Paciente pac= new Paciente ();
-			WebRole roli= new WebRole();
-			
-			
-            
-	
-	    
-	   
-			
-		    roli = webRole.findOne(1L);
-			
-			
-			pac = pacienteDao.findOne(Long.valueOf(orden.getPaciente_id()));
-			//Random aleatorio= new Random();
-			//int alet =100000000+ aleatorio.nextInt(800000000);
-			//System.out.println("password:"+alet);
-			
-			
-			String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-			String pwd = RandomStringUtils.random( 15, characters );
-			password=pwd;
-			
-			
-			System.out.println("Password:" +password);
-			wu.setUserPassword(String.valueOf(pwd));
-			wu.setPaciente_id(orden.getPaciente_id());
-			wu.setUser_name(pac.paciente_id_tex);
-			wu.setUser_status("1");
-			wu.setTipo("paciente");
-						
-			
-			
-			roli.getUser().add(wu);
-			  
-		    wu.getWebroles().add(roli);
-		    
-		    webUser.save(wu);
-		    
-		    
-	    			} 
-	    
-	    
-	    
-	  	
-	   	 System.out.println("aqui imprime que pedooooo con flag positivo"+flag);
-	    
-			
-			
+			String flag= webUser.Exist(Long.valueOf(orden.getPaciente_id()));
+
+
+
+
+
+
+
+
+			if (orden.getConvenio_id() == null && flag.equals("0")) {
+
+
+
+
+				System.out.println("aqui imprime que pedooooo"+flag);
+
+
+
+
+				WebUser wu= new WebUser();
+
+
+				Paciente pac= new Paciente ();
+				WebRole roli= new WebRole();
+
+
+
+
+
+
+
+				roli = webRole.findOne(1L);
+
+
+				pac = pacienteDao.findOne(Long.valueOf(orden.getPaciente_id()));
+				//Random aleatorio= new Random();
+				//int alet =100000000+ aleatorio.nextInt(800000000);
+				//System.out.println("password:"+alet);
+
+
+				String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+				String pwd = RandomStringUtils.random( 15, characters );
+				password=pwd;
+
+
+				System.out.println("Password:" +password);
+				wu.setExtra(pwd);
+				wu.setUserPassword(String.valueOf(pwd));
+				wu.setPaciente_id(orden.getPaciente_id());
+				wu.setUser_name(pac.paciente_id_tex);
+				//wu.setUser_name(pac.);
+				wu.setUser_status("1");
+				wu.setTipo("paciente");
+
+
+
+				roli.getUser().add(wu);
+
+				wu.getWebroles().add(roli);
+
+				webUser.save(wu);
+
+
+			} 
+
+
+
+
+			System.out.println("aqui imprime que pedooooo con flag positivo"+flag);
+
+
+
 			orden = ordenDao.findOne(id);
 			orden.setPago_inicial(primer_pago);
 			ordenDao.save(orden);
@@ -1042,13 +1051,13 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 			m.put("ordenestudio", ordenestudio);
 			m.put("orden", orden);
 			Mostrar(id,model);
-			
-		
+
+
 			if(orden.getOrden_estatus().equals("cotizacion")) {
-			model.addAttribute("tipo_ticket", "block3");
-			model.addAttribute("mini_ticket", ""); 
-			model.addAttribute("coti", "disabled");
-			model.addAttribute("password", password);
+				model.addAttribute("tipo_ticket", "block3");
+				model.addAttribute("mini_ticket", ""); 
+				model.addAttribute("coti", "disabled");
+				model.addAttribute("password", password);
 			}
 			else {
 				if(orden.getConvenio_id() != null)
@@ -1057,138 +1066,212 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 					model.addAttribute("tipo_ticket", "block9"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
-					model.addAttribute("password", password);
+
+
+					//quitar esto en caso de que truene
+
+					if (flag.equals("0")) {
+
+
+
+						model.addAttribute("password", password);
+
+					} else {
+
+						WebUser wu= webUserService.findBypaciente(orden.paciente_id);
+
+						System.out.println("ultimo ultimo" + orden.paciente_id);
+						System.out.println("ultimo ultimo" +webUserService.findBypaciente(orden.paciente_id ));
+						System.out.println("ultimo ultimo" + wu.getExtra());
+						String pass= wu.getExtra();
+						model.addAttribute("password", pass);
+					}
+
+
+					///aqui termina pero debes dejar el model atribbute
+
+
 				}
 				else
 				{
 					model.addAttribute("tipo_ticket", "block1"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
-					model.addAttribute("password", password);
+
+					//quitar esto en caso de que truene
+
+					if (flag.equals("0")) {
+
+
+
+						model.addAttribute("password", password);
+
+					} else {
+
+						WebUser wu= webUserService.findBypaciente(orden.paciente_id);
+
+						System.out.println("ultimo ultimo" + orden.paciente_id);
+
+
+						System.out.println("ultimo ultimo" +webUserService.findBypaciente(orden.paciente_id ));
+						System.out.println("ultimo ultimo" + wu.getExtra());
+						String pass= wu.getExtra();
+						model.addAttribute("password", pass);
+					}
+
+
+					///aqui termina pero debes dejar el model atribbute
+
 				}
 			}
-			
-			
+
+
 			return "operaciones_recepcion";
 		}
 		else {
-		return "redirect:operaciones_recepcion";
+			return "redirect:operaciones_recepcion";
 		}
 	}
-	
+
 	@RequestMapping(value = "/liquidar_pago", method = RequestMethod.POST)
 	public String LiquidarPago(Orden orden, BindingResult result, Model model, Map<String, Object> m,
 			@RequestParam("id") Long id,OrdenEstudio ordenestudio) {
-		   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-		   LocalDateTime now = LocalDateTime.now();
-		   
-		   
-			
-		
-			
-			if(id>0) {
-				
-				
-				
-			
-				orden = ordenDao.findOne(id);
-				
-				String flag= webUser.Exist(Long.valueOf(orden.getPaciente_id()));
-				 
-				 
-				 
-			
-				 
-				 
-				 
-				
-		    if (orden.getConvenio_id() == null && flag.equals("0")) {
-		    	
-		    	
-		       
-		    	
-		   	 System.out.println("aqui imprime que pedooooo"+flag);
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now();
 
-			
-		    	
-		    	
-		    	WebUser wu= new WebUser();
-		    	
-		    	
+
+
+
+
+		if(id>0) {
+
+
+
+
+			orden = ordenDao.findOne(id);
+
+			String flag= webUser.Exist(Long.valueOf(orden.getPaciente_id()));
+
+
+
+
+
+
+
+
+			if (orden.getConvenio_id() == null && flag.equals("0")) {
+
+
+
+
+				System.out.println("aqui imprime que pedooooo"+flag);
+
+
+
+
+				WebUser wu= new WebUser();
+
+
 				Paciente pac= new Paciente ();
 				WebRole roli= new WebRole();
-				
-				
-	            
-		
-		    
-		   
-				
-			    roli = webRole.findOne(1L);
-				
-				
+
+
+
+
+
+
+
+				roli = webRole.findOne(1L);
+
+
 				pac = pacienteDao.findOne(Long.valueOf(orden.getPaciente_id()));
 				//Random aleatorio= new Random();
 				//int alet =100000000+ aleatorio.nextInt(800000000);
 				//System.out.println("password:"+alet);
-				
-				
-				
+
+
+
 
 				String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 				String pwd = RandomStringUtils.random( 15, characters );
-				
-				
+
+
 				password=pwd;
-				
-				
+
+
 				System.out.println("Password:" +password);
+				wu.setExtra(pwd);
 				wu.setUserPassword(String.valueOf(pwd));
 				wu.setPaciente_id(orden.getPaciente_id());
 				wu.setUser_name(pac.paciente_id_tex);
 				wu.setUser_status("1");
 				wu.setTipo("paciente");
-							
-				
-				
+
+
+
 				roli.getUser().add(wu);
-				  
-			    wu.getWebroles().add(roli);
-			    
-			    webUser.save(wu);
-			    
-			    
-		    			} 
-		    
-		    
-		    
-		  	
-		   	 System.out.println("aqui imprime que pedooooo con flag positivo"+flag);
-		    
-		    
-		    
-		    
-			
-		   
-			
-			
+
+				wu.getWebroles().add(roli);
+
+				webUser.save(wu);
+
+
+			} 
+
+
+
+
+			System.out.println("aqui imprime que pedooooo con flag positivo"+flag);
+
+
+
+
+
+
+
+
 			orden = ordenDao.findOne(id);
-            orden.setPago_final(orden.getMonto());
-            orden.setPago_inicial("0");
-            orden.setOrden_estatus("Pagado");
+			orden.setPago_final(orden.getMonto());
+			orden.setPago_inicial("0");
+			orden.setOrden_estatus("Pagado");
 			ordenDao.save(orden);
 			ordenestudio.setOrden_id(id);
 			orden.setFecha_liquidacion(dtf.format(now));
 			m.put("ordenestudio", ordenestudio);
 			m.put("orden", orden);
 			Mostrar(id,model);
-			
-			
+
+
 			if(orden.getOrden_estatus().equals("cotizacion")) {
-			model.addAttribute("tipo_ticket", "block3");
-			model.addAttribute("mini_ticket", ""); 
-			model.addAttribute("coti", "disabled");
-			model.addAttribute("password", password);
+				model.addAttribute("tipo_ticket", "block3");
+				model.addAttribute("mini_ticket", ""); 
+				model.addAttribute("coti", "disabled");
+				//quitar esto en caso de que truene
+
+
+
+				if (flag.equals("0")) {
+
+
+
+					model.addAttribute("password", password);
+
+				} else {
+
+					WebUser wu= webUserService.findBypaciente(orden.paciente_id);
+
+					System.out.println("ultimo ultimo" + orden.paciente_id);
+
+
+					System.out.println("ultimo ultimo" +webUserService.findBypaciente(orden.paciente_id ));
+					System.out.println("ultimo ultimo" + wu.getExtra());
+					String pass= wu.getExtra();
+					model.addAttribute("password", pass);
+
+				}
+
+
+				///aqui termina pero debes dejar el model atribbute
 			}
 			else {
 				if(orden.getConvenio_id() != null)
@@ -1197,25 +1280,82 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 					model.addAttribute("tipo_ticket", "block9"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
-					model.addAttribute("password", password);
+
+					//quitar esto en caso de que truene
+
+
+
+					if (flag.equals("0")) {
+
+
+
+						model.addAttribute("password", password);
+
+					} else {
+
+						WebUser wu= webUserService.findBypaciente(orden.paciente_id);
+
+						System.out.println("ultimo ultimo" + orden.paciente_id);
+
+
+						System.out.println("ultimo ultimo" +webUserService.findBypaciente(orden.paciente_id ));
+						System.out.println("ultimo ultimo" + wu.getExtra());
+						String pass= wu.getExtra();
+						model.addAttribute("password", pass);
+
+					}
+
+
+					///aqui termina pero debes dejar el model atribbute
+
 				}
 				else
 				{
 					model.addAttribute("tipo_ticket", "block1"); 
 					model.addAttribute("mini_ticket", "block7"); 
 					model.addAttribute("coti", "false");
-					model.addAttribute("password", password);
+
+
+					//quitar esto en caso de que truene
+
+					if (flag.equals("0")) {
+
+
+
+						model.addAttribute("password", password);
+
+					} else {
+
+
+						//orden = ordenDao.findOne(id);
+
+
+
+						WebUser wu= webUserService.findBypaciente(orden.paciente_id);
+
+						System.out.println("ultimo ultimo" + orden.paciente_id);
+
+
+						System.out.println("ultimo ultimo" +webUserService.findBypaciente(orden.paciente_id ));
+						System.out.println("ultimo ultimo" + wu.getExtra());
+						String pass= wu.getExtra();
+						model.addAttribute("password", pass);
+
+					}
+
+
+					///aqui termina pero debes dejar el model atribbute
 				}
 			}
-			
+
 			return "operaciones_recepcion";
 		}
 		else {
-		return "redirect:operaciones_recepcion";
+			return "redirect:operaciones_recepcion";
 		}
 	}
-	
-	
+
+
 	@RequestMapping(value= "/linea_porcentaje", method=RequestMethod.POST)
 	public String porcentaje (
 			@RequestParam("id") Long id, 
@@ -1224,45 +1364,45 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 			OrdenEstudio ordenestudio,
 			Model model , Map<String, Object> mo){
 		if(id>0) {
-		OrdenEstudioE aux = new OrdenEstudioE();
-		aux= orden_estudioE.findOne(id);
-		
-		aux.setDescuento(((porcentaje/100)*aux.getTotalLinea()));
-		
-		//aux.setTotalLinea(((porcentaje/100)*aux.getTotalLinea())+porcentaje);
-		orden_estudioE.save(aux);
-		Orden orden = null;
-		orden = ordenDao.findOne(linea);
-		ordenestudio.setOrden_id(linea);
-		mo.put("ordenestudio", ordenestudio);
-		mo.put("orden", orden);
-		Mostrar(linea,model);
-		model.addAttribute("button_terminar", "disabled");
-		if(orden.getOrden_estatus().equals("cotizacion")) {
-		model.addAttribute("tipo_ticket", "block3");
-		model.addAttribute("mini_ticket", ""); 
-		model.addAttribute("coti", "disabled");
-		}
-		else {
-			if(orden.getConvenio_id() != null)
-			{
-				System.out.print("Es un convenio ");
-				model.addAttribute("tipo_ticket", "block9"); 
-				model.addAttribute("mini_ticket", "block7"); 
-				model.addAttribute("coti", "false");
+			OrdenEstudioE aux = new OrdenEstudioE();
+			aux= orden_estudioE.findOne(id);
+
+			aux.setDescuento(((porcentaje/100)*aux.getTotalLinea()));
+
+			//aux.setTotalLinea(((porcentaje/100)*aux.getTotalLinea())+porcentaje);
+			orden_estudioE.save(aux);
+			Orden orden = null;
+			orden = ordenDao.findOne(linea);
+			ordenestudio.setOrden_id(linea);
+			mo.put("ordenestudio", ordenestudio);
+			mo.put("orden", orden);
+			Mostrar(linea,model);
+			model.addAttribute("button_terminar", "disabled");
+			if(orden.getOrden_estatus().equals("cotizacion")) {
+				model.addAttribute("tipo_ticket", "block3");
+				model.addAttribute("mini_ticket", ""); 
+				model.addAttribute("coti", "disabled");
 			}
-			else
-			{
-				model.addAttribute("tipo_ticket", "block1"); 
-				model.addAttribute("mini_ticket", "block7"); 
-				model.addAttribute("coti", "false");
+			else {
+				if(orden.getConvenio_id() != null)
+				{
+					System.out.print("Es un convenio ");
+					model.addAttribute("tipo_ticket", "block9"); 
+					model.addAttribute("mini_ticket", "block7"); 
+					model.addAttribute("coti", "false");
+				}
+				else
+				{
+					model.addAttribute("tipo_ticket", "block1"); 
+					model.addAttribute("mini_ticket", "block7"); 
+					model.addAttribute("coti", "false");
+				}
 			}
-		}
 		}
 		return "operaciones_recepcion";
 	}
-	
-	
+
+
 	@RequestMapping(value= "/linea_descuento", method=RequestMethod.POST)
 	public String descuento (
 			@RequestParam("id") Long id, 
@@ -1271,40 +1411,40 @@ System.out.println("aaaaaaaaaaaaaaaaaaaaaaa "+id_sucursal);
 			OrdenEstudio ordenestudio,
 			Model model , Map<String, Object> mo){
 		if(id>0) {
-		OrdenEstudioE aux = new OrdenEstudioE();
-		aux= orden_estudioE.findOne(id);
-		aux.setDescuento(descuento);
-		orden_estudioE.save(aux);
-		Orden orden = null;
-		orden = ordenDao.findOne(linea);
-		ordenestudio.setOrden_id(linea);
-		mo.put("ordenestudio", ordenestudio);
-		mo.put("orden", orden);
-		model.addAttribute("button_terminar", "disabled");
-		Mostrar(linea,model);
-		if(orden.getOrden_estatus().equals("cotizacion")) {
-		model.addAttribute("tipo_ticket", "block3");
-		model.addAttribute("mini_ticket", ""); 
-		model.addAttribute("coti", "disabled");
-		}
-		else {
-			if(orden.getConvenio_id() != null)
-			{
-				System.out.print("Es un convenio ");
-				model.addAttribute("tipo_ticket", "block9"); 
-				model.addAttribute("mini_ticket", "block7"); 
-				model.addAttribute("coti", "false");
+			OrdenEstudioE aux = new OrdenEstudioE();
+			aux= orden_estudioE.findOne(id);
+			aux.setDescuento(descuento);
+			orden_estudioE.save(aux);
+			Orden orden = null;
+			orden = ordenDao.findOne(linea);
+			ordenestudio.setOrden_id(linea);
+			mo.put("ordenestudio", ordenestudio);
+			mo.put("orden", orden);
+			model.addAttribute("button_terminar", "disabled");
+			Mostrar(linea,model);
+			if(orden.getOrden_estatus().equals("cotizacion")) {
+				model.addAttribute("tipo_ticket", "block3");
+				model.addAttribute("mini_ticket", ""); 
+				model.addAttribute("coti", "disabled");
 			}
-			else
-			{
-				model.addAttribute("tipo_ticket", "block1"); 
-				model.addAttribute("mini_ticket", "block7"); 
-				model.addAttribute("coti", "false");
+			else {
+				if(orden.getConvenio_id() != null)
+				{
+					System.out.print("Es un convenio ");
+					model.addAttribute("tipo_ticket", "block9"); 
+					model.addAttribute("mini_ticket", "block7"); 
+					model.addAttribute("coti", "false");
+				}
+				else
+				{
+					model.addAttribute("tipo_ticket", "block1"); 
+					model.addAttribute("mini_ticket", "block7"); 
+					model.addAttribute("coti", "false");
+				}
 			}
-		}
 		}
 		return "operaciones_recepcion";
 	}
 
-	
+
 }

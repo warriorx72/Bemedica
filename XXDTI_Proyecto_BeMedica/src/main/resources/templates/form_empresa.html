@@ -178,6 +178,7 @@
 									
 
 								</div>
+								
 
 								<div align="right">
 									
@@ -190,6 +191,25 @@
 									
 
 							</form>
+							
+							
+							
+								<h3>DATOS DE USUARIO Y CONTRASEÑA </h3>
+								
+								<div class="form-row mb-0">
+										<label  class="col-form-label-sm mb-0">USUARIO:</label>
+										<input type="text" pattern="[0-9]{1,5}"                              	 	 	  th:value="${usuario}" 
+											class="form-control form-control-sm" />
+											
+									</div>
+									
+									
+									<div class="form-row mb-0">
+										<label class="col-form-label-sm mb-0">CONTRASEÑA</label>
+										<input type="text" pattern="[0-9]{1,5}"                              	 	 	  th:value="${contrasena}" 
+											class="form-control form-control-sm" />
+											
+									</div>
 							
 							<!--Termina código de formulario-->
 						</div>

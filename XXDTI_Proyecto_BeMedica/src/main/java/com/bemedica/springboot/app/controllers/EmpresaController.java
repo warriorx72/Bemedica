@@ -13,10 +13,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;*/
 import java.util.Map;
+import java.util.Random;
+
+import javax.persistence.EntityManager;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 //import javax.swing.JOptionPane;
 import javax.validation.Valid;
+
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -27,8 +32,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.bemedica.springboot.app.models.dao.IDireccion;
 import com.bemedica.springboot.app.models.dao.IEmpresa;
+import com.bemedica.springboot.app.models.dao.IOrdenDao;
+import com.bemedica.springboot.app.models.dao.IWebRoleDao;
+import com.bemedica.springboot.app.models.dao.IWebUserDao;
 import com.bemedica.springboot.app.models.entity.DireccionE;
 import com.bemedica.springboot.app.models.entity.Empresa;
+import com.bemedica.springboot.app.models.entity.Orden;
+import com.bemedica.springboot.app.models.entity.Paciente;
+import com.bemedica.springboot.app.models.entity.WebRole;
+import com.bemedica.springboot.app.models.entity.WebUser;
+import com.bemedica.springboot.app.service.WebUserService;
+
+
+
+
 
 
 
@@ -46,8 +63,28 @@ public class EmpresaController {
 	@Autowired
 	private ServletContext context;
 	
+	
+	@Autowired
+	private IOrdenDao ordenDao;
+	
 	@Autowired
 	HttpServletRequest request;
+	
+	
+	
+	@Autowired
+	private IWebUserDao webUser;
+	
+	@Autowired
+	private IWebRoleDao webRole;
+	
+	
+	
+	@Autowired
+	private WebUserService webUserService;
+	
+	@Autowired
+	EntityManager em;
 	
 	
 	@RequestMapping (value="/listar_empresa", method=RequestMethod.GET)
@@ -58,6 +95,13 @@ public class EmpresaController {
 	
 		return "listar_empresa";
 	}
+	
+	
+	
+
+	
+	
+	
 	
 	
 	@RequestMapping(value="/form_empresa")
@@ -81,26 +125,118 @@ public class EmpresaController {
 			return "form_empresa";
 		}
 		
+		
+		
+		
 			DireccionDao.save(direccion);
 			empresa.setIdDireccion(direccion.getDireccionId());
 			EmpresaDao.save(empresa);
+			
+			
+			//Aqui va la magia
+			
+			
+			
+			Empresa e = new Empresa();
+			
+		
+			
+
+            
+            
+            
+			e = EmpresaDao.findOne(Long.valueOf(EmpresaDao.Id()));
+			
+			//String flag= webUser.Exist(Long.valueOf(orden.getPaciente_id()));
+			 
+	    	
+	   	    //System.out.println("aqui imprime que pedooooo"+flag);
+
+	    	WebUser wu= new WebUser();
+	    	
+			WebRole roli= new WebRole();
+			
+		    roli = webRole.findOne(2L);
+			
+		    
+		    
+
+			String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			String pwd = RandomStringUtils.random( 15, characters );
+			
+			
+			String password = pwd;
+			
+			
+			System.out.println("Password:" +password);
+			wu.setUserPassword(String.valueOf(pwd));
+			
+			
+			System.out.println("aqui va la variable"+ e.getEmpresaId() );
+			
+			
+			
+			wu.setPaciente_id(e.getEmpresaId().intValue());
+			
+			
+			wu.setUser_name("EMPR" + (e.getEmpresaId() + 1000000));
+			
+			
+			
+			wu.setUser_status("1");
+			wu.setTipo("Empresa");
+			wu.setExtra(pwd);
+			
+						
+			  
+		    wu.getWebroles().add(roli);
+		    
+		    webUser.save(wu);
+	  	
+	   	 //System.out.println("aqui imprime que pedooooo con flag positivo"+flag);
+	    
+			
+			
+			
+			
+			
+			 
 			return"redirect:listar_empresa";
 	}
 	
 	
 	@RequestMapping(value= "/form_empresa_editar/{id}")
+	
+	
+	
 	public String editar(@PathVariable (value="id") Long id, Map<String, Object> model, Model m ) {
 		
 		DireccionE d = null;
 		Empresa  e = null;
 	
+		
+		
+	  
+		
+	
+	
 		if (id>0) {
 			e=EmpresaDao.findOne(id);
 			
+		    WebUser we = webUserService.findBypaciente(e.getEmpresaId().intValue());
+			
 			d=DireccionDao.findOne(e.getIdDireccion());
+			
+			
+			
+			
 			model.put("titulo", "Editar Empresa");
 			model.put("direccion", d);
 			model.put("empresa",e);
+			
+			
+			model.put("usuario", we.getUser_name());
+			model.put("contrasena",we.getExtra());
 
 			return "form_empresa";
 			
