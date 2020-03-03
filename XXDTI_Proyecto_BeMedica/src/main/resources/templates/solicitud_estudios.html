@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="shortcut icon" href="/img/favicon.ico">
+<title>Bemédica Punto de venta</title>
+
+<!-- Bootstrap CSS CDN -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+	crossorigin="anonymous">
+<!-- Our Custom CSS -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link href="vendor/datatables/dataTables.bootstrap4.css"
+	rel="stylesheet">
+<!-- Font Awesome JS -->
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+	crossorigin="anonymous"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+	crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+	<!--  Header -->
+	<div th:include="header-index.html" th:remove="tag"></div>
+	<!--  End Header -->
+
+
+
+	<div class="wrapper">
+		<!-- Sidebar  -->
+		<div th:include="navegacion.html" th:remove="tag"></div>
+		<!-- <script>
+            function cambia(src) {
+                src = "";
+                src = "https://img.icons8.com/color/48/000000/drag-list-down.png";
+                return src;
+            }
+            
+        </script>
+        -->
+		<!-- Page Content  -->
+		<div id="content">
+			<div class="accordion" id="accordionExample">
+				<div class="card">
+					<div class="card-header" id="headingOne">
+						<h2 class="mb-0" style="font-size: 20px;">
+							Información del paciente
+							<button class="btn btn-link" type="button" data-toggle="collapse"
+								data-target="#collapseOne" aria-expanded="true"
+								aria-controls="collapseOne">
+								<img
+									src="https://img.icons8.com/color/20/000000/drag-list-down.png">
+							</button>
+						</h2>
+					</div>
+					<div id="collapseOne" class="collapse show"
+						aria-labelledby="headingOne" data-parent="#accordionExample">
+						<div class="card-body">
+							<!--Inicia código de formulario-->
+							<div class="col-xs-12">
+								<div class="card mb-3">
+									<div class="card-header">
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table table-bordered" id="table1">
+													<thead>
+														<tr class="table-primary">
+															<th>IdText</th>
+															<th>M&eacute;dico</th>
+															<th>Paciente</th>
+															<th>Estatus</th>
+															<th>Monto</th>
+															<th>Fecha</th>
+															<th width="25%">&nbsp;</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr th:each="solicitud : ${solicitudes}">
+															<td th:text="${solicitud[1]}"></td>
+															<td th:text="${solicitud[2]}"></td>
+															<td th:text="${solicitud[3]}"></td>
+															<td th:text="${solicitud[4]}"></td>
+															<td th:text="${solicitud[5]}"></td>
+															<td th:text="${solicitud[6]}"></td>
+															<td><a class="btn btn-success btn-sm"
+																th:href="@{/agregar_solicitud/} +${solicitud[0]}">Agregar</a>
+																<a class="btn btn-danger btn-sm"
+																th:href="@{/eliminar_solicitud/}+${solicitud[0]}"
+																onclick="return confirm('¿Estás seguro que de deseas cancelar esta orden?');">Eliminar</a></td>
+														</tr>
+													</tbody>
+												</table>
+												<div class="modal-footer"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--Termina código de formulario-->
+						</div>
+					</div>
+				</div>
+				<br>
+			</div>
+		</div>
+	</div>
+
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<!-- Popper.JS -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+		integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+		integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+		crossorigin="anonymous"></script>
+	<!-- Demo scripts for this page-->
+	<script src="js/demo/datatables-demo.js"></script>
+	<!-- Page level plugin JavaScript-->
+	<script src="vendor/datatables/jquery.dataTables.js"></script>
+	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#sidebarCollapse').on('click', function() {
+				$('#sidebar').toggleClass('active');
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function() {
+			$('#table1').DataTable({
+				"pagingType" : "full_numbers"
+			});
+		});
+	</script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+
+							// Setup - add a text input to each footer cell
+							$('#example tfoot th')
+									.each(
+											function() {
+												var title = $(this).text();
+												$(this)
+														.html(
+																'<input type="text" placeholder="Search '+title+'" />');
+											});
+
+							// DataTable
+							var table = $('#example').DataTable();
+
+							// Apply the search
+							table
+									.columns()
+									.every(
+											function() {
+												var that = this;
+
+												$('input', this.footer())
+														.on(
+																'keyup change clear',
+																function() {
+																	if (that
+																			.search() !== this.value) {
+																		that
+																				.search(
+																						this.value)
+																				.draw();
+																	}
+																});
+											});
+						});
+	</script>
+</body>
+
+</html>
